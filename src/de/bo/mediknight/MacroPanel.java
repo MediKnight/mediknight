@@ -36,7 +36,6 @@ public class MacroPanel extends JPanel implements ChangeListener, ListSelectionL
     FlowLayout flowLayout2 = new FlowLayout();
 
     public MacroPanel() {
-        this.presenter = presenter;
         jbInit();
         boInit();
     }

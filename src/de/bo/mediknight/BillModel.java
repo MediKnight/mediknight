@@ -1,10 +1,15 @@
 package de.bo.mediknight;
 
-import java.util.*;
-import java.sql.*;
-import de.bo.mediknight.domain.*;
-import de.bo.mediknight.util.ErrorDisplay;
-import javax.swing.event.*;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import de.bo.mediknight.domain.Rechnung;
+import de.bo.mediknight.domain.RechnungsPosten;
 
 public class BillModel {
 

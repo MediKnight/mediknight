@@ -1,16 +1,19 @@
 package de.bo.mediknight;
 
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.event.*;
-import javax.swing.border.*;
-import javax.swing.JLabel;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import de.bo.mediknight.widgets.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import de.bo.mediknight.domain.*;
-import de.bo.mediknight.util.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import de.bo.mediknight.domain.Patient;
+import de.bo.mediknight.domain.Rechnung;
+import de.bo.mediknight.util.MediknightUtilities;
+import de.bo.mediknight.widgets.*;
 
 
 public class LetterPanel extends JPanel implements ChangeListener {

@@ -1,29 +1,33 @@
 package de.bo.mediknight;
 
 //import de.bo.util.*;
-import java.lang.Number;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.border.*;
-import javax.swing.JSplitPane;
-import javax.swing.JLabel;
-import javax.swing.ButtonGroup;
-import javax.swing.JFrame;
-import javax.swing.SwingConstants;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-
-import javax.swing.event.*;
-import javax.swing.table.*;
-import java.beans.*;
-import java.text.*;
-
-import de.bo.mediknight.widgets.*;
-
-import de.bo.mediknight.util.*;
-import de.bo.mediknight.domain.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.text.ParseException;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
+
+import de.bo.mediknight.domain.Rechnung;
+import de.bo.mediknight.domain.RechnungsPosten;
+import de.bo.mediknight.util.CurrencyNumber;
+import de.bo.mediknight.util.ErrorDisplay;
+import de.bo.mediknight.util.MediknightUtilities;
+import de.bo.mediknight.widgets.JPanel;
+import de.bo.mediknight.widgets.JButton;
+import de.bo.mediknight.widgets.JScrollPane;
+import de.bo.mediknight.widgets.JTable;
+import de.bo.mediknight.widgets.JRadioButton;
+
 
 public class Bill1Panel
     extends JPanel

@@ -18,7 +18,6 @@ import de.bo.mediknight.widgets.JList;
 import de.bo.swing.FlexGridConstraints;
 import de.bo.swing.FlexGridLayout;
 
-
 public class SearchPanel extends JPanel implements ChangeListener {
     SearchPresenter presenter;
 
@@ -61,31 +60,31 @@ public class SearchPanel extends JPanel implements ChangeListener {
         boInit();
     }
 
-
-    public void setPresenter( SearchPresenter presenter ) {
-        if( this.presenter != null ) {
-            this.presenter.getModel().removeChangeListener( this );
+    public void setPresenter(SearchPresenter presenter) {
+        if (this.presenter != null) {
+            this.presenter.getModel().removeChangeListener(this);
         }
 
         this.presenter = presenter;
-        presenter.getModel().addChangeListener( this );
+        presenter.getModel().addChangeListener(this);
 
-        recentPatientList.setListData( presenter.getModel().getRecentPatientsList().toArray() );
-	if ( presenter.getModel().getRecentPatientsList().size() < 1 )
-	    clearHistoryBtn.setEnabled( false );
+        recentPatientList.setListData(
+            presenter.getModel().getRecentPatientsList().toArray());
+        if (presenter.getModel().getRecentPatientsList().size() < 1)
+            clearHistoryBtn.setEnabled(false);
     }
 
-
-    public void stateChanged( ChangeEvent e ) {
-        patientList.setListData( presenter.getModel().getFoundPatients().toArray() );
-        recentPatientList.setListData( presenter.getModel().getRecentPatientsList().toArray() );
+    public void stateChanged(ChangeEvent e) {
+        patientList.setListData(
+            presenter.getModel().getFoundPatients().toArray());
+        recentPatientList.setListData(
+            presenter.getModel().getRecentPatientsList().toArray());
     }
-
 
     private void jbInit() {
-        border1 = BorderFactory.createEmptyBorder(5,0,0,0);
-        border2 = BorderFactory.createEmptyBorder(5,0,0,0);
-        border3 = BorderFactory.createEmptyBorder(12,0,0,0);
+        border1 = BorderFactory.createEmptyBorder(5, 0, 0, 0);
+        border2 = BorderFactory.createEmptyBorder(5, 0, 0, 0);
+        border3 = BorderFactory.createEmptyBorder(12, 0, 0, 0);
         this.setLayout(gridBagLayout1);
         searchPanel.setLayout(flexGridLayout1);
         searchBtn.setText("Suchen");
@@ -93,12 +92,16 @@ public class SearchPanel extends JPanel implements ChangeListener {
         buttonPanel.setLayout(gridLayout1);
         jPanel1.setLayout(borderLayout1);
         jPanel2.setLayout(borderLayout3);
-        patientSP.setFocusable(false);
-        patientSP.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        patientSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//        patientSP.setFocusable(false);
+        patientSP.setHorizontalScrollBarPolicy(
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        patientSP.setVerticalScrollBarPolicy(
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jPanel4.setLayout(borderLayout2);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setHorizontalScrollBarPolicy(
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         recentPatientList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         recentPatientList.setVisibleRowCount(10);
         gridLayout1.setVgap(5);
@@ -127,163 +130,229 @@ public class SearchPanel extends JPanel implements ChangeListener {
         lastPatientLbl.setText("Zuletzt behandelte Patienten:");
         gridLayout6.setHgap(5);
         selectBtn.setText("Auswählen");
-        this.add(searchPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-        searchPanel.add(searchTF, new FlexGridConstraints(-1, 0, FlexGridConstraints.C));
-        searchPanel.add(searchBtn, new FlexGridConstraints(0, 0, FlexGridConstraints.C));
-        this.add(buttonPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 0, 0));
-        this.add(jPanel1, new GridBagConstraints(0, 2, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        this.add(
+            searchPanel,
+            new GridBagConstraints(
+                0,
+                0,
+                1,
+                1,
+                1.0,
+                0.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
+        searchPanel.add(
+            searchTF,
+            new FlexGridConstraints(-1, 0, FlexGridConstraints.C));
+        searchPanel.add(
+            searchBtn,
+            new FlexGridConstraints(0, 0, FlexGridConstraints.C));
+        this.add(
+            buttonPanel,
+            new GridBagConstraints(
+                0,
+                1,
+                1,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.WEST,
+                GridBagConstraints.NONE,
+                new Insets(5, 0, 0, 0),
+                0,
+                0));
+        this.add(
+            jPanel1,
+            new GridBagConstraints(
+                0,
+                2,
+                1,
+                1,
+                1.0,
+                1.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
         jPanel1.add(patientSP, BorderLayout.CENTER);
         jPanel1.add(jPanel5, BorderLayout.NORTH);
         jPanel5.add(patientListLbl, null);
         patientSP.getViewport().add(patientList, null);
-        this.add(jPanel2, new GridBagConstraints(0, 6, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+        this.add(
+            jPanel2,
+            new GridBagConstraints(
+                0,
+                6,
+                1,
+                1,
+                1.0,
+                0.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
         jPanel2.add(clearHistoryBtn, BorderLayout.WEST);
         jPanel2.add(selectBtn, BorderLayout.EAST);
-        this.add(jPanel4, new GridBagConstraints(0, 4, 1, 1, 0.0, 1.0
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        this.add(
+            jPanel4,
+            new GridBagConstraints(
+                0,
+                4,
+                1,
+                1,
+                0.0,
+                1.0,
+                GridBagConstraints.WEST,
+                GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
         jPanel4.add(jScrollPane1, BorderLayout.CENTER);
         jPanel4.add(jPanel6, BorderLayout.SOUTH);
         jPanel6.add(jPanel7, null);
         jPanel4.add(lastPatientPanel, BorderLayout.NORTH);
         lastPatientPanel.add(lastPatientLbl, null);
-        jScrollPane1.setFocusable(false);
+//        jScrollPane1.setFocusable(false);
         jScrollPane1.getViewport().add(recentPatientList, null);
     }
 
     private void boInit() {
         for (int i = 'A'; i <= 'Z'; i++) {
-            final char c = (char)i;
+            final char c = (char) i;
 
             JButton b = new JButton(new Character(c).toString());
             b.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                   presenter.indexButtonPressed( (JButton) e.getSource() );
+                    presenter.indexButtonPressed((JButton) e.getSource());
                 }
             });
             b.setMargin(new Insets(0, 2, 0, 2));
             b.setRequestFocusEnabled(false);
-            b.setFocusable(false);
+//            b.setFocusable(false);
             buttonPanel.add(b);
         }
 
         patientList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 presenter.clearSelection(recentPatientList);
-		selectButtonEnabled();
+                selectButtonEnabled();
             }
         });
 
-        recentPatientList.addListSelectionListener(new ListSelectionListener() {
+        recentPatientList
+            .addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 presenter.clearSelection(patientList);
-		selectButtonEnabled();
+                selectButtonEnabled();
             }
         });
 
         clearHistoryBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 presenter.clearHistory();
-	        clearHistoryBtn.setEnabled( false );
+                clearHistoryBtn.setEnabled(false);
             }
         });
 
-        searchBtn.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e ) {
-                presenter.searchFor( searchTF.getText() );
+        searchBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                presenter.searchFor(searchTF.getText());
             }
         });
 
-        selectBtn.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e ) {
+        selectBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 new Thread() {
                     public void run() {
                         presenter.patientSelected();
                     }
-                }.start();
+                }
+                .start();
             }
         });
 
         MouseAdapter listAdapter = new MouseAdapter() {
-            public void mousePressed( MouseEvent e ) {
-                if( e.getClickCount() == 2 ) {
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
                     presenter.patientSelected();
                 }
             }
         };
 
-        patientList.addMouseListener( listAdapter );
-        recentPatientList.addMouseListener( listAdapter );
+        patientList.addMouseListener(listAdapter);
+        recentPatientList.addMouseListener(listAdapter);
 
         KeyAdapter keyAdapter = new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                   presenter.patientSelected();
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    presenter.patientSelected();
             }
         };
 
-        patientList.addKeyListener( keyAdapter );
-        recentPatientList.addKeyListener( keyAdapter );
+        patientList.addKeyListener(keyAdapter);
+        recentPatientList.addKeyListener(keyAdapter);
 
         searchTF.addKeyListener(new KeyListener() {
-            public void keyReleased( KeyEvent e) {
+            public void keyReleased(KeyEvent e) {
             }
 
-            public void keyPressed( KeyEvent e ) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER)
-                presenter.searchFor( searchTF.getText() );
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    presenter.searchFor(searchTF.getText());
             }
 
-            public void keyTyped( KeyEvent e) {
-            }
-        });
-
-        searchTF.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e ) {
-                presenter.searchFor( searchTF.getText() );
+            public void keyTyped(KeyEvent e) {
             }
         });
 
-        SwingUtilities.invokeLater( new Runnable() {
+        searchTF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                presenter.searchFor(searchTF.getText());
+            }
+        });
+
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 searchTF.requestFocus();
             }
         });
 
-
         if (recentPatientList.getComponentCount() < 1)
-            clearHistoryBtn.setEnabled( false );
+            clearHistoryBtn.setEnabled(false);
 
         selectButtonEnabled();
 
-        searchTF.addFocusListener( new FocusAdapter() {
-            public void focusGained( FocusEvent e ) {
-                getRootPane().setDefaultButton( searchBtn );
+        searchTF.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                getRootPane().setDefaultButton(searchBtn);
             }
         });
 
         FocusListener l = new FocusAdapter() {
-            public void focusGained( FocusEvent e ) {
-                getRootPane().setDefaultButton( selectBtn );
+            public void focusGained(FocusEvent e) {
+                getRootPane().setDefaultButton(selectBtn);
             }
         };
 
-        recentPatientList.addFocusListener( l );
-        patientList.addFocusListener( l );
+        recentPatientList.addFocusListener(l);
+        patientList.addFocusListener(l);
     }
 
     private void selectButtonEnabled() {
-        if ((recentPatientList.getSelectedIndex() == -1) && (patientList.getSelectedIndex() == -1))
+        if ((recentPatientList.getSelectedIndex() == -1)
+            && (patientList.getSelectedIndex() == -1))
             selectBtn.setEnabled(false);
         else
             selectBtn.setEnabled(true);
     }
 
     public Object getSelection() {
-        if( patientList.getSelectedValue() != null ) {
+        if (patientList.getSelectedValue() != null) {
             return patientList.getSelectedValue();
         } else {
             return recentPatientList.getSelectedValue();
@@ -310,8 +379,8 @@ public class SearchPanel extends JPanel implements ChangeListener {
     public void setSelectedTF() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-		System.out.println("\007");
-		searchTF.selectAll();
+                System.out.println("\007");
+                searchTF.selectAll();
             }
         });
 
@@ -319,52 +388,51 @@ public class SearchPanel extends JPanel implements ChangeListener {
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
-        f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.getContentPane().setLayout(new FlowLayout());
         f.getContentPane().add(new SearchPanel());
         f.show();
         f.pack();
     }
-    
-    class SearchFocusPolicy extends FocusTraversalPolicy {
-        /**
-         * @see java.awt.FocusTraversalPolicy#getComponentAfter(Container, Component)
-         */
-        public Component getComponentAfter(
-            Container focusCycleRoot,
-            Component aComponent) {
-            return null;
-        }
 
-        /**
-         * @see java.awt.FocusTraversalPolicy#getComponentBefore(Container, Component)
-         */
-        public Component getComponentBefore(
-            Container focusCycleRoot,
-            Component aComponent) {
-            return null;
-        }
-
-        /**
-         * @see java.awt.FocusTraversalPolicy#getDefaultComponent(Container)
-         */
-        public Component getDefaultComponent(Container focusCycleRoot) {
-            return searchTF;
-        }
-
-        /**
-         * @see java.awt.FocusTraversalPolicy#getFirstComponent(Container)
-         */
-        public Component getFirstComponent(Container focusCycleRoot) {
-            return searchTF;
-        }
-
-        /**
-         * @see java.awt.FocusTraversalPolicy#getLastComponent(Container)
-         */
-        public Component getLastComponent(Container focusCycleRoot) {
-            return recentPatientList;
-        }
-
-}
+//    class SearchFocusPolicy extends FocusTraversalPolicy {
+//        /**
+//         * @see java.awt.FocusTraversalPolicy#getComponentAfter(Container, Component)
+//         */
+//        public Component getComponentAfter(
+//            Container focusCycleRoot,
+//            Component aComponent) {
+//            return null;
+//        }
+//
+//        /**
+//         * @see java.awt.FocusTraversalPolicy#getComponentBefore(Container, Component)
+//         */
+//        public Component getComponentBefore(
+//            Container focusCycleRoot,
+//            Component aComponent) {
+//            return null;
+//        }
+//
+//        /**
+//         * @see java.awt.FocusTraversalPolicy#getDefaultComponent(Container)
+//         */
+//        public Component getDefaultComponent(Container focusCycleRoot) {
+//            return searchTF;
+//        }
+//
+//        /**
+//         * @see java.awt.FocusTraversalPolicy#getFirstComponent(Container)
+//         */
+//        public Component getFirstComponent(Container focusCycleRoot) {
+//            return searchTF;
+//        }
+//
+//        /**
+//         * @see java.awt.FocusTraversalPolicy#getLastComponent(Container)
+//         */
+//        public Component getLastComponent(Container focusCycleRoot) {
+//            return recentPatientList;
+//        }
+//    }
 }

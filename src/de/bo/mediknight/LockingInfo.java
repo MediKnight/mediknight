@@ -72,7 +72,7 @@ public class LockingInfo extends Observable {
     }
 
     /**
-     * Returns the diagnosis holded by <tt>data</tt>.
+     * Returns the diagnosis held by <tt>data</tt>.
      *
      * @return application current diagnosis
      */

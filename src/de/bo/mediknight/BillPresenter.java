@@ -1,14 +1,16 @@
 package de.bo.mediknight;
 
-import java.util.*;
-import java.awt.*;
-import javax.swing.*;
-import java.sql.*;
-import java.text.*;
+import java.awt.Component;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-import de.bo.mediknight.util.ErrorDisplay;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import de.bo.mediknight.domain.*;
-import de.bo.mediknight.borm.TraceConstants;
+import de.bo.mediknight.util.ErrorDisplay;
 import de.bo.mediknight.widgets.UndoUtilities;
 
 public class BillPresenter implements Presenter, Commitable, Observer {

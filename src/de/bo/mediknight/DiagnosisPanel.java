@@ -1,25 +1,24 @@
 package de.bo.mediknight;
 
-import java.util.*;
-import java.util.List;
-import java.sql.SQLException;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.JLabel;
-import javax.swing.JSplitPane;
-import javax.swing.BorderFactory;
-import javax.swing.SwingUtilities;
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
-import javax.swing.event.*;
-import javax.swing.border.*;
-import de.bo.mediknight.widgets.*;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-import de.bo.mediknight.domain.*;
-import de.bo.mediknight.util.MediknightUtilities;
+import de.bo.mediknight.domain.TagesDiagnose;
 import de.bo.mediknight.util.ErrorDisplay;
-import com.borland.jbcl.layout.*;
+import de.bo.mediknight.widgets.*;
+import de.bo.mediknight.widgets.JPanel;
+import de.bo.mediknight.widgets.JScrollPane;
+import de.bo.mediknight.widgets.JButton;
+import de.bo.mediknight.widgets.JTextArea;
+
 
 public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements ChangeListener, FocusListener, ActionListener  {
     DiagnosisPresenter presenter;

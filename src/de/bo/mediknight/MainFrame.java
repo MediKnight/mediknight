@@ -326,7 +326,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 		medicationButton.setName(BMEDICATION);
 		medicationButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				medication();
+				applyAction(MEDICATION);
 			}
 		});
 		/*        medicationButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KEYMEDICATION), "verordnung");
