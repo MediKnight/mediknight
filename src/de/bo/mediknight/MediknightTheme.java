@@ -9,7 +9,6 @@ import javax.swing.border.*;
 import javax.swing.plaf.*;
 import javax.swing.plaf.metal.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.Properties;
 
 /**

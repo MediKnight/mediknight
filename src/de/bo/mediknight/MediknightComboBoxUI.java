@@ -5,7 +5,6 @@
 package de.bo.mediknight;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 

@@ -5,9 +5,7 @@ import java.util.EventObject;
 import java.awt.Component;
 
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.event.*;
-import javax.swing.table.*;
 
 import de.bo.mediknight.borm.TraceConstants;
 import de.bo.mediknight.domain.*;

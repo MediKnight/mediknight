@@ -115,6 +115,7 @@ public class SearchPresenter implements Presenter, Commitable  {
         model.addRecentPatient(patient);
 
         MainFrame.getApplication().setWaitCursor() ;
+        
         try {
             MainFrame.getApplication().selectPatient(patient);
         }

@@ -6,9 +6,7 @@ import java.awt.Component;
 // for main-method
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.event.*;
 import de.bo.mediknight.domain.*;
-import java.util.*;
 
 public class MedicationSupportPresenter implements Presenter, Commitable {
 

@@ -1,17 +1,13 @@
 package de.bo.mediknight.tools;
 
-import java.util.*;
-import javax.swing.event.*;
 import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
-import javax.swing.SwingUtilities;
 import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.*;
-import de.bo.mediknight.domain.*;
 import de.bo.mediknight.*;
 
 import de.bo.mediknight.MainFrame;
@@ -315,22 +311,6 @@ public class MainTool extends JFrame {
 			 ((Commitable) currentPresenter).commit();
 
 		System.exit(0);
-
-		/*       try {
-		           tracer.trace(USER,"Schalter \"Quit\" aktiviert");
-		
-		           Lock.releaseAll();
-		
-		       }
-		       catch ( Exception x ) {
-		           tracer.trace(ERROR,x);
-		       }
-		       finally {
-		           tracer.trace(INFO,"*** " + NAME + " Application ended ***");
-		           for ( int i=0; i<5; i++ )
-		               tracer.trace(INFO,"*");
-		           System.exit(0);
-		       }*/
 	}
 
 }

@@ -9,8 +9,6 @@ import javax.swing.SwingConstants;
 
 import de.bo.mediknight.widgets.JDateChooser;
 
-import de.bo.mediknight.MainFrame;
-
 public class MediknightUtilities {
 
     //private static final String CURRENCY = " DM";

@@ -2,7 +2,6 @@ package de.bo.mediknight;
 
 import java.awt.*;
 import javax.swing.event.*;
-import javax.swing.border.*;
 import java.awt.event.*;
 import de.bo.swing.FlexGridConstraints;
 import de.bo.swing.FlexGridLayout;
@@ -11,7 +10,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.JFrame;
-import javax.swing.BorderFactory;
 import de.bo.mediknight.widgets.*;
 import de.bo.mediknight.domain.*;
 import de.bo.mediknight.util.MediknightUtilities;

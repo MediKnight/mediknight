@@ -241,7 +241,9 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
 
         firstDiagnosis.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
-                presenter.setSelectedDiagnose(null);
+                // Muss das sein? Ich vermute mal nicht und ausserdem stoert
+                // es die Funktionalitaet der Knoepfe Verordnung und Diagnose.
+                // presenter.setSelectedDiagnose(null);
                 lastFocusComponent = firstDiagnosis;
             }
             public void focusLost(FocusEvent e) {}

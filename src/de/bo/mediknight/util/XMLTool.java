@@ -1,7 +1,5 @@
 package de.bo.mediknight.util;
 
-import java.io.*;
-
 /**
  * Title:
  * Description:

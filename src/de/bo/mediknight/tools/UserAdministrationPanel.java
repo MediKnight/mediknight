@@ -1,14 +1,11 @@
 package de.bo.mediknight.tools;
 
 import javax.swing.event.*;
-import javax.swing.table.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 import de.bo.mediknight.domain.*;
-import de.bo.mediknight.widgets.LoginDialog;
 import java.net.URL;
 import java.io.*;
 import de.bo.swing.*;

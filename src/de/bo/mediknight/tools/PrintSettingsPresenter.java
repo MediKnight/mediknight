@@ -1,11 +1,9 @@
 package de.bo.mediknight.tools;
 
-import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import java.io.*;
 import java.util.*;
 import de.bo.mediknight.*;
 

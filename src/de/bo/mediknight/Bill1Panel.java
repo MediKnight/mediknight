@@ -98,12 +98,6 @@ public class Bill1Panel
 
     public boolean isGOAE() {
         return goaeBtn.isSelected();
-        /*
-                if (goaeBtn.isSelected())
-                    return true;
-                else
-                    return false;
-        */
     }
 
     public void setPresenter(BillPresenter presenter) {

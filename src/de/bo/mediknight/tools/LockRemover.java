@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 
+import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
+
 import de.bo.mediknight.*;
 import de.bo.mediknight.domain.*;
 import de.bo.mediknight.borm.*;
@@ -44,6 +46,16 @@ public class LockRemover extends JFrame {
         updateEnablement();
     }
 
+    private static void registerMappers() {
+        // Wow, now that's ugly! It seems like with newer JDK releases,
+        // static class initializers are not called anymore only by
+        // mentioning the class alone. Therefore we have to create
+        // dummy instances of the persistent classes.
+        // Consider this a bad hack!
+        new Lock();
+        new TagesDiagnose();
+    }
+    
     List retrieveActiveLocks() throws SQLException {
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         List results = new ArrayList();
@@ -181,8 +193,9 @@ public class LockRemover extends JFrame {
 
     public static void main(String[] args) throws Exception {
         properties = initProperties();
-        MediknightTheme.install(properties);
-
+        // MediknightTheme.install(properties);
+        UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+        
         LockRemover frame = new LockRemover();
         frame.setSize(500, 300);
         frame.show();
@@ -215,6 +228,7 @@ public class LockRemover extends JFrame {
         String user = properties.getProperty("jdbc.db.user");
         String passwd = properties.getProperty("jdbc.db.passwd");
         Datastore.current.connect(jdbcURL,user,passwd);
+        registerMappers();    
     }
 
 

@@ -14,7 +14,6 @@
     <filter token="JAVA" value="${install.java}"/>
   </filterset>
 
-
   <target name="init">
     <tstamp/>
   </target>
@@ -43,7 +42,23 @@
     <antcall target="dist-install"/>
   </target>
 
-  <target name="vette-demo-dist">
+  <target name="dist-hardy">
+    <!-- Tresenrechner am Empfang in Vettes Praxis -->
+    <property name="install.java" value="/opt/java/j2sdk1.3.1"/>
+    <property name="install.root" value="/opt/mediknight2"/>
+    <property name="install.db" value="jdbc:mysql://laurel:3306/mediknight"/>
+    <antcall target="dist-install"/>
+  </target>
+
+  <target name="dist-laurel">
+    <!-- Vettes Notebook -->
+    <property name="install.java" value="/usr/java/j2sdk1.4.2_05"/>
+    <property name="install.root" value="/opt/mediknight2"/>
+    <property name="install.db" value="jdbc:mysql://localhost:3306/mediknight"/>
+    <antcall target="dist-install"/>
+  </target>
+
+	<target name="vette-demo-dist">
     <!-- Deployment parameters -->
     <property name="install.java" value="/opt/java/j2sdk1.3.1"/>
     <property name="install.root" value="/opt/mediknight2demo"/>

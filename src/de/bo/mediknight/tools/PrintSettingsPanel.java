@@ -3,8 +3,9 @@ package de.bo.mediknight.tools;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.text.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.util.*;
 
 public class PrintSettingsPanel extends JPanel implements ChangeListener {
@@ -14,7 +15,6 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
     private static String PRINT_FONT = "print.font";
     private static String PRINT_BILL_FINAL = "print.bill.final";
     private static String PRINT_MEDI_FINAL = "print.medication.final";
-
 
     PrintSettingsPresenter presenter;
 
@@ -47,20 +47,19 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
     JScrollPane medicationFinalSP = new JScrollPane();
     JTextArea medicationFinalTA = new JTextArea();
 
-
     public PrintSettingsPanel(PrintSettingsPresenter presenter) {
-	this.presenter = presenter;
+        this.presenter = presenter;
         jbInit();
         boInit();
     }
 
-    public void stateChanged( ChangeEvent e ) {
-	update();
+    public void stateChanged(ChangeEvent e) {
+        update();
     }
 
     private void update() {
         Map map = presenter.getModel().getMap();
-	setFonts( map.get(PRINT_FONT).toString() );
+        setFonts(map.get(PRINT_FONT).toString());
         setLogo(map.get(PRINT_LOGO).toString());
         setSender(map.get(PRINT_SENDER).toString());
         setComboFonts(map.get(PRINT_FONT).toString());
@@ -70,25 +69,30 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
     }
 
     private void setFonts(String font) {
-	String fontname = "Dialog";
-	if (font.equals("Times"))
-	    fontname = "Times New Roman";
-	else if (font.equals("Arial"))
-	    fontname = "Arial";
+        String fontname = "Dialog";
+        if (font.equals("Times"))
+            fontname = "Times New Roman";
+        else if (font.equals("Arial"))
+            fontname = "Arial";
 
-	billFinalTextArea.setFont( new Font(fontname, 0, 12 ));
-	logoTextArea.setFont( new Font(fontname, 0, 12 ));
-	medicationFinalTA.setFont( new Font(fontname, 0, 12 ));
-	senderTextField.setFont( new Font(fontname, 0, 12 ));
+        billFinalTextArea.setFont(new Font(fontname, 0, 12));
+        logoTextArea.setFont(new Font(fontname, 0, 12));
+        medicationFinalTA.setFont(new Font(fontname, 0, 12));
+        senderTextField.setFont(new Font(fontname, 0, 12));
     }
 
-
     public void saveEntries() {
-	presenter.getModel().alterMap( PRINT_FONT, (String)fontComboBox.getSelectedItem());
-	presenter.getModel().alterMap( PRINT_BILL_FINAL, billFinalTextArea.getText() );
-	presenter.getModel().alterMap( PRINT_LOGO, logoTextArea.getText() );
-	presenter.getModel().alterMap( PRINT_SENDER, senderTextField.getText() );
-	presenter.getModel().alterMap( PRINT_MEDI_FINAL, medicationFinalTA.getText() );
+        presenter.getModel().alterMap(
+            PRINT_FONT,
+            (String) fontComboBox.getSelectedItem());
+        presenter.getModel().alterMap(
+            PRINT_BILL_FINAL,
+            billFinalTextArea.getText());
+        presenter.getModel().alterMap(PRINT_LOGO, logoTextArea.getText());
+        presenter.getModel().alterMap(PRINT_SENDER, senderTextField.getText());
+        presenter.getModel().alterMap(
+            PRINT_MEDI_FINAL,
+            medicationFinalTA.getText());
     }
 
     private void jbInit() {
@@ -101,8 +105,10 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
         senderLabel.setText("Absenderzeile:");
         medicationPanel.setLayout(borderLayout2);
         billPanel.setLayout(gridBagLayout2);
-        billFinalContentPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        billFinalContentPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        billFinalContentPane.setHorizontalScrollBarPolicy(
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        billFinalContentPane.setVerticalScrollBarPolicy(
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         billFinalTextArea.setColumns(40);
         billFinalTextArea.setRows(5);
         buttonPanel.setLayout(flowLayout1);
@@ -117,8 +123,10 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
         flowLayout2.setAlignment(FlowLayout.LEFT);
         flowLayout2.setHgap(0);
         flowLayout2.setVgap(0);
-        medicationFinalSP.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        medicationFinalSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        medicationFinalSP.setHorizontalScrollBarPolicy(
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        medicationFinalSP.setVerticalScrollBarPolicy(
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         this.setOpaque(false);
         logoPanel.setOpaque(false);
         dummyPanel2.setOpaque(false);
@@ -126,39 +134,195 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
         dummyPanel.setOpaque(false);
         dummyPanel.setToolTipText("");
         dummyPanel3.setOpaque(false);
-        this.add(logoPanel, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+        this.add(
+            logoPanel,
+            new GridBagConstraints(
+                1,
+                2,
+                1,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.EAST,
+                GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
         logoPanel.add(logoTextArea, BorderLayout.WEST);
-        this.add(senderTextField, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-        this.add(senderLabel, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
-        this.add(dummyPanel1, new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        this.add(dummyPanel2, new GridBagConstraints(0, 5, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        this.add(specialContentPane, new GridBagConstraints(0, 6, 4, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        this.add(
+            senderTextField,
+            new GridBagConstraints(
+                1,
+                4,
+                1,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.WEST,
+                GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
+        this.add(
+            senderLabel,
+            new GridBagConstraints(
+                0,
+                4,
+                1,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.EAST,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 5),
+                0,
+                0));
+        this.add(
+            dummyPanel1,
+            new GridBagConstraints(
+                0,
+                3,
+                3,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
+        this.add(
+            dummyPanel2,
+            new GridBagConstraints(
+                0,
+                5,
+                3,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
+        this.add(
+            specialContentPane,
+            new GridBagConstraints(
+                0,
+                6,
+                4,
+                1,
+                1.0,
+                1.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
         specialContentPane.add(medicationPanel, "Verordnung");
         medicationPanel.add(medicationFinalSP, BorderLayout.CENTER);
         medicationFinalSP.getViewport().add(medicationFinalTA, null);
         specialContentPane.add(billPanel, "Rechnung");
-        billPanel.add(billFinalContentPane, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-        this.add(dummyPanel3, new GridBagConstraints(0, 7, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        this.add(buttonPanel, new GridBagConstraints(0, 8, 4, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 5, 0), 0, 0));
+        billPanel.add(
+            billFinalContentPane,
+            new GridBagConstraints(
+                0,
+                0,
+                1,
+                1,
+                1.0,
+                1.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
+        this.add(
+            dummyPanel3,
+            new GridBagConstraints(
+                0,
+                7,
+                2,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
+        this.add(
+            buttonPanel,
+            new GridBagConstraints(
+                0,
+                8,
+                4,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.EAST,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 5, 0),
+                0,
+                0));
         buttonPanel.add(buttonHelpPanel, null);
-        this.add(dummyPanel, new GridBagConstraints(0, 1, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        this.add(jPanel2, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        this.add(
+            dummyPanel,
+            new GridBagConstraints(
+                0,
+                1,
+                2,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.CENTER,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
+        this.add(
+            jPanel2,
+            new GridBagConstraints(
+                1,
+                0,
+                1,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.WEST,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 0),
+                0,
+                0));
         jPanel2.add(fontComboBox, null);
-        this.add(logoLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
-        this.add(fontLabel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
+        this.add(
+            logoLabel,
+            new GridBagConstraints(
+                0,
+                2,
+                1,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.NORTHEAST,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 5),
+                0,
+                0));
+        this.add(
+            fontLabel,
+            new GridBagConstraints(
+                0,
+                0,
+                1,
+                1,
+                0.0,
+                0.0,
+                GridBagConstraints.EAST,
+                GridBagConstraints.NONE,
+                new Insets(0, 0, 0, 5),
+                0,
+                0));
         billFinalContentPane.getViewport().add(billFinalTextArea, null);
     }
 
@@ -166,47 +330,50 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
         fontComboBox.addItem("Arial");
         fontComboBox.addItem("Times");
 
-	update();
+        update();
 
-	logoTextArea.addFocusListener( new FocusListener() {
-	    public void focusGained( FocusEvent e ) {}
+        logoTextArea.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+            }
 
-	    public void focusLost( FocusEvent e ) {
-		saveEntries();
-	    }
-	});
+            public void focusLost(FocusEvent e) {
+                saveEntries();
+            }
+        });
 
-	senderTextField.addFocusListener( new FocusListener() {
-	    public void focusGained( FocusEvent e ) {}
+        senderTextField.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+            }
 
-	    public void focusLost( FocusEvent e ) {
-		saveEntries();
-	    }
-	});
+            public void focusLost(FocusEvent e) {
+                saveEntries();
+            }
+        });
 
-	billFinalTextArea.addFocusListener( new FocusListener() {
-	    public void focusGained( FocusEvent e ) {}
+        billFinalTextArea.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+            }
 
-	    public void focusLost( FocusEvent e ) {
-		saveEntries();
-	    }
-	});
+            public void focusLost(FocusEvent e) {
+                saveEntries();
+            }
+        });
 
-	medicationFinalTA.addFocusListener( new FocusListener() {
-	    public void focusGained( FocusEvent e ) {}
+        medicationFinalTA.addFocusListener(new FocusListener() {
+            public void focusGained(FocusEvent e) {
+            }
 
-	    public void focusLost( FocusEvent e ) {
-		saveEntries();
-	    }
-	});
+            public void focusLost(FocusEvent e) {
+                saveEntries();
+            }
+        });
 
-
-	fontComboBox.addItemListener( new ItemListener() {
-	    public void itemStateChanged( ItemEvent e) {
-		saveEntries();
-		update();
-	    }
-	});
+        fontComboBox.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                saveEntries();
+                update();
+            }
+        });
     }
 
     public void setLogo(String logo) {

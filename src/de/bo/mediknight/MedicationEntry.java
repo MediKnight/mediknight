@@ -9,7 +9,6 @@ import java.util.*;
 import java.io.*;
 
 import de.bo.mediknight.domain.*;
-import de.bo.mediknight.util.*;
 
 /**
  * This class is similar to BillEntry.

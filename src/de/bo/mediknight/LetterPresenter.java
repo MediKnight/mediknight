@@ -3,7 +3,6 @@ package de.bo.mediknight;
 import java.text.*;
 import java.io.*;
 import java.util.*;
-import java.util.List;
 import java.awt.*;
 import javax.swing.*;
 import java.sql.*;
@@ -14,7 +13,6 @@ import de.bo.mediknight.domain.*;
 import de.bo.mediknight.util.*;
 import de.bo.mediknight.tools.*;
 
-import de.bo.print.boxer.*;
 import de.bo.print.te.*;
 import de.bo.print.jpf.*;
 

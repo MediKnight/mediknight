@@ -5,7 +5,6 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
-import com.borland.jbcl.layout.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 import javax.swing.JScrollPane;

@@ -5,11 +5,9 @@
 package de.bo.mediknight;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.plaf.*;
 import javax.swing.plaf.basic.*;
-import javax.swing.plaf.metal.*;
 
 /**
  * A new LAF for the <code>JOptionPane</code> which right-aligns buttons. It

@@ -6,9 +6,6 @@
 package de.bo.mediknight.domain;
 
 import de.bo.mediknight.borm.*;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * This class implements a <i>Rechnung</i> which stores one serialized check

@@ -11,7 +11,6 @@ import java.awt.Component;
 import java.util.*;
 import java.sql.SQLException;
 
-import de.bo.mediknight.borm.Tracer;
 import de.bo.mediknight.util.MediknightUtilities;
 import de.bo.mediknight.domain.*;
 

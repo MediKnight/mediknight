@@ -4,7 +4,6 @@ import de.bo.mediknight.*;
 import java.awt.Component;
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 import de.bo.mediknight.domain.KnightObject;
 

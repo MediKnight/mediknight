@@ -1,8 +1,6 @@
 package de.bo.mediknight.tools;
 
-import de.bo.mediknight.MainFrame;
 import de.bo.mediknight.domain.RechnungsPosten;
-import de.bo.mediknight.borm.*;
 import javax.swing.event.*;
 import java.util.*;
 

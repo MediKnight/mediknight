@@ -2,9 +2,6 @@ package de.bo.mediknight;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.*;
 import javax.swing.event.*;
 import javax.swing.border.*;
 import javax.swing.*;
@@ -12,7 +9,6 @@ import javax.swing.*;
 import de.bo.mediknight.widgets.*;
 import de.bo.mediknight.widgets.JPanel;
 import de.bo.mediknight.widgets.JButton;
-import de.bo.mediknight.widgets.JTextField;
 import de.bo.mediknight.widgets.JScrollPane;
 import de.bo.mediknight.widgets.JList;
 import de.bo.swing.FlexGridConstraints;
@@ -24,7 +20,7 @@ public class SearchPanel extends JPanel implements ChangeListener {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     JPanel searchPanel = new JPanel();
     FlexGridLayout flexGridLayout1 = new FlexGridLayout();
-    JTextField searchTF = new JTextField();
+    javax.swing.JTextField searchTF = new javax.swing.JTextField();
     JButton searchBtn = new JButton();
     JPanel buttonPanel = new JPanel();
     GridLayout gridLayout1 = new GridLayout();
@@ -379,7 +375,7 @@ public class SearchPanel extends JPanel implements ChangeListener {
     public void setSelectedTF() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                System.out.println("\007");
+                Toolkit.getDefaultToolkit().beep();
                 searchTF.selectAll();
             }
         });

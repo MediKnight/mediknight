@@ -5,8 +5,6 @@
  */
 package de.bo.mediknight.widgets;
 
-import de.bo.mediknight.MediException;
-
 /**
  * The <code>Mutable</code> interface should be implemented by all classes
  * that wish to be manageable by MediKnight's own version of

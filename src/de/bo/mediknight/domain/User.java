@@ -1,7 +1,6 @@
 package de.bo.mediknight.domain;
 
 import de.bo.mediknight.borm.*;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 

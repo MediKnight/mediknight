@@ -6,21 +6,17 @@ import java.io.*;
 import java.awt.*;
 import java.sql.*;
 
-import javax.swing.SwingUtilities;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import de.bo.mediknight.domain.*;
 import de.bo.mediknight.util.*;
 
-import de.bo.print.boxer.*;
 import de.bo.print.te.*;
 import de.bo.print.jpf.*;
 
 import de.bo.mediknight.tools.*;
 import de.bo.mediknight.widgets.*;
-import de.bo.mediknight.borm.TraceConstants;
 
 public class MedicationPresenter implements Presenter, Commitable, Observer {
 
@@ -51,12 +47,12 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
     }
 
     public void commit() {
+        // warum werden hier leerzeilen entfernt?
         StringTokenizer tokenizer = new StringTokenizer( view.getMedication(), "\n" );
         List entries = new ArrayList();
 
         while( tokenizer.hasMoreTokens() ) {
             entries.add( new MedicationEntry( tokenizer.nextToken() ) );
-
         }
 
         MedicationEntry[] medications = (MedicationEntry[]) entries.toArray( new MedicationEntry[0] );

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export LANG=de_DE
+
 APPDIR=@ROOT@
 VM=@JAVA@/bin/java
 
