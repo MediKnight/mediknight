@@ -72,8 +72,6 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
                     patient.acquireLock(
                         li.getAspect(),
                         LockingListener.LOCK_TIMEOUT);
-                if (lock == null)
-                    System.out.println("null");
                 if (lock != null) {
                     try {
                         model.getRechnung().save();
@@ -109,7 +107,6 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
 
     public void showBill() {
         MainFrame.getApplication().bill();
-        //((NewAppWindow) AppWindow.getApplication()).bill();
     }
 
     public void printBill() {
@@ -123,18 +120,9 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
         d.run(new Runnable() {
             public void run() {
                 try {
-                    TemplatePrinter tp = new TemplatePrinter();
                     DataProvider dProvider = new DataProvider(null);
 
-                    Properties prop =
-                        MainFrame.getApplication().getProperties();
-                    String style = prop.getProperty("style");
-                    String footer = prop.getProperty("footer");
-                    String header = prop.getProperty("header");
-                    String page = prop.getProperty("page");
-                    String frame = prop.getProperty("frame");
-                    String content = prop.getProperty("bill.content");
-                    String[] frameArray = new String[] { frame };
+                    Properties prop = MainFrame.getProperties();
 
                     String lf = System.getProperty("line.separator");
 
@@ -378,17 +366,20 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
                         "CLOSING",
                         XMLTool.toXMLString(view.getGreetings()));
 
+                    TemplatePrinter tp =
+                        new TemplatePrinter(
+                            prop.getProperty("style"),
+                            prop.getProperty("header"),
+                            prop.getProperty("bill.content"),
+                            prop.getProperty("footer"),
+                            new String[] { prop.getProperty("frame")},
+                            prop.getProperty("page"),
+                            dProvider);
+
                     try {
                         MainFrame.getApplication().setWaitCursor();
                         for (int i = 0; i < view.getCopyCount(); i++)
-                            tp.print(
-                                style,
-                                header,
-                                content,
-                                footer,
-                                frameArray,
-                                page,
-                                dProvider);
+                            tp.print();
                     } catch (Exception e) {
                         new ErrorDisplay(
                             e,
@@ -405,15 +396,5 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
                 }
             }
         });
-    } // method printMain
-
-    public static void main(String[] args) {
-        JFrame f = new JFrame("Letter Presenter Example");
-
-        //    f.getContentPane().add( example().createView() );
-
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.pack();
-        f.show();
     }
 }

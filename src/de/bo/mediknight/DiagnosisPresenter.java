@@ -1,23 +1,26 @@
 package de.bo.mediknight;
 
+import java.awt.Component;
+import java.sql.SQLException;
 import java.util.*;
-import java.util.List;
-import java.awt.*;
-import javax.swing.*;
-import java.sql.*;
 
-import de.bo.print.boxer.*;
-import de.bo.print.te.*;
-import de.bo.print.jpf.*;
-import de.bo.mediknight.tools.PrintSettingsPresenter;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 import de.bo.mediknight.borm.TraceConstants;
 import de.bo.mediknight.borm.Tracer;
-import de.bo.mediknight.domain.*;
-import de.bo.mediknight.widgets.UndoUtilities;
-import de.bo.mediknight.widgets.YinYangDialog;
+import de.bo.mediknight.domain.KnightObject;
+import de.bo.mediknight.domain.Lock;
+import de.bo.mediknight.domain.Patient;
+import de.bo.mediknight.domain.TagesDiagnose;
+import de.bo.mediknight.tools.PrintSettingsPresenter;
 import de.bo.mediknight.util.ErrorDisplay;
 import de.bo.mediknight.util.MediknightUtilities;
+import de.bo.mediknight.widgets.UndoUtilities;
+import de.bo.mediknight.widgets.YinYangDialog;
+import de.bo.print.jpf.TemplatePrinter;
+import de.bo.print.te.DataProvider;
 
 public class DiagnosisPresenter implements Presenter, Commitable, Observer {
 
@@ -66,65 +69,79 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
     }
 
     public void printDiagnosis() {
-        final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( view ) , MainFrame.NAME );
+        final YinYangDialog d =
+            new YinYangDialog(
+                JOptionPane.getFrameForComponent(view),
+                MainFrame.NAME);
         d.setStatusText("Drucke ...");
         d.run(new Runnable() {
             public void run() {
-		try {
-		    TemplatePrinter tp = new TemplatePrinter();
-		    DataProvider dProvider = new DataProvider(null);
+                try {
+                    DataProvider dProvider = new DataProvider(null);
 
-		    Properties prop = MainFrame.getApplication().getProperties();
-		    String style = prop.getProperty("style");
-		    String footer = prop.getProperty("footer");
-		    String header = prop.getProperty("header");
-		    String page = prop.getProperty("page");
-		    String frame = prop.getProperty("frame");
-		    String content = prop.getProperty("diagnosis.content");
-		    String[] frameArray = new String[] {frame};
+                    Properties prop =
+                        MainFrame.getProperties();
 
-		    String lf = System.getProperty("line.separator");
+                    String lf = System.getProperty("line.separator");
 
-		    Patient patient = model.getPatient();
-		    String erstDiagnose = model.getPatient().getErstDiagnose();
-		    List tagesDiagnosen = model.getTagesDiagnosen();
+                    Patient patient = model.getPatient();
+                    String erstDiagnose = model.getPatient().getErstDiagnose();
+                    List tagesDiagnosen = model.getTagesDiagnosen();
 
-		    String name = patient.getFullname();
+                    String name = patient.getFullname();
 
-		    dProvider.putData("NAME", name);
+                    dProvider.putData("NAME", name);
 
-		    Map map = PrintSettingsPresenter.getSettings();
+                    Map map = PrintSettingsPresenter.getSettings();
 
-		    String font = (String)map.get("print.font");
+                    String font = (String) map.get("print.font");
 
-		    dProvider.putData("FONT", font);
+                    dProvider.putData("FONT", font);
 
-		    dProvider.putData("DAUER", erstDiagnose);
-		    List printList = new ArrayList();
+                    dProvider.putData("DAUER", erstDiagnose);
+                    List printList = new ArrayList();
 
-		    for (int i = 0; i < tagesDiagnosen.size(); i++) {
-			TagesDiagnose td = (TagesDiagnose)tagesDiagnosen.get( i );
-			if ((td.getText() != null) && (td.getText().length() > 0)) {
-			    String[] diag = new String[2];
-			    if (td.getDatum() != null)
-			        diag[0] = MediknightUtilities.formatDate( td.getDatum() );
-			    else
-				diag[0] = "";
-			    diag[1] = td.getText();
-			    printList.add( diag );
-			}
-		    }
-		    String[][] printArray = (String[][])printList.toArray( new String[0][2] );
-		    dProvider.putData( "DIAGNOSEN", printArray );
+                    for (int i = 0; i < tagesDiagnosen.size(); i++) {
+                        TagesDiagnose td =
+                            (TagesDiagnose) tagesDiagnosen.get(i);
+                        if ((td.getText() != null)
+                            && (td.getText().length() > 0)) {
+                            String[] diag = new String[2];
+                            if (td.getDatum() != null)
+                                diag[0] =
+                                    MediknightUtilities.formatDate(
+                                        td.getDatum());
+                            else
+                                diag[0] = "";
+                            diag[1] = td.getText();
+                            printList.add(diag);
+                        }
+                    }
+                    String[][] printArray =
+                        (String[][]) printList.toArray(new String[0][2]);
+                    dProvider.putData("DIAGNOSEN", printArray);
 
-		    try {
-			tp.print( style, header, content, footer, frameArray, page, dProvider);
-		    } catch (Exception e) {
-			new ErrorDisplay(e, "Fehler beim Ausdruck!", "Drucken...", MainFrame.getApplication());
-		    }
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
+                    TemplatePrinter tp = new TemplatePrinter(
+                            prop.getProperty("style"),
+                            prop.getProperty("header"),
+                            prop.getProperty("diagnosis.content"),
+                            prop.getProperty("footer"),
+                            new String[] { prop.getProperty("frame") },
+                            prop.getProperty("page"),
+                            dProvider);
+
+                    try {
+                        tp.print();
+                    } catch (Exception e) {
+                        new ErrorDisplay(
+                            e,
+                            "Fehler beim Ausdruck!",
+                            "Drucken...",
+                            MainFrame.getApplication());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
