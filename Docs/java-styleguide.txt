@@ -1,0 +1,169 @@
+----------------------------------------------------------------------
+JAVA STYLEGUIDE
+
+$@(#)$Id$
+----------------------------------------------------------------------
+
+
+Dieser Text beschreibt stichwortartig einige Regeln zur einheitlichen
+Erstellung von Java-Quelltext für das Projekt MEDIKNIGHT.
+Verbesserungsvorschläge sind jederzeit willkommen.
+
+
+Paketnamen
+
+  Alle Klassen haben das folgende Präfix
+
+	de.bo.mediknight
+
+  Generell gilt: Jedes Baltic-Online-Paket beginnt mit "de.bo" und
+  alle Namen haben ausschließlich Kleinbuchstaben. Es werden nur
+  Buchstaben a-z und Ziffern 0-9 benutzt.  Insbesondere kein "_" oder
+  "$".
+
+
+Dateien
+
+  Pro Datei nur eine toplevel-Klasse. Jede Datei beginnt mit
+
+    /*
+     * @(#)$Id$
+     *
+     * (C)2000 Baltic Online Computer GmbH
+     */
+
+    package ....;
+
+    import ....; 
+
+  Danach folgt der JavaDoc-Kommentar mit anschließender
+  Klassendefinition. Der Kommentar beginnt mit einem Satz der die
+  Aufgabe der Klasse zusammenfaßt.  Danach kommen Details,
+  ggf. @see-Links und schließlich @author und @version.
+
+  Alle Kommentare sind Englisch.  Author ist eine email-Adresse.
+
+
+Versionen
+
+  Die Versionen der Klassen sind unabhängig von CVS-Versionen und in
+  erster Linie für Komponenten.  Sie beginnen zweistellig ab 1.0
+  sobald die Schnittstelle fest ist.  Kompatible Erweiterungen der
+  Schnittstelle zählen die kleinere Nummer noch, Andernfalls wird die
+  erste Ziffer erhöht.  Neue/geänderte Methoden werden mit @since
+  markiert, veraltete mit @deprecated.
+
+
+Formatierungen
+
+  Es werden keine Tabs ('\t') benutzt, eingerückt wird jeweils 4
+  Spaces, offene Klammern stehen am Ende einer Zeile.  Beispiel
+
+    class Test {
+        public static void main(String[] args) {
+	    System.out.println("Hi");
+	}
+    }
+
+  Eine Anweisung pro Zeile, Zeilen sollten <80 Spalten (links vom
+  grauen Strich im JBuilder) haben.
+
+    if (a == 0)
+        return;
+
+  Instanzvariablen werden NICHT mit einem Präfix versehen.
+  Ebensowenig werden Parameter mit _ von gleichnamigen Variablen
+  unterschieden.  Stattdessen wird hier "this.xx = xx" benutzt.
+
+  Lokale Variablen dürfen kurze Namen haben ("String s"), werden aber
+  immer dort definiert, wo sie zuerst benutzt werden, nicht am Anfang
+  der Methode.  Ihre Verwendung ist zu minimieren; es sollte
+  funktional programmiert werden.
+
+  Array-Typen werden "String[] arg" und nicht "String arg[]"
+  definiert.
+
+  Leerzeichen trennen Operatoren. EIN Space vor "{", KEIN Space
+  zwischen Methodenname und "(...)".  KEIN Space zwischen "(" und
+  Argumenten. EIN Space zwischen "if" oder "while" und Bedingungen.
+
+  KEINE Leerzeile zwischen JavaDoc-Kommentar und Methode oder Feld.
+  EINE Leerzeile trennt Methoden bzw. Feld- und Klassendefinition.
+
+  Die Schachtelungstiefe ist zu minimieren.  Eine gute Technik ist der
+  Einsatz von Guards, Anweisungen, die prüfen, ob eine Methode
+  vorzeitig beendet werden kann, also
+
+    public setEnabled(boolean enabled) {
+        if (this.enabled == enabled)
+	    return;
+	this.enabled = enabled;
+	repaint();
+    }
+
+  Das Argument der "return"-Anweisung ist NICHT geklammert.
+
+  
+
+Reihenfolge
+
+  Nach dem Klassennamen sollten zunächst statische Factory-Methoden,
+  Konstruktoren, Getter und Setter und dann öffentliche und dann
+  private Methoden folgen, jeweils nach Aufgabe gruppiert. Die
+  Gruppierung kann durch
+
+    // SubTool stuff --------------------------------------------------------
+
+  visualisiert werden. Lokale Klassen folgenden am Ende der
+  Klasse. Eine main()-Methode ist ganz am Ende.
+  
+
+Kommentare
+
+  Grundregel: Kommentiere keinen schlechten Code, schreibe ihn um!
+
+  Die Schnittstelle, d.h. die Gesamtheit aller öffentlichen Methoden
+  und Felder einer Klasse sollte mit JavaDoc-Kommentaren vollständig
+  beschrieben sein.  Dies gilt insbesondere für Komponenten.
+
+    /** Returns the object's name. */
+
+    /**
+     * Returns the object's name.
+     * @return the object's name which is a <code>String</code> or
+     * <code>null</code> if no name was set using {@link(#setName)}.
+     * @since 1.13
+     * @deprecated since 3.3 because it was a stupid idea
+     */
+
+  Kleinere Kommentare innerhalb von Methoden werden mit "//" in einer
+  einzelnen Zeile eingeleitet.  "/* ... */" ist dem Auskommentieren
+  von Code vorbehalten.
+
+  Wird CVS zur Versionsverwaltung benutzt, bleibt kein
+  auskommentierter Code in der einzucheckenden Version. Ausnahme wäre
+  Code der eigentlich funktioniert, jedoch aufgrund von Fehlern in
+  Fremdprodukten einen Workaround benötigt.  (Workarounds für eigenen
+  Code schreiben wir niemals sondern korrigieren den Fehler!)
+
+  Um "Baustellen" zu markieren, wird
+
+    //TODO: ....
+
+  benutzt. Nach diesem Schlüsselwort kann dann "gegreppt" werden.
+
+
+Java-Konventionen
+
+  Vermeide Syntaxfehler im Code.
+
+  Bei layout-constraints werden symbolische Konstanten benutzt, keine
+  Strings (nicht "North" sondern "BorderLayout.NORTH") oder Zahlen
+  (nicht "0" sondern "GridBagConstraint.CENTER").
+
+  Benutze keine Vollqualifizierten Namen für wohlbekannte Klassen.
+
+  Benutze anonyme innere Klassen oder lokale Klassen wo angebracht.
+
+
+ENDE

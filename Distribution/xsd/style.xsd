@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by Gerhard Vogel (Vogelfrei) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2000/10/XMLSchema" elementFormDefault="qualified">
+	<xsd:attributeGroup name="style">
+		<xsd:attribute name="alignment" type="xsd:string"/>
+		<xsd:attribute name="fontname" type="xsd:string"/>
+		<xsd:attribute name="fontsize" type="xsd:string"/>
+		<xsd:attribute name="fontstyle" type="xsd:string"/>
+		<xsd:attribute name="color" type="xsd:string"/>
+		<xsd:attribute name="underlinement" type="xsd:string"/>
+		<xsd:attribute name="name" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="styledefinition">
+		<xsd:attributeGroup ref="style"/>
+	</xsd:complexType>
+	<xsd:element name="styleelement" type="styledefinition"/>
+	<xsd:element name="styleelements">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="styleelement" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,73 @@
+Mediknight ToDo, Stand: 29.09.2000
+----------------------------------
+
+- BillPane (BillPage1/2):
+
+  o Korrektur: neu gewaehlte Rechnungsposten sollen in der Auswahltabelle
+    nicht an erster, sondern an letzter Stelle eingefuegt werden.
+    ScrollBars sollen entsprechend angepasst werden;
+
+  o Korrektur: Groesse der Spalten in den "BillPage1"-Tabellen aufeinander
+    abstimmen;
+
+  o Fehlt: Hervorheben der ausgewaehlten Tabellenzeilen durch "Highlighting"
+    der Schrift;
+
+  o Fehlt: Speicherung des in "BillPage2" eingegebenen Brieftextes sowie des
+    Grusszeilentextes in der Datenbank;
+
+  o Korrektur: NumberFormat-Objekte durch einheitliche "DM"-Umformungsklasse
+    ersetzen (insbes. in den Bill-Panels)
+
+- Korrektur: Farbe der Navigatorleiste u.U. neu einstellen;
+
+- Fehlt: Buttons in Groesse vereinheitlichen (d.h. "grosse" Buttons auf
+  unteren Knopfleisten einzelner Panels ("Panes"));
+
+- Fehlt: Buttons auf "disabled" im Falle nichtgewaehlter Komponenten/Eintraege
+  setzen;
+
+- Fehlt: Preferences (d.h. Benutzergewaehlte Einstellungen wie Splitbar-Posi-
+  tionen, Spaltengroessen, etc.) in Datei abspeichern.
+
+
+Allg. Features:
+===============
+
+Niedrige Priorität:
+-------------------
+
+R01:	"Freie Rechnungen"
+	Bisher ist jede Rechnung an eine Tagesdiagnose eines Patienten
+	gekoppelt, d.h. zu jeder Tagesdiagnose gibt es höchstens eine Rechnung.
+	Eine Tagesdiagnose kann pro Patient täglich nur einmal erstellt werden,
+	d.h. mehrere Tagesdiagnosen können nicht am selben Tag erstellt werden.
+	Diese "Einschränkung" wurde damals aber so beschlossen.
+
+	Nun sollen Rechnungen auch unabhängig von einer Tagesdiagnose erstellt
+	werden können. Der "Vater" einer Rechnung muss dann neben einer
+	Tagesdiagnose auch der Patient sein können.
+
+	Problem:
+
+	Wie bindet man dieses Feature in das bestehende GUI der Applikation mit
+	ein?
+	Ein weiterer Schalter im Schalter-Panel sollte vermieden werden.
+	Möglichkeit: Schalter ins Detail-Panel des Patienten einfügen.
+
+P01:	"birthday indicator"
+	Beim Start von Mediknight sollen Geburtstage der Patienten ca.
+	1. Woche vorher angezeigt werden.
+
+Hohe Priorität:
+---------------
+
+DI01:	Alle Datumseingaben müssen so gestaltet sein, dass vierstellige
+	Jahreszahlen eingegeben werden müssen.
+
+	Erledigt!
+
+R02:	Geänderte Geldbeträge speichern?
+	(Rücksprache notwendig)
+
+Release notes einführen!

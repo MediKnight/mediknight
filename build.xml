@@ -1,0 +1,89 @@
+<project name="Mediknight" default="dist">
+
+  <!-- Project directory layout -->
+  <property name="src" value="projects/app/src"/>
+  <property name="build" value="bin"/>
+  <property name="jars" value="projects/lib"/>
+  <property name="dist" value="dist"/>
+  <property name="distribution" value="Distribution"/>
+
+  <!-- Filter sets -->
+  <filterset id="dist.filter">
+    <filter token="DB" value="${install.db}"/>
+    <filter token="ROOT" value="${install.root}"/>
+    <filter token="JAVA" value="${install.java}"/>
+  </filterset>
+
+
+  <target name="init">
+    <tstamp/>
+  </target>
+
+  <target name="dist">
+    <!-- Deployment parameters -->
+    <property name="install.java" value="/opt/java/j2sdk1.3.1"/>
+    <property name="install.root" value="/opt/mediknight2"/>
+    <property name="install.db" value="jdbc:mysql://hardy:3306/mediknight"/>
+    <antcall target="dist-install"/>
+  </target>
+
+  <target name="local-dist">
+    <!-- Deployment parameters -->
+    <property name="install.java" value="/usr/java/j2sdk1.4.0"/>
+    <property name="install.root" value="/tmp/mediknight2"/>
+    <property name="install.db" value="jdbc:mysql://localhost:3306/mediknight"/>
+    <antcall target="dist-install"/>
+  </target>
+
+  <target name="vette-dist">
+    <!-- Deployment parameters -->
+    <property name="install.java" value="/opt/java/j2sdk1.3.1"/>
+    <property name="install.root" value="/opt/mediknight2"/>
+    <property name="install.db" value="jdbc:mysql://hardy:3306/mediknight"/>
+    <antcall target="dist-install"/>
+  </target>
+
+  <target name="vette-demo-dist">
+    <!-- Deployment parameters -->
+    <property name="install.java" value="/opt/java/j2sdk1.3.1"/>
+    <property name="install.root" value="/opt/mediknight2demo"/>
+    <property name="install.db" value="jdbc:mysql://localhost:3306/mediknight"/>
+    <antcall target="dist-install"/>
+  </target>
+
+  <target name="dist-install">
+    <delete dir="${dist}"/>
+    <mkdir dir="${dist}"/>
+
+    <jar jarfile="${dist}/mediknight.jar" basedir="${build}" manifest="${distribution}/manifest.in"/>
+
+    <mkdir dir="${dist}/lib"/>
+    <copy todir="${dist}/lib">
+      <fileset dir="${jars}" includes="*.jar"/>
+    </copy>
+
+    <copy file="${distribution}/mediknight.properties.in"
+          toFile="${dist}/mediknight.properties">
+      <filterset refid="dist.filter"/>
+    </copy>
+
+    <copy file="${distribution}/mediknight.sh.in"
+          toFile="${dist}/mediknight">
+      <filterset refid="dist.filter"/>
+    </copy>
+    <chmod file="${dist}/mediknight" perm="ugo+rx"/>
+
+    <copy file="${distribution}/remove-locks.sh.in"
+          toFile="${dist}/remove-locks">
+      <filterset refid="dist.filter"/>
+    </copy>
+    <chmod file="${dist}/remove-locks" perm="ugo+rx"/>
+
+    <copy file="${distribution}/stammdaten.sh.in"
+          toFile="${dist}/stammdaten">
+      <filterset refid="dist.filter"/>
+    </copy>
+    <chmod file="${dist}/stammdaten" perm="ugo+rx"/>
+
+  </target>
+</project>

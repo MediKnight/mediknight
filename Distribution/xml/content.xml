@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by Gerhard Vogel (Vogelfrei) -->
+<content xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xsd/content.xsd">
+	<table>
+		<specification width="100%"/>
+		<row>
+			<specification/>
+			<data>
+				<specification width="60%"/>
+			</data>
+			<data>
+				<specification width="40%"/>
+				$LOGO
+			</data>
+		</row>
+		<row>
+			<specification/>
+			<data>
+				<specification width="60%"/>
+				<text content="${SENDER}" style="${FONT},8pt,underlined"/>
+				<text content="${ADDRESS}" style="${FONT},11pt\n"/>
+				<text content="&#160;" style="${FONT},11pt"/>
+			</data>
+			<data>
+				<specification width="40%"/>
+				<text content="&#160;" style="${FONT},11pt"/>
+				<text content="&#160;" style="${FONT},11pt"/>
+				<text content="Rechnung Nr.: ${ID}" style="${FONT},11pt"/>
+				<text content="Datum: ${DATE}" style="${FONT},11pt"/>
+			</data>
+		</row>
+	</table>
+
+
+	<text content="&#160;" style="${FONT},11pt"/>
+	<text content="&#160;" style="${FONT},11pt"/>
+	<text content="&#160;" style="${FONT},11pt"/>
+	<text content="${TEXT}" style="${FONT},11pt"/>
+
+	<text content="&#160;" style="${FONT},11pt"/>
+	$TABLE
+	<text content="&#160;" style="${FONT},11pt"/>
+	<table>
+		<specification width="100%" cellpadding="4"/>
+		<row>
+			<specification border="64"/>
+			<data>
+				<specification width="66%"/>
+			</data>
+			<data>
+				<specification width="19%"/>
+				<text content="Gesamtbetrag:" style="${FONT},11pt,right"/>
+			</data>
+			<data>
+				<specification width="15%"/>
+				<text content="${TOTAL}" style="${FONT},11pt,right"/>
+			</data>
+		</row>
+	</table>
+	<text content="&#160;" style="${FONT},11pt"/>
+	<text content="${CLOSING}" style="${FONT},11pt"/>
+	<text content="&#160;" style="${FONT},11pt"/>
+	<text content="&#160;" style="${FONT},11pt"/>
+	$FINAL
+</content>

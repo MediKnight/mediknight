@@ -1,0 +1,6 @@
+Wichtig:
+
+Wenn Source- und Classpath unterschiedlich sind 
+(wie das z.Z. in diesem Projekt der Fall ist), dann muss das Verzeichnis
+"resources" ins Classpath (mit gleicher package-Struktur) kopiert werden.
+ 

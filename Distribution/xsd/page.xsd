@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by Gerhard Vogel (Vogelfrei) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2000/10/XMLSchema" elementFormDefault="qualified">
+	<xsd:attributeGroup name="pageattributes">
+		<xsd:attribute name="footer_height" type="xsd:string"/>
+		<xsd:attribute name="header_height" type="xsd:string"/>
+		<xsd:attribute name="style" type="xsd:string"/>
+		<xsd:attribute name="margin_left" type="xsd:string"/>
+		<xsd:attribute name="margin_right" type="xsd:string"/>
+		<xsd:attribute name="margin_top" type="xsd:string"/>
+		<xsd:attribute name="margin_bottom" type="xsd:string"/>
+		<xsd:attribute name="orientation" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="pagedefinition">
+		<xsd:attributeGroup ref="pageattributes"/>
+	</xsd:complexType>
+	<xsd:element name="page" type="pagedefinition"/>
+</xsd:schema>

@@ -1,0 +1,89 @@
+<html>
+<head><title>Installation f&uuml;r Michael Vette</title>
+<body bgcolor="white">
+<h2>Installation f&uuml;r Michael Vette</h2>
+<p>Die Installation vom neuen "Mediknight" &uuml;ber die bestehende
+Version von Michael ist aufwendig, da die vorhandene Datenbank-Struktur
+ge&auml;ndert werden muss.
+</p>
+<p>Zur Installation wird eine CD von BO ben&ouml;tigt mit folgenden
+Dateien:
+<ul>
+<li><tt>j2sdk-1.3.1-FCS-linux-i386.tar.bz2</tt> (Java VM, JDK und Runtime)
+<li><tt>mediknight2.tar.gz</tt> (Mediknight Applikation)
+<li><tt>alter-struct.sql</tt> (Modifikationsskript f&uuml;r die Datenbank)
+</ul>
+CD mounten mit<br>
+<tt># mount /cdrom</tt><br>
+unmounten mit<br>
+<tt># umount /cdrom</tt><br>
+</p>
+<p>Folgende Schritte sind durchzuf&uuml;hren:
+   (Rechner "hardy", Empfangs-PC)</p>
+<ol>
+<li>"root" werden, Passwort: <tt>(+ 1 3)</tt><p>Das Passwort f&uuml;r den Account
+    <tt>vette</tt> lautet <tt>mediknight</tt>.<p>
+<li>Datenbank anhalten:<br>
+    <tt># /etc/init.d/mysql stop</tt>
+    <p>Danach &uuml;berpr&uuml;fen, ob die Datenbank wirklich angehalten wurde:</p>
+        <p><tt># ps -ef | grep mysql</tt></p>
+    <p>Sollte die Datenbank dann noch laufen, dann durch ein sanftes
+    <tt>killall mysqld</tt> nachhelfen. Ggf. noch ein <tt>killall -9 mysqld</tt>
+    anwenden.</p>
+
+<li>Datenbank sichern:<br>
+    Die MySQL Datenbank "mediknight" befindet sich im Verzeichnis
+    <tt>/var/lib/mysql/mediknight</tt>. Dieses Verzeichnis komplett
+    sichern.<br>
+    <tt># cd /var/lib/mysql</tt><br>
+    <tt># cp -p -R mediknight mediknight.bak</tt>
+<li>Datenbank starten:<br>
+    <tt># /etc/init.d/mysql start</tt>
+<li>Datenbank erweitern:<br>
+    Dazu das Script <tt>alter-struct.sql</tt> ausf&uuml;hren, also:<br>
+    <tt>mysql -u root -p &lt;/cdrom/alter-struct.sql mediknight</tt><br>
+    (Passwortabfrage mit Enter &uuml;bergehen).<br>
+    <b>Nach diesem Schritt ist die Mediknight Datenbank f&uuml;r die
+    alte Version der Applikation nicht mehr benutzbar!</b>
+</ol>
+<p>Die nun folgende Schritte sind auf beiden Rechnern durchzuf&uuml;hren
+   (Empfangs-PC und Notebook, Passwort unver&auml;ndert).</p>
+<ol>
+<li>VM installieren:<br>
+    Die mitgelieferte neue VM <tt>JDK1.3.1</tt> von Blackdown in ein
+    passendes Verzeichnis installieren, z.B. <tt>/opt/java</tt><br>
+    (m&ouml;glicherweise altes JDK-Verzeichnis verschieben).<br>
+    <tt># mkdir -p /opt/java</tt><br>
+    <tt># cd /opt/java</tt><br>
+    <tt># bzip2 -dc /cdrom/j2sdk-1.3.1-FCS-linux-i386.tar.bz2 | tar xvf -</tt><br>
+    I.F. sei <tt>/opt/java</tt> das Java Basisverzeichnis.
+<li>Applikation installieren:<br>
+    <p>Sicherstellen, dass das Verzeichnis <tt>/opt/mediknight2</tt> nicht
+    existiert - ggf. ein bestehendes Verzeichnis umbenennen. Applikation
+    installieren:
+    <p><tt># cd /opt<br>
+    # tar zxvf /cdrom/mediknight2.tar.gz</tt></p>
+<li>Einstellungen anpassen:<br>
+    Die Datei <tt>mediknight.properties</tt> im Verzeichnis <tt>/opt/mediknight2</tt>
+    muss f&uuml;r die Datenbank bei Vette folgenden Eintrag enthalten:<br>
+    <tt>jdbc.url.name=jdbc:mysql://hardy:3306/mediknight</tt><br>
+    (Dieser Eintrag ist auf beiden Rechnern <b>identisch</b>!)
+<li>Rechnungsdaten konvertieren (<b>Nur einmal ausf&uuml;hren</b>):<br>
+    Ein Bestandteil des Programms verschiebt den Rechnungstext pro
+    Rechnung in ein separates Feld. Wird dieses Programm nicht
+    ausgef&uuml;hrt, dann gehen die Rechnungstexte verloren.<br>
+    <tt># /opt/java/j2sdk1.3.1/bin/java -cp mediknight.jar
+    de.bo.mediknight.tools.ExpandBills</tt>
+<li>Jetzt ist alles vorbereitet.<br>
+    Applikation kann nun mit<br>
+    <tt># /opt/mediknight2/mediknight</tt>
+    gestartet werden.
+<li>Aufruf der Stammdatenbearbeitung:<br>
+    <tt># /opt/mediknight2/stammdaten</tt>
+<li>Aufruf der Sperrungaufhebung:<br>
+    <tt># /opt/mediknight2/remove-locks</tt>
+<li>Verkn&uuml;pfungen auf dem Desktop anlegen.
+<li>Anpassen der Rechnungstexte mit der Stammdatenbearbeitung.
+</ol>
+</body>
+</html>

@@ -1,0 +1,38 @@
+Mediknight Bugs
+===============
+
+Stand 08.11.2000:
+-----------------
+
+TD01:
+	Wird ein Patient neu angelegt, so werden in aktuellen Vorgang
+	angelegte Tagesdiagnose-Daten nicht gespeichert.
+	Daten werden erst gespeichert, wenn dieser Patient durch
+	"Suchen" ausgewählt wurde.
+
+	Siehe auch TD02.
+
+	gefixt!
+
+TD02:
+	Tagesdiagnose-Daten eines existierenden Patienten werden nur
+	dann hinzugefügt, wenn sofort Text im Diagnosefeld eingegeben
+	wird. Wird dieses Feld erst nachträglich besetzt (d.h. nach
+	Eingabe von Rechnungs und Verordnungs-Daten), so werden diese
+	nicht gespeichert.
+
+	gefixt!
+
+Stand 30.11.2000:
+-----------------
+
+TD03:
+	Der Kunde behauptet, dass immer noch Diagnose-Daten verschwinden.
+	Bisher konnte der Fehler aber nicht reproduziert werden.
+
+	Vermutung:
+	Die Software arbeitet diesbezüglich zwar fehlerfrei, aber es kann
+	zu "concurrency-problems" kommen, wenn zwei Benutzer in
+	überschneidener Zeit einen Datensatz bearbeiten.
+
+	gefixt!

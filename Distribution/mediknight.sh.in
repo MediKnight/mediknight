@@ -1,0 +1,8 @@
+#!/bin/sh
+
+APPDIR=@ROOT@
+VM=@JAVA@/bin/java
+
+cd $APPDIR
+$VM -jar mediknight.jar
+

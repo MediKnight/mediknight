@@ -1,0 +1,6 @@
+mysqld Commandline options:
+
+transaction-isolation=
+{ READ-UNCOMMITTED | READ-COMMITTED | REPEATABLE-READ | SERIALIZABLE } 
+  Sets the default transaction isolation level.
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by Gerhard Vogel (Vogelfrei) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2000/10/XMLSchema" elementFormDefault="qualified">
+	<xsd:attributeGroup name="imageattributes">
+		<xsd:attribute name="name" type="xsd:string"/>
+		<xsd:attribute name="style" type="xsd:string"/>
+		<xsd:attribute name="scale_width" type="xsd:string"/>
+		<xsd:attribute name="scale_height" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<xsd:attributeGroup name="textattributes">
+		<xsd:attribute name="content" type="xsd:string"/>
+		<xsd:attribute name="style" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<xsd:attributeGroup name="tableattributes">
+		<xsd:attribute name="colspan" type="xsd:byte"/>
+		<xsd:attribute name="rowspan" type="xsd:byte"/>
+		<xsd:attribute name="width" type="xsd:string"/>
+		<xsd:attribute name="height" type="xsd:string"/>
+		<xsd:attribute name="style" type="xsd:string"/>
+		<xsd:attribute name="border" type="xsd:integer"/>
+		<xsd:attribute name="cellpadding" type="xsd:string"/>
+		<xsd:attribute name="cellspacing" type="xsd:string"/>
+		<xsd:attribute name="splitting" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<xsd:complexType name="imagedefinition">
+		<xsd:attributeGroup ref="imageattributes"/>
+	</xsd:complexType>
+	<xsd:complexType name="textdefinition">
+		<xsd:attributeGroup ref="textattributes"/>
+	</xsd:complexType>
+	<xsd:complexType name="tabledefinition">
+		<xsd:attributeGroup ref="tableattributes"/>
+	</xsd:complexType>
+	<xsd:element name="specification" type="tabledefinition"/>
+	<xsd:element name="image" type="imagedefinition"/>
+	<xsd:element name="text" type="textdefinition"/>
+	<xsd:element name="header">
+		<xsd:complexType>
+			<xsd:sequence maxOccurs="unbounded">
+				<xsd:element ref="specification"/>
+				<xsd:element ref="text" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="image" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="table" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="data">
+		<xsd:complexType>
+			<xsd:sequence maxOccurs="unbounded">
+				<xsd:element ref="specification"/>
+				<xsd:element ref="image" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="table" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="text" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="row">
+		<xsd:complexType>
+			<xsd:sequence maxOccurs="unbounded">
+				<xsd:element ref="specification"/>
+				<xsd:element ref="data" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="header" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="table">
+		<xsd:complexType>
+			<xsd:sequence maxOccurs="unbounded">
+				<xsd:element ref="specification"/>
+				<xsd:element ref="row" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="content">
+		<xsd:complexType>
+			<xsd:sequence maxOccurs="unbounded">
+				<xsd:element ref="image" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="text" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="table" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

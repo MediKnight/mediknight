@@ -1,0 +1,7 @@
+#!/bin/sh
+
+APPDIR=@ROOT@
+VM=@JAVA@/bin/java
+
+cd $APPDIR
+$VM -cp mediknight.jar de.bo.mediknight.tools.LockRemover

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by Gerhard Vogel (Vogelfrei) -->
+<styleelements xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xsd/style.xsd">
+
+  <!-- fonts for table(s): -->
+  <styleelement name="Arial,9pt" alignment="left" color="#000000" fontsize="9" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,1pt,right" alignment="right" color="#000000" fontsize="1" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,1pt" alignment="left" color="#000000" fontsize="1" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,9pt,right" alignment="right" color="#000000" fontsize="9" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,9pt,bold" alignment="left" color="#000000" fontsize="9" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Arial,9pt,bold,right" alignment="right" color="#000000" fontsize="9" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Arial,9pt,bold,center" alignment="center" color="#000000" fontsize="9" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Arial,9pt,center" alignment="center" color="#000000" fontsize="9" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Times,9pt" alignment="left" color="#000000" fontsize="9" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Times,1pt,right" alignment="right" color="#000000" fontsize="1" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Times,1pt" alignment="left" color="#000000" fontsize="1" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Times,9pt,right" alignment="right" color="#000000" fontsize="9" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Times,9pt,bold" alignment="left" color="#000000" fontsize="9" fontname="Times New Roman" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Times,9pt,bold,right" alignment="right" color="#000000" fontsize="9" fontname="Times New Roman" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Times,9pt,bold,center" alignment="center" color="#000000" fontsize="9" fontname="Times New Roman" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Times,9pt,center" alignment="center" color="#000000" fontsize="9" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+
+  <!-- font for addressline: -->
+  <styleelement name="Times,8pt,underlined" alignment="left" color="#000000" fontsize="8" fontname="Times New Roman" fontstyle="plain" underlinement="true"/>
+
+  <!-- mainfonts: -->
+  <styleelement name="Times,11pt" alignment="left" color="#000000" fontsize="11" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Times,11pt,underlined" alignment="left" color="#000000" fontsize="11" fontname="Times New Roman" fontstyle="plain" underlinement="true"/>
+  <styleelement name="Times,11pt,center" alignment="center" color="#000000" fontsize="11" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Times,11pt,right" alignment="right" color="#000000" fontsize="11" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Times,11pt,bold" alignment="left" color="#000000" fontsize="11" fontname="Times New Roman" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Times,11pt,kursiv" alignment="left" color="#000000" fontsize="11" fontname="Times New Roman" fontstyle="italic" underlinement="false"/>
+  <styleelement name="Times,11pt,boldkursiv" alignment="left" color="#000000" fontsize="11" fontname="Times New Roman" fontstyle="bolditalic" underlinement="false"/>
+  <styleelement name="Arial,11pt" alignment="left" color="#000000" fontsize="11" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,11pt,underlined" alignment="left" color="#000000" fontsize="11" fontname="Arial" fontstyle="plain" underlinement="true"/>
+  <styleelement name="Arial,11pt,center" alignment="center" color="#000000" fontsize="11" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,11pt,right" alignment="right" color="#000000" fontsize="11" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,11pt,bold" alignment="left" color="#000000" fontsize="11" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Arial,11pt,bold,right" alignment="right" color="#000000" fontsize="11" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Arial,11pt,kursiv" alignment="left" color="#000000" fontsize="11" fontname="Arial" fontstyle="italic" underlinement="false"/>
+  <styleelement name="Arial,11pt,boldkursiv" alignment="left" color="#000000" fontsize="11" fontname="Arial" fontstyle="bolditalic" underlinement="false"/>
+  <styleelement name="Arial,16pt,bold" alignment="left" color="#000000" fontsize="16" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Times,16pt,bold" alignment="left" color="#000000" fontsize="16" fontname="Times New Roman" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Times,6pt" alignment="left" color="#000000" fontsize="6" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+
+  <styleelement name="Times,9pt" alignment="left" color="#000000" fontsize="9" fontname="Times New Roman" fontstyle="plain" underlinement="false"/>
+
+  <styleelement name="Arial,8pt" alignment="left" color="#000000" fontsize="8" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,8pt,right" alignment="right" color="#000000" fontsize="8" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,8pt,bold" alignment="left" color="#000000" fontsize="8" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Arial,8pt,bold,right" alignment="right" color="#000000" fontsize="8" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Arial,8pt,bold,center" alignment="center" color="#000000" fontsize="8" fontname="Arial" fontstyle="bold" underlinement="false"/>
+  <styleelement name="Arial,8pt,center" alignment="center" color="#000000" fontsize="8" fontname="Arial" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Arial,8pt,underlined" alignment="left" color="#000000" fontsize="8" fontname="Arial" fontstyle="plain" underlinement="true"/>
+  <!-- erasfonts: -->
+  <styleelement name="Eras,11pt" alignment="left" color="#000000" fontsize="11" fontname="Eras Book BT" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Eras,9pt,center" alignment="center" color="#000000" fontsize="9" fontname="Eras Book BT" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Eras,9pt,right" alignment="right" color="#000000" fontsize="9" fontname="Eras Book BT" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Eras,9pt" alignment="left" color="#000000" fontsize="9" fontname="Eras Book BT" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Eras,9pt,bold" alignment="left" color="#000000" fontsize="9" fontname="Eras Bold BT" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Eras,11pt,right" alignment="right" color="#000000" fontsize="11" fontname="Eras Book BT" fontstyle="plain" underlinement="false"/>
+  <styleelement name="Eras,11pt,bold" alignment="left" color="#000000" fontsize="11" fontname="Eras Book BT" fontstyle="bold" underlinement="false"/>
+
+  <styleelement name="Eras,9pt" alignment="left" color="#000000" fontsize="9" fontname="Eras Book BT" fontstyle="plain" underlinement="false"/>
+</styleelements>

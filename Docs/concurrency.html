@@ -1,0 +1,230 @@
+<html>
+<head>
+<title>"Concurrency"-Problem in Mediknight</title>
+</head>
+
+<body bgcolor="white">
+<h1>"Concurrency"-Problem in Mediknight</h1>
+
+<hr>
+
+<h2>Situation</h2>
+<p>
+Der Kunde (M. Vette) bearbeitet die Diagnosen eines Patienten <b>P</b> und
+die Sprechstundenhilfe bearbeitet ebenfalls Daten des Patienten <b>P</b>.
+Wenn die Sprechstundenhilfe zu einem sp&auml;teren Zeitpunkt die Bearbeitung
+beendet, &uuml;berschreibt sie mit dem Beenden die von M. Vette gemachten
+&Auml;nderungen.
+</p>
+
+<hr>
+
+<h2>Aufgabenstellung</h2>
+<p>
+Es wird eine L&ouml;sung angestrebt, die ein Maximum an Sicherheit
+und ein Maximum an Freiz&uuml;gigkeit f&uuml;r die Benutzer bietet.
+<ol>
+<li><b>Maximale Sicherheit</b>
+    <ol>
+    <li>Es darf zu keinem Zeitpunkt m&ouml;glich sein, dass "gleichzeitiges"
+    bearbeiten von Daten zu verlusten f&uuml;hrt.
+    <li>Ein Benutzer muss am &Auml;ndern von Daten gehindert werden, wenn
+    bereits ein anderer Benutzer diese Daten bearbeitet.
+    <li>Die Information zum Sperren von Datens&auml;tzen muss so gespeichert
+    werden, dass sie "ausfallsicher" ist, d.h. dass auch nach einem
+    Systemabsturz oder Stromausfall keine "Deadlocks" entstehen.
+    </ol>
+<li><b>Maximale Freiz&uuml;gigkeit</b><br>
+    Wenn ein Benutzer Daten bearbeitet,
+    <ol>
+    <li>m&uuml;ssen andere Benutzer diese Daten noch lesen k&ouml;nnen.
+    <li>sollten andere Benutzer Teile dieser Daten ebenfalls &auml;ndern
+    k&ouml;nnen, sofern diese Daten verschiedene Datens&auml;tze betreffen
+    (wird weiter unten genauer erl&auml;utert).
+    <li>muss die Sperrung unmittelbar nach der Freigabe durch den "ersten"
+    Benutzer aufgehoben werden.
+    </ol>
+</ol>
+</p>
+
+<h3>Datenbank "mediknight"</h3>
+<p>
+In der Datenbank "mediknight" steht der Patient an oberster Stelle, d.h.
+alle anderen Daten sind hierarchisch unter dem Patienten angeordnet oder
+sie stehen in keiner Beziehung zu einem Patienten. Es existiert eine
+1:n Beziehung zwischen Patienten und Diagnosen und zu jeder Diagnose gibt
+es h&ouml;chstens eine Rechnung und h&ouml;chstens eine Verordnung.
+</p>
+
+<h3>Beispiele</h3>
+<p>User <b>U</b> bearbeitet die Daten (nicht die Tagesdiagnosen)
+eines Patienten <b>P</b>. Ein User <b>V</b>
+<ul>
+<li>darf vollst&auml;ndig auf alle Daten nicht zugeh&ouml;rig zu <b>P</b>
+bearbeiten.
+<li>darf <i>nicht</i> die Daten von <b>P</b> &auml;ndern oder <b>P</b>
+l&ouml;schen.
+<li>darf Tagesdiagnosen von <b>P</b> bearbeiten.
+<li>darf Rechnungen und Verordnungen einer Tagesdiagnose von <b>P</b>
+bearbeiten.
+</ul>
+</p>
+
+<p>User <b>U</b> bearbeitet eine Tagesdiagnose <b>D</b>
+eines Patienten <b>P</b>. Ein User <b>V</b>
+<ul>
+<li>darf vollst&auml;ndig auf alle Daten nicht zugeh&ouml;rig zu <b>P</b>
+oder <b>D</b> zugreifen.
+<li>darf die Daten von <b>P</b> &auml;ndern.
+<li>darf <b>P</b> <i>nicht</i> l&ouml;schen.
+<li>darf Tagesdiagnosen von <b>P</b> bearbeiten, die nicht <b>D</b> sind.
+<li>darf Rechnungen und Verordnungen jeder Tagesdiagnose von <b>P</b>
+bearbeiten.
+</ul>
+</p>
+
+<p>
+Entsprechende Regeln gelten, wenn User <b>U</b> eine Rechnung oder
+eine Verordnung bearbeitet. Fassen wir allerdings die Tagesdiagnose,
+Rechnung und Verordnung als eine Einheit auf, so verlieren wir zwar
+geringf&uuml;gig an Freiz&uuml;gigkeit, ersparen uns aber erheblichen
+Implementierungsaufwand und das Regelwerk k&uuml;rzt sich auf folgendes:
+</p>
+
+<p>User <b>U</b> bearbeitet die Daten (nicht die Tagesdiagnosen)
+eines Patienten <b>P</b>. Ein User <b>V</b>
+<ul>
+<li>darf vollst&auml;ndig auf alle Daten nicht zugeh&ouml;rig zu <b>P</b>
+zugreifen.
+<li>darf <i>nicht</i> die Daten von <b>P</b> &auml;ndern oder <b>P</b>
+l&ouml;schen.
+<li>darf Tagesdiagnosen von <b>P</b> bearbeiten.
+</ul>
+</p>
+
+<p>User <b>U</b> bearbeitet eine Tagesdiagnose <b>D</b>
+eines Patienten <b>P</b>. Ein User <b>V</b>
+<ul>
+<li>darf vollst&auml;ndig auf alle Daten nicht zugeh&ouml;rig zu <b>P</b>
+oder <b>D</b> bearbeiten.
+<li>darf die Daten von <b>P</b> &auml;ndern.
+<li>darf <b>P</b> <i>nicht</i> l&ouml;schen.
+<li>darf Tagesdiagnosen von <b>P</b> bearbeiten, die nicht <b>D</b> sind.
+</ul>
+</p>
+
+<hr>
+
+<h2>L&ouml;sung</h2>
+
+<h3>Anforderung von Locks</h3>
+<ul>
+<li>
+F&uuml;r jede schreibende Aktion muss ein sog. Lock angefordert werden.
+Dieser Lock enth&auml;lt gem&auml;&szlig; den obigen Anforderungen
+eine Identit&auml;t auf den Patienten und den "Aspekt", d.h. die
+Information &uuml;ber den Teil des Patienten, der bearbeitet werden
+soll. Da diese Information nur aus der Tagesdiagnose besteht, enth&auml;lt
+der Aspekt nur diese, oder 0, wenn Patientendaten direkt bearbeitet
+werden sollen. Um aber f&uuml;r weitere Informationen ger&uuml;stet zu sein,
+wird die Lock-Information dennoch ein geeignetes Aspekt-Feld zus&auml;tzlich
+zur Tagesdiagnose enthalten.
+<li>
+Ein Lock muss unmittelbar freigegeben werden, wenn er nicht mehr ben&ouml;tigt
+wird, oder eine vorgegebene Zeit (Timeout) &uuml;berschritten wird.
+<li>
+Ein Lock wird nicht mehr ben&ouml;tigt, wenn
+<ul><li>ein neuer Lock angefordert wird,
+    <li>die Eingabemaske verlassen wird oder
+    <li>die Applikation beendet wird.
+</ul>
+<li>
+Eine schreibene Aktion ist das &Auml;ndern von Daten in der jeweiligen
+Maske, das Abspeichern der ge&auml;nderten Daten beim Verlassen
+der Maske sowie das L&ouml;schen von Datens&auml;tzen.
+<li>
+Wenn ein Patient gel&ouml;scht werden soll, dann m&uuml;ssen alle
+m&ouml;glichen Locks f&uuml;r diesen Patienten angefordert werden.
+</ul>
+
+<h3>Aspekte</h3>
+<p>
+Die Anforderung eines Locks l&auml;&szlig;t sich durch den Aspekt
+beschreiben. Der Aspekt setzt sich aus dem aktuellen Patienten und
+der aktuellen TagesDiagnose zusammen. Die Applikation muss benachrichtigt
+werden, wenn der Aspekt sich &auml;ndert.
+</p><p>
+Der Aspekt &auml;ndert sich, wenn der Anwender
+<ul>
+<li>durch die Suchmaske einen Patienten ausw&auml;hlt,
+<li>die Bearbeitung verl&auml;&szlig;t, indem er das
+    Programm beendet oder die Suchmaske erneut aufruft,
+<li>von der Detail-Maske in die Diagnose-Maske wechselt (dies f&uuml;hrt
+    zur Auswahl der j&uuml;ngsten Tagesdiagnose),
+<li>die Tagesdiagnose des gew&auml;hlten Patienten wechselt,
+<li>von einer Tagesdiagnose in die Erstdiagnose (oder umgekehrt) wechselt,
+<li>von einer Tagesdiagnose in die Detail-Maske wechselt.
+</ul>
+Der Aspekt &auml;ndert sich <b>nicht</b>, wenn der Anwender
+<ul>
+<li>von der Erstdiagnose in die Detail-Maske wechselt,
+<li>innerhalb der Detail-Maske Eingabekomponenten wechselt,
+<li>von einer gew&auml;hlten Tagesdiagnose in die entsprechende
+    Rechnung oder Verordnung (und umgekehrt) wechselt.
+</ul>
+Wenn der Aspekt ge&auml;ndert wird, dann muss folgender Ablauf
+aktiviert werden:
+<ul>
+<li>Mit dem alten Aspekt m&uuml;ssen auch die visuelle Komponenten bekannt
+    sein, die f&uuml;r die Bearbeitung des entsprechenden Datensatzes
+    verantwortlich sind.
+<li><p>Der vorherige Aspekt ist zu &uuml;berpr&uuml;fen.<br>
+    Gab es zu dem alten Aspekt keine oder keine erfolgreiche
+    Lockanforderung, d.h. hat der
+    Anwender keine &Auml;nderungen bzgl. des Aspekts get&auml;tigt,
+    dann muss nur der alte Aspekt durch den neuen ersetzt werden.
+<li>Gab es eine erfolgreiche Lockanforderung zum alten Aspekt, dann
+    m&uuml;ssen
+    <ul>
+    <li>alle in den Komponenten get&auml;tigte &Auml;nderungen
+    gespeichert werden (und <b>ausschlie&szlig;lich</b> diese),
+    <li>dieser Lock freigegeben werden
+    <li>und der alte Aspekt durch den neuen ersetzt werden.
+    </ul>
+</ul>
+</p>
+
+<h3>Sperren</h3>
+<p>
+Kann in einer Eingabemaske ein notwendiger Lock nicht angefordert werden,
+dann
+<ul>
+<li>
+muss die Eingabe gesperrt aber sichtbar bleiben.
+(GlassPane &uuml;ber Maske)
+<li>
+Die Applikation muss stets &uuml;berpr&uuml;fen (pollen), ob die
+Sperrung noch Bestand hat. Wenn der notwendige Lock angefordert
+werden kann, wird die Sperrung aufgehoben und der Lock sofort wieder
+freigegeben, d.h. der Lock muss bei einer Eingabe erneut angefordert
+werden.
+<li>
+Wenn die Sperrung freigegeben wird, dann muss ein Reload auf die
+visuellen Komponenten des entsprechenden Aspekts get&auml;tigt werden.
+Andere Komponenten d&uuml;rfen dann nat&uuml;rlich nicht "reloaded"
+werden.
+<li>
+Die Sperrung wird auf jeden Fall freigegeben, wenn der Anwender einen
+Schalter im Navigationspanel bedient. Dies ist auch der einzige Weg,
+die Sperrung manuell aufzuheben, um Bereiche zu bearbeiten, deren
+Lock angefordert werden kann.
+</ul>
+</p>
+
+<p>
+Kann hingegen beim Speichern in der Maske ein Lock nicht angefordert
+werden, so muss eine Warnung ausgegeben, die Aktion aber beendet werden.
+</p>
+
+</body>
+</html>

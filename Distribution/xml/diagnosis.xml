@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by Gerhard Vogel (Vogelfrei) -->
+<content xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xsd/content.xsd">
+
+	<text content="${NAME}" style="${FONT},16pt,bold"/>
+	<text content="&#160;" style="Times,11pt"/>
+
+	<table>
+		<specification width="100%"/>
+		<row>
+			<specification/>
+		        <header>
+				<specification width="100%"/>
+				<text content="Dauerdiagnose:" style="${FONT},11pt,bold"/>
+			</header>
+		</row>
+		<row>
+			<specification/>
+			<data>
+				<specification width="100%"/>
+				<text content="${DAUER}" style="${FONT},11pt"/>
+			</data>
+		</row>
+	</table>
+	<text content="&#160;" style="Times,11pt"/>
+	<table>
+	    <specification width="100%" border="128"/>
+	    $for p in DIAGNOSEN {
+		<row>
+			<specification/>
+		        <data>
+				<specification width="100%" border="11"/>
+				<text content="Tagesdiagnose vom $p.0" style="${FONT},11pt,bold"/>
+				<text content="&#160;" style="Times,6pt"/>
+			</data>
+		</row>
+		<row>
+			<specification colspan="2"/>
+			<data>
+				<specification width="100%" border="14"/>
+				<text content="$p.1" style="${FONT},11pt"/>
+			</data>
+		</row>
+		<row>
+			<specification colspan="2"/>
+			<data>
+				<specification width="100%"/>
+				<text content="&#160;" style="Times,11pt"/>
+			</data>
+		</row>
+	    }
+	</table>
+</content>

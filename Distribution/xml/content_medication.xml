@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by Gerhard Vogel (Vogelfrei) -->
+<content xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xsd/content.xsd">
+	<table>
+		<specification width="100%"/>
+		<row>
+			<specification/>
+			<data>
+				<specification width="60%"/>
+			</data>
+			<data>
+				<specification width="40%"/>
+				$LOGO
+			</data>
+		</row>
+		<row>
+			<specification/>
+			<data>
+				<specification width="60%"/>
+				<text content="${SENDER}" style="${FONT},8pt,underlined"/>
+				<text content="${ADDRESS}" style="${FONT},11pt"/>
+			</data>
+			<data>
+				<specification width="40%"/>
+			</data>
+		</row>
+		<row>
+			<specification/>
+			<data>
+				<specification width="60%"/>
+			</data>
+			<data>
+				<specification width="40%"/>
+				<text content="Datum: ${DATE}" style="${FONT},11pt"/>
+			</data>
+		</row>
+	</table>
+	<text content="&#160;" style="Times,11pt"/>
+	<text content="&#160;" style="Times,11pt"/>
+	<text content="Verordnung:" style="${FONT},11pt"/>
+	<text content="&#160;" style="Times,11pt"/>
+	<text content="&#160;" style="Times,11pt"/>
+	<text content="${MEDICATION}" style="${FONT},11pt"/>
+	<text content="&#160;" style="Times,11pt"/>
+	<text content="&#160;" style="Times,11pt"/>
+	$FINAL
+</content>

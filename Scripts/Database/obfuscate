@@ -1,0 +1,10 @@
+#!/bin/sh
+ 
+SRC_USER=root
+SRC_DB=mediknight
+ 
+DUMP_GZ=dump.gz
+ 
+mysqldump -t -u $SRC_USER $SRC_DB | \
+    ./obfuscate.pl |
+    gzip >$DUMP_GZ
