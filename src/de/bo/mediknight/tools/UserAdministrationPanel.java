@@ -184,7 +184,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
 	fc.addChoosableFileFilter(new SimpleFileFilter(new String[] {"jpg","gif"}, "Grafikdateien (*.jpg, *.gif)"));
 	int r = fc.showOpenDialog( this );
 
-	if (r == fc.CANCEL_OPTION) {
+	if (r == JFileChooser.CANCEL_OPTION) {
 	    return;
 	}
 	try {

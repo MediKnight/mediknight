@@ -120,16 +120,14 @@ public abstract class KnightObject implements Storable {
             id = rs.getInt(1);
             rs.close();
             return id;
-        }
-
-        if ( DB == HYPERSONIC ) {
+        } else if ( DB == HYPERSONIC ) {
             id = (int)getSequenceId();
             if ( id == 0 )
                 throw new SQLException("cannot retrieve sequence id");
             return id;
+        } else {
+            throw new SQLException("cannot operate on unknown database type");
         }
-
-        throw new SQLException("cannot operate on unknown database type");
     }
 
     public static long getSequenceId() {

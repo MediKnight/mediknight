@@ -184,7 +184,7 @@ implements Comparable {
     public boolean equals(Object o) {
         /**
          * @todo: Now we use the Comparable implementation for equals.
-         * @todo: Normaly we test equality by comparing the id, improve!
+         * @todo: Normally we test equality by comparing the id, improve!
          */
         return compareTo(o) == 0;
     }

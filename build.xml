@@ -3,7 +3,7 @@
   <!-- Project directory layout -->
   <property name="src" value="projects/app/src"/>
   <property name="build" value="bin"/>
-  <property name="jars" value="projects/lib"/>
+  <property name="jars" value="lib"/>
   <property name="dist" value="dist"/>
   <property name="distribution" value="Distribution"/>
 
@@ -60,6 +60,17 @@
     <mkdir dir="${dist}/lib"/>
     <copy todir="${dist}/lib">
       <fileset dir="${jars}" includes="*.jar"/>
+    </copy>
+
+	<mkdir dir="${dist}/xml"/>
+	<mkdir dir="${dist}/xsd"/>
+	
+    <copy todir="${dist}/xml">
+      <fileset dir="${distribution}/xml"/>
+    </copy>
+
+    <copy todir="${dist}/xsd">
+      <fileset dir="${distribution}/xsd"/>
     </copy>
 
     <copy file="${distribution}/mediknight.properties.in"

@@ -1,12 +1,16 @@
 package de.bo.mediknight.tools;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Properties;
-import java.lang.Math;
-import de.bo.swing.*;
-import javax.swing.event.*;
+
+import javax.swing.*;
+
+import de.bo.swing.FlexGridConstraints;
+import de.bo.swing.FlexGridLayout;
 
 public class ColorPanel extends JPanel {
 

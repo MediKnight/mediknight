@@ -1,9 +1,7 @@
 package de.bo.mediknight.tools;
 
-import java.util.Properties;
-import de.bo.mediknight.*;
 import java.io.*;
-import java.io.FileNotFoundException;
+import java.util.Properties;
 /**
  * Title:
  * Description:
