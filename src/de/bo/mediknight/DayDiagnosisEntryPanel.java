@@ -1,24 +1,21 @@
 package de.bo.mediknight;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Insets;
 import java.awt.event.*;
-import com.borland.jbcl.layout.VerticalFlowLayout;
-import javax.swing.SwingConstants;
-import javax.swing.BorderFactory;
-import javax.swing.AbstractAction;
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
-import javax.swing.BoxLayout;
+import java.util.Date;
 
-import javax.swing.border.*;
-import java.util.*;
+import javax.swing.*;
 
-import de.bo.mediknight.widgets.MediBorder;
-import de.bo.mediknight.domain.*;
+import de.bo.mediknight.domain.TagesDiagnose;
 import de.bo.mediknight.util.MediknightUtilities;
-
 import de.bo.mediknight.widgets.*;
-
+import de.bo.mediknight.widgets.JPanel;
+import de.bo.mediknight.widgets.JButton;
+import de.bo.mediknight.widgets.JTextArea;
+import de.bo.mediknight.widgets.JTextField;
 
 public class DayDiagnosisEntryPanel extends JPanel implements FocusListener {
     JPanel dayPanel = new JPanel();
@@ -42,7 +39,6 @@ public class DayDiagnosisEntryPanel extends JPanel implements FocusListener {
 
     public DayDiagnosisEntryPanel(Date date,String description) {
         jbInit();
-        this.presenter = presenter;
         setOpaque(true);
         setBackground(Color.white);
 
