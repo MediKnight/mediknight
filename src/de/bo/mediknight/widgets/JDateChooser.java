@@ -6,11 +6,15 @@
 package de.bo.mediknight.widgets;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.text.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  * This class implements a date chooser component.
@@ -164,8 +168,8 @@ public class JDateChooser extends JComponent {
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = c.gridy = c.gridwidth = c.gridheight = 1;
-        c.anchor = c.CENTER;
-        c.fill = c.BOTH;
+        c.anchor = GridBagConstraints.CENTER;
+        c.fill = GridBagConstraints.BOTH;
         p.add(prevYear, c);
         c.gridx++;
         p.add(prevMonth, c);
@@ -406,11 +410,11 @@ public class JDateChooser extends JComponent {
         protected void processMouseEvent(MouseEvent e) {
             // use timer to generate multiple clicks while mouse is pressed
             super.processMouseEvent(e);
-            if (e.getID() == e.MOUSE_PRESSED) {
+            if (e.getID() == MouseEvent.MOUSE_PRESSED) {
                 delay = 0;
                 timer.start();
             }
-            if (e.getID() == e.MOUSE_RELEASED) {
+            if (e.getID() == MouseEvent.MOUSE_RELEASED) {
                 timer.stop();
             }
         }

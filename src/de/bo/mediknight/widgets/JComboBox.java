@@ -5,12 +5,16 @@
  */
 package de.bo.mediknight.widgets;
 
-import javax.swing.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Vector;
-import java.awt.Color;
-import java.awt.event.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
+
+import javax.swing.ComboBoxModel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.event.EventListenerList;
 
 /**
  * A specialized <code>JComboBox</code> for Mediknight that implements the

@@ -8,7 +8,6 @@ package de.bo.mediknight.widgets;
 import java.awt.*;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
-import javax.swing.*;
 
 /**
  * A simple tiny layout manager aligning components in a grid with the

@@ -5,11 +5,11 @@
  */
 package de.bo.mediknight.widgets;
 
-import java.awt.*;
+import java.awt.AWTEventMulticaster;
 import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.util.Vector;
+
+import javax.swing.ListModel;
 
 /**
  * This subclass of <code>JList</code> supports an ActionListener for double

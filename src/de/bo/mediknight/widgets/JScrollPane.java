@@ -5,9 +5,9 @@
  */
 package de.bo.mediknight.widgets;
 
-import javax.swing.*;
 import java.awt.Component;
-import javax.swing.event.*;
+
+import javax.swing.event.EventListenerList;
 
 /**
  * This subclass of <code>javax.swing.JScrollPane</code> implements the

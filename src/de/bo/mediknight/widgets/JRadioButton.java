@@ -6,11 +6,11 @@
 package de.bo.mediknight.widgets;
 
 import java.awt.Container;
-import javax.swing.border.*;
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.EventListenerList;
 
 /**
  * This subclass of <code>javax.swing.JRadioButton</code> implements the

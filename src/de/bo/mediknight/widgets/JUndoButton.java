@@ -5,11 +5,11 @@
  */
 package de.bo.mediknight.widgets;
 
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.util.*;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.util.Enumeration;
+
+import javax.swing.*;
 
 /**
  * A specialized <code>JButton</code> that handles Undo requests from the user.

@@ -1,11 +1,7 @@
 package de.bo.mediknight.widgets;
 
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.Component;
+import java.util.EventObject;
 
 public class JTable extends javax.swing.JTable {
 

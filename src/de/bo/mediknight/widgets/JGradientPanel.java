@@ -6,7 +6,6 @@
 package de.bo.mediknight.widgets;
 
 import java.awt.*;
-import javax.swing.*;
 
 /**
  * This class implements a <code>JPanel</code> with a gradient fill background.

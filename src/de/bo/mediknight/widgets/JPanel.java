@@ -5,14 +5,16 @@
  */
 package de.bo.mediknight.widgets;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.text.*;
-import java.util.*;
-import java.lang.reflect.*;
-import javax.swing.border.*;
-import java.awt.event.*;
-import javax.swing.event.*;
+import java.awt.Component;
+import java.awt.LayoutManager;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.event.EventListenerList;
 
 /**
  * An extension of javax.swing.JPanel that implements the <code>Mutable</code>
@@ -30,21 +32,22 @@ import javax.swing.event.*;
  * @version 1.10
  * @see Mutable
  */
-public class JPanel extends javax.swing.JPanel
-                    implements Mutable {
+public class JPanel extends javax.swing.JPanel implements Mutable {
 
     /**
      * A <code>HashSet</code> containing those child widgets which implement
      * the <code>Mutable</code> interface and can thus be managed by this
      * <code>JPanel</code>.
      */
-    protected Set controlledWidgets = Collections.synchronizedSet(new HashSet(30, 0.8f));
+    protected Set controlledWidgets =
+        Collections.synchronizedSet(new HashSet(30, 0.8f));
 
     /**
      * A list of those interested in receiving <code>MutableChangeEvent</code>s
      * from us.
      */
-    protected EventListenerList mutableChangeListenerList = new EventListenerList();
+    protected EventListenerList mutableChangeListenerList =
+        new EventListenerList();
 
     /**
      * Create a new <code>JPanel</code> using double buffering and a
@@ -110,7 +113,7 @@ public class JPanel extends javax.swing.JPanel
      * @since 1.0
      */
     protected synchronized void register(Component c) {
-        if(c instanceof Mutable)
+        if (c instanceof Mutable)
             controlledWidgets.add(c);
     }
 
@@ -140,8 +143,8 @@ public class JPanel extends javax.swing.JPanel
      */
     public void updateBorder() {
         Border border = getBorder();
-        if(border instanceof UnderlineableBorder)
-            ((UnderlineableBorder) border).setUnderlined(isChanged());
+        if (border instanceof UnderlineableBorder)
+             ((UnderlineableBorder) border).setUnderlined(isChanged());
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -160,10 +163,10 @@ public class JPanel extends javax.swing.JPanel
      * @since 1.0
      */
     public void revert() {
-        synchronized(controlledWidgets) {
+        synchronized (controlledWidgets) {
             Iterator iter = controlledWidgets.iterator();
-            while(iter.hasNext())
-                ((Mutable) iter.next()).revert();
+            while (iter.hasNext())
+                 ((Mutable) iter.next()).revert();
         }
         updateBorder();
         fireMutableChanged();
@@ -176,10 +179,10 @@ public class JPanel extends javax.swing.JPanel
      * @since 1.0
      */
     public void forgetOriginalValue() {
-        synchronized(controlledWidgets) {
+        synchronized (controlledWidgets) {
             Iterator iter = controlledWidgets.iterator();
-            while(iter.hasNext())
-                ((Mutable)iter.next()).forgetOriginalValue();
+            while (iter.hasNext())
+                 ((Mutable) iter.next()).forgetOriginalValue();
         }
     }
 
@@ -191,11 +194,11 @@ public class JPanel extends javax.swing.JPanel
      * @since 1.0
      */
     public boolean isChanged() {
-        synchronized(controlledWidgets) {
+        synchronized (controlledWidgets) {
             Iterator i = controlledWidgets.iterator();
-            while(i.hasNext()) {
+            while (i.hasNext()) {
                 Component c = (Component) i.next();
-                if(((Mutable) c).isChanged())
+                if (((Mutable) c).isChanged())
                     return true;
             }
         }
@@ -209,7 +212,7 @@ public class JPanel extends javax.swing.JPanel
      * @since 1.3
      */
     public void addMutableChangeListener(MutableChangeListener l) {
-       mutableChangeListenerList.add(MutableChangeListener.class, l);
+        mutableChangeListenerList.add(MutableChangeListener.class, l);
     }
 
     /**
@@ -231,7 +234,9 @@ public class JPanel extends javax.swing.JPanel
      */
     public void fireMutableChanged() {
         MutableChangeEvent fooEvent = new MutableChangeEvent(this, isChanged());
-        UndoUtilities.dispatchMutableChangeEvent(fooEvent, mutableChangeListenerList);
+        UndoUtilities.dispatchMutableChangeEvent(
+            fooEvent,
+            mutableChangeListenerList);
     }
 
     // --- Implementation of <code>UndoManager</code> ---
@@ -264,10 +269,10 @@ public class JPanel extends javax.swing.JPanel
     }
 
     public void commit() {
-        synchronized(controlledWidgets) {
+        synchronized (controlledWidgets) {
             Iterator iter = controlledWidgets.iterator();
-            while(iter.hasNext())
-                ((Mutable) iter.next()).commit();
+            while (iter.hasNext())
+                 ((Mutable) iter.next()).commit();
         }
         updateBorder();
         fireMutableChanged();

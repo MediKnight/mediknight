@@ -1,8 +1,10 @@
 package de.bo.mediknight.util;
 
-import java.util.*;
-import java.math.BigDecimal;
-import java.text.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 /**
  * Euro-Währungsklasse.
