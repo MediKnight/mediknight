@@ -1279,13 +1279,13 @@ public class MainFrame extends JFrame implements TraceConstants {
     }
 
     public static void main(String[] args) {
-        SplashWindow splash = new SplashWindow(
-                "de/bo/mediknight/resources/practic-splash.png");
+    	SplashWindow splash = null;
 
         initLocation();
         try {
             initProperties();
             MediknightTheme.install(properties);
+            splash = new SplashWindow("de/bo/mediknight/resources/practic-splash.png");
 
             // determine application name and version
             NAME = getProperties().getProperty("name", "Mediknight");
