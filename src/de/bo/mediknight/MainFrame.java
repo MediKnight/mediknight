@@ -1289,7 +1289,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 
             // determine application name and version
             NAME = getProperties().getProperty("name", "Mediknight");
-            VERSION = getProperties().getProperty("version", "1.0");
+            VERSION = getProperties().getProperty("version", "2.2");
 
             // Global variable 'application' set by the constructor
             new MainFrame();
