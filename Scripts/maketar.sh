@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Skript ist obsolet. Besser maketar2.sh verwenden.
+
 TMPDIR=tmp.$$
 
 mkdir -p ${TMPDIR}/mediknight2
