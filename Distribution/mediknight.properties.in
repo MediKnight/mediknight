@@ -1,20 +1,26 @@
-#
-# This file is a customer specific mediknight properties file.
-#
+dbserver.1.description = Lokaler Computer
+dbserver.1.driver = com.mysql.jdbc.Driver
+dbserver.1.url = jdbc:mysql://localhost:3306/mediknight
+dbserver.1.user = medi
+dbserver.1.password = medi
 
-jdbc.url.name=@DB@
-#jdbc.url.name=jdbc:mysql://hardy:3306/mediknight
-#jdbc.url.name=jdbc:mysql://bonbon:3306/mo
-jdbc.db.user=root
-jdbc.db.passwd=
-jdbc.driver.name=org.gjt.mm.mysql.Driver
+dbserver.2.description = Michael Vette - Notebook
+dbserver.2.driver = org.gjt.mm.mysql.Driver
+dbserver.2.url = jdbc:mysql://localhost:3306/mediknight
+dbserver.2.user = root
+dbserver.2.password =
 
-#jdbc.driver.name=org.hsqldb.jdbcDriver
-#jdbc.db.name=mediknight/mediknight
-#jdbc.db.name=mediknight
-#jdbc.url.name=jdbc:hsqldb:
-#jdbc.db.user=root
-#jdbc.db.passwd=
+dbserver.3.description = Labor - Notebook
+dbserver.3.driver = org.gjt.mm.mysql.Driver
+dbserver.3.url = jdbc:mysql://localhost:3306/mediknight
+dbserver.3.user = root
+dbserver.3.password =
+
+dbserver.4.description = Empfang - Desktop
+dbserver.4.driver = org.gjt.mm.mysql.Driver
+dbserver.4.url = jdbc:mysql://localhost:3306/mediknight
+dbserver.4.user = root
+dbserver.4.password =
 
 # True, if application invokes the hypersonic server
 hsql.server.run=false
@@ -53,14 +59,14 @@ style=xml/style.xml
 
 #about-dialog
 dialog.two=Abrechnungsprogramm für Heilpraktiker
-dialog.three=Copyright &copy; 2000-2001 Baltic Online Computer GmbH
+dialog.three=Copyright &copy; 2000-2004 Baltic Online Computer GmbH
 attention=ACHTUNG! Dieses Programm ist durch nationale und internationale Urheberrechtsgesetze und<br>Bestimmungen nationaler und internationaler Vertr&auml;ge gesch&uuml;tzt. Unbefugte Vervielf&auml;ltigung<br> oder unbefugter Vertrieb dieses Programms oder eines Teils davon sind strafbar. Dies wird sowohl<br>straf- als auch zivilrechtlich verfolgt und kann schwere Strafen und Schadensersatzforderungen<br>zur Folge haben.<br>
 
 #program information
 name=practic
 version=1.0
 
-#colors
+#color-params
 primary1.r = 51
 primary1.g = 102
 primary1.b = 51
@@ -79,4 +85,3 @@ secondary2.b = 153
 secondary3.r = 204
 secondary3.g = 208
 secondary3.b = 204
-
