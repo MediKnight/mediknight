@@ -193,7 +193,7 @@ public class LockRemover extends JFrame {
 
     public static void main(String[] args) throws Exception {
         properties = initProperties();
-        // MediknightTheme.install(properties);
+        MediknightTheme.install(properties);
         UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
         
         LockRemover frame = new LockRemover();
