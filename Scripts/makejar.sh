@@ -23,6 +23,7 @@ cd $CLASSDIR
 find . -name "*.class" -o \
        -name "*.properties" -o \
        -name "*.jpg" -o \
+       -name "*.png" -o \
        -name "*.gif" | xargs jar uf $JARCHIV
 
 cd $CURRENT_DIR
