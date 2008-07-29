@@ -3,7 +3,7 @@
 TMPDIR=tmp.$$
 
 mkdir -p ${TMPDIR}/mediknight2
-./makejar.sh
+./makejar.sh ${TMPDIR}
 
 cp mediknight.jar ${TMPDIR}/mediknight2
 cp mediknight.sh ${TMPDIR}/mediknight2/mediknight
