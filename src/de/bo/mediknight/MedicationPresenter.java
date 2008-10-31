@@ -1,22 +1,30 @@
 package de.bo.mediknight;
 
-import java.util.*;
+import java.awt.Component;
+import java.io.File;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.io.*;
-import java.awt.*;
-import java.sql.*;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import de.bo.mediknight.domain.*;
-import de.bo.mediknight.util.*;
-
-import de.bo.print.te.*;
-import de.bo.print.jpf.*;
-
-import de.bo.mediknight.tools.*;
-import de.bo.mediknight.widgets.*;
+import de.bo.mediknight.domain.KnightObject;
+import de.bo.mediknight.domain.Patient;
+import de.bo.mediknight.domain.TagesDiagnose;
+import de.bo.mediknight.printing.MedicationPrinter;
+import de.bo.mediknight.tools.PrintSettingsPresenter;
+import de.bo.mediknight.util.ErrorDisplay;
+import de.bo.mediknight.util.MediknightUtilities;
+import de.bo.mediknight.widgets.UndoUtilities;
+import de.bo.mediknight.widgets.YinYangDialog;
+import de.bo.mediknight.xml.CreateXMLFile;
+import de.bo.mediknight.xml.Transform;
 
 public class MedicationPresenter implements Presenter, Commitable, Observer {
 
@@ -123,7 +131,116 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
         d.setStatusText("Drucke ...");
         d.run(new Runnable() {
             public void run() {
-                try {
+            	try {
+            		Patient patient = model.getDiagnose().getPatient();
+            		// hier sind alle Daten für das Logo usw. gespeichert
+            		Map props = PrintSettingsPresenter.getSettings();    
+
+               		MedicationPrinter printer = 
+            			new MedicationPrinter("verordnung.xml", 
+            								  "verordnung2.xsl");
+            		printer.addData("Patient/Title", patient.getTitel());
+            		printer.addData("Patient/Anrede", patient.getAnrede());
+            		printer.addData("Patient/Name", patient.getFullname());
+            		
+            		printer.addData("Datum", MediknightUtilities.formatDate(
+                              model.getDiagnose().getVerordnung().getDatum()));
+            		
+            		printer.addData("Patient/Address1", patient.getAdresse1());
+            		printer.addData("Patient/Address2", patient.getAdresse2());
+            		printer.addData("Patient/Address3", patient.getAdresse3());
+            		
+            		printer.addData("Abschluss",
+            						(String) props.get("print.medication.final"));
+            		printer.addData("Absender", 
+            						(String) props.get("print.sender"));
+            		printer.addData("Betreff", "Verordnung:");
+
+               		// das Logo unterteilen und in die Datei mit aufnehmen
+            		String logo = (String) props.get("print.logo");
+            		String lf = System.getProperty("line.separator");
+            		StringTokenizer token = new StringTokenizer(logo,lf);
+            		int i=1;
+            		while(token.hasMoreElements()) {
+            			if(i==1) {
+            				printer.addData("Ueberschrift", token.nextToken());
+            				printer.insertValues();
+            				i++;
+            			}
+            			else {
+            				String str = token.nextToken();
+            				
+            				printer.addElement("Zeile", str, "LogoInhalt");
+            			}
+            		}
+ 
+            		// den Verordnugstext unterteilen und in die Datei aufnehmen            		
+            		String text = view.getVerordnungstext();
+            		
+            		token = new StringTokenizer(text,lf);
+            		while(token.hasMoreElements()) {
+            			String str = token.nextToken();
+            			printer.addElement("TextBlock", str, "Text");
+            		} 
+            		
+            		printer.printPage();
+ 
+ /*           		HashMap map = new HashMap();
+            		
+            		map.put("Patient/Title", patient.getTitel());
+            		map.put("Patient/Anrede", patient.getAnrede());
+            		map.put("Patient/Name", patient.getFullname());
+            		
+            		map.put("Datum", MediknightUtilities.formatDate(
+                              model.getDiagnose().getVerordnung().getDatum()));
+            		
+            		map.put("Patient/Address1", patient.getAdresse1());
+            		map.put("Patient/Address2", patient.getAdresse2());
+            		map.put("Patient/Address3", patient.getAdresse3());
+            		
+            		map.put("Abschluss",props.get("print.medication.final"));
+            		map.put("Absender", props.get("print.sender"));
+            		map.put("Betreff", "Verordnung:");
+            		
+            		CreateXMLFile create = new CreateXMLFile("/Users/bs-macosx/Desktop/mediknight files/verordnung.xml");;
+            		//create.insertValues(map);
+            		//TODO mit insertValues noch umgestalten
+               		// das Logo unterteilen und in die Datei mit aufnehmen
+            		String logo = (String) props.get("print.logo");
+            		String lf = System.getProperty("line.separator");
+            		StringTokenizer token = new StringTokenizer(logo,lf);
+            		int i=1;
+            		while(token.hasMoreElements()) {
+            			if(i==1) {
+            				map.put("Ueberschrift", token.nextToken());
+            				create.insertValues(map);
+            				i++;
+            			}
+            			else {
+            				String str = token.nextToken();
+            				
+            				create.addElement("Zeile", str, "LogoInhalt");
+            			}
+            		}
+            		
+            		// den Verordnugstext unterteilen und in die Datei aufnehmen            		
+            		String text = view.getVerordnungstext();
+            		
+            		token = new StringTokenizer(text,lf);
+            		while(token.hasMoreElements()) {
+            			String str = token.nextToken();
+            			create.addElement("TextBlock", str, "Text");
+            		} 
+            		
+            		String dir = "/Users/bs-macosx/Desktop/mediknight files/";
+                    Transform.xml2pdf(new File(dir, "output.xml"), 
+                    				  new File(dir, "verordnung2.xsl"),
+                    				  dir);
+            		*/
+            	} catch(Exception e) {
+            		e.printStackTrace();
+            	}
+                /*try {
                     Patient patient = model.getDiagnose().getPatient();
 
                     Properties prop =
@@ -232,7 +349,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
                     }
                 } catch (Exception x) {
                     new ErrorDisplay(x, "Speichern fehlgeschlagen!");
-                }
+                }*/
                 MainFrame.getApplication().setDefaultCursor();
             }
         });
