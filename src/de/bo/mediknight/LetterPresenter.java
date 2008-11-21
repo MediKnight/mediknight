@@ -1,20 +1,39 @@
 package de.bo.mediknight;
 
-import java.text.*;
-import java.io.*;
-import java.util.*;
-import java.awt.*;
-import javax.swing.*;
-import java.sql.*;
+import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
-import de.bo.mediknight.widgets.*;
+import javax.swing.JOptionPane;
 
-import de.bo.mediknight.domain.*;
-import de.bo.mediknight.util.*;
-import de.bo.mediknight.tools.*;
-
-import de.bo.print.te.*;
-import de.bo.print.jpf.*;
+import de.bo.mediknight.domain.KnightObject;
+import de.bo.mediknight.domain.Lock;
+import de.bo.mediknight.domain.Patient;
+import de.bo.mediknight.domain.Rechnung;
+import de.bo.mediknight.domain.RechnungsPosten;
+import de.bo.mediknight.domain.TagesDiagnose;
+import de.bo.mediknight.printing.FOPrinter;
+import de.bo.mediknight.tools.PrintSettingsPresenter;
+import de.bo.mediknight.util.CurrencyNumber;
+import de.bo.mediknight.util.ErrorDisplay;
+import de.bo.mediknight.util.MediknightUtilities;
+import de.bo.mediknight.util.XMLTool;
+import de.bo.mediknight.widgets.UndoUtilities;
+import de.bo.mediknight.widgets.YinYangDialog;
+import de.bo.mediknight.xml.CreateXMLFile;
+import de.bo.mediknight.xml.Transform;
+import de.bo.print.jpf.TemplatePrinter;
+import de.bo.print.te.DataProvider;
 
 public class LetterPresenter implements Presenter, Commitable, Observer {
 
@@ -117,8 +136,128 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
         d.setStatusText("Drucke ...");
         d.run(new Runnable() {
             public void run() {
-                try {
-                    DataProvider dProvider = new DataProvider(null);
+                try {                	
+                	FOPrinter fop = new FOPrinter("rechnung.xml", 
+                								  "rechnung.xsl");
+                	
+                	Rechnung rechnung = model.getRechnung();
+                	Patient patient = rechnung.getPatient();
+                	Map props = PrintSettingsPresenter.getSettings();
+                	String lf = System.getProperty("line.separator");
+                	NumberFormat nf = MediknightUtilities.getNumberFormat();
+                	
+                	//füge Rechnungsnr und Datum hinzu
+                	fop.addData("Rechnung", String.valueOf(rechnung.getId()));
+                	fop.addData("Datum", MediknightUtilities.formatDate(rechnung.getDatum()));                 	    	
+                	
+                	//füge Patientendaten hinzu
+                	fop.addData("Patient/Title", patient.getTitel());
+            		fop.addData("Patient/Anrede", patient.getAnrede());
+            		fop.addData("Patient/Name", patient.getFullname());
+ 
+              		fop.addData("Patient/Address1", patient.getAdresse1());
+            		fop.addData("Patient/Address2", patient.getAdresse2());
+            		fop.addData("Patient/Address3", patient.getAdresse3());
+ 
+            		//füge Absender hinzu               		
+            		fop.addData("Absender", (String)props.get("print.sender"));
+            		
+            		// zerlege das Logo und füge es in die neue xml-File ein
+               		String logo = (String) props.get("print.logo");
+            		StringTokenizer token = new StringTokenizer(logo,lf);
+            		int i=1;
+            		while(token.hasMoreElements()) {
+            			if(i==1) {
+            				String str = token.nextToken();
+            				fop.addData("Ueberschrift", str);
+            				i++;
+            			}
+            			else {
+            				String str = token.nextToken();
+            				fop.addTagToFather("Zeile", str, "LogoInhalt");
+            			}
+            		}
+            		
+            		//zerlege das Vorwort und füge es hinzu
+            		String[] vorwort = model.getRechnung().getText().split(lf);
+            		for(int y=0; y<vorwort.length; y++) {
+            			fop.addTagToFather("Zeile", vorwort[y], "Vorwort");
+            		}        
+            		
+            		String[] abschluss = ((String)props.get("print.bill.final")).split(lf);
+            		for(int y=0; y<abschluss.length; y++) {
+            			fop.addTagToFather("Zeile", abschluss[y], "Abschluss");
+            		}
+            		
+            		String[] greetings = view.getGreetings().split(lf);
+            		for(int y=0; y<greetings.length; y++)
+            			fop.addTagToFather("Zeile", greetings[y], "Greetings");
+            		// zerlege alle Rechnungsposten und füge sie zur xml-File hinzu
+            		BillEntry[] billEntries = BillEntry.loadEntries(rechnung);
+            		CurrencyNumber sum =
+                        new CurrencyNumber(0.0, CurrencyNumber.EUR); // der Gesamtpreis
+            		
+            		for(int y=0; y<billEntries.length; y++) {
+            			RechnungsPosten rp = billEntries[y].getItem();
+            			double count = billEntries[y].getCount();
+            			
+            			fop.addTagToFather("Row", "", "Table");
+            			if(y == 0) {
+            				fop.addTag("Cell", 
+            						MediknightUtilities.formatDate(
+            									rechnung.getDatum()), "Table");
+            			} else {
+            				fop.addTag("Cell", "", "Table");
+            			}
+            			if(rechnung.isGoae()) {
+            				fop.addTag("Cell", rp.getGOAE(), "Table");
+            			}
+            			else {
+            				fop.addTag("Cell", rp.getGebueH(), "Table"); 
+            			}
+            			
+            			fop.addTag("Cell", rp.getText(), "Table");
+            			int currency =
+                            rp.isEuro()
+                                ? CurrencyNumber.EUR
+                                : CurrencyNumber.DM;
+                        String price =
+                            new CurrencyNumber(rp.getPreis(), currency)
+                                .toCurrency(
+                                    MainFrame.getApplication().getCurrency())
+                                .toString();
+ 
+                        fop.addTag("Cell", price, "Table");
+                        fop.addTag("Cell", nf.format(count), "Table");
+            			
+            			double t = rp.getPreis() * count;
+                        CurrencyNumber cn =
+                            new CurrencyNumber(t, currency).toCurrency(
+                                MainFrame.getApplication().getCurrency());
+                        String total = cn.toString();
+                        fop.addTag("Cell", total, "Table");
+                        sum.add(cn.round(2));
+            			
+            		}
+            			
+            		//füge den Gesamtpreis hinzu
+            		fop.addTagToFather("Total", sum.toString(), "Dokument");
+            		
+            		try {
+                        MainFrame.getApplication().setWaitCursor();
+                        for (int y = 0; y < view.getCopyCount(); y++)
+                        	fop.print();
+                    } catch (Exception e) {
+                        new ErrorDisplay(
+                            e,
+                            "Fehler beim Ausdruck!",
+                            "Drucken...",
+                            MainFrame.getApplication());
+                    } finally {
+                        MainFrame.getApplication().setDefaultCursor();
+                    }
+                	
+                    /*DataProvider dProvider = new DataProvider(null);
 
                     Properties prop = MainFrame.getProperties();
 
@@ -363,6 +502,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
                     dProvider.putData(
                         "CLOSING",
                         XMLTool.toXMLString(view.getGreetings()));
+                    
 
                     TemplatePrinter tp =
                         new TemplatePrinter(
@@ -377,7 +517,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
                     try {
                         MainFrame.getApplication().setWaitCursor();
                         for (int i = 0; i < view.getCopyCount(); i++)
-                            tp.print();
+                        	tp.print();
                     } catch (Exception e) {
                         new ErrorDisplay(
                             e,
@@ -386,9 +526,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
                             MainFrame.getApplication());
                     } finally {
                         MainFrame.getApplication().setDefaultCursor();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    }*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

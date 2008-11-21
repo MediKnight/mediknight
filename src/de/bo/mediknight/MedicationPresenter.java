@@ -1,10 +1,9 @@
 package de.bo.mediknight;
 
 import java.awt.Component;
-import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -17,14 +16,12 @@ import javax.swing.JOptionPane;
 import de.bo.mediknight.domain.KnightObject;
 import de.bo.mediknight.domain.Patient;
 import de.bo.mediknight.domain.TagesDiagnose;
-import de.bo.mediknight.printing.MedicationPrinter;
+import de.bo.mediknight.printing.FOPrinter;
 import de.bo.mediknight.tools.PrintSettingsPresenter;
 import de.bo.mediknight.util.ErrorDisplay;
 import de.bo.mediknight.util.MediknightUtilities;
 import de.bo.mediknight.widgets.UndoUtilities;
 import de.bo.mediknight.widgets.YinYangDialog;
-import de.bo.mediknight.xml.CreateXMLFile;
-import de.bo.mediknight.xml.Transform;
 
 public class MedicationPresenter implements Presenter, Commitable, Observer {
 
@@ -112,7 +109,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
             entries.add( new MedicationEntry( tokenizer.nextToken() ) );
         }
 
-        MedicationEntry[] medications = (MedicationEntry[]) entries.toArray( new MedicationEntry[0] );
+        //MedicationEntry[] medications = (MedicationEntry[]) entries.toArray( new MedicationEntry[0] );
 /*        MedicationEntry.saveEntries( model.getVerordnung(), medications );
 
         try {
@@ -132,94 +129,43 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
         d.run(new Runnable() {
             public void run() {
             	try {
-            		Patient patient = model.getDiagnose().getPatient();
-            		// hier sind alle Daten für das Logo usw. gespeichert
-            		Map props = PrintSettingsPresenter.getSettings();    
-
-               		MedicationPrinter printer = 
-            			new MedicationPrinter("verordnung.xml", 
-            								  "verordnung2.xsl");
-            		printer.addData("Patient/Title", patient.getTitel());
-            		printer.addData("Patient/Anrede", patient.getAnrede());
-            		printer.addData("Patient/Name", patient.getFullname());
+            		Patient patient = model.getDiagnose().getPatient();            		
+            		Map props = PrintSettingsPresenter.getSettings();               		
+            		FOPrinter fop = new FOPrinter("verordnung.xml", "verordnung.xsl");
             		
-            		printer.addData("Datum", MediknightUtilities.formatDate(
-                              model.getDiagnose().getVerordnung().getDatum()));
+            		// füge Patientendaten hinzu
+            		fop.addData("Patient/Title", patient.getTitel());
+            		fop.addData("Patient/Anrede", patient.getAnrede());
+            		fop.addData("Patient/Name", patient.getFullname());
             		
-            		printer.addData("Patient/Address1", patient.getAdresse1());
-            		printer.addData("Patient/Address2", patient.getAdresse2());
-            		printer.addData("Patient/Address3", patient.getAdresse3());
+            		// füge das Datum hinzu
+            		fop.addData("Datum", MediknightUtilities.formatDate(
+                            model.getDiagnose().getVerordnung().getDatum()));
             		
-            		printer.addData("Abschluss",
-            						(String) props.get("print.medication.final"));
-            		printer.addData("Absender", 
-            						(String) props.get("print.sender"));
-            		printer.addData("Betreff", "Verordnung:");
-
+            		// füge Adresse des Patienten hinzu
+            		fop.addData("Patient/Address1", patient.getAdresse1());
+            		fop.addData("Patient/Address2", patient.getAdresse2());
+            		fop.addData("Patient/Address3", patient.getAdresse3());
+            		
+            		// füge Betreff, Absender und Abschlusssatz hinzu
+            		fop.addData("Abschluss",(String)props.get("print.medication.final"));
+            		fop.addData("Absender", (String)props.get("print.sender"));
+            		fop.addData("Betreff", "Verordnung:");
+            		            		
                		// das Logo unterteilen und in die Datei mit aufnehmen
             		String logo = (String) props.get("print.logo");
             		String lf = System.getProperty("line.separator");
             		StringTokenizer token = new StringTokenizer(logo,lf);
             		int i=1;
             		while(token.hasMoreElements()) {
-            			if(i==1) {
-            				printer.addData("Ueberschrift", token.nextToken());
-            				printer.insertValues();
+            			if(i==1) {            				
+            				fop.addData("Ueberschrift", token.nextToken());            				
             				i++;
             			}
             			else {
-            				String str = token.nextToken();
-            				
-            				printer.addElement("Zeile", str, "LogoInhalt");
-            			}
-            		}
- 
-            		// den Verordnugstext unterteilen und in die Datei aufnehmen            		
-            		String text = view.getVerordnungstext();
-            		
-            		token = new StringTokenizer(text,lf);
-            		while(token.hasMoreElements()) {
-            			String str = token.nextToken();
-            			printer.addElement("TextBlock", str, "Text");
-            		} 
-            		
-            		printer.printPage();
- 
- /*           		HashMap map = new HashMap();
-            		
-            		map.put("Patient/Title", patient.getTitel());
-            		map.put("Patient/Anrede", patient.getAnrede());
-            		map.put("Patient/Name", patient.getFullname());
-            		
-            		map.put("Datum", MediknightUtilities.formatDate(
-                              model.getDiagnose().getVerordnung().getDatum()));
-            		
-            		map.put("Patient/Address1", patient.getAdresse1());
-            		map.put("Patient/Address2", patient.getAdresse2());
-            		map.put("Patient/Address3", patient.getAdresse3());
-            		
-            		map.put("Abschluss",props.get("print.medication.final"));
-            		map.put("Absender", props.get("print.sender"));
-            		map.put("Betreff", "Verordnung:");
-            		
-            		CreateXMLFile create = new CreateXMLFile("/Users/bs-macosx/Desktop/mediknight files/verordnung.xml");;
-            		//create.insertValues(map);
-            		//TODO mit insertValues noch umgestalten
-               		// das Logo unterteilen und in die Datei mit aufnehmen
-            		String logo = (String) props.get("print.logo");
-            		String lf = System.getProperty("line.separator");
-            		StringTokenizer token = new StringTokenizer(logo,lf);
-            		int i=1;
-            		while(token.hasMoreElements()) {
-            			if(i==1) {
-            				map.put("Ueberschrift", token.nextToken());
-            				create.insertValues(map);
-            				i++;
-            			}
-            			else {
-            				String str = token.nextToken();
-            				
-            				create.addElement("Zeile", str, "LogoInhalt");
+            				fop.addTagToFather("Zeile", 
+            								   token.nextToken(), 
+            								   "LogoInhalt");
             			}
             		}
             		
@@ -228,20 +174,19 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
             		
             		token = new StringTokenizer(text,lf);
             		while(token.hasMoreElements()) {
-            			String str = token.nextToken();
-            			create.addElement("TextBlock", str, "Text");
+            			fop.addTagToFather("TextBock", token.nextToken(), "Text");
             		} 
             		
-            		String dir = "/Users/bs-macosx/Desktop/mediknight files/";
-                    Transform.xml2pdf(new File(dir, "output.xml"), 
-                    				  new File(dir, "verordnung2.xsl"),
-                    				  dir);
-            		*/
-            	} catch(Exception e) {
+            		// Datei drucken
+            		fop.print();
+            	} catch(SQLException e) {
+            		e.printStackTrace();
+            	} catch(IOException e) {
             		e.printStackTrace();
             	}
-                /*try {
-                    Patient patient = model.getDiagnose().getPatient();
+                
+            	/*try {
+                   // Patient patient = model.getDiagnose().getPatient();
 
                     Properties prop =
                         MainFrame.getProperties();
@@ -364,6 +309,6 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
 
         f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         f.pack();
-        f.show();
+        f.setVisible(true);
     }
 }

@@ -11,6 +11,11 @@ import de.bo.mediknight.*;
 import de.bo.mediknight.domain.KnightObject;
 import de.bo.mediknight.MainFrame;
 
+/**
+ * Hier sind alle Eigenschaften des Programms gespeichert. Zum Beispiel
+ * welche Daten das Logo enthält.
+ * 
+ */
 public class PrintSettingsPresenter implements Presenter, Commitable {
 
     PrintSettingsModel model;

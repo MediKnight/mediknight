@@ -21,11 +21,13 @@ import org.w3c.dom.NodeList;
 public class CreateXMLFile {
 	private File xmlFile;
 	private File template;
+	private final String DIR; 
 	
 	public CreateXMLFile(String templateFile) throws IOException {
-		xmlFile = new File("/Users/bs-macosx/Desktop/mediknight files/output.xml");
+		DIR = "/Users/bs-macosx/Desktop/mediknight files/";
+		xmlFile = new File(DIR, "output.xml");
 		xmlFile.createNewFile();
-		template = new File(templateFile);
+		template = new File(DIR, templateFile);
 	}
 	
 	public void insertValues(HashMap table) 
@@ -64,10 +66,11 @@ public class CreateXMLFile {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		CreateXMLFile create = new CreateXMLFile("/Users/bs-macosx/Desktop/verordnung.xml");
+		CreateXMLFile create = new CreateXMLFile("/Users/bs-macosx/Desktop/mediknight files/verordnung.xml");
 		
 		//create.insertValues(create.getHashtable());	
-		//create.addElement("Unterschrift", "B. Schnoor", null);
+		for(int i=0; i<6; i++)
+			create.addElement("Zeile", "B. Schnoor", "LogoInhalt");
 	}
 	
 	private Hashtable getHashtable() {
@@ -103,49 +106,40 @@ public class CreateXMLFile {
 			Element e = doc.createElement(tag);
 			e.setTextContent(value);
 			
+		node.appendChild(e);			
+			//add(doc.getFirstChild(),tag,value,parent);
+			TransformerFactory.newInstance().newTransformer().transform(
+	                new DOMSource(doc), new StreamResult(new FileOutputStream(xmlFile)));
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();			
+		}
+	}
+	
+	public void addToLast(String tag, String value, String grandfather) {
+		try {
+			DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = fac.newDocumentBuilder();		
+			Document doc = builder.parse(xmlFile); 
+						
+			
+			NodeList par = doc.getElementsByTagName(grandfather);
+			Node n = par.item(0);
+			
+			Node node = n.getLastChild();
+			
+			Element e = doc.createElement(tag);
+			e.setTextContent(value);
+			
 			node.appendChild(e);			
 			//add(doc.getFirstChild(),tag,value,parent);
 			TransformerFactory.newInstance().newTransformer().transform(
 	                new DOMSource(doc), new StreamResult(new FileOutputStream(xmlFile)));
 			
 		}
-		catch (Exception e) {e.printStackTrace();}
-	}
-		
-	private boolean add(Node current, String tag, String value, String parent) {
-		Document doc = current.getOwnerDocument();
-		
-		NodeList par = doc.getElementsByTagName("Dokument");
-		Node node = par.item(0);
-		Element e = doc.createElement(tag);
-		e.setNodeValue(value);
-		node.appendChild(e); return true;
-		/*
-		if(parent == null) {
-			Element e = current.getOwnerDocument().createElement(tag);
-			e.setNodeValue(value);
-			current.getFirstChild().appendChild(e);
-			return true;
-		} else {
-			NodeList list = current.getChildNodes();
-			
-			for(int i=0; i<list.getLength(); i++) {
-				Node node = list.item(i);
-				if(node.getNodeName().equals(parent)) {
-					Element e = current.getOwnerDocument().createElement(tag);
-					e.setNodeValue(value);
-					node.appendChild(e);
-					return true;
-				}
-				else {
-					if(node.hasChildNodes()) {
-						if(add(node,tag,value,parent))
-							return true;						
-					}
-				}
-			}
+		catch (Exception e) {
+			e.printStackTrace();			
 		}
-		return false;*/
-	}
-
+	}		
 }

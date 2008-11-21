@@ -1,10 +1,12 @@
 package de.bo.mediknight;
 
 import java.awt.Component;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
@@ -14,32 +16,16 @@ import de.bo.mediknight.domain.KnightObject;
 import de.bo.mediknight.domain.Lock;
 import de.bo.mediknight.domain.Patient;
 import de.bo.mediknight.domain.TagesDiagnose;
-import de.bo.mediknight.tools.PrintSettingsPresenter;
+import de.bo.mediknight.printing.FOPrinter;
 import de.bo.mediknight.util.ErrorDisplay;
 import de.bo.mediknight.util.MediknightUtilities;
 import de.bo.mediknight.widgets.UndoUtilities;
 import de.bo.mediknight.widgets.YinYangDialog;
-import de.bo.print.jpf.TemplatePrinter;
-import de.bo.print.te.DataProvider;
 
 public class DiagnosisPresenter implements Presenter, Commitable, Observer {
 
     DiagnosisModel model;
     DiagnosisPanel view;
-
-    public static DiagnosisPresenter example() {
-        return new DiagnosisPresenter() {
-            public void searchFor( String s ) {
-                String[] patients = new String[] {
-                    "Naujok, Christoph",
-                    "Mueller-Lund, Soenke",
-                    "Bernhardt, Jan",
-                    "von Mucheln, Eike" };
-
-//                getModel().setFoundPatients( Arrays.asList( patients ) );
-            }
-        };
-    }
 
     public DiagnosisPresenter() {
         this(new DiagnosisModel());
@@ -68,6 +54,9 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
         return panel;
     }
 
+    /**
+     * Macht einen Ausdruck von allen Tagesdiagnosen.
+     */
     public void printDiagnosis() {
         final YinYangDialog d =
             new YinYangDialog(
@@ -77,7 +66,39 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
         d.run(new Runnable() {
             public void run() {
                 try {
-                    DataProvider dProvider = new DataProvider(null);
+                	FOPrinter fop = new FOPrinter("diagnose.xml", "diagnose.xsl");                	
+                	Patient patient = model.getPatient();
+                	String ersteDiagnose = model.getPatient().getErstDiagnose();
+                	List tagesDiagnosen = model.getTagesDiagnosen();
+                	
+                	//füge Dauerdiagnose und Name des Patienten in die Datei
+                	fop.addData("Name", patient.getFullname());                	
+                	fop.addData("Dauer", ersteDiagnose);                	
+                	
+                	// füge die Tagesdiagnosen in die Datei ein
+                	for (int i = 0; i < tagesDiagnosen.size(); i++) {
+                        TagesDiagnose td =
+                            (TagesDiagnose) tagesDiagnosen.get(i);
+                        if ((td.getText() != null)
+                                && (td.getText().length() > 0)) {
+                                String[] diag = new String[2];
+                                if (td.getDatum() != null)
+                                    diag[0] =
+                                        MediknightUtilities.formatDate(
+                                            td.getDatum());
+                                else
+                                    diag[0] = "";
+                                diag[1] = td.getText();   
+                                fop.addTagToFather("Tagesdiagnose", "", "TagesDiagnosen");
+                                fop.addTag("Datum", diag[0], "TagesDiagnosen");
+                                fop.addTag("Text", diag[1], "TagesDiagnosen");
+                            }
+                	}
+                	
+                	// drucke die Datei aus
+                	fop.print();
+                	
+                	/*DataProvider dProvider = new DataProvider(null);
 
                     Properties prop =
                         MainFrame.getProperties();
@@ -138,9 +159,11 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
                             "Fehler beim Ausdruck!",
                             "Drucken...",
                             MainFrame.getApplication());
-                    }
-                } catch (Exception e) {
+                    }*/
+                } catch (IOException e) {
                     e.printStackTrace();
+                } catch(Exception e) {
+                	e.printStackTrace();
                 }
             }
         });
@@ -260,15 +283,5 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
         catch ( SQLException x ) {
             new ErrorDisplay(x,"Speichern fehlgeschlagen!");
         }
-    }
-
-    public static void main(String[] args) {
-        JFrame f = new JFrame( "Search Presenter Example" );
-
-        f.getContentPane().add( example().createView() );
-
-        f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        f.pack();
-        f.show();
     }
 }

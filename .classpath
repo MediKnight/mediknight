@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="/BOprint2"/>
 	<classpathentry kind="lib" path="lib/FlexGrid.jar"/>
 	<classpathentry kind="lib" path="lib/LayoutAssistant.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
@@ -22,5 +21,6 @@
 	<classpathentry kind="lib" path="/Users/bs-macosx/Documents/libraries/fop-0.95/lib/xml-apis-1.3.04.jar"/>
 	<classpathentry kind="lib" path="/Users/bs-macosx/Documents/libraries/fop-0.95/lib/xml-apis-ext-1.3.04.jar"/>
 	<classpathentry kind="lib" path="/Users/bs-macosx/Documents/libraries/fop-0.95/lib/xmlgraphics-commons-1.3.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BOprint2"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

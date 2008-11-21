@@ -1,10 +1,13 @@
 package de.bo.mediknight.tools;
 
-import de.bo.mediknight.*;
+import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.*;
-import javax.swing.*;
 
+import javax.swing.JFrame;
+
+import de.bo.mediknight.Commitable;
+import de.bo.mediknight.MainFrame;
+import de.bo.mediknight.Presenter;
 import de.bo.mediknight.domain.KnightObject;
 
 public class UserAdministrationPresenter implements Presenter, Commitable {
@@ -62,7 +65,7 @@ public class UserAdministrationPresenter implements Presenter, Commitable {
         UserAdministrationPresenter presenter = new UserAdministrationPresenter( model );
         frame.getContentPane().add(presenter.createView(), BorderLayout.CENTER );
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.show();
+        frame.setVisible(true);
         frame.pack();
     }
 
