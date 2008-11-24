@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -66,7 +67,9 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
         d.run(new Runnable() {
             public void run() {
                 try {
-                	FOPrinter fop = new FOPrinter("diagnose.xml", "diagnose.xsl");                	
+                	Properties props = MainFrame.getProperties();
+                	FOPrinter fop = new FOPrinter(props.getProperty("diagnosis.xml"), 
+                								  props.getProperty("diagnosis.xsl"));                	
                 	Patient patient = model.getPatient();
                 	String ersteDiagnose = model.getPatient().getErstDiagnose();
                 	List tagesDiagnosen = model.getTagesDiagnosen();

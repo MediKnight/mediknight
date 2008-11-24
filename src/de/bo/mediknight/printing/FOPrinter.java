@@ -25,7 +25,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.bo.mediknight.xml.Transform;
+import de.bo.mediknight.MainFrame;
+
 
 /**
  * Diese Klasse wird benutzt, um xml-Dateien in das pdf-Format umzuwandeln und
@@ -42,21 +43,22 @@ public class FOPrinter {
 	private File xmlFile;
 	private File xslFile;
 	private File templateFile;
-	private HashMap data; // für die Ersetzung
+	private HashMap data; // für die Ersetzung von Templates
 	private ArrayList newElements; // für das Einfügen neuer Tags 
 	private boolean wasPrinted;
 		
 	/**
 	 * Erzeugt ein neues FOPrinter-Objekt.
+	 * 
 	 * @param xmlFileName Name der Template-Datei
 	 * @param xslFileName Name der xsl-Datei
 	 */
 	public FOPrinter(String xmlFileName, String xslFileName) {
-		//TODO über property klasse finden
-		DIR = "/Users/bs-macosx/Desktop/mediknight files/";
-		templateFile = new File(DIR, xmlFileName);
+		
+		DIR = MainFrame.getProperties().getProperty("outdir");
+		templateFile = new File(xmlFileName);
 		xmlFile = new File(DIR, "output.xml");
-		xslFile = new File(DIR, xslFileName);
+		xslFile = new File(xslFileName);
 		data = new HashMap();
 		newElements = new ArrayList();
 		wasPrinted = false;
@@ -130,7 +132,7 @@ public class FOPrinter {
 	 */
 	public boolean print() throws IOException {
 		
-		// wenn schon einmal diese Obekt gedruckt wurde, dann nicht
+		// wenn schon einmal dieses Objekt gedruckt wurde, dann nicht
 		// nocheinmal die Werte einsetzen
 		if(!wasPrinted) {		
 			insertValues();
@@ -146,7 +148,7 @@ public class FOPrinter {
 
 		PrintService printer = PrinterJob.lookupPrintServices()[0];
 
-		/*if (printer != null) {
+		if (printer != null) {
 			DocPrintJob job = printer.createPrintJob();
 			try {
 				job.print(doc, null);
@@ -159,7 +161,7 @@ public class FOPrinter {
 			}
 		}
 		else
-			fis.close();*/
+			fis.close();
 		return false;
 	}
 	

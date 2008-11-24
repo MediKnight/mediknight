@@ -48,14 +48,13 @@ log.maxcycle=20
 trace.classes=info,error,warning,debug,user,data
 
 #BOprint XML-Dateien
-bill.content=xml/content.xml
-medication.content=xml/content_medication.xml
-diagnosis.content=xml/diagnosis.xml
-header=xml/header.xml
-footer=xml/footer.xml
-frame=xml/frame.xml
-page=xml/page.xml
-style=xml/style.xml
+bill.xml=xml/rechnung.xml
+bill.xsl=xsl/rechnung.xsl
+medication.xml=xml/verordnung.xml
+medication.xsl=xsl/verordnung.xsl
+diagnosis.xml=xml/diagnose.xml
+diagnosis.xsl=xsl/diagnose.xsl
+outdir=.mediknight
 
 #about-dialog
 dialog.two=Abrechnungsprogramm für Heilpraktiker

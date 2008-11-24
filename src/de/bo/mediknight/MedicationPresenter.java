@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Properties;
 import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
@@ -130,9 +131,11 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
             public void run() {
             	try {
             		Patient patient = model.getDiagnose().getPatient();            		
-            		Map props = PrintSettingsPresenter.getSettings();               		
-            		FOPrinter fop = new FOPrinter("verordnung.xml", "verordnung.xsl");
-            		
+            		Map printSettings = PrintSettingsPresenter.getSettings();               		
+                	Properties props = MainFrame.getProperties();
+                	FOPrinter fop = new FOPrinter(props.getProperty("medication.xml"), 
+                								  props.getProperty("medication.xsl"));                	
+           		
             		// füge Patientendaten hinzu
             		fop.addData("Patient/Title", patient.getTitel());
             		fop.addData("Patient/Anrede", patient.getAnrede());
@@ -148,12 +151,12 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
             		fop.addData("Patient/Address3", patient.getAdresse3());
             		
             		// füge Betreff, Absender und Abschlusssatz hinzu
-            		fop.addData("Abschluss",(String)props.get("print.medication.final"));
-            		fop.addData("Absender", (String)props.get("print.sender"));
+            		fop.addData("Abschluss",(String)printSettings.get("print.medication.final"));
+            		fop.addData("Absender", (String)printSettings.get("print.sender"));
             		fop.addData("Betreff", "Verordnung:");
             		            		
                		// das Logo unterteilen und in die Datei mit aufnehmen
-            		String logo = (String) props.get("print.logo");
+            		String logo = (String) printSettings.get("print.logo");
             		String lf = System.getProperty("line.separator");
             		StringTokenizer token = new StringTokenizer(logo,lf);
             		int i=1;
@@ -174,7 +177,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
             		
             		token = new StringTokenizer(text,lf);
             		while(token.hasMoreElements()) {
-            			fop.addTagToFather("TextBock", token.nextToken(), "Text");
+            			fop.addTagToFather("TextBlock", token.nextToken(), "Text");
             		} 
             		
             		// Datei drucken

@@ -62,14 +62,14 @@ public class MainTool extends JFrame {
 		MainTool mt = new MainTool();
 		try {
 			LoginDialog ld = new LoginDialog(getFrame(), true);
-			ld.show();
+			ld.setVisible(true);
 			if (ld.getUser() == null)
 				throw new IllegalAccessException("Anwender hat sich nicht authentifiziert!");
 		} catch (IllegalAccessException iax) {
 			System.exit(1);
 		}
 
-		mt.show();
+		mt.setVisible(true);
 	}
 
 	public static JFrame getFrame() {

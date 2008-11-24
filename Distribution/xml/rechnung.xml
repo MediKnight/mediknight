@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="rechnung.xsl"?>
+<Dokument>
+	<LogoInhalt>
+		<Ueberschrift>$Ueberschrift$</Ueberschrift>
+	</LogoInhalt>
+	
+	<Absender>$Absender$</Absender>
+	
+	<Patient>
+		<Anrede>$Pateint/Title$ $Patient/Anrede$</Anrede>
+		<Name>$Patient/Name$</Name>
+		<Anschrift>
+			<Zeile>$Patient/Address1$</Zeile>
+			<Zeile>$Patient/Address2$</Zeile>
+			<Zeile>$Patient/Address3$</Zeile>
+		</Anschrift>
+	</Patient>
+	
+	<Rechnung>$Rechnung$</Rechnung>
+	
+	<Datum>$Datum$</Datum>
+	
+	<Vorwort />
+
+	<Table />
+	
+	<Greetings />
+	
+	<Abschluss />
+</Dokument>

@@ -1,4 +1,4 @@
-package de.bo.mediknight.xml;
+package de.bo.mediknight.printing;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -33,6 +33,7 @@ public class Transform {
 	public static File xml2pdf(File xmlFile, File xslFile, String dir) {
 		
 	   File pdfFile = new File(dir, "pdfFile.pdf");
+	   	
 	   // Step 1: Construct a FopFactory
 	   // (reuse if you plan to render multiple documents!)
 	   FopFactory fopFactory = FopFactory.newInstance();

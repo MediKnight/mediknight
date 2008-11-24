@@ -1,13 +1,8 @@
 package de.bo.mediknight;
 
 import java.awt.Component;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
 import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -27,13 +22,8 @@ import de.bo.mediknight.tools.PrintSettingsPresenter;
 import de.bo.mediknight.util.CurrencyNumber;
 import de.bo.mediknight.util.ErrorDisplay;
 import de.bo.mediknight.util.MediknightUtilities;
-import de.bo.mediknight.util.XMLTool;
 import de.bo.mediknight.widgets.UndoUtilities;
 import de.bo.mediknight.widgets.YinYangDialog;
-import de.bo.mediknight.xml.CreateXMLFile;
-import de.bo.mediknight.xml.Transform;
-import de.bo.print.jpf.TemplatePrinter;
-import de.bo.print.te.DataProvider;
 
 public class LetterPresenter implements Presenter, Commitable, Observer {
 
@@ -137,12 +127,13 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
         d.run(new Runnable() {
             public void run() {
                 try {                	
-                	FOPrinter fop = new FOPrinter("rechnung.xml", 
-                								  "rechnung.xsl");
-                	
+                	Properties props = MainFrame.getProperties();
+                	FOPrinter fop = new FOPrinter(props.getProperty("bill.xml"), 
+                								  props.getProperty("bill.xsl"));                	
+               	
                 	Rechnung rechnung = model.getRechnung();
                 	Patient patient = rechnung.getPatient();
-                	Map props = PrintSettingsPresenter.getSettings();
+                	Map printSettings = PrintSettingsPresenter.getSettings();
                 	String lf = System.getProperty("line.separator");
                 	NumberFormat nf = MediknightUtilities.getNumberFormat();
                 	
@@ -160,10 +151,10 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
             		fop.addData("Patient/Address3", patient.getAdresse3());
  
             		//füge Absender hinzu               		
-            		fop.addData("Absender", (String)props.get("print.sender"));
+            		fop.addData("Absender", (String)printSettings.get("print.sender"));
             		
             		// zerlege das Logo und füge es in die neue xml-File ein
-               		String logo = (String) props.get("print.logo");
+               		String logo = (String) printSettings.get("print.logo");
             		StringTokenizer token = new StringTokenizer(logo,lf);
             		int i=1;
             		while(token.hasMoreElements()) {
@@ -184,7 +175,8 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
             			fop.addTagToFather("Zeile", vorwort[y], "Vorwort");
             		}        
             		
-            		String[] abschluss = ((String)props.get("print.bill.final")).split(lf);
+            		String[] abschluss = ((String)printSettings.get(
+            									"print.bill.final")).split(lf);
             		for(int y=0; y<abschluss.length; y++) {
             			fop.addTagToFather("Zeile", abschluss[y], "Abschluss");
             		}

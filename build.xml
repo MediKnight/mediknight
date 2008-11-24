@@ -77,16 +77,18 @@
       <fileset dir="${jars}" includes="*.jar"/>
     </copy>
 
-	<mkdir dir="${dist}/xml"/>
-	<mkdir dir="${dist}/xsd"/>
+	<mkdir dir="${dist}/xml"/>	
+  	<mkdir dir="${dist}/xsl"/>
 	
     <copy todir="${dist}/xml">
       <fileset dir="${distribution}/xml"/>
     </copy>
 
-    <copy todir="${dist}/xsd">
-      <fileset dir="${distribution}/xsd"/>
-    </copy>
+ 	<copy todir="${dist}/xsl">
+  		<fileset dir="${distribution}/xsl"/>
+  	</copy>
+  	
+  	<mkdir dir="${dist}/.mediknight"/>
 
     <copy file="${distribution}/mediknight.properties.in"
           toFile="${dist}/mediknight.properties">
