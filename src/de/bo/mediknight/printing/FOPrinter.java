@@ -148,7 +148,7 @@ public class FOPrinter {
 
 		PrintService printer = PrinterJob.lookupPrintServices()[0];
 
-		if (printer != null) {
+		/*if (printer != null) {
 			DocPrintJob job = printer.createPrintJob();
 			try {
 				job.print(doc, null);
@@ -161,7 +161,7 @@ public class FOPrinter {
 			}
 		}
 		else
-			fis.close();
+			fis.close();*/
 		return false;
 	}
 	

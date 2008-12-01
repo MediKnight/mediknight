@@ -6,6 +6,7 @@
 	
 <xsl:param name="Schriftgroesse">11pt</xsl:param> 
 <xsl:param name="Leftspace">9.5cm</xsl:param>
+<xsl:param name="Schrift">$Schrift$</xsl:param>
 			
 <xsl:template match="/">
 	<fo:root>
@@ -86,7 +87,7 @@
 </xsl:template>
 
 <xsl:template match="Betreff">
-	<fo:block font-size="{$Schriftgroesse}" margin-top="1.5cm" margin-bottom="1.5em">
+	<fo:block font-size="{$Schriftgroesse}" margin-top="1em" margin-bottom="2em">
 		<xsl:apply-templates/>
 	</fo:block>
 </xsl:template>
@@ -104,7 +105,7 @@
 </xsl:template>
 
 <xsl:template match="Abschluss">
-	<fo:block font-size="{$Schriftgroesse}" margin-top="1.5em">
+	<fo:block font-size="{$Schriftgroesse}" margin-top="2em">
 		<xsl:apply-templates/>
 	</fo:block>
 </xsl:template>
