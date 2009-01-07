@@ -6,7 +6,11 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CreateMacroPanel extends JPanel implements ChangeListener {
-    GridBagLayout gridBagLayout1 = new GridBagLayout();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4555675996654488301L;
+	GridBagLayout gridBagLayout1 = new GridBagLayout();
     JLabel nameLabel = new JLabel();
     JTextField nameTF = new JTextField();
     JPanel jPanel1 = new JPanel();

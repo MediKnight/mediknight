@@ -1,7 +1,14 @@
 package de.bo.mediknight;
 
 //import de.bo.util.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -9,7 +16,11 @@ import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
+import javax.swing.JSplitPane;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
@@ -22,18 +33,22 @@ import de.bo.mediknight.domain.RechnungsPosten;
 import de.bo.mediknight.util.CurrencyNumber;
 import de.bo.mediknight.util.ErrorDisplay;
 import de.bo.mediknight.util.MediknightUtilities;
-import de.bo.mediknight.widgets.JPanel;
 import de.bo.mediknight.widgets.JButton;
+import de.bo.mediknight.widgets.JPanel;
+import de.bo.mediknight.widgets.JRadioButton;
 import de.bo.mediknight.widgets.JScrollPane;
 import de.bo.mediknight.widgets.JTable;
-import de.bo.mediknight.widgets.JRadioButton;
 
 
 public class Bill1Panel
     extends JPanel
     implements ChangeListener, ListSelectionListener {
 
-    public static final int ITEM_PRICE_COLUMN = 2;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8050367950483181498L;
+	public static final int ITEM_PRICE_COLUMN = 2;
     public static final int ITEM_AMOUNT_COLUMN = 3;
 
     BillPresenter presenter;
@@ -487,7 +502,12 @@ public class Bill1Panel
 
     class ItemTableModel extends AbstractTableModel {
 
-        final String[] columnNames =
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 3575803786544655240L;
+
+		final String[] columnNames =
             { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis" };
 
         RechnungsPosten[] items;
@@ -534,7 +554,12 @@ public class Bill1Panel
 
     class BillTableModel extends AbstractTableModel {
 
-        final String[] columnNames =
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -3832967955412119635L;
+
+		final String[] columnNames =
             { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis", "Anzahl" };
 
         public boolean[] columnsVisible = new boolean[5];

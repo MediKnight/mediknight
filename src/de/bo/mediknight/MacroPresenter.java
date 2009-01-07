@@ -1,13 +1,14 @@
 package de.bo.mediknight;
 
-import java.util.*;
-import java.util.List;
-import java.awt.*;
-import javax.swing.*;
-import java.sql.*;
+import java.awt.Component;
+import java.sql.SQLException;
 
-import de.bo.mediknight.domain.*;
-import de.bo.mediknight.util.*;
+import javax.swing.JOptionPane;
+
+import de.bo.mediknight.domain.KnightObject;
+import de.bo.mediknight.domain.Rechnung;
+import de.bo.mediknight.domain.RechnungsGruppe;
+import de.bo.mediknight.util.ErrorDisplay;
 
 public class MacroPresenter implements Presenter, Commitable {
 

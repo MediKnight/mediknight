@@ -18,7 +18,6 @@ public class BillPresenter implements Presenter, Commitable, Observer {
     Bill1Panel viewPage1;
     Bill1Panel view;
     BillModel model;
-    private final static double RATE_OF_TAXES = 0.16;
 
     public BillPresenter() {
     }

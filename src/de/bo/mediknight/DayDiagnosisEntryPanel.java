@@ -18,7 +18,11 @@ import de.bo.mediknight.widgets.JTextArea;
 import de.bo.mediknight.widgets.JTextField;
 
 public class DayDiagnosisEntryPanel extends JPanel implements FocusListener {
-    JPanel dayPanel = new JPanel();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5533264757066868213L;
+	JPanel dayPanel = new JPanel();
     FlowLayout flowLayout1 = new FlowLayout();
     JButton billBtn = new JButton();
     JButton medicationBtn = new JButton();
@@ -107,12 +111,16 @@ public class DayDiagnosisEntryPanel extends JPanel implements FocusListener {
     private void boInit() {
         // initialize keyboard shortcuts for buttons
         billBtn.getActionMap().put("rechnung", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
+			private static final long serialVersionUID = -6666575964516937837L;
+
+			public void actionPerformed(ActionEvent e) {
                 billBtn.doClick();
             }
         });
         medicationBtn.getActionMap().put("verordnung", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
+ 			private static final long serialVersionUID = 9131246829561031709L;
+
+			public void actionPerformed(ActionEvent e) {
                 medicationBtn.doClick();
             }
         });

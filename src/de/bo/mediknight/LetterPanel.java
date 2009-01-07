@@ -18,7 +18,8 @@ import de.bo.mediknight.widgets.*;
 
 public class LetterPanel extends JPanel implements ChangeListener {
 
-    private final String TEXT_GOA = "Für meine Bemühungen bei Ihnen erlaube ich mir laut GoÄ zu berechnen:";
+	private static final long serialVersionUID = -3627665820107652823L;
+	private final String TEXT_GOA = "Für meine Bemühungen bei Ihnen erlaube ich mir laut GoÄ zu berechnen:";
     private final String TEXT_GEB = "Für meine Bemühungen bei Ihnen erlaube ich mir laut GebüH85 zu berechnen:";
 
     LetterPresenter presenter;
@@ -89,7 +90,6 @@ public class LetterPanel extends JPanel implements ChangeListener {
 
 
         Patient patient = rechnung.getPatient();
-        java.util.List tagesDiagnosen = presenter.getModel().getTagesDiagnosen();
 
         java.util.Date date = rechnung.getDatum();
         if ( date == null )
@@ -309,6 +309,6 @@ public class LetterPanel extends JPanel implements ChangeListener {
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.getContentPane().add(new LetterPanel());
-        f.show();
+        f.setVisible(true);
     }
 }

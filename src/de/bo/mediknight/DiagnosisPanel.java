@@ -21,7 +21,9 @@ import de.bo.mediknight.widgets.JTextArea;
 
 
 public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements ChangeListener, FocusListener, ActionListener  {
-    DiagnosisPresenter presenter;
+	private static final long serialVersionUID = 8967202476452623167L;
+
+	DiagnosisPresenter presenter;
 
     JSplitPane jSplitPane1 = new JSplitPane();
     JPanel jPanel1 = new JPanel();
@@ -333,6 +335,6 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
        // dp.entriesPanel.add( new DayDiagnosisEntryPanel( calendar.getTime(), "Ich bin zwei Diagnosen.", presenter ));
         f.getContentPane().add(dp);
         f.pack();
-        f.show();
+        f.setVisible(true);
     }
 }

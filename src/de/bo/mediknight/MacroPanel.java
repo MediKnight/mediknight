@@ -5,7 +5,6 @@ import java.awt.event.*;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.*;
 import javax.swing.table.*;
-import de.bo.swing.*;
 import javax.swing.JSplitPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -17,7 +16,9 @@ import de.bo.mediknight.util.*;
 
 public class MacroPanel extends JPanel implements ChangeListener,
         ListSelectionListener {
-    MacroPresenter presenter;
+	private static final long serialVersionUID = -6057708429859738892L;
+
+	MacroPresenter presenter;
 
     BorderLayout borderLayout1 = new BorderLayout();
 
@@ -186,12 +187,14 @@ public class MacroPanel extends JPanel implements ChangeListener,
         JFrame f = new JFrame();
         f.getContentPane().setLayout(new FlowLayout());
         //  f.getContentPane().add(new MacroPanel());
-        f.show();
+        f.setVisible(true);
         f.pack();
     }
 
     class MacroTableModel extends AbstractTableModel {
-        BillEntry[] entries;
+		private static final long serialVersionUID = -974915365204385546L;
+
+		BillEntry[] entries;
 
         final String[] columnNames = { "GebüH", "GoÄ", "Spezifikation",
                 "Einzelpreis", "Anzahl" };

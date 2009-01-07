@@ -31,7 +31,7 @@ import de.bo.mediknight.util.*;
 import de.bo.mediknight.borm.*;
 
 public class MainFrame extends JFrame implements TraceConstants {
-
+	private static final long serialVersionUID = -6786914978162974627L;
     public static final int STANDALONE = 0;
 
     public static final int CLIENT = 1;
@@ -112,10 +112,7 @@ public class MainFrame extends JFrame implements TraceConstants {
     // the absolute location of the application
     private static File location;
 
-    // the name of the this jar file (without location) if we are one.
-    private static String jar;
-
-    /**
+     /**
      * "Tracing-Class".
      * <p>
      * Tracing-calls with this class reports user actions.
@@ -133,9 +130,6 @@ public class MainFrame extends JFrame implements TraceConstants {
 
     // Tracer
     private static Tracer tracer;
-
-    // run mode, e.g. client, server, standalone
-    private static int runMode;
 
     private int backAction;
 
@@ -266,6 +260,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         searchButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                 KeyStroke.getKeyStroke(KEYSEARCH), "search");
         searchButton.getActionMap().put("search", new AbstractAction() {
+			private static final long serialVersionUID = -6786914978162974627L;
             public void actionPerformed(ActionEvent e) {
                 search();
             }
@@ -282,6 +277,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         newButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                 KeyStroke.getKeyStroke(KEYNEW), "newPatient");
         newButton.getActionMap().put("newPatient", new AbstractAction() {
+			private static final long serialVersionUID = -6786914978162974627L;
             public void actionPerformed(ActionEvent e) {
                 newPatient();
             }
@@ -298,6 +294,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                 KeyStroke.getKeyStroke(KEYQUIT), "quitApplication");
         quitButton.getActionMap().put("quitApplication", new AbstractAction() {
+			private static final long serialVersionUID = -6786914978162974627L;
             public void actionPerformed(ActionEvent e) {
                 quit(true);
             }
@@ -315,6 +312,7 @@ public class MainFrame extends JFrame implements TraceConstants {
                 KeyStroke.getKeyStroke(KEYDETAILS), "patientDetails");
         detailsButton.getActionMap().put("patientDetails",
                 new AbstractAction() {
+			private static final long serialVersionUID = -6786914978162974627L;
                     public void actionPerformed(ActionEvent e) {
                         patientDetails();
                     }
@@ -331,6 +329,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         diagnosisButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                 KeyStroke.getKeyStroke(KEYDIAGNOSIS), "diagnose");
         diagnosisButton.getActionMap().put("diagnose", new AbstractAction() {
+			private static final long serialVersionUID = -6786914978162974627L;
             public void actionPerformed(ActionEvent e) {
                 diagnosis();
             }
@@ -375,6 +374,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         finishButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                 KeyStroke.getKeyStroke(KEYFINISH), "zurueck");
         finishButton.getActionMap().put("zurueck", new AbstractAction() {
+			private static final long serialVersionUID = -6786914978162974627L;
             public void actionPerformed(ActionEvent e) {
                 finish();
             }
@@ -385,8 +385,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         URL url = MainFrame.class.getClassLoader().getResource(
                 "de/bo/mediknight/resources/logo.gif");
         icon = new ImageIcon(Toolkit.getDefaultToolkit().createImage(url));
-
-        JPanel aboutPanel = new JPanel();
+        
         JButton aboutButton = new JButton(icon);
         aboutButton.setBorder(BorderFactory.createEmptyBorder());
         aboutButton.setBackground(c2);
@@ -400,6 +399,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         aboutButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
                 KeyStroke.getKeyStroke(KEYABOUT), "about");
         aboutButton.getActionMap().put("about", new AbstractAction() {
+			private static final long serialVersionUID = -6786914978162974627L;
             public void actionPerformed(ActionEvent e) {
                 about();
             }
@@ -1032,7 +1032,7 @@ public class MainFrame extends JFrame implements TraceConstants {
                         dialog.showNoticeDatabaseNotAvailable(lastSource);
                         dialog.selectSource(lastSource);
                     }
-                    dialog.show();
+                    dialog.setVisible(true);
 
                     if (dialog.isCancelled()) {
                         System.exit(0);
@@ -1260,15 +1260,15 @@ public class MainFrame extends JFrame implements TraceConstants {
                     // Called outside from jar dir
                     location = new File(ud + File.separator
                             + cp.substring(0, spos)).getCanonicalFile();
-                    jar = cp.substring(spos + 1);
+                   
                 } else if (spos == 0) {
                     // Called from root dir
                     location = new File(File.separator);
-                    jar = cp.substring(1);
+                    
                 } else {
                     // Called inside from jar dir
                     location = new File(ud);
-                    jar = cp;
+                   
                 }
             } catch (IOException iox) {
                 System.err
@@ -1310,7 +1310,7 @@ public class MainFrame extends JFrame implements TraceConstants {
             // Login
             LoginDialog ld = new LoginDialog(application);
             ld.setTitle(NAME + " Anmeldung");
-            ld.show();
+            ld.setVisible(true);
             if (ld.getUser() == null)
                 throw new IllegalAccessException(
                         "Anwender hat sich nicht authentifiziert!");
@@ -1373,7 +1373,9 @@ public class MainFrame extends JFrame implements TraceConstants {
     }
 
     private class GrayedPane extends JComponent {
-        private Composite composite;
+ 		private static final long serialVersionUID = -2324973092499775232L;
+
+		private Composite composite;
 
         private Image bufferImage;
 

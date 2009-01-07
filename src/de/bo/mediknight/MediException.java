@@ -7,7 +7,9 @@ package de.bo.mediknight;
 
 public class MediException extends Exception {
 
-    public MediException() {
+ 	private static final long serialVersionUID = -1726809782262596497L;
+
+	public MediException() {
         super();
     }
 

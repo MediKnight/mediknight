@@ -21,7 +21,9 @@ import de.bo.mediknight.domain.*;
 import de.bo.mediknight.widgets.*;
 
 public class MedicationPanel extends JPanel implements ChangeListener, ListSelectionListener {
-    MedicationPresenter presenter;
+	private static final long serialVersionUID = 5133557293953596942L;
+
+	MedicationPresenter presenter;
 
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     JPanel headerPanel = new JPanel();
@@ -216,7 +218,7 @@ public class MedicationPanel extends JPanel implements ChangeListener, ListSelec
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.getContentPane().add(new MedicationPanel());
-        f.show();
+        f.setVisible(true);
     }
 
     private void jbInit() {
@@ -310,7 +312,9 @@ public class MedicationPanel extends JPanel implements ChangeListener, ListSelec
 
     class MedicationTableModel extends AbstractTableModel {
 
-        final String[] columnNames = {
+ 		private static final long serialVersionUID = 5717726425089069656L;
+
+		final String[] columnNames = {
             "Gruppe", "Nummer", "Name" };
 
 

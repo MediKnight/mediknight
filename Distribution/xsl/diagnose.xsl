@@ -24,8 +24,8 @@
 		
 		<fo:page-sequence master-reference="first">
 			<fo:static-content flow-name="xsl-region-after"> 
-				<fo:block text-align-last="center"> 
-					<fo:page-number/> 
+				<fo:block text-align="center"> 
+					-<fo:page-number/>- 
 				</fo:block> 
 			</fo:static-content> 
 			<fo:flow flow-name="xsl-region-body">
@@ -56,7 +56,7 @@
 
 <xsl:template match="TagesDiagnosen">
 	<xsl:for-each select="child::*">
-		<fo:block font-size="{$Schriftgroesse}" border="0.5pt solid black" margin-top="0.5cm">
+		<fo:block font-size="{$Schriftgroesse}" border="0.5pt solid black" margin-top="0.5em">
 			<fo:block font-weight="bold" margin-bottom="0.5em">
 				Tagesdiagnose vom <xsl:apply-templates select="Datum"/>
 			</fo:block>
