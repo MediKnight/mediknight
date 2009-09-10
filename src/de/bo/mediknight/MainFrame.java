@@ -220,8 +220,8 @@ public class MainFrame extends JFrame implements TraceConstants {
 
         Color c1 = UIManager.getColor("effect");
         if (c1 == null)
-            c1 = Color.black;
-        Color c2 = Color.white;
+            c1 = Color.BLUE;
+        Color c2 = Color.WHITE;
 
         setSize(800, 600);
 

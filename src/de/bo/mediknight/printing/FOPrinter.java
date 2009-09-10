@@ -14,6 +14,9 @@ import javax.print.DocPrintJob;
 import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.SimpleDoc;
+import javax.print.attribute.DocAttributeSet;
+import javax.print.attribute.HashDocAttributeSet;
+import javax.print.attribute.standard.MediaSizeName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.TransformerFactory;
@@ -40,6 +43,7 @@ import de.bo.mediknight.MainFrame;
  */
 public class FOPrinter {
 	private final String DIR;
+	private final String HOME_DIR;
 	private File xmlFile;
 	private File xslFile;
 	private File templateFile;
@@ -55,9 +59,18 @@ public class FOPrinter {
 	 */
 	public FOPrinter(String xmlFileName, String xslFileName) {
 		
-		DIR = MainFrame.getProperties().getProperty("outdir");
+	    	DIR = System.getProperty("user.dir") + 
+	    	      System.getProperty("file.separator") + 
+	    	      MainFrame.getProperties().getProperty("outdir");
+	    	
+	    	HOME_DIR = System.getProperty("user.home") +
+	    		   System.getProperty("file.separator") + 
+	    		   MainFrame.getProperties().getProperty("outdir");
+	    	
+	    	new File(HOME_DIR).mkdir();
 		templateFile = new File(xmlFileName);
-		xmlFile = new File(DIR, "output.xml");
+		xmlFile = new File(HOME_DIR, "output.xml");
+		
 		xslFile = new File(xslFileName);
 		data = new HashMap();
 		newElements = new ArrayList();
@@ -140,24 +153,27 @@ public class FOPrinter {
 		}
 		wasPrinted = true;
 		
-		File file = Transform.xml2pdf(xmlFile, xslFile, DIR);
+		File file = Transform.xml2pdf(xmlFile, xslFile, HOME_DIR);
 
 		FileInputStream fis = new FileInputStream(file);
 
-		Doc doc = new SimpleDoc(fis, DocFlavor.INPUT_STREAM.PDF, null);
+		DocAttributeSet set = new HashDocAttributeSet();
+		set.add(MediaSizeName.ISO_A4);
+		
+		Doc doc = new SimpleDoc(fis, DocFlavor.INPUT_STREAM.PDF, set);
 
 		PrintService printer = PrinterJob.lookupPrintServices()[0];
-
+		
 		if (printer != null) {
 			DocPrintJob job = printer.createPrintJob();
 			try {
-				job.print(doc, null);
-				fis.close();
-				return true;
+			    job.print(doc, null);
+			    fis.close();
+			    return true;
 			} catch (PrintException e) {
-				e.printStackTrace();
-				fis.close();
-				return false;
+			    e.printStackTrace();
+			    fis.close();
+			    return false;
 			}
 		}
 		else
@@ -267,7 +283,7 @@ public class FOPrinter {
 			Node n = par.item(0);
 			
 			Node node = n.getLastChild();
-			
+				
 			Element e = doc.createElement(tag);
 			e.setTextContent(value);
 			

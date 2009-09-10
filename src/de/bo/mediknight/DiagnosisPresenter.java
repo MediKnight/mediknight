@@ -29,79 +29,79 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
     DiagnosisPanel view;
 
     public DiagnosisPresenter() {
-        this(new DiagnosisModel());
+	this(new DiagnosisModel());
     }
 
     public DiagnosisPresenter(DiagnosisModel model) {
-        this.model = model;
+	this.model = model;
     }
 
     public DiagnosisModel getModel() {
-        return model;
+	return model;
     }
 
     public void activate() {
-        view.activate();
+	view.activate();
     }
 
     public Component createView() {
-        DiagnosisPanel panel = new DiagnosisPanel();
-        panel.setPresenter(this);
+	DiagnosisPanel panel = new DiagnosisPanel();
+	panel.setPresenter(this);
 
-        new LockingListener(this).applyTo(
-            UndoUtilities.getMutables(panel));
+	new LockingListener(this).applyTo(
+		UndoUtilities.getMutables(panel));
 
-        view = panel;
-        return panel;
+	view = panel;
+	return panel;
     }
 
     /**
      * Macht einen Ausdruck von allen Tagesdiagnosen.
      */
     public void printDiagnosis() {
-        final YinYangDialog d =
-            new YinYangDialog(
-                JOptionPane.getFrameForComponent(view),
-                MainFrame.NAME);
-        d.setStatusText("Drucke ...");
-        d.run(new Runnable() {
-            public void run() {
-                try {
-                	Properties props = MainFrame.getProperties();
-                	FOPrinter fop = new FOPrinter(props.getProperty("diagnosis.xml"), 
-                								  props.getProperty("diagnosis.xsl"));                	
-                	Patient patient = model.getPatient();
-                	String ersteDiagnose = model.getPatient().getErstDiagnose();
-                	List tagesDiagnosen = model.getTagesDiagnosen();
-                	
-                	//füge Dauerdiagnose und Name des Patienten in die Datei
-                	fop.addData("Name", patient.getFullname());                	
-                	fop.addData("Dauer", ersteDiagnose);                	
-                	
-                	// füge die Tagesdiagnosen in die Datei ein
-                	for (int i = 0; i < tagesDiagnosen.size(); i++) {
-                        TagesDiagnose td =
-                            (TagesDiagnose) tagesDiagnosen.get(i);
-                        if ((td.getText() != null)
-                                && (td.getText().length() > 0)) {
-                                String[] diag = new String[2];
-                                if (td.getDatum() != null)
-                                    diag[0] =
-                                        MediknightUtilities.formatDate(
-                                            td.getDatum());
-                                else
-                                    diag[0] = "";
-                                diag[1] = td.getText();   
-                                fop.addTagToFather("Tagesdiagnose", "", "TagesDiagnosen");
-                                fop.addTag("Datum", diag[0], "TagesDiagnosen");
-                                fop.addTag("Text", diag[1], "TagesDiagnosen");
-                            }
-                	}
-                	
-                	// drucke die Datei aus
-                	fop.print();
-                	
-                	/*DataProvider dProvider = new DataProvider(null);
+	final YinYangDialog d =
+	    new YinYangDialog(
+		    JOptionPane.getFrameForComponent(view),
+		    MainFrame.NAME);
+	d.setStatusText("Drucke ...");
+	d.run(new Runnable() {
+	    public void run() {
+		try {
+		    Properties props = MainFrame.getProperties();
+		    FOPrinter fop = new FOPrinter(props.getProperty("diagnosis.xml"), 
+			    props.getProperty("diagnosis.xsl"));                	
+		    Patient patient = model.getPatient();
+		    String ersteDiagnose = model.getPatient().getErstDiagnose();
+		    List tagesDiagnosen = model.getTagesDiagnosen();
+
+		    //füge Dauerdiagnose und Name des Patienten in die Datei
+		    fop.addData("Name", patient.getFullname());                	
+		    fop.addData("Dauer", ersteDiagnose);                	
+
+		    // füge die Tagesdiagnosen in die Datei ein
+		    for (int i = 0; i < tagesDiagnosen.size(); i++) {
+			TagesDiagnose td =
+			    (TagesDiagnose) tagesDiagnosen.get(i);
+			if ((td.getText() != null)
+				&& (td.getText().length() > 0)) {
+			    String[] diag = new String[2];
+			    if (td.getDatum() != null)
+				diag[0] =
+				    MediknightUtilities.formatDate(
+					    td.getDatum());
+			    else
+				diag[0] = "";
+			    diag[1] = td.getText();   
+			    fop.addTagToFather("Tagesdiagnose", "", "TagesDiagnosen");
+			    fop.addTag("Datum", diag[0], "TagesDiagnosen");
+			    fop.addTag("Text", diag[1], "TagesDiagnosen");
+			}
+		    }
+
+		    // drucke die Datei aus
+		    fop.print();
+
+		    /*DataProvider dProvider = new DataProvider(null);
 
                     Properties prop =
                         MainFrame.getProperties();
@@ -163,128 +163,128 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
                             "Drucken...",
                             MainFrame.getApplication());
                     }*/
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch(Exception e) {
-                	e.printStackTrace();
-                }
-            }
-        });
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} catch(Exception e) {
+		    e.printStackTrace();
+		}
+	    }
+	});
     }
 
     public void commit() {
-        Lock lock = null;
-        try {
-            // We must not save all diagnosis at all because this
-            // will raise concurrency conflicts.
+	Lock lock = null;
+	try {
+	    // We must not save all diagnosis at all because this
+	    // will raise concurrency conflicts.
 
- /*           TagesDiagnose[] diagnosen = (TagesDiagnose[])view.getDiagnosen();
+	    /*           TagesDiagnose[] diagnosen = (TagesDiagnose[])view.getDiagnosen();
             for (int i = 0; i < diagnosen.length; i++) {
                 diagnosen[i].save();
             }*/
 
-            Patient p = model.getPatient();
-            lock = p.acquireLock(LockingInfo.getAspect(p,null));
-            if ( lock != null ) {
-                p.setErstDiagnose(view.getFirstDiagnose());
-                p.save();
-            }
-        }
-        catch (SQLException x) {
-            new ErrorDisplay(x,"Speichern fehlgeschlagen!");
-        }
-        finally {
-            try {
-                lock.release();
-            }
-            catch ( Exception x ) {
-            }
-        }
+	    Patient p = model.getPatient();
+	    lock = p.acquireLock(LockingInfo.getAspect(p,null));
+	    if ( lock != null ) {
+		p.setErstDiagnose(view.getFirstDiagnose());
+		p.save();
+	    }
+	}
+	catch (SQLException x) {
+	    new ErrorDisplay(x,"Speichern fehlgeschlagen!");
+	}
+	finally {
+	    try {
+		lock.release();
+	    }
+	    catch ( Exception x ) {
+	    }
+	}
     }
 
     public void saveTagesdiagnose( TagesDiagnose diagnose ) {
-        try {
-            diagnose.save();
-        } catch (java.sql.SQLException sqle) {
-        }
+	try {
+	    diagnose.save();
+	} catch (java.sql.SQLException sqle) {
+	}
     }
 
     public Component getResponsibleComponent() {
-        return view.getLastFocusComponent();
+	return view.getLastFocusComponent();
     }
 
     public void reload(Component component,KnightObject knightObject) {
-        if (component == null) return;
-        try {
-            knightObject.recall();
-            if ( knightObject instanceof TagesDiagnose ) {
-                DayDiagnosisEntryPanel ddep = (DayDiagnosisEntryPanel)component;
-                TagesDiagnose d = (TagesDiagnose)knightObject;
-                ddep.set(d.getDatum(),d.getText());
-            }
-            if ( knightObject instanceof Patient ) {
-                Patient p = (Patient)knightObject;
-                view.setFirstDiagnosis(p.getErstDiagnose());
-            }
-        }
-        catch (SQLException x) {
-            new ErrorDisplay(x,"Neuladen der Komponente fehlgeschlagen!");
-        }
+	if (component == null) return;
+	try {
+	    knightObject.recall();
+	    if ( knightObject instanceof TagesDiagnose ) {
+		DayDiagnosisEntryPanel ddep = (DayDiagnosisEntryPanel)component;
+		TagesDiagnose d = (TagesDiagnose)knightObject;
+		ddep.set(d.getDatum(),d.getText());
+	    }
+	    if ( knightObject instanceof Patient ) {
+		Patient p = (Patient)knightObject;
+		view.setFirstDiagnosis(p.getErstDiagnose());
+	    }
+	}
+	catch (SQLException x) {
+	    new ErrorDisplay(x,"Neuladen der Komponente fehlgeschlagen!");
+	}
     }
 
     private void commit(Component component,LockingInfo.Data data)
-        throws SQLException {
+    throws SQLException {
 
-        Tracer tracer = MainFrame.getTracer();
+	Tracer tracer = MainFrame.getTracer();
 
-        try {
-            if ( component instanceof DayDiagnosisEntryPanel ) {
-                // Reach this if we alter a diagnosis
-                TagesDiagnose diagnose = ((DayDiagnosisEntryPanel)component).getDiagnose();
-                tracer.trace(TraceConstants.DEBUG,"Save diagnosis "+diagnose);
-                diagnose.save();
-            }
-            else if ( component instanceof JTextArea ) {
-                // Reach this if we alter the first diagnosis
-                Patient patient = model.getPatient();
-                patient.setErstDiagnose(view.getFirstDiagnose());
-                tracer.trace(TraceConstants.DEBUG,"Save patient "+patient);
-                patient.save();
-            }
-            // Otherwise nothing to do
-        }
-        catch ( RuntimeException x ) {
-            new ErrorDisplay(x,"Speichern fehlgeschlagen!");
-        }
+	try {
+	    if ( component instanceof DayDiagnosisEntryPanel ) {
+		// Reach this if we alter a diagnosis
+		TagesDiagnose diagnose = ((DayDiagnosisEntryPanel)component).getDiagnose();
+		tracer.trace(TraceConstants.DEBUG,"Save diagnosis "+diagnose);
+		diagnose.save();
+	    }
+	    else if ( component instanceof JTextArea ) {
+		// Reach this if we alter the first diagnosis
+		Patient patient = model.getPatient();
+		patient.setErstDiagnose(view.getFirstDiagnose());
+		tracer.trace(TraceConstants.DEBUG,"Save patient "+patient);
+		patient.save();
+	    }
+	    // Otherwise nothing to do
+	}
+	catch ( RuntimeException x ) {
+	    new ErrorDisplay(x,"Speichern fehlgeschlagen!");
+	}
     }
 
     public void showBill() {
-        MainFrame.getApplication().bill();
+	MainFrame.getApplication().bill();
     }
 
     public void showMedication() {
-        MainFrame.getApplication().medication();
+	MainFrame.getApplication().medication();
     }
 
     public void setSelectedDiagnose(TagesDiagnose diagnose) {
-        MainFrame.getApplication().setCurrentDiagnosis(diagnose);
+	MainFrame.getApplication().setCurrentDiagnosis(diagnose);
     }
 
     public void update(Observable o,Object arg) {
-        try {
-            LockingInfo li = (LockingInfo)o;
-            Lock lock = li.getLastLock();
-            if ( lock != null ) {
-                Component c = li.getComponent();
-                if ( c != null ) {
-                    commit(c,(LockingInfo.Data)arg);
-                }
-                lock.release();
-                li.setLastLock(null);
-            }
-        }
-        catch ( SQLException x ) {
-            new ErrorDisplay(x,"Speichern fehlgeschlagen!");
-        }
+	try {
+	    LockingInfo li = (LockingInfo)o;
+	    Lock lock = li.getLastLock();
+	    if ( lock != null ) {
+		Component c = li.getComponent();
+		if ( c != null ) {
+		    commit(c,(LockingInfo.Data)arg);
+		}
+		lock.release();
+		li.setLastLock(null);
+	    }
+	}
+	catch ( SQLException x ) {
+	    new ErrorDisplay(x,"Speichern fehlgeschlagen!");
+	}
     }
 }

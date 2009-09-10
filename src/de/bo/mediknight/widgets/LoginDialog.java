@@ -91,7 +91,7 @@ public class LoginDialog extends JDialog {
 
 		// Resizing the mainPanel for exactly 3 user icons (insets related)
 		Dimension msize = mainPanel.getPreferredSize();
-		mainPanel.setPreferredSize(new Dimension(bsize.width * 3 + 32, msize.height));
+		mainPanel.setPreferredSize(new Dimension(bsize.width * 3 + 64, msize.height));
 
 		pack();
 
@@ -162,6 +162,7 @@ public class LoginDialog extends JDialog {
 		pane.add(l);
 
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		//gbc..WEST
 		userField = new javax.swing.JTextField(20);
 		gbl.setConstraints(userField, gbc);
 		pane.add(userField);
@@ -170,7 +171,7 @@ public class LoginDialog extends JDialog {
 		l = new JLabel("Passwort:");
 		gbl.setConstraints(l, gbc);
 		pane.add(l);
-
+		
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		passwordField = new javax.swing.JPasswordField(20);
 		gbl.setConstraints(passwordField, gbc);
@@ -179,7 +180,7 @@ public class LoginDialog extends JDialog {
 		controlPanel.add(new JLabel(" "), BorderLayout.NORTH);
 		controlPanel.add(pane, BorderLayout.WEST);
 
-		pane = new JPanel(new GridLayout(2, 1, 8, 8));
+		pane = new JPanel(new GridLayout(2, 1, 18, 18));
 		okButton = new JButton("Anmelden");
 		//okButton.setBackground(new Color(255, 224, 0));
 		okButton.addActionListener(new ActionListener() {
