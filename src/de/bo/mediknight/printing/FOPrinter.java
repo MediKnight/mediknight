@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -190,6 +191,8 @@ public class FOPrinter {
 		
 		FileInputStream fis = new FileInputStream(templateFile);
 		FileOutputStream fos = new FileOutputStream(xmlFile);
+		OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+		
 		boolean end = false;
 		
 		while(!end) {
@@ -209,13 +212,14 @@ public class FOPrinter {
 					
 					String value = (String) data.get(str);
 					if(value != null)
-						fos.write(value.getBytes());
+						osw.write(new String(value));
 				}
 				else {			
-					fos.write(read);				
+					osw.write(read);				
 				}			
 			}
 		}
+		osw.close();
 		fis.close();
 		fos.close();
 	}

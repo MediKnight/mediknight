@@ -6,7 +6,7 @@
 	
 <xsl:param name="Schriftgroesse">11pt</xsl:param> 
 <xsl:param name="Leftspace">9.5cm</xsl:param>
-<xsl:param name="SchriftgroesseTabelle">8pt</xsl:param>
+<xsl:param name="SchriftgroesseTabelle">10pt</xsl:param>
 <xsl:param name="c" select="1"/>
 			
 <xsl:template match="/">

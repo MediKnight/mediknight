@@ -1,24 +1,24 @@
 dbserver.1.description = Lokaler Computer
 dbserver.1.driver = com.mysql.jdbc.Driver
-dbserver.1.url = jdbc:mysql://localhost:3306/mediknight
+dbserver.1.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
 dbserver.1.user = medi
 dbserver.1.password = medi
 
 dbserver.2.description = Michael Vette - Notebook
 dbserver.2.driver = org.gjt.mm.mysql.Driver
-dbserver.2.url = jdbc:mysql://localhost:3306/mediknight
+dbserver.2.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
 dbserver.2.user = root
 dbserver.2.password =
 
 dbserver.3.description = Labor - Notebook
 dbserver.3.driver = org.gjt.mm.mysql.Driver
-dbserver.3.url = jdbc:mysql://localhost:3306/mediknight
+dbserver.3.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
 dbserver.3.user = root
 dbserver.3.password =
 
 dbserver.4.description = Empfang - Desktop
 dbserver.4.driver = org.gjt.mm.mysql.Driver
-dbserver.4.url = jdbc:mysql://localhost:3306/mediknight
+dbserver.4.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
 dbserver.4.user = root
 dbserver.4.password =
 
@@ -39,7 +39,7 @@ borm.debug=false
 # For Euro set next property to EUR
 currency=EUR
 
-# 100MB für Log-Files in max. 20 Dateien
+# 100MB fï¿½r Log-Files in max. 20 Dateien
 log.path=mediknight.log.mediknight
 log.maxlength=5000000
 log.maxcycle=20
@@ -57,7 +57,7 @@ diagnosis.xsl=xsl/diagnose.xsl
 outdir=.mediknight
 
 #about-dialog
-dialog.two=Abrechnungsprogramm für Heilpraktiker
+dialog.two=Abrechnungsprogramm fÃ¼r Heilpraktiker
 dialog.three=Copyright &copy; 2000-2004 Baltic Online Computer GmbH
 attention=ACHTUNG! Dieses Programm ist durch nationale und internationale Urheberrechtsgesetze und<br>Bestimmungen nationaler und internationaler Vertr&auml;ge gesch&uuml;tzt. Unbefugte Vervielf&auml;ltigung<br> oder unbefugter Vertrieb dieses Programms oder eines Teils davon sind strafbar. Dies wird sowohl<br>straf- als auch zivilrechtlich verfolgt und kann schwere Strafen und Schadensersatzforderungen<br>zur Folge haben.<br>
 
