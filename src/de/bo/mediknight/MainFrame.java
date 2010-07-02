@@ -41,6 +41,8 @@ public class MainFrame extends JFrame implements TraceConstants {
     public static final String BSEARCH = "search";
 
     public static final String BNEW = "new";
+    
+    public static final String BPLIST = "patientlist";
 
     public static final String BQUIT = "quit";
 
@@ -74,11 +76,16 @@ public class MainFrame extends JFrame implements TraceConstants {
     public static final int MACRO = 8;
 
     public static final int CREATE_MACRO = 9;
+    
+    public static final int PATIENTLIST = 10;
 
     /** @see javax.swing.KeyStroke#getKeyStroke(java.lang.String) */
     public static final String KEYSEARCH = "alt S";
 
     public static final String KEYNEW = "alt N";
+    
+    //For Patientlist
+    public static final String KEYPLIST = "alt P";
 
     public static final String KEYQUIT = "alt Q";
 
@@ -282,6 +289,23 @@ public class MainFrame extends JFrame implements TraceConstants {
                 newPatient();
             }
         });
+        
+        JToggleButton patientListButton = new JToggleButton("Patientenliste");
+        patientListButton.setName(BPLIST);
+        patientListButton.setMnemonic('P');
+        patientListButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		showPatientListPane();
+        	}
+        });
+        patientListButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KEYNEW), "patientList");
+        patientListButton.getActionMap().put("patientList", new AbstractAction() {
+			private static final long serialVersionUID = -4140114497197053021L;
+
+			public void actionPerformed(ActionEvent e) {
+				showPatientListPane();
+        	}
+        });
 
         JToggleButton quitButton = new JToggleButton("Beenden");
         quitButton.setName(BQUIT);
@@ -417,6 +441,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         navigator.add(patientLabel, "11,0,c");
         navigator.add(searchButton, "11,0,c");
         navigator.add(newButton, "11,0,c");
+        navigator.add(patientListButton, "11,0,c");
         navigator.add(detailsButton, "11,0,c");
         navigator.add(diagnosisButton, "11,0,c");
         navigator.add(medicationButton, "11,0,c");
@@ -535,6 +560,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         setHeaderPanel("Patientensuche");
         setVisibleNavigatorButton(BSEARCH, true, true);
         setVisibleNavigatorButton(BNEW, true, false);
+        setVisibleNavigatorButton(BPLIST, true, false);
         setVisibleNavigatorButton(BQUIT, true, false);
         setVisibleNavigatorButton(BDETAILS, false, false);
         setVisibleNavigatorButton(BDIAGNOSIS, false, false);
@@ -588,6 +614,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         setPatientToNavigator(null);
         setVisibleNavigatorButton(BSEARCH, true, false);
         setVisibleNavigatorButton(BNEW, true, true);
+        setVisibleNavigatorButton(BPLIST, true, false);
         setVisibleNavigatorButton(BQUIT, true, false);
         setVisibleNavigatorButton(BDETAILS, false, false);
         setVisibleNavigatorButton(BDIAGNOSIS, false, false);
@@ -611,6 +638,35 @@ public class MainFrame extends JFrame implements TraceConstants {
 
         setDefaultCursor();
     }
+    
+    public void showPatientListPane() {
+    	setHeaderPanel("Patientenliste ausgeben");
+    	setPatientToNavigator(null);
+
+        setVisibleNavigatorButton(BSEARCH, true, false);
+        setVisibleNavigatorButton(BNEW, true, false);
+        setVisibleNavigatorButton(BPLIST, true, true);
+        setVisibleNavigatorButton(BQUIT, true, false);
+        setVisibleNavigatorButton(BDETAILS, false, false);
+        setVisibleNavigatorButton(BDIAGNOSIS, false, false);
+        setVisibleNavigatorButton(BMEDICATION, false, false);
+        setVisibleNavigatorButton(BBILL, false, false);
+        setVisibleNavigatorButton(BFINISH, true, false);
+        setVisibleNavigatorButton(BABOUT, false, false);
+        
+        setWaitCursor();
+
+        setTitle("");
+
+        oldPatient = getCurrentPatient();
+        setCurrentPatient(null);
+        setCurrentDiagnosis(null);
+
+        setPane(new PatientListPresenter());
+        currentAction = PATIENTLIST;
+
+        setDefaultCursor();
+    }
 
     public void showDetailsPane() {
         // Der folgende Guard wird benoetigt, da die momentane Behandlung von
@@ -623,6 +679,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 
         setVisibleNavigatorButton(BSEARCH, true, false);
         setVisibleNavigatorButton(BNEW, true, false);
+        setVisibleNavigatorButton(BPLIST, true, false);
         setVisibleNavigatorButton(BQUIT, true, false);
         setVisibleNavigatorButton(BDETAILS, true, true);
         setVisibleNavigatorButton(BDIAGNOSIS, true, false);
@@ -649,6 +706,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 
         setVisibleNavigatorButton(BSEARCH, true, false);
         setVisibleNavigatorButton(BNEW, true, false);
+        setVisibleNavigatorButton(BPLIST, true, false);
         setVisibleNavigatorButton(BQUIT, true, false);
         setVisibleNavigatorButton(BDETAILS, true, false);
         setVisibleNavigatorButton(BDIAGNOSIS, true, true);
@@ -686,6 +744,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 
         setVisibleNavigatorButton(BSEARCH, true, false);
         setVisibleNavigatorButton(BNEW, true, false);
+        setVisibleNavigatorButton(BPLIST, true, false);
         setVisibleNavigatorButton(BQUIT, true, false);
         setVisibleNavigatorButton(BDETAILS, true, false);
         setVisibleNavigatorButton(BDIAGNOSIS, true, false);
