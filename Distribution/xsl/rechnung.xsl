@@ -67,9 +67,9 @@
 							</fo:table-cell>
 						</fo:table-body>
 					</fo:table>
-					<fo:block-container position="absolute" top="60mm">
 						<xsl:apply-templates select="Dokument/Vorwort"/>
 						<xsl:apply-templates select="Dokument/Text"/>
+						
 						<fo:table table-layout="fixed" width="100%" font-size="{$SchriftgroesseTabelle}"
 									border-separation="5.0pt">	
 
@@ -159,7 +159,6 @@
 					
 						<xsl:apply-templates select="Dokument/Greetings"/>
 						<xsl:apply-templates select="Dokument/Abschluss"/>	
-					</fo:block-container>				
 				</fo:block>
 			</fo:flow>	
 		</fo:page-sequence>
