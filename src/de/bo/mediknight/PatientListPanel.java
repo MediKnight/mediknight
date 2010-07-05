@@ -8,13 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Vector;
 
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
@@ -22,6 +25,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import de.bo.mediknight.domain.Patient;
+import de.bo.mediknight.printing.Transform;
 import de.bo.mediknight.widgets.JButton;
 import de.bo.mediknight.widgets.JPanel;
 import de.bo.mediknight.widgets.JScrollPane;
@@ -45,6 +49,8 @@ public class PatientListPanel extends JPanel {
 	private JTextField filternameField;
 	
 	private JButton searchButton;
+	
+	private JButton exportButton;
 	
 	private LinkedList patients;
 	
@@ -113,9 +119,11 @@ public class PatientListPanel extends JPanel {
 		selectAll = new JButton("Alle auswählen");
 		deselectAll = new JButton("Alle abwählen");
 		
+		exportButton = new JButton("PDF speichern");
 		printButton = new JButton("Liste drucken");
 		
 		JPanel bottomButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		bottomButtonPanel.add(exportButton);
 		bottomButtonPanel.add(printButton);
 		
 		JPanel topButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -174,8 +182,21 @@ public class PatientListPanel extends JPanel {
                 getRootPane().setDefaultButton(searchButton);
             }			
 		});
+		
+		exportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setSelectedFile(new File("patientenliste.pdf"));
+				
+				int state = fileChooser.showSaveDialog(MainFrame.getApplication());
+				
+				if (state == JFileChooser.APPROVE_OPTION) {
+					exportAction(fileChooser.getSelectedFile());
+				}
+			}
+		});
 	}
-	
+
 	public void getData() {
 		patients = new LinkedList();
 		
@@ -264,6 +285,10 @@ public class PatientListPanel extends JPanel {
 	
 	private void printAction() {
 		presenter.getModel().printList(((DefaultTableModel) patientTable.getModel()).getDataVector());		
+	}
+	
+	private void exportAction(File file) {
+		presenter.getModel().exportPdf(((DefaultTableModel) patientTable.getModel()).getDataVector(), file);		
 	}
 	
 	public Dimension getMinimumSize() {

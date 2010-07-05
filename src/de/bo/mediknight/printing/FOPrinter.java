@@ -154,7 +154,7 @@ public class FOPrinter {
 		}
 		wasPrinted = true;
 		
-		File file = Transform.xml2pdf(xmlFile, xslFile, HOME_DIR);
+		File file = Transform.xml2pdf(xmlFile, xslFile, new File(HOME_DIR, "pdfFile.pdf"));
 
 		FileInputStream fis = new FileInputStream(file);
 
@@ -180,6 +180,21 @@ public class FOPrinter {
 		else
 			fis.close();
 		return false;
+	}
+	
+	public boolean exportToFile(File file) throws IOException {
+		// wenn schon einmal dieses Objekt gedruckt wurde, dann nicht
+		// nocheinmal die Werte einsetzen
+		if(!wasPrinted) {		
+			insertValues();
+			addElements();
+		}
+		wasPrinted = true;
+		
+		Transform.xml2pdf(xmlFile, xslFile, file);
+		
+		return true;
+		
 	}
 	
 	/**

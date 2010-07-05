@@ -5,16 +5,24 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 import de.bo.mediknight.domain.Patient;
 import de.bo.mediknight.printing.FOPrinter;
+import de.bo.mediknight.printing.Transform;
+import de.bo.mediknight.widgets.YinYangDialog;
 
 public class PatientListModel {
-	public void printList(Vector patients) {		
+	FOPrinter fop;
+	
+	public PatientListModel() {
 		Properties props = MainFrame.getProperties();
 		
-		FOPrinter fop = new FOPrinter(props.getProperty("patients.xml"), 
-				props.getProperty("patients.xsl"));
-		
+		fop = new FOPrinter(props.getProperty("patients.xml"), 
+				props.getProperty("patients.xsl"));		
+	}
+	
+	public void collectData(Vector patients) {
 		//Patienten einfügen
 		for (int p = 0; p < patients.size(); p++) {
 			Vector patient = (Vector) patients.get(p);
@@ -36,11 +44,44 @@ public class PatientListModel {
 			fop.addTag("Privat", (String) patient.get(5), "Patienten");
 			fop.addTag("Arbeit", (String) patient.get(6), "Patienten");
 			fop.addTag("Handy", (String) patient.get(7), "Patienten");
-		}
-		try {
-			fop.print();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		}		
+	}
+	
+	public void printList(final Vector patients) {
+		final YinYangDialog d =
+		    new YinYangDialog(
+		    		JOptionPane.getFrameForComponent(MainFrame.getApplication()),
+		    		MainFrame.NAME);
+
+		d.setStatusText("Drucke ...");
+		d.run(new Runnable() {
+			public void run() {
+				collectData(patients);
+				try {
+					fop.print();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		    }
+		});
+	}
+	
+	public void exportPdf(final Vector patients, final File selectedFile) {
+		final YinYangDialog d =
+		    new YinYangDialog(
+		    		JOptionPane.getFrameForComponent(MainFrame.getApplication()),
+		    		MainFrame.NAME);
+
+		d.setStatusText("Exportiere ...");
+		d.run(new Runnable() {
+			public void run() {
+				collectData(patients);
+				try {
+					fop.exportToFile(selectedFile);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		    }
+		});
 	}
 }

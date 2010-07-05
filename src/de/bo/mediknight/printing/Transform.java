@@ -30,10 +30,7 @@ import org.apache.fop.apps.MimeConstants;
  */
 public class Transform {
 
-	public static File xml2pdf(File xmlFile, File xslFile, String dir) {
-		
-	   File pdfFile = new File(dir, "pdfFile.pdf");
-	   	
+	public static File xml2pdf(File xmlFile, File xslFile, File pdfFile) {	   	
 	   // Step 1: Construct a FopFactory
 	   // (reuse if you plan to render multiple documents!)
 	   FopFactory fopFactory = FopFactory.newInstance();
