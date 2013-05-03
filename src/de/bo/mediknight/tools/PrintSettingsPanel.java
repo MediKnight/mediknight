@@ -409,7 +409,9 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
     }
 
     public void setComboFonts(String font) {
-        fontComboBox.setSelectedItem(font);
+        if (fontComboBox.getSelectedItem() != font) {
+            fontComboBox.setSelectedItem(font);
+        }
     }
 
     public String getComboFonts() {
