@@ -5,7 +5,7 @@
  */
 package de.bo.mediknight.domain;
 
-import de.bo.mediknight.borm.*;
+import de.bo.borm.*;
 
 /**
  * This class implements a <i>Rechnung</i> which stores one serialized check

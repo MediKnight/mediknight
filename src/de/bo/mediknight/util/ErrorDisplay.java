@@ -11,7 +11,7 @@ import java.io.*;
 import javax.swing.*;
 
 import de.bo.mediknight.MainFrame;
-import de.bo.mediknight.borm.TraceConstants;
+import de.bo.borm.TraceConstants;
 
 public class ErrorDisplay {
     JFrame errorFrame;
@@ -34,7 +34,7 @@ public class ErrorDisplay {
     public ErrorDisplay(Throwable throwable,String displayMessage,String title,Container parent) {
         this.throwable = throwable;
 
-        MainFrame.getTracer().trace(TraceConstants.ERROR_T,throwable);
+        MainFrame.getTracer().trace(TraceConstants.ERROR,throwable);
 
         if ( parent == null ) {
             parent = JOptionPane.getRootFrame();

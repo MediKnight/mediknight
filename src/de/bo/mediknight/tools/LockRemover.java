@@ -16,7 +16,7 @@ import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
 import de.bo.mediknight.*;
 import de.bo.mediknight.domain.*;
-import de.bo.mediknight.borm.*;
+import de.bo.borm.*;
 
 public class LockRemover extends JFrame {
     JPanel mainPanel = new JPanel();

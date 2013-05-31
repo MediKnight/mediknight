@@ -19,7 +19,7 @@ import javax.swing.event.MouseInputAdapter;
 
 import java.io.*;
 import java.net.URL;
-import java.sql.*;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -28,7 +28,7 @@ import de.bo.mediknight.widgets.*;
 import de.bo.mediknight.dialogs.DatabaseSelectionDialog;
 import de.bo.mediknight.domain.*;
 import de.bo.mediknight.util.*;
-import de.bo.mediknight.borm.*;
+import de.bo.borm.*;
 
 public class MainFrame extends JFrame implements TraceConstants {
 	private static final long serialVersionUID = -6786914978162974627L;
@@ -572,7 +572,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         try {
             Lock.releaseAll();
         } catch (Exception x) {
-            tracer.trace(ERROR_T, x);
+            tracer.trace(TraceConstants.ERROR, x);
         }
 
         setPatientToNavigator(null);
@@ -878,7 +878,7 @@ public class MainFrame extends JFrame implements TraceConstants {
             Lock.releaseAll();
 
         } catch (Exception x) {
-            tracer.trace(ERROR_T, x);
+            tracer.trace(TraceConstants.ERROR, x);
         } finally {
             tracer.trace(INFO, "*** " + NAME + " Application ended ***");
             for (int i = 0; i < 5; i++)
@@ -1179,7 +1179,7 @@ public class MainFrame extends JFrame implements TraceConstants {
     }
 
     public static void initTracer() {
-        String[] tcs = { DEBUG, ERROR_T, INFO, WARNING, USER, KnightObject.DATA };
+        String[] tcs = { DEBUG, TraceConstants.ERROR, INFO, WARNING, USER, KnightObject.DATA };
         for (int i = 0; i < tcs.length; i++)
             Tracer.addTraceClass(tcs[i]);
 
@@ -1393,7 +1393,7 @@ public class MainFrame extends JFrame implements TraceConstants {
             System.err.println("No properties found");
             System.exit(1);
         } catch (IllegalAccessException iax) {
-            tracer.trace(ERROR_T, iax);
+            tracer.trace(TraceConstants.ERROR, iax);
             System.exit(1);
         } catch (RuntimeException rtx) {
             rtx.printStackTrace();
@@ -1401,7 +1401,7 @@ public class MainFrame extends JFrame implements TraceConstants {
             System.exit(1);
         } catch (Exception x) {
             x.printStackTrace();
-            tracer.trace(ERROR_T, x);
+            tracer.trace(TraceConstants.ERROR, x);
         }
     }
 

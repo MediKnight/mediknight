@@ -5,7 +5,7 @@
  */
 package de.bo.mediknight.domain;
 
-import de.bo.mediknight.borm.*;
+import de.bo.borm.*;
 import java.util.List;
 import java.util.Iterator;
 import java.sql.SQLException;

@@ -7,7 +7,7 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.event.*;
 
-import de.bo.mediknight.borm.TraceConstants;
+import de.bo.borm.TraceConstants;
 import de.bo.mediknight.domain.*;
 import de.bo.mediknight.widgets.*;
 
@@ -82,7 +82,7 @@ MutableChangeListener, TableModelListener, Runnable {
             }
         }
         catch ( Exception x ) {
-            MainFrame.getTracer().trace(TraceConstants.ERROR_T,x);
+            MainFrame.getTracer().trace(TraceConstants.ERROR,x);
         }
     }
 
@@ -107,7 +107,7 @@ MutableChangeListener, TableModelListener, Runnable {
             pollRun = false;
         }
         catch ( Exception x ) {
-            MainFrame.getTracer().trace(TraceConstants.ERROR_T,x);
+            MainFrame.getTracer().trace(TraceConstants.ERROR,x);
         }
     }
 }
