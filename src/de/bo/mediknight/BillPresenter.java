@@ -166,7 +166,7 @@ public class BillPresenter implements Presenter, Commitable, Observer {
         BillEntry[] entries = BillEntry.loadEntries( model.getRechnung() );
 
 
-        ArrayList list = new ArrayList();
+        ArrayList<BillEntry> list = new ArrayList<BillEntry>();
 
         for (int i = 0; i < entries.length; i++) {
             boolean check = true;
@@ -182,7 +182,7 @@ public class BillPresenter implements Presenter, Commitable, Observer {
 
         entries = new BillEntry[entries.length - row.length];
 
-        entries = (BillEntry[])list.toArray(entries);
+        entries = list.toArray(entries);
 
         BillEntry.saveEntries( getModel().getRechnung(), entries );
 

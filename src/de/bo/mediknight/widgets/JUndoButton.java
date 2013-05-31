@@ -186,9 +186,9 @@ public class JUndoButton extends de.bo.mediknight.widgets.JButton implements Und
             ButtonModel buttonModel = ((JRadioButton) mutable).getModel();
             if(buttonModel instanceof DefaultButtonModel) {
                 ButtonGroup buttonGroup = ((DefaultButtonModel) buttonModel).getGroup();
-                Enumeration enum = buttonGroup.getElements();
-                while(enum.hasMoreElements())
-                    undoBackend.remove((Mutable) enum.nextElement());
+                Enumeration<AbstractButton> buttons = buttonGroup.getElements();
+                while(buttons.hasMoreElements())
+                    undoBackend.remove(buttons.nextElement());
             }
         } else
             undoBackend.remove(mutable);
@@ -344,9 +344,9 @@ public class JUndoButton extends de.bo.mediknight.widgets.JButton implements Und
                 ButtonModel buttonModel = ((JRadioButton) widget).getModel();
                 if(buttonModel instanceof DefaultButtonModel) {
                     ButtonGroup buttonGroup = ((DefaultButtonModel) buttonModel).getGroup();
-                    Enumeration enum = buttonGroup.getElements();
-                    while(enum.hasMoreElements())
-                        ((Mutable) enum.nextElement()).revert();
+                    Enumeration<AbstractButton> buttons = buttonGroup.getElements();
+                    while(buttons.hasMoreElements())
+                        ((Mutable) buttons.nextElement()).revert();
                 }
             }
             // if the widget's a Component (which it should probably always

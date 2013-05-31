@@ -10,7 +10,7 @@ import de.bo.mediknight.domain.*;
 public class DiagnosisModel {
 
     Patient patient;
-    Set changeListeners = new HashSet();
+    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
 
 
     public DiagnosisModel() {
@@ -50,11 +50,11 @@ public class DiagnosisModel {
     }
 
     void fireChangeEvent() {
-        Iterator it = changeListeners.iterator();
+        Iterator<ChangeListener> it = changeListeners.iterator();
         ChangeEvent e = new ChangeEvent( this );
 
         while( it.hasNext() ) {
-            ((ChangeListener) it.next()).stateChanged(e);
+            it.next().stateChanged(e);
         }
     }
 }
