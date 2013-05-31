@@ -66,7 +66,7 @@ public class DatabaseSelectionDialog extends JDialog {
     }
 
     private void configureUI() {
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        DefaultComboBoxModel<Datasource> model = new DefaultComboBoxModel<Datasource>();
 
         for (int i = 0; i < sources.length; i++) {
             model.addElement(sources[i]);

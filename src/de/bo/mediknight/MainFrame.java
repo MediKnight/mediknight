@@ -1119,7 +1119,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 
     public static Datasource[] collectDatasources() {
         int i = 1;
-        List sources = new ArrayList();
+        List<Datasource> sources = new ArrayList<Datasource>();
 
         while (properties.containsKey("dbserver." + i + ".description")) {
             String prefix = "dbserver." + i + ".";
@@ -1132,7 +1132,7 @@ public class MainFrame extends JFrame implements TraceConstants {
             i++;
         }
 
-        return (Datasource[]) sources.toArray(new Datasource[0]);
+        return sources.toArray(new Datasource[0]);
     }
 
     public static void storeProperties(Properties prop)
@@ -1375,8 +1375,8 @@ public class MainFrame extends JFrame implements TraceConstants {
                         "Anwender hat sich nicht authentifiziert!");
 
             application.user = ld.getUser();
-            Map map = UserProperty.retrieveUserInformation(application.user);
-            String bs = (String) map.get("frame.bounds");
+            Map<String, String> map = UserProperty.retrieveUserInformation(application.user);
+            String bs = map.get("frame.bounds");
             if (bs != null) {
                 int[] bounds = MediknightUtilities.readCSV(bs);
                 application.setBounds(bounds[0], bounds[1], bounds[2],

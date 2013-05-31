@@ -133,7 +133,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
                	
                 	Rechnung rechnung = model.getRechnung();
                 	Patient patient = rechnung.getPatient();
-                	Map printSettings = PrintSettingsPresenter.getSettings();
+                	Map<String, String> printSettings = PrintSettingsPresenter.getSettings();
                 	String lf = System.getProperty("line.separator");
                 	NumberFormat nf = MediknightUtilities.getNumberFormat();
                 	
@@ -151,10 +151,10 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
             		fop.addData("Patient/Address3", patient.getAdresse3());
  
             		//füge Absender hinzu               		
-            		fop.addData("Absender", (String)printSettings.get("print.sender"));
+            		fop.addData("Absender", printSettings.get("print.sender"));
             		
             		// zerlege das Logo und füge es in die neue xml-File ein
-               		String logo = (String) printSettings.get("print.logo");
+               		String logo = printSettings.get("print.logo");
             		StringTokenizer token = new StringTokenizer(logo,lf);
             		int i=1;
             		while(token.hasMoreElements()) {
@@ -175,8 +175,8 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
             			fop.addTagToFather("Zeile", vorwort[y], "Vorwort");
             		}        
             		
-            		String[] abschluss = ((String)printSettings.get(
-            									"print.bill.final")).split(lf);
+            		String[] abschluss = printSettings.get(
+            									"print.bill.final").split(lf);
             		for(int y=0; y<abschluss.length; y++) {
             			fop.addTagToFather("Zeile", abschluss[y], "Abschluss");
             		}

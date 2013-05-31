@@ -37,7 +37,7 @@ public class PrintSettingsPresenter implements Presenter, Commitable {
         return view;
     }
 
-    public static Map getSettings() {
+    public static Map<String, String> getSettings() {
         PrintSettingsModel model = new PrintSettingsModel();
         return model.getMap();
     }

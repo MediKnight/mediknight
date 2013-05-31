@@ -137,11 +137,11 @@ public class User extends KnightObject
         return id == 1;
     }
 
-    public Map retrieveInformation() throws SQLException {
+    public Map<String, String> retrieveInformation() throws SQLException {
         return UserProperty.retrieveUserInformation(this);
     }
 
-    public void saveInformation(Map map) throws SQLException {
+    public void saveInformation(Map<String, String> map) throws SQLException {
         UserProperty.saveUserInformation(this,map);
     }
 

@@ -9,7 +9,7 @@ import de.bo.mediknight.domain.*;
 public class CreateMacroModel {
 
     BillEntry[] entries;
-    Set changeListeners = new HashSet();
+    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
 
     public CreateMacroModel( BillEntry[] entries ) {
         this.entries = entries;
@@ -39,11 +39,11 @@ public class CreateMacroModel {
     }
 
     void fireChangeEvent() {
-        Iterator it = changeListeners.iterator();
+        Iterator<ChangeListener> it = changeListeners.iterator();
         ChangeEvent e = new ChangeEvent( this );
 
         while( it.hasNext() ) {
-            ((ChangeListener) it.next()).stateChanged(e);
+            it.next().stateChanged(e);
         }
     }
 }

@@ -8,6 +8,7 @@ package de.bo.mediknight.widgets;
 import java.util.Vector;
 
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -120,12 +121,12 @@ public class UndoUtilities {
      * and all sub containers.
      */
     public static Mutable[] getMutables(Container c) {
-        Vector v = new Vector(20,10);
+        Vector<Component> v = new Vector<Component>(20,10);
         addMutables(v,c);
-        return (Mutable[])v.toArray(new Mutable[v.size()]);
+        return v.toArray(new Mutable[v.size()]);
     }
 
-    private static void addMutables(Vector v,Container container) {
+    private static void addMutables(Vector<Component> v,Container container) {
         Component[] comp = container.getComponents();
         for ( int i=0; i<comp.length; i++ ) {
             Component c = comp[i];

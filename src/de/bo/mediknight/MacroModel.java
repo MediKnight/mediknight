@@ -7,7 +7,7 @@ import javax.swing.event.*;
 import de.bo.mediknight.domain.*;
 
 public class MacroModel {
-    Set changeListeners = new HashSet();
+    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
     BillEntry[] entries;
     Rechnung rechnung;
     RechnungsGruppe rechnungsGruppe;
@@ -33,11 +33,11 @@ public class MacroModel {
     }
 
     void fireChangeEvent() {
-        Iterator it = changeListeners.iterator();
+        Iterator<ChangeListener> it = changeListeners.iterator();
         ChangeEvent e = new ChangeEvent( this );
 
         while( it.hasNext() ) {
-            ((ChangeListener) it.next()).stateChanged(e);
+            it.next().stateChanged(e);
         }
     }
 

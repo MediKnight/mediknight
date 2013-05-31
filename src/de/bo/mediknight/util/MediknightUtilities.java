@@ -89,7 +89,7 @@ public class MediknightUtilities {
 
     public static int[] readCSV(String data) {
         StringTokenizer st = new StringTokenizer(data,",");
-        Vector v = new Vector(100,10);
+        Vector<String> v = new Vector<String>(100,10);
         while ( st.hasMoreTokens() ) {
             v.add(st.nextToken());
         }

@@ -35,8 +35,8 @@ public class MedicationEntry {
         return item;
     }
 
-    public Vector toVector() {
-        Vector v = new Vector(1);
+    public Vector<String> toVector() {
+        Vector<String> v = new Vector<String>(1);
         v.add(item);
         return v;
     }
@@ -74,7 +74,7 @@ public class MedicationEntry {
             x.printStackTrace();
         }
 
-        LinkedList list = new LinkedList();
+        LinkedList<MedicationEntry> list = new LinkedList<MedicationEntry>();
         for ( int n=0;; n++ ) {
             String kp = getKeyPrefix(n);
             String item = props.getProperty(kp+"posten");
@@ -87,8 +87,8 @@ public class MedicationEntry {
 
         MedicationEntry[] entries = new MedicationEntry[list.size()];
         int i=0;
-        for ( Iterator it=list.iterator(); it.hasNext(); i++ )
-            entries[i] = (MedicationEntry)it.next();
+        for ( Iterator<MedicationEntry> it=list.iterator(); it.hasNext(); i++ )
+            entries[i] = it.next();
 
         return entries;
     }

@@ -55,13 +55,13 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
     public void commit() {
         // warum werden hier leerzeilen entfernt?
         StringTokenizer tokenizer = new StringTokenizer( view.getMedication(), "\n" );
-        List entries = new ArrayList();
+        List<MedicationEntry> entries = new ArrayList<MedicationEntry>();
 
         while( tokenizer.hasMoreTokens() ) {
             entries.add( new MedicationEntry( tokenizer.nextToken() ) );
         }
 
-        MedicationEntry[] medications = (MedicationEntry[]) entries.toArray( new MedicationEntry[0] );
+        MedicationEntry[] medications = entries.toArray( new MedicationEntry[0] );
         MedicationEntry.saveEntries( model.getVerordnung(), medications );
 
         try {
@@ -104,7 +104,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
         sb.append("\n" + text);
         model.getDiagnose().setText( sb.toString() );
         StringTokenizer tokenizer = new StringTokenizer( sb.toString() , "\n" );
-        List entries = new ArrayList();
+        List<MedicationEntry> entries = new ArrayList<MedicationEntry>();
 
         while( tokenizer.hasMoreTokens() ) {
             entries.add( new MedicationEntry( tokenizer.nextToken() ) );
@@ -131,7 +131,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
             public void run() {
             	try {
             		Patient patient = model.getDiagnose().getPatient();            		
-            		Map printSettings = PrintSettingsPresenter.getSettings();               		
+            		Map<String, String> printSettings = PrintSettingsPresenter.getSettings();               		
                 	Properties props = MainFrame.getProperties();
                 	FOPrinter fop = new FOPrinter(props.getProperty("medication.xml"), 
                 								  props.getProperty("medication.xsl"));                	
@@ -151,12 +151,12 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
             		fop.addData("Patient/Address3", patient.getAdresse3());
             		
             		// füge Betreff, Absender und Abschlusssatz hinzu
-            		fop.addData("Abschluss",(String)printSettings.get("print.medication.final"));
-            		fop.addData("Absender", (String)printSettings.get("print.sender"));
+            		fop.addData("Abschluss",printSettings.get("print.medication.final"));
+            		fop.addData("Absender", printSettings.get("print.sender"));
             		fop.addData("Betreff", "Verordnung:");
             		            		
                		// das Logo unterteilen und in die Datei mit aufnehmen
-            		String logo = (String) printSettings.get("print.logo");
+            		String logo = printSettings.get("print.logo");
             		String lf = System.getProperty("line.separator");
             		StringTokenizer token = new StringTokenizer(logo,lf);
             		int i=1;

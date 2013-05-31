@@ -25,7 +25,7 @@ public class Lock extends KnightObject {
     /**
      * Container for all locks.
      */
-    private static Hashtable locks;
+    private static Hashtable<String, Lock> locks;
 
     /**
      * Initialize the Datastore and the ObjectMapper and
@@ -37,7 +37,7 @@ public class Lock extends KnightObject {
         om.add(new AttributeMapper("aspect","aspekt",true,AttributeAccess.METHOD,AttributeType.STRING));
         Datastore.current.register(om);
 
-        locks = new Hashtable();
+        locks = new Hashtable<String, Lock>();
     }
 
     /**
@@ -162,7 +162,7 @@ public class Lock extends KnightObject {
         throws SQLException {
 
         String key = patientId + "," + aspect;
-        Lock lock = (Lock)locks.get(key);
+        Lock lock = locks.get(key);
         if ( lock != null ) {
             if ( lock.isValid() ) {
                 tracer.trace(DATA,"Acquire lock "+lock+" from cache");
@@ -192,7 +192,7 @@ public class Lock extends KnightObject {
         throws SQLException {
 
         String key = patientId + "," + aspect;
-        Lock lock = (Lock)locks.get(key);
+        Lock lock = locks.get(key);
         if ( lock != null ) {
             lock.release();
             return true;
@@ -213,8 +213,8 @@ public class Lock extends KnightObject {
 
         SQLException x = null;
 
-        for ( Enumeration e=locks.keys(); e.hasMoreElements(); ) {
-            Lock lock = (Lock)locks.get(e.nextElement());
+        for ( Enumeration<String> e=locks.keys(); e.hasMoreElements(); ) {
+            Lock lock = locks.get(e.nextElement());
             try {
                 lock.release();
             }

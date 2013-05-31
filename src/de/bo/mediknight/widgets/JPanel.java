@@ -39,8 +39,8 @@ public class JPanel extends javax.swing.JPanel implements Mutable {
      * the <code>Mutable</code> interface and can thus be managed by this
      * <code>JPanel</code>.
      */
-    protected Set controlledWidgets =
-        Collections.synchronizedSet(new HashSet(30, 0.8f));
+    protected Set<Component> controlledWidgets =
+        Collections.synchronizedSet(new HashSet<Component>(30, 0.8f));
 
     /**
      * A list of those interested in receiving <code>MutableChangeEvent</code>s
@@ -164,7 +164,7 @@ public class JPanel extends javax.swing.JPanel implements Mutable {
      */
     public void revert() {
         synchronized (controlledWidgets) {
-            Iterator iter = controlledWidgets.iterator();
+            Iterator<Component> iter = controlledWidgets.iterator();
             while (iter.hasNext())
                  ((Mutable) iter.next()).revert();
         }
@@ -180,7 +180,7 @@ public class JPanel extends javax.swing.JPanel implements Mutable {
      */
     public void forgetOriginalValue() {
         synchronized (controlledWidgets) {
-            Iterator iter = controlledWidgets.iterator();
+            Iterator<Component> iter = controlledWidgets.iterator();
             while (iter.hasNext())
                  ((Mutable) iter.next()).forgetOriginalValue();
         }
@@ -195,9 +195,9 @@ public class JPanel extends javax.swing.JPanel implements Mutable {
      */
     public boolean isChanged() {
         synchronized (controlledWidgets) {
-            Iterator i = controlledWidgets.iterator();
+            Iterator<Component> i = controlledWidgets.iterator();
             while (i.hasNext()) {
-                Component c = (Component) i.next();
+                Component c = i.next();
                 if (((Mutable) c).isChanged())
                     return true;
             }
@@ -270,7 +270,7 @@ public class JPanel extends javax.swing.JPanel implements Mutable {
 
     public void commit() {
         synchronized (controlledWidgets) {
-            Iterator iter = controlledWidgets.iterator();
+            Iterator<Component> iter = controlledWidgets.iterator();
             while (iter.hasNext())
                  ((Mutable) iter.next()).commit();
         }

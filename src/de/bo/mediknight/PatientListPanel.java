@@ -52,7 +52,7 @@ public class PatientListPanel extends JPanel {
 	
 	private JButton exportButton;
 	
-	private LinkedList patients;
+	private LinkedList<Vector<Comparable>> patients;
 	
 	public PatientListPanel() {
 		createUI();
@@ -155,7 +155,7 @@ public class PatientListPanel extends JPanel {
 		deselectAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i < patients.size(); i++) {
-					((Vector) patients.get(i)).set(0, Boolean.FALSE);
+					patients.get(i).set(0, Boolean.FALSE);
 				}
 				updateTable();
 			}			
@@ -164,7 +164,7 @@ public class PatientListPanel extends JPanel {
 		selectAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i < patients.size(); i++) {
-					((Vector) patients.get(i)).set(0, Boolean.TRUE);
+					patients.get(i).set(0, Boolean.TRUE);
 				}
 				updateTable();
 			}			
@@ -198,7 +198,7 @@ public class PatientListPanel extends JPanel {
 	}
 
 	public void getData() {
-		patients = new LinkedList();
+		patients = new LinkedList<Vector<Comparable>>();
 		
 		List patientData;
 		try {
@@ -206,7 +206,7 @@ public class PatientListPanel extends JPanel {
 			Collections.sort(patientData);
 
 			for (int p = 0; p < patientData.size(); p++) {
-				Vector v = new Vector();
+				Vector<Comparable> v = new Vector<Comparable>();
 				
 				Patient patient = (Patient) patientData.get(p);
 				
@@ -276,7 +276,7 @@ public class PatientListPanel extends JPanel {
 		tableModel.setColumnIdentifiers(cols);
 		
 		for (int i = 0; i < patients.size(); i++) {
-			tableModel.addRow((Vector) patients.get(i));
+			tableModel.addRow(patients.get(i));
 		}
 		
 		patientTable.setModel(tableModel);

@@ -71,15 +71,16 @@ public class UserProperty extends KnightObject {
         return l;
     }
 
-    static List retrieve(User user)
+    static List<UserProperty> retrieve(User user)
         throws SQLException {
 
         Query q = Datastore.current.getQuery(UserProperty.class, "id = ?");
-        List list = toList(q.bind(1,user.getId()+"").execute());
-        Iterator it = list.iterator();
+        List<UserProperty> list = new ArrayList<UserProperty>();
+        Iterator<Object> it = q.bind(1,user.getId()+"").execute();
         while (it.hasNext()) {
             UserProperty prop = (UserProperty)it.next();
             prop.setIdentity();
+            list.add(prop);
         }
         return list;
     }
@@ -89,15 +90,15 @@ public class UserProperty extends KnightObject {
      *
      * @param user The user (must not be <tt>null</tt>).
      */
-    public static Map retrieveUserInformation(User user)
+    public static Map<String, String> retrieveUserInformation(User user)
         throws IllegalArgumentException, SQLException {
 
         if ( user == null )
             throw new IllegalArgumentException("Invalid user");
 
-        Hashtable table = new Hashtable();
+        Hashtable<String, String> table = new Hashtable<String, String>();
         Query q = Datastore.current.getQuery(UserProperty.class, "id = ?");
-        Iterator it = toList(q.bind(1,user.getId()+"").execute()).iterator();
+        Iterator<Object> it = q.bind(1,user.getId()+"").execute();
         while (it.hasNext()) {
             UserProperty prop = (UserProperty)it.next();
             table.put(prop.getKey(),prop.getValue());
@@ -115,13 +116,13 @@ public class UserProperty extends KnightObject {
      * @exception ClassCastException if there exists at least one key value
      * pair which contents are no strings.
      */
-    public static void saveUserInformation(User user,Map map)
+    public static void saveUserInformation(User user,Map<String, String> map)
         throws IllegalArgumentException, ClassCastException, SQLException {
 
-        Iterator i = map.keySet().iterator();
+        Iterator<String> i = map.keySet().iterator();
         while ( i.hasNext() ) {
-            String key = (String)i.next();
-            String value = (String)map.get(key);
+            String key = i.next();
+            String value = map.get(key);
             save(user,key,value);
         }
     }

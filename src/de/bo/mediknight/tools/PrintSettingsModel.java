@@ -2,13 +2,14 @@ package de.bo.mediknight.tools;
 
 import java.util.*;
 import javax.swing.event.*;
+
 import de.bo.mediknight.domain.*;
 
 
 public class PrintSettingsModel {
 
-    Set changeListeners = new HashSet();
-    private Map content;
+    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
+    private Map<String, String> content;
 
 
     public PrintSettingsModel() {
@@ -50,7 +51,7 @@ public class PrintSettingsModel {
 	fireChangeEvent();
     }
 
-    public Map getMap() {
+    public Map<String, String> getMap() {
 	return content;
     }
 
@@ -63,11 +64,11 @@ public class PrintSettingsModel {
     }
 
     void fireChangeEvent() {
-        Iterator it = changeListeners.iterator();
+        Iterator<ChangeListener> it = changeListeners.iterator();
         ChangeEvent e = new ChangeEvent( this );
 
         while( it.hasNext() ) {
-            ((ChangeListener) it.next()).stateChanged(e);
+            it.next().stateChanged(e);
         }
     }
 }

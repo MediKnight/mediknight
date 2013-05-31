@@ -34,7 +34,7 @@ public class LockRemover extends JFrame {
     ButtonGroup group1 = new ButtonGroup();
 
     static Properties properties;
-    List locks = new ArrayList();
+    List<LockEntry> locks = new ArrayList<LockEntry>();
 
     public LockRemover() throws Exception {
         super("Sperrungen aufheben");
@@ -56,9 +56,9 @@ public class LockRemover extends JFrame {
         new TagesDiagnose();
     }
     
-    List retrieveActiveLocks() throws SQLException {
+    List<LockEntry> retrieveActiveLocks() throws SQLException {
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        List results = new ArrayList();
+        List<LockEntry> results = new ArrayList<LockEntry>();
         Query query = Datastore.current.getQuery(Lock.class);
         Iterator it = query.execute();
         while (it.hasNext()) {

@@ -129,7 +129,7 @@ public class SearchPresenter implements Presenter, Commitable  {
     }
 
     public void clearHistory() {
-        model.setRecentPatients(new ArrayList());
+        model.setRecentPatients(new ArrayList<Patient>());
     }
 
     public void clearSelection(JList list) {

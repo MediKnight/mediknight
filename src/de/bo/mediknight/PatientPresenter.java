@@ -71,7 +71,7 @@ public class PatientPresenter implements Presenter, Commitable, Observer {
 
     public void deletePatient() {
         // We only can delete a patient if we could acquire ALL depending locks.
-        Vector locks = new Vector();
+        Vector<Lock> locks = new Vector<Lock>();
         try {
             Patient p = model.getPatient();
             Lock lock = p.acquireLock(LockingInfo.getAspect(p, null));
@@ -99,8 +99,8 @@ public class PatientPresenter implements Presenter, Commitable, Observer {
             new ErrorDisplay(x, "Löschen ist jetzt nicht möglich!");
         } finally {
             try {
-                for (Iterator i = locks.iterator(); i.hasNext();) {
-                    ((Lock) i.next()).release();
+                for (Iterator<Lock> i = locks.iterator(); i.hasNext();) {
+                    i.next().release();
                 }
             } catch (Exception x) {
             }

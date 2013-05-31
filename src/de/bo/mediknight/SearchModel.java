@@ -2,6 +2,7 @@ package de.bo.mediknight;
 
 import java.util.*;
 import javax.swing.event.*;
+
 import de.bo.mediknight.PatientHistory;
 import de.bo.mediknight.domain.Patient;
 
@@ -10,7 +11,7 @@ public class SearchModel {
     PatientHistory recentPatients = PatientHistory.getInstance();
     List foundPatients = new ArrayList();
 
-    Set changeListeners = new HashSet();
+    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
 
     public SearchModel() {
     }
@@ -24,15 +25,15 @@ public class SearchModel {
     }
 
     void fireChangeEvent() {
-        Iterator it = changeListeners.iterator();
+        Iterator<ChangeListener> it = changeListeners.iterator();
         ChangeEvent e = new ChangeEvent( this );
 
         while( it.hasNext() ) {
-            ((ChangeListener) it.next()).stateChanged(e);
+            it.next().stateChanged(e);
         }
     }
 
-    public void setRecentPatients( List patients ) {
+    public void setRecentPatients( List<Patient> patients ) {
         try {
             recentPatients.setList(patients);
             fireChangeEvent();
@@ -46,7 +47,7 @@ public class SearchModel {
         return recentPatients;
     }
 
-    public List getRecentPatientsList() {
+    public List<Patient> getRecentPatientsList() {
         return recentPatients.getList();
     }
 

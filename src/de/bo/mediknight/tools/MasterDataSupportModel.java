@@ -2,11 +2,12 @@ package de.bo.mediknight.tools;
 
 import de.bo.mediknight.domain.RechnungsPosten;
 import javax.swing.event.*;
+
 import java.util.*;
 
 public class MasterDataSupportModel {
 
-    Set changeListeners = new HashSet();
+    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
     RechnungsPosten[] posten;
 
     public MasterDataSupportModel() {
@@ -73,11 +74,11 @@ public class MasterDataSupportModel {
     }
 
     void fireChangeEvent() {
-        Iterator it = changeListeners.iterator();
+        Iterator<ChangeListener> it = changeListeners.iterator();
         ChangeEvent e = new ChangeEvent( this );
 
         while( it.hasNext() ) {
-            ((ChangeListener) it.next()).stateChanged(e);
+            it.next().stateChanged(e);
         }
     }
 

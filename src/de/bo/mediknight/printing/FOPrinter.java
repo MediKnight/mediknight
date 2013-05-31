@@ -48,8 +48,8 @@ public class FOPrinter {
 	private File xmlFile;
 	private File xslFile;
 	private File templateFile;
-	private HashMap data; // für die Ersetzung von Templates
-	private ArrayList newElements; // für das Einfügen neuer Tags 
+	private HashMap<String, String> data; // für die Ersetzung von Templates
+	private ArrayList<String[]> newElements; // für das Einfügen neuer Tags 
 	private boolean wasPrinted;
 		
 	/**
@@ -73,8 +73,8 @@ public class FOPrinter {
 		xmlFile = new File(HOME_DIR, "output.xml");
 		
 		xslFile = new File(xslFileName);
-		data = new HashMap();
-		newElements = new ArrayList();
+		data = new HashMap<String, String>();
+		newElements = new ArrayList<String[]>();
 		wasPrinted = false;
 	}
 	
@@ -225,7 +225,7 @@ public class FOPrinter {
 						read = fis.read();
 					}
 					
-					String value = (String) data.get(str);
+					String value = data.get(str);
 					if(value != null)
 						osw.write(new String(value));
 				}
@@ -246,7 +246,7 @@ public class FOPrinter {
 	 */
 	private void addElements() {
 		for(int i=0; i<newElements.size(); i++) {
-			String[] str = (String[]) newElements.get(i);
+			String[] str = newElements.get(i);
 			if(str[0].equals("true"))
 				addToLast(str[1], str[2], str[3]);
 			else

@@ -2,11 +2,12 @@ package de.bo.mediknight.tools;
 
 import java.util.*;
 import javax.swing.event.*;
+
 import de.bo.mediknight.domain.*;
 
 public class UserAdministrationModel {
 
-    Set changeListeners = new HashSet();
+    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
     User[] users;
     String[] userNames;
 
@@ -82,11 +83,11 @@ public class UserAdministrationModel {
     }
 
     void fireChangeEvent() {
-        Iterator it = changeListeners.iterator();
+        Iterator<ChangeListener> it = changeListeners.iterator();
         ChangeEvent e = new ChangeEvent( this );
 
         while( it.hasNext() ) {
-            ((ChangeListener) it.next()).stateChanged(e);
+            it.next().stateChanged(e);
         }
     }
 }

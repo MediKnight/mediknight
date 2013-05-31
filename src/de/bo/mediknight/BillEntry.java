@@ -54,10 +54,10 @@ public class BillEntry {
     /**
      * This method returns a JTable representation (ok, not a very good place)
      */
-    public Vector toVector() {
+    public Vector<String> toVector() {
 
         NumberFormat nf = MediknightUtilities.getNumberFormat();
-        Vector v = new Vector(5);
+        Vector<String> v = new Vector<String>(5);
 
         v.add(item.getGebueH());
         v.add(item.getText());
@@ -131,7 +131,7 @@ public class BillEntry {
             x.printStackTrace();
         }
 
-        LinkedList list = new LinkedList();
+        LinkedList<BillEntry> list = new LinkedList<BillEntry>();
         for ( int n=0;; n++ ) {
             String kp = getKeyPrefix(n);
             String s = props.getProperty(kp+"anzahl");
@@ -166,8 +166,8 @@ public class BillEntry {
         // make array from list
         BillEntry[] entries = new BillEntry[list.size()];
         int i=0;
-        for ( Iterator it=list.iterator(); it.hasNext(); i++ )
-            entries[i] = (BillEntry)it.next();
+        for ( Iterator<BillEntry> it=list.iterator(); it.hasNext(); i++ )
+            entries[i] = it.next();
 
         return entries;
     }

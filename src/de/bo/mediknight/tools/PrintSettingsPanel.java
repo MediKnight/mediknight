@@ -58,7 +58,7 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
     }
 
     private void update() {
-        Map map = presenter.getModel().getMap();
+        Map<String, String> map = presenter.getModel().getMap();
         setFonts(map.get(PRINT_FONT).toString());
         setLogo(map.get(PRINT_LOGO).toString());
         setSender(map.get(PRINT_SENDER).toString());

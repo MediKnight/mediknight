@@ -295,15 +295,18 @@ public class Patient extends KnightObject implements Comparable {
 
     // Transient attributes -------------------------------------------------
 
-    public List getTagesDiagnosen() throws SQLException {
+    public List<TagesDiagnose> getTagesDiagnosen() throws SQLException {
         Query q = Datastore.current.getQuery(TagesDiagnose.class, "patient_id="
                 + id);
-        List list = toList(q.execute());
+        List<TagesDiagnose> list = new ArrayList<TagesDiagnose>();
 
         // set backlinks
-        Iterator it = list.iterator();
-        while (it.hasNext())
-            ((TagesDiagnose) it.next()).setPatient(this);
+        Iterator<Object> it = q.execute();
+        while (it.hasNext()) {
+        	TagesDiagnose diag = (TagesDiagnose) it.next();
+        	diag.setPatient(this);
+            list.add(diag);
+        }
 
         return list;
     }
@@ -421,14 +424,20 @@ public class Patient extends KnightObject implements Comparable {
 
     public static Patient retrieve(int id) throws SQLException {
         Query q = Datastore.current.getQuery(Patient.class, "id = ?");
-        List list = toList(q.bind(1, new Integer(id)).execute());
-        int n = list.size();
-        if (n == 1) {
-            return (Patient) list.get(0);
-        } else if (n == 0) {
-            return null;
+        Iterator<Object> it = q.bind(1, new Integer(id)).execute();
+        
+        if(!it.hasNext()) {
+        	return null;
         }
-        throw new Error("patient table corrupt!");
+        
+        Patient result = (Patient) it.next();
+        
+        if(it.hasNext()) {
+            throw new Error("patient table corrupt!");
+        }
+        else {
+            return result;
+        }
     }
 
     // Locking --------------------------------------------------------------

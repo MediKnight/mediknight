@@ -30,7 +30,7 @@ public class FlexGridLayout implements LayoutManager2 {
     private int hgap;
     private int vgap;
 
-    private Hashtable constraints = new Hashtable(10);
+    private Hashtable<Component, BLC> constraints = new Hashtable<Component, BLC>(10);
 
     // Constraint values used for alignment
     private static final int C = 0;
@@ -175,7 +175,7 @@ public class FlexGridLayout implements LayoutManager2 {
                 if (!c.isVisible())
                     continue;
 
-                BLC blc = (BLC)constraints.get(c);
+                BLC blc = constraints.get(c);
                 if (blc == null || blc.x == 0)
                     widths[i] = c.getPreferredSize().width;
                 else if (blc.x > 0)
@@ -322,7 +322,7 @@ public class FlexGridLayout implements LayoutManager2 {
                     if (!c.isVisible())
                         continue;
 
-                    BLC blc = (BLC)constraints.get(c);
+                    BLC blc = constraints.get(c);
                     int X = x;
                     int Y = y;
                     switch (blc.align) {
@@ -423,7 +423,7 @@ public class FlexGridLayout implements LayoutManager2 {
                     if (!c.isVisible())
                         continue;
 
-                    BLC blc = (BLC)constraints.get(c);
+                    BLC blc = constraints.get(c);
 
                     if (blc == null || blc.x <= 0)
                         d.width = Math.max(minColWidth[column], c.getPreferredSize().width);
