@@ -1,11 +1,40 @@
 <project name="Mediknight" default="dist">
 
   <!-- Project directory layout -->
-  <property name="src" value="projects/app/src"/>
-  <property name="build" value="bin"/>
+  <property name="src" value="src"/>
+  <property name="build" value="build"/>
   <property name="jars" value="lib"/>
   <property name="dist" value="dist"/>
   <property name="distribution" value="Distribution"/>
+  
+    <path id="master-classpath">
+      <fileset dir="${jars}">
+       <include name="avalon-framework-4.2.0.jar" />
+        <include name="batik-all-1.6.jar" />
+        <include name="borm.jar" />
+        <include name="commons-io-1.3.1.jar" />
+        <include name="commons-logging-1.0.4.jar" />
+        <include name="CVS" />
+        <include name="FlexGrid.jar" />
+        <include name="fop.jar" />
+        <include name="hsqldb.jar" />
+        <include name="jbcl.jar" />
+        <include name="jdom.jar" />
+        <include name="LayoutAssistant.jar" />
+        <include name="mm.mysql-2.0.2-bin.jar" />
+        <include name="mysql-connector-java-5.1.6-bin.jar" />
+        <include name="plastic-1.1.3.jar" />
+        <include name="serializer-2.7.0.jar" />
+        <include name="xalan-2.7.0.jar" />
+        <include name="xercesImpl-2.7.1.jar" />
+        <include name="xerces.jar" />
+        <include name="xml-apis-1.3.02.jar" />
+        <include name="xml-apis-1.3.04.jar" />
+        <include name="xml-apis-ext-1.3.04.jar" />
+        <include name="xmlgraphics-commons-1.2.jar" />
+        <include name="xmlgraphics-commons-1.3.1.jar" />
+      </fileset>
+    </path>
 
   <!-- Filter sets -->
   <filterset id="dist.filter">
@@ -16,6 +45,23 @@
 
   <target name="init">
     <tstamp/>
+  </target>
+
+  <target name="compile" description="Compiles the Task">
+  	<mkdir dir="${build}" />
+    <javac srcdir="${src}" destdir="${build}" encoding="ISO-8859-1"
+           includeantruntime="false">
+      <classpath refid="master-classpath"/>
+    </javac>
+    <copy todir="${build}">
+      <fileset dir="${src}"
+               excludes="**/*.java" />
+    </copy>
+  </target>
+  
+  <target name="clean">
+    <echo>=== CLEAN ===</echo>
+    <delete dir="${build}" />
   </target>
 
   <target name="dist">
@@ -66,7 +112,7 @@
     <antcall target="dist-install"/>
   </target>
 
-  <target name="dist-install">
+  <target name="dist-install" depends="compile">
     <delete dir="${dist}"/>
     <mkdir dir="${dist}"/>
 
