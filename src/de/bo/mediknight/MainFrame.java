@@ -1141,6 +1141,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         properties.store(new FileOutputStream(MEDIKNIGHT_PROPERTIES), "");
     }
 
+    @SuppressWarnings("resource")
     public static void initProperties() throws IOException {
         InputStream is = null;
 

@@ -201,6 +201,7 @@ public class LockRemover extends JFrame {
         frame.show();
     }
 
+    @SuppressWarnings("resource")
     public static Properties initProperties() throws IOException {
         InputStream is = null;
 

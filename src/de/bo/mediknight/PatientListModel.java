@@ -7,9 +7,7 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-import de.bo.mediknight.domain.Patient;
 import de.bo.mediknight.printing.FOPrinter;
-import de.bo.mediknight.printing.Transform;
 import de.bo.mediknight.widgets.YinYangDialog;
 
 public class PatientListModel {

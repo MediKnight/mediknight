@@ -13,10 +13,8 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 import java.util.Vector;
 
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -25,7 +23,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import de.bo.mediknight.domain.Patient;
-import de.bo.mediknight.printing.Transform;
 import de.bo.mediknight.widgets.JButton;
 import de.bo.mediknight.widgets.JPanel;
 import de.bo.mediknight.widgets.JScrollPane;

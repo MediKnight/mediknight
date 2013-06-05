@@ -5,8 +5,6 @@
  */
 package de.bo.mediknight.widgets;
 
-import java.util.Iterator;
-
 /**
  * <code>UndoBackend</code> is an interface that needs to be implemented by
  * classes that wish to function as the 'backend' for an

@@ -7,7 +7,6 @@ package de.bo.mediknight.widgets;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 

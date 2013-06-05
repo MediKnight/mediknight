@@ -7,7 +7,6 @@ import javax.swing.border.*;
 import javax.swing.*;
 
 import de.bo.mediknight.domain.Patient;
-import de.bo.mediknight.widgets.*;
 import de.bo.mediknight.widgets.JPanel;
 import de.bo.mediknight.widgets.JButton;
 import de.bo.mediknight.widgets.JScrollPane;

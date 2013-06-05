@@ -56,6 +56,7 @@ public class ExtractAnamnese {
     }
 
 
+    @SuppressWarnings("resource")
     static Connection createConnection() throws Exception {
         InputStream is = null;
 
@@ -63,6 +64,9 @@ public class ExtractAnamnese {
             is = new FileInputStream( new File( MEDIKNIGHT_PROPERTIES ) );
         } catch( FileNotFoundException e ) {
             is = ExpandBills.class.getClassLoader().getResourceAsStream( PROPERTY_FILENAME );
+        } catch( Exception e ) {
+            is.close();
+            throw e;
         }
 
         Properties p = new Properties();
