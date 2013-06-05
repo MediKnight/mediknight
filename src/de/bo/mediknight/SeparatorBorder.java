@@ -15,6 +15,8 @@ import javax.swing.border.*;
  */
 public class SeparatorBorder extends EtchedBorder {
 
+    private static final long serialVersionUID = 1L;
+
     public static Border createBorder() {
         return new SeparatorBorder();
     }

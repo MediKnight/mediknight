@@ -34,6 +34,8 @@ import javax.swing.event.EventListenerList;
  */
 public class JPanel extends javax.swing.JPanel implements Mutable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * A <code>HashSet</code> containing those child widgets which implement
      * the <code>Mutable</code> interface and can thus be managed by this

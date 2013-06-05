@@ -25,6 +25,8 @@ import javax.swing.*;
  */
 public class JDateChooser extends JComponent {
 
+    private static final long serialVersionUID = 1L;
+
     private Calendar calendar;
 
     private JButton prevYear;
@@ -367,6 +369,7 @@ public class JDateChooser extends JComponent {
      * @version 1.0
      */
     public static class ArrowButton extends JButton implements ActionListener {
+        private static final long serialVersionUID = 1L;
         private static final Insets i0 = new Insets(0, 0, 0, 0);
         private javax.swing.Timer timer;
         private int delay;

@@ -127,6 +127,8 @@ public class MediknightComboBoxUI extends MetalComboBoxUI {
             return c;
         }
 
-        static class UIResource extends MediknightComboBoxRenderer implements javax.swing.plaf.UIResource {}
+        static class UIResource extends MediknightComboBoxRenderer implements javax.swing.plaf.UIResource {
+            private static final long serialVersionUID = 1L;
+        }
     }
 }

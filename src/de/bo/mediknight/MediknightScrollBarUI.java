@@ -273,6 +273,7 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
      */
     protected static class MediknightScrollButton extends MetalScrollButton {
 
+        private static final long serialVersionUID = 1L;
         private static Color shadowColor;
         private static Color highlightColor;
 

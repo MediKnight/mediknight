@@ -18,6 +18,8 @@ package de.bo.mediknight.widgets;
  */
 public class MutableChangeEvent extends MediknightEvent {
 
+    private static final long serialVersionUID = 1L;
+    
     // whether the source associated with this MutableChangeEvent has changed
     // its canonical state
     protected boolean hasChanged;

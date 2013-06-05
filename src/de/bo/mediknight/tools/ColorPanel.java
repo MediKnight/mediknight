@@ -14,6 +14,8 @@ import de.bo.swing.FlexGridLayout;
 
 public class ColorPanel extends JPanel {
 
+    private static final long serialVersionUID = 1L;
+    
     Color primary1;
     Color primary2;
     Color primary3;

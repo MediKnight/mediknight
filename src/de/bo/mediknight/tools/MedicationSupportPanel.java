@@ -12,6 +12,8 @@ import javax.swing.event.*;
 public class MedicationSupportPanel extends JPanel implements ChangeListener,
         ListSelectionListener {
 
+    private static final long serialVersionUID = 1L;
+
     // der index der verordnung, deren inhalt zur zeit im editor angezeigt wird.
     int editIndex = -1;
 
@@ -249,6 +251,11 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener,
 
     class MedicationTableModel extends AbstractTableModel {
 
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
         final String[] columnNames = { "Gruppe", "Nummer", "Name" };
 
         VerordnungsPosten[] items;
@@ -315,6 +322,8 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener,
     }
 
     private class AddDialog extends JDialog {
+        private static final long serialVersionUID = 1L;
+
         JPanel topPanel = new JPanel();
 
         JPanel downPanel = new JPanel();

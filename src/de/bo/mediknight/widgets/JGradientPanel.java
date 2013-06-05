@@ -16,6 +16,8 @@ import java.awt.*;
  */
 public class JGradientPanel extends JPanel {
 
+    private static final long serialVersionUID = 1L;
+
     // the JGradientPanel's extent
     private float extent = 0.5f;
 

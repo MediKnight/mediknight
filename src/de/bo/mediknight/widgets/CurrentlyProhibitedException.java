@@ -9,6 +9,8 @@ import de.bo.mediknight.MediknightRuntimeException;
 
 public class CurrentlyProhibitedException extends MediknightRuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     public CurrentlyProhibitedException() {
         super();
     }

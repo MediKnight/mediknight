@@ -15,6 +15,8 @@ import de.bo.swing.FlexGridConstraints;
 import de.bo.swing.FlexGridLayout;
 
 public class SearchPanel extends JPanel implements ChangeListener {
+    private static final long serialVersionUID = 1L;
+
     SearchPresenter presenter;
 
     GridBagLayout gridBagLayout1 = new GridBagLayout();

@@ -29,6 +29,8 @@ import javax.swing.event.EventListenerList;
 
 public class JTextArea extends javax.swing.JTextArea implements MutableTextComponent, DocumentListener {
 
+    private static final long serialVersionUID = 1L;
+    
     private TextListenerPlugin plugin;
     private String originalText = null;
     private JPopupMenu popupMenu = new JPopupMenu();

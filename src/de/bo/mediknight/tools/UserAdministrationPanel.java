@@ -13,6 +13,7 @@ import de.bo.mediknight.*;
 
 public class UserAdministrationPanel extends JPanel implements ChangeListener {
 
+    private static final long serialVersionUID = 1L;
     BorderLayout borderLayout1 = new BorderLayout();
     JPanel jPanel1 = new JPanel();
     JLabel comboBoxLbl = new JLabel();

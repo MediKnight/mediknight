@@ -5,6 +5,8 @@ import java.util.EventObject;
 
 public class JTable extends javax.swing.JTable {
 
+    private static final long serialVersionUID = 1L;
+
     public boolean editCellAt(int row, int column, EventObject e) {
         boolean canEdit = super.editCellAt(row, column, e);
         if (canEdit) {

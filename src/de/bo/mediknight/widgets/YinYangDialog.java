@@ -33,6 +33,7 @@ import javax.swing.*;
  */
 public class YinYangDialog extends JDialog {
 
+    private static final long serialVersionUID = 1L;
     private Thread yinYangThread = null ;
 
     /**

@@ -28,6 +28,8 @@ import javax.swing.event.EventListenerList;
  */
 public class JTextField extends javax.swing.JTextField implements MutableTextComponent, DocumentListener {
 
+    private static final long serialVersionUID = 1L;
+    
     private TextListenerPlugin plugin;
     private String originalText = null;
     private JPopupMenu popupMenu = new JPopupMenu();

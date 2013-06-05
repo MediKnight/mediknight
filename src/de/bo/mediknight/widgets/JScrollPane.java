@@ -24,6 +24,11 @@ public class JScrollPane extends javax.swing.JScrollPane
                          implements Mutable, MutableChangeListener {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * true iff the component being displayed by this <code>JScrollPane</code>
      * implements <code>Mutable</code>
      */

@@ -10,6 +10,7 @@ import java.util.*;
 
 public class PrintSettingsPanel extends JPanel implements ChangeListener {
 
+    private static final long serialVersionUID = 1L;
     private static String PRINT_SENDER = "print.sender";
     private static String PRINT_LOGO = "print.logo";
     private static String PRINT_FONT = "print.font";

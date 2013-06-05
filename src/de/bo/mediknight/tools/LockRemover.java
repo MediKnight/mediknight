@@ -19,6 +19,7 @@ import de.bo.mediknight.domain.*;
 import de.bo.borm.*;
 
 public class LockRemover extends JFrame {
+    private static final long serialVersionUID = 1L;
     JPanel mainPanel = new JPanel();
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     JRadioButton selectiveRB = new JRadioButton();

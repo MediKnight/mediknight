@@ -17,6 +17,8 @@ import java.util.EventObject;
  */
 public class MediknightEvent extends EventObject {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Construct a new <code>MediknightEvent</code> for the given source object.
      *

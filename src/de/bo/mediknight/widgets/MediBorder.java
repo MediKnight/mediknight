@@ -11,6 +11,8 @@ import java.awt.*;
 
 public class MediBorder extends AbstractBorder {
 
+    private static final long serialVersionUID = 1L;
+
     public Insets getBorderInsets(Component c) {
         return new Insets(6,0,6,0);
     }

@@ -14,6 +14,8 @@ import java.net.URL;
 
 public class SplashWindow extends Window {
 
+    private static final long serialVersionUID = 1L;
+
     public SplashWindow(String imagePath) {
         super(new Frame());
 
@@ -40,6 +42,7 @@ public class SplashWindow extends Window {
 }
 
 class SplashImage extends Component {
+    private static final long serialVersionUID = 1L;
     Image image;
 
     public SplashImage(Image image) {

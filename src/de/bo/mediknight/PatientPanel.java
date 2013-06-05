@@ -16,6 +16,8 @@ import de.bo.mediknight.util.MediknightUtilities;
 import java.util.Date;
 
 public class PatientPanel extends JPanel implements ChangeListener {
+    private static final long serialVersionUID = 1L;
+
     PatientPresenter presenter;
 
     JPanel panel0 = new JPanel();

@@ -16,7 +16,9 @@ import de.bo.mediknight.widgets.*;
 
 public class MainTool extends JFrame {
 
-	JGradientPanel buttonPanel;
+    private static final long serialVersionUID = 1L;
+    
+    JGradientPanel buttonPanel;
 	JToggleButton printBtn = new JToggleButton();
 	JToggleButton masterDataBtn = new JToggleButton();
 	JToggleButton userBtn = new JToggleButton();

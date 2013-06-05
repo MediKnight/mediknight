@@ -25,6 +25,8 @@ import javax.swing.event.EventListenerList;
  */
 public class JRadioButton extends javax.swing.JRadioButton implements Mutable {
 
+    private static final long serialVersionUID = 1L;
+    
     private UndoHandler undoHandler = null;
     private String undoHandlerName = null;
 

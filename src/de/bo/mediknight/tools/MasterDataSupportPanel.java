@@ -13,6 +13,7 @@ import de.bo.swing.*;
 
 public class MasterDataSupportPanel extends JPanel implements ChangeListener, ListSelectionListener {
 
+    private static final long serialVersionUID = 1L;
     MasterDataSupportPresenter presenter;
     RechnungsPosten[] posten;
 
@@ -139,7 +140,7 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
 
 
     class ItemTableModel extends AbstractTableModel {
-
+        private static final long serialVersionUID = 1L;
         final String[] columnNames = {
             "GebüH", "GoÄ", "Spezifikation","Einzelpreis" };
 
@@ -218,6 +219,7 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
     }
 
     private class AddDialog extends JDialog {
+        private static final long serialVersionUID = 1L;
         JPanel topPanel = new JPanel();
         JPanel downPanel = new JPanel();
         JTextField goaTF = new JTextField( 10 );

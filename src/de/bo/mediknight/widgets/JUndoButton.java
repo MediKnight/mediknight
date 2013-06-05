@@ -22,6 +22,11 @@ import javax.swing.*;
 public class JUndoButton extends de.bo.mediknight.widgets.JButton implements UndoHandler {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    /**
      * The backend to be user for the widgets available for undoing.
      */
     protected UndoBackend undoBackend = new UndoStack();

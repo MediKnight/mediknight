@@ -7,6 +7,8 @@ package de.bo.mediknight;
 
 public class MediknightRuntimeException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     public MediknightRuntimeException() {
         super();
     }
