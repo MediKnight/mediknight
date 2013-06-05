@@ -227,16 +227,16 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
         JButton cancelBtn = new JButton("Abbrechen");
         JButton okBtn = new JButton("Anlegen");
 
-	RechnungsPosten rp;
+        RechnungsPosten rp;
 
         public AddDialog( JFrame frame ) {
-	    super(frame , "Artikel hinzufügen", true);
+            super(frame , "Artikel hinzufügen", true);
             initializeComponents();
             pack();
-	    setResizable(false);
+            setResizable(false);
 
-	    setLocationRelativeTo( frame.getContentPane() );
-	    show();
+            setLocationRelativeTo( frame.getContentPane() );
+            show();
 
         }
 
@@ -244,22 +244,22 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
             Container pane = getContentPane();
             pane.setLayout(new BorderLayout());
 
-	    JPanel inputPanel = new JPanel();
+            JPanel inputPanel = new JPanel();
 
-	    FlexGridLayout fgl = new FlexGridLayout(4, 2);
-	    fgl.setHgap( 6 );
-	    fgl.setVgap( 6 );
+            FlexGridLayout fgl = new FlexGridLayout(4, 2);
+            fgl.setHgap( 6 );
+            fgl.setVgap( 6 );
 
-	    inputPanel.setLayout( fgl );
+            inputPanel.setLayout( fgl );
 
-	    inputPanel.add(new JLabel("GoÄ-Bezeichnung:"), new FlexGridConstraints(-1, 0, FlexGridConstraints.W));
-	    inputPanel.add(goaTF, new FlexGridConstraints(0, 0, FlexGridConstraints.W));
-	    inputPanel.add(new JLabel("GebüH-Bezeichnung:"), new FlexGridConstraints(-1, 0, FlexGridConstraints.W));
-	    inputPanel.add(gebuhTF, new FlexGridConstraints(0, 0, FlexGridConstraints.W));
-	    inputPanel.add(new JLabel("Spezifikation:"), new FlexGridConstraints(-1, 0, FlexGridConstraints.W));
-	    inputPanel.add(specTF, new FlexGridConstraints(0, 0, FlexGridConstraints.W));
-	    inputPanel.add(new JLabel("Preis:"), new FlexGridConstraints(-1, 0, FlexGridConstraints.W));
-	    inputPanel.add(priceTF, new FlexGridConstraints(0, 0, FlexGridConstraints.W));
+            inputPanel.add(new JLabel("GoÄ-Bezeichnung:"), new FlexGridConstraints(-1, 0, FlexGridConstraints.W));
+            inputPanel.add(goaTF, new FlexGridConstraints(0, 0, FlexGridConstraints.W));
+            inputPanel.add(new JLabel("GebüH-Bezeichnung:"), new FlexGridConstraints(-1, 0, FlexGridConstraints.W));
+            inputPanel.add(gebuhTF, new FlexGridConstraints(0, 0, FlexGridConstraints.W));
+            inputPanel.add(new JLabel("Spezifikation:"), new FlexGridConstraints(-1, 0, FlexGridConstraints.W));
+            inputPanel.add(specTF, new FlexGridConstraints(0, 0, FlexGridConstraints.W));
+            inputPanel.add(new JLabel("Preis:"), new FlexGridConstraints(-1, 0, FlexGridConstraints.W));
+            inputPanel.add(priceTF, new FlexGridConstraints(0, 0, FlexGridConstraints.W));
 
 
 
@@ -269,48 +269,48 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
             downPanel.add(cancelBtn);
 
             cancelBtn.addActionListener(new ActionListener() {
-                    public void actionPerformed( ActionEvent e ) {
-                        dispose();
-                    }
+                public void actionPerformed( ActionEvent e ) {
+                    dispose();
+                }
             } );
 
             okBtn.addActionListener(new ActionListener() {
-                    public void actionPerformed( ActionEvent e ) {
-			rp = new RechnungsPosten();
-			String gebuh = gebuhTF.getText();
-			String goa   = goaTF.getText();
-			String spec  = specTF.getText();
-			String price = priceTF.getText();
+                public void actionPerformed( ActionEvent e ) {
+                    rp = new RechnungsPosten();
+                    String gebuh = gebuhTF.getText();
+                    String goa   = goaTF.getText();
+                    String spec  = specTF.getText();
+                    String price = priceTF.getText();
 
-			if (gebuh.length() > 0 || goa.length() > 0) {
-			    if ( gebuh.length() > 0 )
-				rp.setGebueH( gebuh );
-			    if ( goa.length() > 0 )
-				rp.setGOAE( goa );
-			    if ( spec.length() > 0 )
-				rp.setText( spec );
-			    if ( price.length() > 0 ) {
-				try {
-				    int defaultCurrency = useEuro ? CurrencyNumber.EUR : CurrencyNumber.DM;
-				    CurrencyNumber cn = CurrencyNumber.parse(price, defaultCurrency);
-				    rp.setPreis(cn.doubleValue());
-				    rp.setEuro(cn.getCurrency() == CurrencyNumber.EUR);
-    	    		        } catch (IllegalArgumentException x) {
-				    x.printStackTrace();
-				    rp.setPreis(0.0);
-				    rp.setEuro(useEuro);
-    	    		        }
-			    }
-			    presenter.getModel().addItem( rp );
-                            dispose();
-			} else {
-			    JOptionPane.showMessageDialog( null,
-				"Sie haben weder eine GoÄ- noch eine GebüH-Bezeichnung eingegeben!","Ungültiger Eintrag!",
-				JOptionPane.INFORMATION_MESSAGE);
+                    if (gebuh.length() > 0 || goa.length() > 0) {
+                        if ( gebuh.length() > 0 )
+                            rp.setGebueH( gebuh );
+                        if ( goa.length() > 0 )
+                            rp.setGOAE( goa );
+                        if ( spec.length() > 0 )
+                            rp.setText( spec );
+                        if ( price.length() > 0 ) {
+                            try {
+                                int defaultCurrency = useEuro ? CurrencyNumber.EUR : CurrencyNumber.DM;
+                                CurrencyNumber cn = CurrencyNumber.parse(price, defaultCurrency);
+                                rp.setPreis(cn.doubleValue());
+                                rp.setEuro(cn.getCurrency() == CurrencyNumber.EUR);
+                            } catch (IllegalArgumentException x) {
+                                x.printStackTrace();
+                                rp.setPreis(0.0);
+                                rp.setEuro(useEuro);
+                            }
+                        }
+                        presenter.getModel().addItem( rp );
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog( null,
+                                "Sie haben weder eine GoÄ- noch eine GebüH-Bezeichnung eingegeben!","Ungültiger Eintrag!",
+                                JOptionPane.INFORMATION_MESSAGE);
 
-			    return;
-			}
+                        return;
                     }
+                }
             } );
 
             pane.add(topPanel, BorderLayout.NORTH);
