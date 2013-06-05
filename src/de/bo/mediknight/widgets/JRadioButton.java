@@ -5,6 +5,8 @@
  */
 package de.bo.mediknight.widgets;
 
+import java.util.Enumeration;
+
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -220,7 +222,7 @@ public class JRadioButton extends javax.swing.JRadioButton implements Mutable {
 
         if(originalValue != null) {
             if(originallySelectedButton != null) {
-                java.util.Enumeration buttons = ((DefaultButtonModel) this.getModel()).getGroup().getElements();
+                Enumeration<AbstractButton> buttons = ((DefaultButtonModel) this.getModel()).getGroup().getElements();
                 while(buttons.hasMoreElements())
                     ((JRadioButton) buttons.nextElement()).commit();
                 SwingUtilities.getRoot(this).repaint();

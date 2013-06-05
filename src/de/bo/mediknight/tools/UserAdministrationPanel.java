@@ -16,7 +16,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
     BorderLayout borderLayout1 = new BorderLayout();
     JPanel jPanel1 = new JPanel();
     JLabel comboBoxLbl = new JLabel();
-    JComboBox userComboBox = new JComboBox();
+    JComboBox<User> userComboBox = new JComboBox<User>();
     FlowLayout flowLayout1 = new FlowLayout();
 
     UserAdministrationPresenter presenter;
@@ -119,7 +119,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
 	    }
 	};
 
-    	userComboBox.setModel(new DefaultComboBoxModel(presenter.getModel().getUsers()));
+    userComboBox.setModel(new DefaultComboBoxModel<User>(presenter.getModel().getUsers()));
 	userComboBox.addItemListener( lst );
 	setUser( (User) presenter.getModel().getUser( 0 ) );
 
@@ -211,7 +211,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
     }
 
     private void update() {
-	userComboBox.setModel(new DefaultComboBoxModel(presenter.getModel().getUsers()));
+	userComboBox.setModel(new DefaultComboBoxModel<User>(presenter.getModel().getUsers()));
 	if (user != null) {
 	    userComboBox.removeItemListener( lst );
 	    userComboBox.setSelectedItem( user );
@@ -326,6 +326,8 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
 
 
     private class PasswordDialog extends JDialog {
+        private static final long serialVersionUID = 1L;
+        
         JPanel topPanel = new JPanel();
         JPanel downPanel = new JPanel();
         JPasswordField newTF = new JPasswordField( 10 );
@@ -416,6 +418,8 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
     }
 
     private class PictureDialog extends JDialog {
+        private static final long serialVersionUID = 1L;
+        
         JPanel topPanel = new JPanel();
         JPanel downPanel = new JPanel();
 	JLabel oldPic = new JLabel();

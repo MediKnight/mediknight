@@ -22,11 +22,16 @@ import javax.swing.event.EventListenerList;
  *
  * @author chs@baltic-online.de
  * @author es@baltic-online.de
- * @version 1.5
+ * @version 1.6
  *
  */
-public class JComboBox extends javax.swing.JComboBox implements Mutable {
+public class JComboBox<E> extends javax.swing.JComboBox<E> implements Mutable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
     private UndoHandler undoHandler = null;
     private String undoHandlerName = null;
 
@@ -61,7 +66,7 @@ public class JComboBox extends javax.swing.JComboBox implements Mutable {
      *
      * @since 1.0
      */
-    public JComboBox(ComboBoxModel aModel) {
+    public JComboBox(ComboBoxModel<E> aModel) {
         super(aModel);
         initialize();
     }
@@ -74,7 +79,7 @@ public class JComboBox extends javax.swing.JComboBox implements Mutable {
      *
      * @since 1.0
      */
-    public JComboBox(Object[] items) {
+    public JComboBox(E[] items) {
         super(items);
         initialize();
     }
@@ -87,7 +92,7 @@ public class JComboBox extends javax.swing.JComboBox implements Mutable {
      *
      * @since 1.1
      */
-    public JComboBox(Vector items) {
+    public JComboBox(Vector<E> items) {
         super(items);
         initialize();
     }

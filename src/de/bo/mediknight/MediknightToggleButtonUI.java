@@ -82,12 +82,7 @@ public class MediknightToggleButtonUI extends MetalToggleButtonUI {
     //  which is actually called by BasicToggleButtonUI.paint().
     protected void paintText(Graphics g, AbstractButton b,
 			     Rectangle textRect, String text) {
-        ButtonModel model = b.getModel();
-        if (false && model.isEnabled() && model.isSelected() && !model.isPressed()) {
-            g.setColor(UIManager.getColor(getPropertyPrefix() + "selectionForeground"));
-            BasicGraphicsUtils.drawString(g, text, model.getMnemonic(), textRect.x, textRect.y + g.getFontMetrics().getAscent());
-        } else
-            super.paintText(g, (JComponent)b, textRect, text);
+        super.paintText(g, (JComponent)b, textRect, text);
     }
 
     // optimization as in the MetalButtonUI class

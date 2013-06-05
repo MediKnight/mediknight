@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @author sma@baltic-online.de
  */
 public class RechnungsPosten extends KnightObject
-implements Comparable {
+implements Comparable<RechnungsPosten> {
 
     // Persistent attributes ------------------------------------------------
 
@@ -115,11 +115,11 @@ implements Comparable {
     //
     // Retrieval ------------------------------------------------------------
 
-    public static List retrieve() throws SQLException {
+    public static List<KnightObject> retrieve() throws SQLException {
         Query q = Datastore.current.getQuery(RechnungsPosten.class);
-        List list = toList(q.execute());
-        for ( Iterator i = list.iterator(); i.hasNext(); ) {
-            ((KnightObject)i.next()).setIdentity();
+        List<KnightObject> list = toList(q.execute());
+        for ( Iterator<KnightObject> i = list.iterator(); i.hasNext(); ) {
+            i.next().setIdentity();
         }
         return list;
     }
@@ -140,8 +140,8 @@ implements Comparable {
 
     // Comparable -----------------------------------------------------------
 
-    public int compareTo(Object o) {
-        RechnungsPosten r = (RechnungsPosten)o;
+    public int compareTo(RechnungsPosten o) {
+        RechnungsPosten r = o;
         // System.out.println("Compare "+this+" with "+r+" ...");
         int g1 = getGruppe();
         int g2 = r.getGruppe();

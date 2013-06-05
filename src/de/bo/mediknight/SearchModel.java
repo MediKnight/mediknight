@@ -9,7 +9,7 @@ import de.bo.mediknight.domain.Patient;
 public class SearchModel {
 
     PatientHistory recentPatients = PatientHistory.getInstance();
-    List foundPatients = new ArrayList();
+    List<Patient> foundPatients = new ArrayList<Patient>();
 
     Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
 
@@ -60,12 +60,12 @@ public class SearchModel {
         }
     }
 
-    public void setFoundPatients( List patients ) {
+    public void setFoundPatients( List<Patient> patients ) {
         foundPatients = patients;
         fireChangeEvent();
     }
 
-    public List getFoundPatients() {
+    public List<Patient> getFoundPatients() {
         return foundPatients;
     }
 

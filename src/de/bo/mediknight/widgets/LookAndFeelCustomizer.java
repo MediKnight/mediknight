@@ -6,6 +6,7 @@
 package de.bo.mediknight.widgets;
 
 import java.util.*;
+import java.util.List;
 import java.io.*;
 import javax.swing.*;
 import javax.swing.plaf.*;
@@ -32,14 +33,14 @@ public class LookAndFeelCustomizer {
                             FONT = 7,
                             BOOLEAN = 8;
 
-    public static final java.util.List PREFIXES = Arrays.asList(new String[] {
+    public static final List<String> PREFIXES = Arrays.asList(new String[] {
         "*", "TextField", "TextArea", "Panel", "Label", "Button", "CheckBox",
         "ComboBox", "List", "OptionPane", "FileChooser", "ColorChooser",
         "TitledBorder", "Table", "TableHeader", "Tree", "Desktop", "FileView",
         "InternalFrame", "MenuItem", "ProgressBar", "Scrollbar", "ScrollPane",
         "SplitPane", "TabbedPane", "Separator", "Slider", "ToolBar" });
 
-    private HashMap defaultProperties = new HashMap();
+    private HashMap<String, Object> defaultProperties = new HashMap<String, Object>();
     private String rootName;
 
     public void loadDefaults(String fileName) throws IOException {
@@ -118,7 +119,7 @@ public class LookAndFeelCustomizer {
                 } else {
                     StringTokenizer st2 = new StringTokenizer(resourceKey, ".");
                     int tokenCount = st2.countTokens();
-                    HashMap map = defaultProperties;
+                    HashMap<String, Object> map = defaultProperties;
 
                     for(int i = 1; i < tokenCount; i++) {
                         String name = st2.nextToken();
@@ -126,9 +127,9 @@ public class LookAndFeelCustomizer {
                         if(i == 1 && rootName == null)
                             rootName = name;
 
-                        HashMap mapForName = (HashMap) map.get(name);
+                        HashMap<String, Object> mapForName = (HashMap<String, Object>) map.get(name);
                         if(mapForName == null)
-                            map.put(name, mapForName = new HashMap());
+                            map.put(name, mapForName = new HashMap<String, Object>());
                         map = mapForName;
 
                     }
@@ -139,12 +140,14 @@ public class LookAndFeelCustomizer {
                 System.out.println("couldn't understand\"" + line + "\"");
             }
         }
+        
+        in.close();
     }
 
     public void customizeUITree(JComponent root) {
         if(rootName == null) return;
-        HashMap rootProperties = (HashMap) defaultProperties.get(rootName);
-        customizeUITree(root, cloneIfNecessary(new HashMap(), rootProperties,
+        HashMap<String, Object> rootProperties = (HashMap<String, Object>) defaultProperties.get(rootName);
+        customizeUITree(root, cloneIfNecessary(new HashMap<String, Object>(), rootProperties,
                             PREFIXES, false), rootProperties);
     }
 
@@ -152,18 +155,18 @@ public class LookAndFeelCustomizer {
         if(rootName == null) return;
         String propertyKey = getPropertyKey(component);
 
-        HashMap defaultProperties = new HashMap();
+        HashMap<String, Object> defaultProperties = new HashMap<String, Object>();
         defaultProperties.put(rootName, this.defaultProperties.get(rootName));
 
-        HashMap defaultPropertiesForComponent =
-            computeDefaultProperties(component, new HashMap(), defaultProperties,
+        HashMap<String, Object> defaultPropertiesForComponent =
+            computeDefaultProperties(component, new HashMap<String, Object>(), defaultProperties,
             Arrays.asList(new String[] { "*", propertyKey}));
 
         if(!defaultPropertiesForComponent.isEmpty())
             customizeComponent(component, defaultPropertiesForComponent);
     }
 
-    protected void customizeUITree(JComponent root, HashMap defaultProperties, HashMap specialProperties) {
+    protected void customizeUITree(JComponent root, HashMap<String, Object> defaultProperties, HashMap<String, Object> specialProperties) {
         customizeComponent(root, defaultProperties);
         int componentCount = root.getComponentCount();
 
@@ -172,31 +175,31 @@ public class LookAndFeelCustomizer {
             if(!(c instanceof JComponent)) continue;
 
             JComponent child = (JComponent) c;
-            HashMap childProperties = (specialProperties == null) ? null :
-                (HashMap) specialProperties.get(child.getName());
+            HashMap<String, Object> childProperties = (specialProperties == null) ? null :
+                (HashMap<String, Object>) specialProperties.get(child.getName());
             customizeUITree(child, cloneIfNecessary(defaultProperties,
                 childProperties, PREFIXES, true), childProperties);
 
         }
     }
 
-    protected void customizeComponent(JComponent component, HashMap defaultProperties) {
-        HashMap commonProperties = (HashMap) defaultProperties.get("*");
-        HashMap specialProperties = (HashMap) defaultProperties.get(getPropertyKey(component));
-        HashMap componentProperties = null;
+    protected void customizeComponent(JComponent component, HashMap<String, Object> defaultProperties) {
+        HashMap<String, Object> commonProperties = (HashMap<String, Object>) defaultProperties.get("*");
+        HashMap<String, Object> specialProperties = (HashMap<String, Object>) defaultProperties.get(getPropertyKey(component));
+        HashMap<String, Object> componentProperties = null;
 
         if(commonProperties == null)
             componentProperties = specialProperties;
         else {
-            componentProperties = (HashMap) commonProperties.clone();
+            componentProperties = (HashMap<String, Object>) commonProperties.clone();
             if(specialProperties != null)
                 componentProperties.putAll(specialProperties);
         }
 
         if(componentProperties == null) return;
-        Iterator keys = componentProperties.keySet().iterator();
+        Iterator<String> keys = componentProperties.keySet().iterator();
         while(keys.hasNext()) {
-            String key = (String) keys.next();
+            String key = keys.next();
             customizeProperty(component, key, componentProperties.get(key));
         }
     }
@@ -204,7 +207,7 @@ public class LookAndFeelCustomizer {
     protected void customizeProperty(JComponent component, String key, Object value) {
         if(value == null || value instanceof HashMap) return;
         try {
-            Class componentClass = component.getClass();
+            Class<? extends JComponent> componentClass = component.getClass();
             Method propertySetter = componentClass.getMethod(
                 getPropertySetterName(key),
                 new Class[] { value.getClass().getSuperclass() }
@@ -216,27 +219,27 @@ public class LookAndFeelCustomizer {
         }
     }
 
-    protected HashMap cloneIfNecessary(HashMap defaultProperties,
-        HashMap childProperties, java.util.List keys, boolean isCloningNecessary) {
+    protected HashMap<String, Object> cloneIfNecessary(HashMap<String, Object> defaultProperties,
+        HashMap<String, Object> childProperties, java.util.List<String> keys, boolean isCloningNecessary) {
 
         if(childProperties == null || childProperties.isEmpty())
             return defaultProperties;
 
-        HashMap newDefaultProperties = null;
+        HashMap<String, Object> newDefaultProperties = null;
         int size = keys.size();
         for(int i = 0; i < size; i++) {
-            String prefixKey = (String) keys.get(i);
-            HashMap newPropertiesForPrefix = (HashMap) childProperties.get(prefixKey);
+            String prefixKey = keys.get(i);
+            HashMap<String, Object> newPropertiesForPrefix = (HashMap<String, Object>) childProperties.get(prefixKey);
 
             if(newPropertiesForPrefix != null) {
 
                 if(newDefaultProperties == null)
                     if(isCloningNecessary)
-                        newDefaultProperties = (HashMap) defaultProperties.clone();
+                        newDefaultProperties = (HashMap<String, Object>) defaultProperties.clone();
                     else
                         newDefaultProperties = defaultProperties;
 
-                HashMap oldPropertiesForPrefix = (HashMap) defaultProperties.get(prefixKey);
+                HashMap<String, Object> oldPropertiesForPrefix = (HashMap<String, Object>) defaultProperties.get(prefixKey);
                 if(oldPropertiesForPrefix != null)
                     oldPropertiesForPrefix.putAll(newPropertiesForPrefix);
                 else
@@ -252,23 +255,23 @@ public class LookAndFeelCustomizer {
 
     }
 
-    protected HashMap computeDefaultProperties(JComponent component,
-        HashMap defaultPropertiesForComponent, HashMap defaultProperties,
-        java.util.List keys) {
+    protected HashMap<String, Object> computeDefaultProperties(JComponent component,
+        HashMap<String, Object> defaultPropertiesForComponent, HashMap<String, Object> defaultProperties,
+        java.util.List<String> keys) {
 
         String name = component.getName();
         if(rootName.equals(name))
-            return cloneIfNecessary(defaultPropertiesForComponent, (HashMap)
+            return cloneIfNecessary(defaultPropertiesForComponent, (HashMap<String, Object>)
                 defaultProperties.get(rootName), keys, false);
         else {
 
             JComponent parent = (JComponent) component.getParent();
-            HashMap defaultPropertiesForParent = computeDefaultProperties(parent,
+            HashMap<String, Object> defaultPropertiesForParent = computeDefaultProperties(parent,
                 defaultPropertiesForComponent, defaultProperties, keys);
             if(defaultProperties.isEmpty())
                 return defaultPropertiesForParent;
 
-            HashMap defaultPropertiesForChild = (HashMap) ((HashMap)
+            HashMap<String, Object> defaultPropertiesForChild = (HashMap<String, Object>) ((HashMap<String, Object>)
                 defaultProperties.get(parent.getName())).get(name);
             defaultProperties.clear();
             if(defaultPropertiesForChild == null)

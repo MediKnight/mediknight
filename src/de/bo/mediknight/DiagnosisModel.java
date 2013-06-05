@@ -31,8 +31,8 @@ public class DiagnosisModel {
         return patient;
     }
 
-    public List getTagesDiagnosen() throws SQLException {
-    	List list = new ArrayList();
+    public List<TagesDiagnose> getTagesDiagnosen() throws SQLException {
+    	List<TagesDiagnose> list = new ArrayList<TagesDiagnose>();
         list = patient.getTagesDiagnosen();
         Collections.sort(list);
         Collections.reverse(list);

@@ -89,7 +89,7 @@ public class MedicationPanel extends JPanel implements ChangeListener, ListSelec
 
         int insets = 0;
 
-        for( Enumeration columns = medicationTable.getColumnModel().getColumns(); columns.hasMoreElements(); ) {
+        for( Enumeration<TableColumn> columns = medicationTable.getColumnModel().getColumns(); columns.hasMoreElements(); ) {
             final TableColumn column = (TableColumn) columns.nextElement();
 
             TableCellRenderer tcr = column.getHeaderRenderer();

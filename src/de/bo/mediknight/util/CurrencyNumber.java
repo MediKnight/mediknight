@@ -20,7 +20,12 @@ import java.util.StringTokenizer;
  * diverse Umrechnungsfunktionen bereit.
  */
 
-public class CurrencyNumber extends Number implements Cloneable, Comparable {
+public class CurrencyNumber extends Number implements Cloneable, Comparable<CurrencyNumber> {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     /**
      * Währung in Euro (default).
      */
@@ -442,9 +447,9 @@ public class CurrencyNumber extends Number implements Cloneable, Comparable {
      *
      * @see Comparable
      */
-    public int compareTo(Object o) {
+    public int compareTo(CurrencyNumber o) {
         long v1 = toEuro().value;
-        long v2 = ((CurrencyNumber) o).toEuro().value;
+        long v2 = o.toEuro().value;
 
         if (v1 == v2)
             return 0;

@@ -18,7 +18,7 @@ import java.util.*;
  * @author sma@baltic-online.de
  */
 public class TagesDiagnose extends KnightObject
-implements Comparable {
+implements Comparable<TagesDiagnose> {
 
     // Persistent attributes ------------------------------------------------
 
@@ -97,10 +97,10 @@ implements Comparable {
 
     private void retrieveRechnung() throws SQLException {
         Query q = Datastore.current.getQuery(Rechnung.class, "diagnose_id="+id);
-        List list = toList(q.execute());
-        Iterator it = list.iterator();
+        List<Rechnung> list = toList(q.execute());
+        Iterator<Rechnung> it = list.iterator();
         if ( it.hasNext() ) {
-            rechnung = (Rechnung)it.next();
+            rechnung = it.next();
             rechnung.setDiagnose(this);
         }
         else
@@ -174,13 +174,13 @@ implements Comparable {
         }
     }
 
-    public int compareTo(Object o) {
+    public int compareTo(TagesDiagnose o) {
         if ( o == null )
             return 1;
-        return DateTools.onlyDateCompare(datum,((TagesDiagnose)o).datum);
+        return DateTools.onlyDateCompare(datum, o.datum);
     }
 
-    public boolean equals(Object o) {
+    public boolean equals(TagesDiagnose o) {
         /**
          * @todo: Now we use the Comparable implementation for equals.
          * @todo: Normally we test equality by comparing the id, improve!

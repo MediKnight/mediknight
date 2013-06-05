@@ -52,7 +52,7 @@ public class PatientListPanel extends JPanel {
 	
 	private JButton exportButton;
 	
-	private LinkedList<Vector<Comparable>> patients;
+	private LinkedList<Vector<Object>> patients;
 	
 	public PatientListPanel() {
 		createUI();
@@ -86,7 +86,7 @@ public class PatientListPanel extends JPanel {
 		patientTable.setModel(new DefaultTableModel() {
 			private static final long serialVersionUID = 1L;
 
-			public Class getColumnClass(int columnIndex)
+			public Class<?> getColumnClass(int columnIndex)
 			{
 				if (columnIndex == 0)
 					return Boolean.class;
@@ -198,7 +198,7 @@ public class PatientListPanel extends JPanel {
 	}
 
 	public void getData() {
-		patients = new LinkedList<Vector<Comparable>>();
+		patients = new LinkedList<Vector<Object>>();
 		
 		List patientData;
 		try {
@@ -206,7 +206,7 @@ public class PatientListPanel extends JPanel {
 			Collections.sort(patientData);
 
 			for (int p = 0; p < patientData.size(); p++) {
-				Vector<Comparable> v = new Vector<Comparable>();
+				Vector<Object> v = new Vector<Object>();
 				
 				Patient patient = (Patient) patientData.get(p);
 				
@@ -253,7 +253,7 @@ public class PatientListPanel extends JPanel {
 		DefaultTableModel tableModel = new DefaultTableModel() {
 			private static final long serialVersionUID = 1L;
 
-			public Class getColumnClass(int columnIndex) {
+			public Class<?> getColumnClass(int columnIndex) {
 				if (columnIndex == 0) {
 					return Boolean.class;
 				} else {

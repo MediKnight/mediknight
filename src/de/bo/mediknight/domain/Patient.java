@@ -7,7 +7,6 @@ package de.bo.mediknight.domain;
 
 import de.bo.borm.*;
 import java.util.*;
-import java.sql.Date;
 import java.sql.SQLException;
 
 /**
@@ -18,7 +17,7 @@ import java.sql.SQLException;
  * @author mr@baltic-online.de
  * @author sma@baltic-online.de
  */
-public class Patient extends KnightObject implements Comparable {
+public class Patient extends KnightObject implements Comparable<Patient> {
 
     // Persistent attributes ------------------------------------------------
 
@@ -327,13 +326,13 @@ public class Patient extends KnightObject implements Comparable {
         td.setDatum(new java.sql.Date(new java.util.Date().getTime()));
         addTagesDiagnose(td);
 
-        Object[] a = getTagesDiagnosen().toArray();
+        TagesDiagnose[] a = getTagesDiagnosen().toArray(new TagesDiagnose[0]);
         Arrays.sort(a);
 
         int n = a.length;
         if (n >= 2) {
             // Copies previous data ...
-            TagesDiagnose prevDiagnosis = (TagesDiagnose) a[n - 2];
+            TagesDiagnose prevDiagnosis = a[n - 2];
 
             Verordnung prevMedication = prevDiagnosis.getVerordnung();
             Verordnung newMedication = new Verordnung();
@@ -357,12 +356,12 @@ public class Patient extends KnightObject implements Comparable {
      * (shrink and expand together)
      */
     public void adjustTagesDiagnosen() throws SQLException {
-        java.util.List list = getTagesDiagnosen();
-        java.util.Date today = new java.util.Date();
-        Iterator it = list.iterator();
+        List<TagesDiagnose> list = getTagesDiagnosen();
+        Date today = new java.util.Date();
+        Iterator<TagesDiagnose> it = list.iterator();
         boolean needUpdate = true;
         while (it.hasNext()) {
-            TagesDiagnose td = (TagesDiagnose) it.next();
+            TagesDiagnose td = it.next();
             if (DateTools.onlyDateCompare(today, td.getDatum()) != 0) {
                 String text = td.getText();
                 if (text == null || text.trim().length() == 0)
@@ -375,14 +374,14 @@ public class Patient extends KnightObject implements Comparable {
     }
 
     public void expandTagesDiagnosen() throws SQLException {
-        java.util.List list = getTagesDiagnosen();
+        List<TagesDiagnose> list = getTagesDiagnosen();
         if (list.size() == 0)
             addTagesDiagnose();
         else {
             java.util.Date today = new java.util.Date();
             boolean needUpdate = true;
-            for (Iterator it = list.iterator(); it.hasNext();) {
-                TagesDiagnose td = (TagesDiagnose) it.next();
+            for (Iterator<TagesDiagnose> it = list.iterator(); it.hasNext();) {
+                TagesDiagnose td = it.next();
                 if (DateTools.onlyDateCompare(today, td.getDatum()) == 0) {
                     needUpdate = false;
                     break;
@@ -397,9 +396,9 @@ public class Patient extends KnightObject implements Comparable {
      * This method removes all empty diagnosis records owned by this patient.
      */
     public void shrinkTagesDiagnosen() throws SQLException {
-        Iterator it = getTagesDiagnosen().iterator();
+        Iterator<TagesDiagnose> it = getTagesDiagnosen().iterator();
         while (it.hasNext()) {
-            TagesDiagnose td = (TagesDiagnose) it.next();
+            TagesDiagnose td = it.next();
             String text = td.getText();
             if (text == null || text.trim().length() == 0)
                 td.delete();
@@ -416,7 +415,7 @@ public class Patient extends KnightObject implements Comparable {
 
     // Retrieval ------------------------------------------------------------
 
-    public static List retrieve(String pattern) throws SQLException {
+    public static List<Patient> retrieve(String pattern) throws SQLException {
         pattern += "%";
         Query q = Datastore.current.getQuery(Patient.class, "name like ?");
         return toList(q.bind(1, pattern).execute());
@@ -498,8 +497,8 @@ public class Patient extends KnightObject implements Comparable {
 
     // Comparable
 
-    public int compareTo(Object o) {
-        return getName().compareTo(((Patient) o).getName());
+    public int compareTo(Patient o) {
+        return getName().compareTo(o.getName());
     }
 
     public boolean equals(Object o) {

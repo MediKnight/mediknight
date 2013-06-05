@@ -12,7 +12,7 @@ import java.sql.SQLException;
 /**
  * @author sma@baltic-online.de
  */
-public class VerordnungsPosten extends KnightObject implements Comparable {
+public class VerordnungsPosten extends KnightObject implements Comparable<VerordnungsPosten> {
 
     // Persistent attributes ------------------------------------------------
 
@@ -66,11 +66,11 @@ public class VerordnungsPosten extends KnightObject implements Comparable {
 
     // Retrieval ------------------------------------------------------------
 
-    public static List retrieve() throws SQLException {
+    public static List<KnightObject> retrieve() throws SQLException {
         Query q = Datastore.current.getQuery(VerordnungsPosten.class);
-        List list = toList(q.execute());
-        for ( Iterator i = list.iterator(); i.hasNext(); ) {
-            ((KnightObject)i.next()).setIdentity();
+        List<KnightObject> list = toList(q.execute());
+        for ( Iterator<KnightObject> i = list.iterator(); i.hasNext(); ) {
+            i.next().setIdentity();
         }
         return list;
     }
@@ -87,11 +87,11 @@ public class VerordnungsPosten extends KnightObject implements Comparable {
 
     // Comparable -----------------------------------------------------------
 
-    public int compareTo(Object o) {
+    public int compareTo(VerordnungsPosten o) {
         if ( o == null )
             return 1;
 
-        VerordnungsPosten v = (VerordnungsPosten)o;
+        VerordnungsPosten v = o;
         int cmp = gruppe - v.gruppe;
         return (cmp == 0) ? nummer - v.nummer : cmp;
     }
