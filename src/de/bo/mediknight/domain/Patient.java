@@ -478,9 +478,9 @@ public class Patient extends KnightObject implements Comparable<Patient> {
     }
 
     public void delete() throws SQLException {
-        Iterator it = getTagesDiagnosen().iterator();
+        Iterator<TagesDiagnose> it = getTagesDiagnosen().iterator();
         while (it.hasNext())
-            ((TagesDiagnose) it.next()).delete();
+            it.next().delete();
 
         super.delete();
     }

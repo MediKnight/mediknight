@@ -10,6 +10,7 @@ import javax.swing.border.*;
 
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 import java.sql.SQLException;
 
 import de.bo.mediknight.domain.*;
@@ -24,7 +25,9 @@ import de.bo.mediknight.domain.*;
  */
 
 public class LoginDialog extends JDialog {
-	// This is the default image of a newly created user.
+    private static final long serialVersionUID = 1L;
+    
+    // This is the default image of a newly created user.
 	// It is set by the initializer below.
 	private static Image defaultUserImage;
 
@@ -45,7 +48,7 @@ public class LoginDialog extends JDialog {
 	private javax.swing.JTextField userField;
 	private javax.swing.JPasswordField passwordField;
 
-	private java.util.List userList;
+	private List<User> userList;
 
 	// The "return object" of the dialog. It the user cancels the dialog
 	// the value will be null.
@@ -121,9 +124,9 @@ public class LoginDialog extends JDialog {
 	private void createIconPanel() {
 		iconPanel = new IconPanel(this);
 
-		Iterator i = userList.iterator();
+		Iterator<User> i = userList.iterator();
 		while (i.hasNext()) {
-			iconPanel.add((User) i.next());
+			iconPanel.add(i.next());
 		}
 	}
 
@@ -131,12 +134,12 @@ public class LoginDialog extends JDialog {
 		iconPanel = new IconPanel(this);
 		try {
 
-			java.util.List list = User.retrieve();
+			List<User> list = User.retrieve();
 			if (list.size() == 0) {
 				User.getDefaultAdmin();
 				list = User.retrieve();
 			}
-			Iterator i = list.iterator();
+			Iterator<User> i = list.iterator();
 			while (i.hasNext()) {
 				User u = (User) i.next();
 				if (u.isAdmin())
@@ -233,7 +236,7 @@ public class LoginDialog extends JDialog {
 		try {
 			String inputUser = userField.getText().trim();
 			String inputPass = new String(passwordField.getPassword());
-			Iterator i = User.retrieve().iterator();
+			Iterator<User> i = User.retrieve().iterator();
 			while (i.hasNext()) {
 				User u = (User) i.next();
 				if (u.getName().toLowerCase().equals(inputUser.toLowerCase())
@@ -269,7 +272,7 @@ public class LoginDialog extends JDialog {
 	private User findUserByName(String s) {
 		String userInput = s.trim().toLowerCase();
 		if (userInput.length() > 0) {
-			Iterator it = userList.iterator();
+			Iterator<User> it = userList.iterator();
 
 			while (it.hasNext()) {
 				User u = (User) it.next();
@@ -284,7 +287,6 @@ public class LoginDialog extends JDialog {
 	}
 
 	private void enableOkButton() {
-		boolean match = false;
 		User u = findUserByName(userField.getText());
 		iconPanel.selectUser(u);
 		okButton.setEnabled(u != null);
@@ -313,7 +315,9 @@ public class LoginDialog extends JDialog {
 	 * This class could not be inner because we use static members.
 	 */
 	private static class IconPanel extends JPanel implements ActionListener {
-		private static Dimension buttonSize = null;
+        private static final long serialVersionUID = 1L;
+        
+        private static Dimension buttonSize = null;
 
 		public static Dimension getButtonSize() {
 			return buttonSize;
@@ -366,7 +370,9 @@ public class LoginDialog extends JDialog {
 	 * for the users.
 	 */
 	private static class UserButton extends JToggleButton {
-		private User user;
+        private static final long serialVersionUID = 1L;
+        
+        private User user;
 
 		public UserButton(User user, Icon icon) {
 			super(user.getName(), icon);

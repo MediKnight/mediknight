@@ -23,7 +23,7 @@ public class LockRemover extends JFrame {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     JRadioButton selectiveRB = new JRadioButton();
     JScrollPane listSP = new JScrollPane();
-    JList lockList = new JList();
+    JList<LockEntry> lockList = new JList<LockEntry>();
     JRadioButton everythingRB = new JRadioButton();
     Border border1;
     JPanel buttonPanel = new JPanel();
@@ -60,7 +60,7 @@ public class LockRemover extends JFrame {
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         List<LockEntry> results = new ArrayList<LockEntry>();
         Query query = Datastore.current.getQuery(Lock.class);
-        Iterator it = query.execute();
+        Iterator<Object> it = query.execute();
         while (it.hasNext()) {
             String description = "Stammdaten";
             Lock lock = (Lock) it.next();
@@ -69,7 +69,7 @@ public class LockRemover extends JFrame {
             if (lock.getAspect() != null && lock.getAspect().length() > 0) {
                 Query tdQuery = Datastore.current.getQuery(TagesDiagnose.class, "id = ?");
                 tdQuery.bind(1, Integer.valueOf(lock.getAspect()));
-                Iterator tdIterator = tdQuery.execute();
+                Iterator<Object> tdIterator = tdQuery.execute();
                 if (tdIterator.hasNext()) {
                     TagesDiagnose diagnose = (TagesDiagnose) tdIterator.next();
                     description = "Tagesdiagnose vom " + df.format(diagnose.getDatum());
@@ -94,7 +94,7 @@ public class LockRemover extends JFrame {
     void updateList() {
         try {
             locks = retrieveActiveLocks();
-            lockList.setListData(locks.toArray());
+            lockList.setListData(locks.toArray(new LockEntry[0]));
         } catch (SQLException e) {
             e.printStackTrace();
         }

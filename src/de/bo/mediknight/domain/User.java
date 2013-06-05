@@ -100,7 +100,7 @@ public class User extends KnightObject
         if ( isAdmin() )
             throw new SQLException("Could not delete superuser!");
 
-        Iterator i = UserProperty.retrieve(this).iterator();
+        Iterator<UserProperty> i = UserProperty.retrieve(this).iterator();
         while ( i.hasNext() )
             ((UserProperty)i.next()).delete();
 
@@ -116,7 +116,7 @@ public class User extends KnightObject
 
     // Retrieval ------------------------------------------------------------
 
-    public static List retrieve() throws SQLException {
+    public static List<User> retrieve() throws SQLException {
         Query q = Datastore.current.getQuery(User.class);
         return toList(q.execute());
     }

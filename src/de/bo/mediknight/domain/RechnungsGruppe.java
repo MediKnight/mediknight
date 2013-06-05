@@ -61,11 +61,11 @@ implements ObjectOwner {
 
     // Retrieval ------------------------------------------------------------
 
-    public static List retrieve() throws SQLException {
+    public static List<KnightObject> retrieve() throws SQLException {
         Query q = Datastore.current.getQuery(RechnungsGruppe.class);
-        List l = toList(q.execute());
-        for ( Iterator it=l.iterator(); it.hasNext(); )
-            ((KnightObject)it.next()).setIdentity();
+        List<KnightObject> l = toList(q.execute());
+        for ( Iterator<KnightObject> it=l.iterator(); it.hasNext(); )
+            it.next().setIdentity();
         return l;
     }
 

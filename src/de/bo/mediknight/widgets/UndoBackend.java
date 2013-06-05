@@ -66,11 +66,4 @@ public interface UndoBackend {
      */
     public int getSize();
 
-    /**
-     * Return an <code>Iterator</code> that iterates over the candidates.
-     *
-     * @since 1.1
-     */
-    public Iterator iterator();
-
 }

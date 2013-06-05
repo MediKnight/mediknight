@@ -1163,7 +1163,7 @@ public class MainFrame extends JFrame implements TraceConstants {
             is = new FileInputStream(new File(System.getProperty("user.home"),
                     ".mediknight.properties"));
             userPreferences.load(is);
-            Iterator it = userPreferences.keySet().iterator();
+            Iterator<Object> it = userPreferences.keySet().iterator();
 
             while (it.hasNext()) {
                 Object key = it.next();

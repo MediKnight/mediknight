@@ -61,10 +61,10 @@ public class UserProperty extends KnightObject {
         return hid;
     }
 
-    static List retrieve() throws SQLException {
+    static List<UserProperty> retrieve() throws SQLException {
         Query q = Datastore.current.getQuery(UserProperty.class);
-        List l = toList(q.execute());
-        for ( Iterator i=l.iterator(); i.hasNext(); ) {
+        List<UserProperty> l = toList(q.execute());
+        for ( Iterator<UserProperty> i=l.iterator(); i.hasNext(); ) {
             UserProperty p = (UserProperty)i.next();
             p.setIdentity();
         }

@@ -77,9 +77,9 @@ public class PatientPresenter implements Presenter, Commitable, Observer {
             Lock lock = p.acquireLock(LockingInfo.getAspect(p, null));
             if (lock != null) {
                 locks.add(lock);
-                List l = p.getTagesDiagnosen();
-                for (Iterator i = l.iterator(); i.hasNext();) {
-                    TagesDiagnose d = (TagesDiagnose) i.next();
+                List<TagesDiagnose> l = p.getTagesDiagnosen();
+                for (Iterator<TagesDiagnose> i = l.iterator(); i.hasNext();) {
+                    TagesDiagnose d = i.next();
                     lock = p.acquireLock(LockingInfo.getAspect(p, d));
                     if (lock != null) {
                         locks.add(lock);
