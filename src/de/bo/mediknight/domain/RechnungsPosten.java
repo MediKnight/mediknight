@@ -26,10 +26,10 @@ implements Comparable {
         Datastore.current.register(om);
     }
 
-    private String gebueH;
-    private String GOAE;
-    private String text;
-    private double preis;
+    private String gebueH = "";
+    private String GOAE = "";
+    private String text = "";
+    private double preis = 0.0;
 
     private transient int gruppe;
     private transient String nummer;
