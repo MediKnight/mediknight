@@ -206,6 +206,6 @@ public class BillPresenter implements Presenter, Commitable, Observer {
 
         f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         f.pack();
-        f.show();
+        f.setVisible(true);
     }
 }

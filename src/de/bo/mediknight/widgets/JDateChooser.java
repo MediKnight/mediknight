@@ -61,7 +61,7 @@ public class JDateChooser extends JComponent {
                     op.setValue(d.getCalendar());
             }
         });
-        op.createDialog(JOptionPane.getFrameForComponent(parent), "Datum auswählen").show();
+        op.createDialog(JOptionPane.getFrameForComponent(parent), "Datum auswählen").setVisible(true);
         return (Calendar)op.getValue();
     }
 
@@ -458,6 +458,6 @@ public class JDateChooser extends JComponent {
         });
         f.getContentPane().add(b);
         f.setSize(200, 100);
-        f.show();
+        f.setVisible(true);
     }
 }

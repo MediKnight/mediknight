@@ -351,7 +351,7 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener,
             setResizable(false);
 
             // setLocationRelativeTo(frame.getContentPane());
-            show();
+            setVisible(true);
 
         }
 

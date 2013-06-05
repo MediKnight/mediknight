@@ -91,7 +91,7 @@ public class MedicationSupportPresenter implements Presenter, Commitable {
 
         frame.getContentPane().add(presenter.createView(), BorderLayout.CENTER );
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.show();
+        frame.setVisible(true);
         frame.pack();
 
     }

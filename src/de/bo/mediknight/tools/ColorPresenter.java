@@ -60,7 +60,7 @@ public class ColorPresenter implements Presenter, Commitable {
         ColorPresenter presenter = new ColorPresenter(  );
         frame.getContentPane().add(presenter.createView(), BorderLayout.CENTER );
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.show();
+        frame.setVisible(true);
         frame.pack();
     }
 }

@@ -241,7 +241,7 @@ public class PatientPanel extends JPanel implements ChangeListener {
     public static void main(String[] args) {
         JFrame f = new JFrame();
         f.getContentPane().add(new PatientPanel());
-        f.show();
+        f.setVisible(true);
     }
 
     public boolean isPatientOK() {

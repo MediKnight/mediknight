@@ -238,7 +238,7 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
             setResizable(false);
 
             setLocationRelativeTo( frame.getContentPane() );
-            show();
+            setVisible(true);
 
         }
 

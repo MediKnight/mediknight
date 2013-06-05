@@ -199,7 +199,7 @@ public class LockRemover extends JFrame {
         
         LockRemover frame = new LockRemover();
         frame.setSize(500, 300);
-        frame.show();
+        frame.setVisible(true);
     }
 
     @SuppressWarnings("resource")

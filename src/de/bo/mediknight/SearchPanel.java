@@ -389,7 +389,7 @@ public class SearchPanel extends JPanel implements ChangeListener {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.getContentPane().setLayout(new FlowLayout());
         f.getContentPane().add(new SearchPanel());
-        f.show();
+        f.setVisible(true);
         f.pack();
     }
 

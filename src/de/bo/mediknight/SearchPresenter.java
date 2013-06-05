@@ -149,6 +149,6 @@ public class SearchPresenter implements Presenter, Commitable  {
 
         f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         f.pack();
-        f.show();
+        f.setVisible(true);
     }
 }

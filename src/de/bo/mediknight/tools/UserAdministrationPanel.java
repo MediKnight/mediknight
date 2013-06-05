@@ -343,7 +343,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
 	    setResizable(false);
 
 	    if(frame != null) setLocationRelativeTo( frame.getContentPane() );
-	    show();
+	    setVisible(true);
 
         }
 
@@ -438,7 +438,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
 	    setResizable(false);
 
 	    if(frame != null) setLocationRelativeTo( frame.getContentPane() );
-	    show();
+	    setVisible(true);
 
         }
 
