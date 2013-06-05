@@ -145,9 +145,9 @@ public class UserProperty extends KnightObject {
 
         UserProperty up;
         Query q = Datastore.current.getQuery(UserProperty.class,"id = ? and bezeichner = ?");
-        List l = toList(q.bind(1,user.getId()+"").bind(2,key).execute());
+        List<UserProperty> l = toList(q.bind(1,user.getId()+"").bind(2,key).execute());
         if ( l.size() > 0 ) {
-            up = (UserProperty)l.get(0);
+            up = l.get(0);
             up.setIdentity();
             if ( value == null ) {
                 up.delete();

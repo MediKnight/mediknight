@@ -6,6 +6,7 @@ import javax.swing.event.*;
 import javax.swing.border.*;
 import javax.swing.*;
 
+import de.bo.mediknight.domain.Patient;
 import de.bo.mediknight.widgets.*;
 import de.bo.mediknight.widgets.JPanel;
 import de.bo.mediknight.widgets.JButton;
@@ -28,10 +29,10 @@ public class SearchPanel extends JPanel implements ChangeListener {
     JPanel jPanel2 = new JPanel();
     BorderLayout borderLayout1 = new BorderLayout();
     JScrollPane patientSP = new JScrollPane();
-    JList patientList = new JList();
+    JList<Patient> patientList = new JList<Patient>();
     JPanel jPanel4 = new JPanel();
     JScrollPane jScrollPane1 = new JScrollPane();
-    JList recentPatientList = new JList();
+    JList<Patient> recentPatientList = new JList<Patient>();
     BorderLayout borderLayout2 = new BorderLayout();
     FlowLayout flowLayout2 = new FlowLayout();
     JButton clearHistoryBtn = new JButton();
@@ -65,16 +66,16 @@ public class SearchPanel extends JPanel implements ChangeListener {
         presenter.getModel().addChangeListener(this);
 
         recentPatientList.setListData(
-            presenter.getModel().getRecentPatientsList().toArray());
+            presenter.getModel().getRecentPatientsList().toArray(new Patient[0]));
         if (presenter.getModel().getRecentPatientsList().size() < 1)
             clearHistoryBtn.setEnabled(false);
     }
 
     public void stateChanged(ChangeEvent e) {
         patientList.setListData(
-            presenter.getModel().getFoundPatients().toArray());
+            presenter.getModel().getFoundPatients().toArray(new Patient[0]));
         recentPatientList.setListData(
-            presenter.getModel().getRecentPatientsList().toArray());
+            presenter.getModel().getRecentPatientsList().toArray(new Patient[0]));
     }
 
     private void jbInit() {

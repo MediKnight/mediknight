@@ -335,9 +335,6 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener,
 
         VerordnungsPosten vp;
 
-        public AddDialog() {
-        }
-
         public AddDialog(JFrame frame) {
             super(frame, "Verordnungsposten hinzufügen", true);
             initializeComponents();

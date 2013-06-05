@@ -200,7 +200,7 @@ public class PatientListPanel extends JPanel {
 	public void getData() {
 		patients = new LinkedList<Vector<Object>>();
 		
-		List patientData;
+		List<Patient> patientData;
 		try {
 			patientData = Patient.retrieve(filternameField.getText());
 			Collections.sort(patientData);

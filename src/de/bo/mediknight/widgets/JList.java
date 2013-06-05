@@ -15,11 +15,16 @@ import javax.swing.ListModel;
  * This subclass of <code>JList</code> supports an ActionListener for double
  * click event, just like the old <code>java.awt.List</code> does.
  *
- * @autor sma@baltic-online.de
+ * @author sma@baltic-online.de
  * @author chs@baltic-online.de
  * @version 1.1
  */
-public class JList extends javax.swing.JList {
+public class JList<E> extends javax.swing.JList<E> {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a <code>JList</code> with an empty model.
@@ -40,7 +45,7 @@ public class JList extends javax.swing.JList {
      *
      * @since 1.0
      */
-    public JList(ListModel dataModel) throws IllegalArgumentException {
+    public JList(ListModel<E> dataModel) throws IllegalArgumentException {
         super(dataModel);
     }
 
@@ -53,7 +58,7 @@ public class JList extends javax.swing.JList {
      *
      * @since 1.0
      */
-    public JList(Object[] listData) {
+    public JList(E[] listData) {
         super(listData);
     }
 
@@ -65,7 +70,7 @@ public class JList extends javax.swing.JList {
      *
      * @since 1.0
      */
-    public JList(Vector listData) {
+    public JList(Vector<E> listData) {
         super(listData);
     }
 
@@ -74,7 +79,7 @@ public class JList extends javax.swing.JList {
     private static final MouseListener listener = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-                JList list = (JList)e.getSource();
+                JList<?> list = (JList<?>)e.getSource();
                 list.fireActionPerformed(new ActionEvent(list, 0, null));
             }
         }
@@ -95,7 +100,7 @@ public class JList extends javax.swing.JList {
     }
 
     /**
-     * Removes the specified action lisener so that it no longer receives
+     * Removes the specified action listener so that it no longer receives
      * action events from this list.
      *
      * @param l the action listener to be removed

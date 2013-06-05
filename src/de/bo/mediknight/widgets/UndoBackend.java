@@ -18,28 +18,28 @@ import java.util.Iterator;
  *
  * @version 1.1
  */
-public interface UndoBackend {
+public interface UndoBackend<E> {
 
     /**
      * Return the next Undo candidate without actually removing it.
      *
      * @since 1.0
      */
-    public Object peek();
+    public E peek();
 
     /**
      * Return the next Undo candidate and remove it.
      *
      * @since 1.0
      */
-    public Object getNext();
+    public E getNext();
 
     /**
      * Remove the specified Undo candidate.
      *
      * @since 1.0
      */
-    public boolean remove(Object o);
+    public boolean remove(E o);
 
     /**
      * Test whether there are any Undo candidates.
@@ -57,7 +57,7 @@ public interface UndoBackend {
      *
      * @since 1.0
      */
-    public boolean toTop(Object o);
+    public boolean toTop(E o);
 
     /**
      * Return the number of Undo candidates.

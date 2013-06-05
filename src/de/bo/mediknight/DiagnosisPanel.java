@@ -114,7 +114,7 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
         entriesSP.getViewport().remove( entriesPanel );
 
         entriesPanel.removeAll();
-        List tagesDiagnosen;
+        List<TagesDiagnose> tagesDiagnosen;
         try {
             tagesDiagnosen = model.getTagesDiagnosen();
         } catch( SQLException e ) {

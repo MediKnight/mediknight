@@ -26,7 +26,7 @@ public class MacroPanel extends JPanel implements ChangeListener,
 
     JScrollPane macroSP = new JScrollPane();
 
-    JList keyList = new JList();
+    JList<RechnungsGruppe> keyList = new JList<RechnungsGruppe>();
 
     JScrollPane itemTableSP = new JScrollPane();
 
@@ -72,7 +72,7 @@ public class MacroPanel extends JPanel implements ChangeListener,
     }
 
     protected void update() {
-        keyList.setListData(presenter.getModel().getComponentList().toArray());
+        keyList.setListData(presenter.getModel().getComponentList().toArray(new RechnungsGruppe[0]));
         itemTable.setModel(new MacroTableModel());
         deleteBtn.setEnabled(false);
         applyBtn.setEnabled(false);

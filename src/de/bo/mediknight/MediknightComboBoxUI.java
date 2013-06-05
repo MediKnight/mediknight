@@ -43,7 +43,7 @@ public class MediknightComboBoxUI extends MetalComboBoxUI {
         return new ComboBoxLayoutManager() {
             public void layoutContainer(Container parent) {
                 if (arrowButton != null) {
-                    JComboBox cb = (JComboBox)parent;
+                    JComboBox<?> cb = (JComboBox<?>)parent;
                     int width = cb.getWidth();
                     int height = cb.getHeight();
                     Insets insets = getInsets();
@@ -100,6 +100,8 @@ public class MediknightComboBoxUI extends MetalComboBoxUI {
      * Create the combo box's default renderer.  Overwritten to make the
      * renderer transparent so that the combo box's background is visible.
      */
+    @SuppressWarnings("rawtypes") // Defined like this in BasicComboBoxUI
+    @Override
     protected ListCellRenderer createRenderer() {
         return new MediknightComboBoxRenderer.UIResource();
     }
@@ -109,8 +111,11 @@ public class MediknightComboBoxUI extends MetalComboBoxUI {
      * transparent so that the combo box's background is visible.
      */
     static class MediknightComboBoxRenderer extends BasicComboBoxRenderer {
+        private static final long serialVersionUID = 1L;
+
+        @Override
         public Component getListCellRendererComponent(
-                JList list,
+                @SuppressWarnings("rawtypes") JList list, // This is defined like that in BasicComboBoxRenderer 
                 Object value,
                 int index,
                 boolean isSelected,

@@ -22,11 +22,13 @@ import de.bo.mediknight.widgets.JTextArea;
 
 public class DatabaseSelectionDialog extends JDialog {
 
+    private static final long serialVersionUID = 1L;
+
     MainFrame.Datasource[] sources;
 
     JTextArea messageTA;
 
-    JComboBox databaseCB;
+    JComboBox<MainFrame.Datasource> databaseCB;
 
     JButton connectButton;
 
@@ -87,7 +89,7 @@ public class DatabaseSelectionDialog extends JDialog {
         messageTA.setOpaque(false);
         messageTA.setSize(new Dimension(400, 1));
 
-        databaseCB = new JComboBox();
+        databaseCB = new JComboBox<MainFrame.Datasource>();
         connectButton = new JButton("Verbinden");
         quitButton = new JButton("Beenden");
 

@@ -14,12 +14,17 @@ import java.util.*;
  *
  * @author chs@baltic-online.de
  *
- * @version 1.2
+ * @version 1.3
  * @see UndoBackend
  * @see java.util.Stack
  * @see de.bo.mediknight.widgets.JPanel
  */
-public class UndoStack extends Stack implements UndoBackend {
+public class UndoStack<E> extends Stack<E> implements UndoBackend<E> {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new instance of <code>UndoStack</code>.
@@ -41,7 +46,7 @@ public class UndoStack extends Stack implements UndoBackend {
      *
      * @since 1.1
      */
-    public Object getNext() {
+    public E getNext() {
         return pop();
     }
 
@@ -74,7 +79,7 @@ public class UndoStack extends Stack implements UndoBackend {
      *
      * @since 1.0
      */
-    public synchronized boolean toTop(Object o) {
+    public synchronized boolean toTop(E o) {
         try {
             // shortcut: if the object is already on top of the stack, there's no
             // need to do anything besides return true.

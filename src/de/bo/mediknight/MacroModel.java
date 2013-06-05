@@ -69,7 +69,7 @@ public class MacroModel {
 	this.rechnungsGruppe = rechnungsGruppe;
     }
 
-    public List getComponentList() {
+    public List<RechnungsGruppe> getComponentList() {
         try {
             return RechnungsGruppe.retrieve();
         } catch( SQLException e ) {

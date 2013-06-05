@@ -20,7 +20,7 @@ public class CreateMacroModel {
         return entries;
     }
 
-    public List<KnightObject> getComponentList() {
+    public List<RechnungsGruppe> getComponentList() {
         try {
             return RechnungsGruppe.retrieve();
         } catch( SQLException e ) {

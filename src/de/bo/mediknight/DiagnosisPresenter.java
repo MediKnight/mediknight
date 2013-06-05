@@ -72,7 +72,7 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
 			    props.getProperty("diagnosis.xsl"));                	
 		    Patient patient = model.getPatient();
 		    String ersteDiagnose = model.getPatient().getErstDiagnose();
-		    List tagesDiagnosen = model.getTagesDiagnosen();
+		    List<TagesDiagnose> tagesDiagnosen = model.getTagesDiagnosen();
 
 		    //füge Dauerdiagnose und Name des Patienten in die Datei
 		    fop.addData("Name", patient.getFullname());                	

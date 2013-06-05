@@ -5,6 +5,8 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import de.bo.mediknight.domain.KnightObject;
+
 public class CreateMacroPanel extends JPanel implements ChangeListener {
     /**
 	 * 
@@ -19,7 +21,7 @@ public class CreateMacroPanel extends JPanel implements ChangeListener {
     JButton createBtn = new JButton();
     GridLayout gridLayout1 = new GridLayout();
     JScrollPane jScrollPane1 = new JScrollPane();
-    JList macroList = new JList();
+    JList<KnightObject> macroList = new JList<KnightObject>();
 
     CreateMacroPresenter presenter;
 
@@ -53,7 +55,7 @@ public class CreateMacroPanel extends JPanel implements ChangeListener {
 
 
     public void update() {
-        macroList.setListData( presenter.getModel().getComponentList().toArray() );
+        macroList.setListData( presenter.getModel().getComponentList().toArray(new KnightObject[1]));
     }
 
     public void stateChanged( ChangeEvent e ) {

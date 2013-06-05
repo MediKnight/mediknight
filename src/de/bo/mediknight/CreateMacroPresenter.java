@@ -35,10 +35,10 @@ public class CreateMacroPresenter extends AbstractPresenter {
 
 
     public RechnungsGruppe findMacroByName( String name ) {
-        Iterator<KnightObject> it = model.getComponentList().iterator();
+        Iterator<RechnungsGruppe> it = model.getComponentList().iterator();
 
         while( it.hasNext() ) {
-            RechnungsGruppe macro = (RechnungsGruppe) it.next();
+            RechnungsGruppe macro = it.next();
             if( macro.getAbk().equals( name ) )
                 return macro;
         }

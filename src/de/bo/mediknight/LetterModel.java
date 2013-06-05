@@ -48,7 +48,7 @@ public class LetterModel {
     }
 
 
-    public List getTagesDiagnosen() {
+    public List<TagesDiagnose> getTagesDiagnosen() {
         try {
             return rechnung.getPatient().getTagesDiagnosen();
         } catch( SQLException e ) {

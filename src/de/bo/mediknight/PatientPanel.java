@@ -22,7 +22,7 @@ public class PatientPanel extends JPanel implements ChangeListener {
     GridLayout gridLayout1 = new GridLayout();
     JPanel jPanel1 = new JPanel();
     JLabel adress3Lbl = new JLabel();
-    JComboBox anredeCB = new JComboBox();
+    JComboBox<String> anredeCB = new JComboBox<String>();
     JLabel adress2Lbl = new JLabel();
     JTextField adress1TF = new JTextField();
     JLabel nachnameLbl = new JLabel();
@@ -217,7 +217,7 @@ public class PatientPanel extends JPanel implements ChangeListener {
     }
 
     public void getContent(Patient patient) {
-        patient.setAnrede((String)anredeCB.getSelectedItem());
+        patient.setAnrede((String) anredeCB.getSelectedItem());
         patient.setAchtung(achtungTA.getText());
         patient.setAdresse1(adress1TF.getText());
         patient.setAdresse2(adress2TF.getText());

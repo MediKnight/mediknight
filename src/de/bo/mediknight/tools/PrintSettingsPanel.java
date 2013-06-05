@@ -42,7 +42,7 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
     JPanel dummyPanel = new JPanel();
     JPanel jPanel2 = new JPanel();
     JLabel fontLabel = new JLabel();
-    JComboBox fontComboBox = new JComboBox();
+    JComboBox<String> fontComboBox = new JComboBox<String>();
     FlowLayout flowLayout2 = new FlowLayout();
     JScrollPane medicationFinalSP = new JScrollPane();
     JTextArea medicationFinalTA = new JTextArea();

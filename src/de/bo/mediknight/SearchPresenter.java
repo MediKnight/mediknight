@@ -69,7 +69,7 @@ public class SearchPresenter implements Presenter, Commitable  {
 
     public void searchFor( String s ) {
 
-        List data = null;
+        List<Patient> data = null;
         try {
             MainFrame.getApplication().setWaitCursor();
             data = Patient.retrieve(s);
@@ -132,7 +132,7 @@ public class SearchPresenter implements Presenter, Commitable  {
         model.setRecentPatients(new ArrayList<Patient>());
     }
 
-    public void clearSelection(JList list) {
+    public void clearSelection(JList<Patient> list) {
         if(!triggerSelectionEvents)
             return;
 
