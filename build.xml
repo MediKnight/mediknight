@@ -121,8 +121,16 @@
     <property name="install.db" value="jdbc:mysql://localhost:3306/mediknight"/>
     <antcall target="dist-install"/>
   </target>
+  
+  <target name="properties-file-check">
+    <available file="${distribution}/mediknight.properties"  property="properties.found"/>
+  </target>
+  
+  <target name="create-properties" unless="properties.found">
+    <copy file="${distribution}/mediknight.properties.in" toFile="${distribution}/mediknight.properties" />
+  </target>
 
-  <target name="dist-install" depends="compile">
+  <target name="dist-install" depends="compile, properties-file-check, create-properties">
     <delete dir="${dist}"/>
     <mkdir dir="${dist}"/>
     
@@ -151,7 +159,7 @@
   	
   	<mkdir dir="${dist}/.mediknight"/>
 
-    <copy file="${distribution}/mediknight.properties.in"
+    <copy file="${distribution}/mediknight.properties"
           toFile="${dist}/mediknight.properties">
       <filterset refid="dist.filter"/>
     </copy>
