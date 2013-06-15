@@ -34,9 +34,9 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
     JButton addBtn = new JButton();
 
     public MasterDataSupportPanel( RechnungsPosten[] posten ) {
-	this.posten = posten;
+        this.posten = posten;
         jbInit();
-	boInit();
+        boInit();
     }
 
     public void setPresenter( MasterDataSupportPresenter presenter ) {
@@ -50,34 +50,34 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
     }
 
     public void stateChanged( ChangeEvent e ) {
-	update();
+        update();
     }
 
     private void update() {
-	posten = presenter.getModel().getRechnungsPosten();
-	ItemTableModel model = new ItemTableModel( );
-	itemTable.setModel( model );
+        posten = presenter.getModel().getRechnungsPosten();
+        ItemTableModel model = new ItemTableModel( );
+        itemTable.setModel( model );
 
-	itemTable.getSelectionModel().addListSelectionListener( this );
+        itemTable.getSelectionModel().addListSelectionListener( this );
 
         TableColumn column = itemTable.getColumnModel().getColumn( ITEM_PRICE_COLUMN );
         column.setCellRenderer( MediknightUtilities.getTCRRight() );
 
         itemTable.getColumnModel().getColumn( ITEM_SPEC_COLUMN ).setPreferredWidth(
-            itemTable.getPreferredSize().width);
+                itemTable.getPreferredSize().width);
 
     }
 
     public void valueChanged( ListSelectionEvent e) {
-	if (itemTable.getSelectedRow() == -1) {
-	    deleteBtn.setEnabled( false );
-	} else {
-	    deleteBtn.setEnabled( true );
-	}
+        if (itemTable.getSelectedRow() == -1) {
+            deleteBtn.setEnabled( false );
+        } else {
+            deleteBtn.setEnabled( true );
+        }
     }
 
     public int[] getSelectedRows() {
-	return itemTable.getSelectedRows();
+        return itemTable.getSelectedRows();
     }
 
     private void jbInit() {
@@ -105,44 +105,42 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
     }
 
     private void boInit() {
-	deleteBtn.setEnabled( false );
+        deleteBtn.setEnabled( false );
 
-	final Frame frame = JOptionPane.getFrameForComponent( this );
+        addBtn.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                new AddDialog( MainTool.getFrame() );
+            }
+        });
 
-	addBtn.addActionListener( new ActionListener() {
-	    public void actionPerformed( ActionEvent e) {
-	        new AddDialog( MainTool.getFrame() );
-	    }
-	});
-
-	deleteBtn.addActionListener( new ActionListener() {
-	    public void actionPerformed( ActionEvent e) {
-		deleteEntries();
-	    }
-	});
-	SwingUtilities.invokeLater( new Runnable() {
-	    public void run() {
-		getRootPane().setDefaultButton( addBtn );
-	    }
-	});
+        deleteBtn.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e) {
+                deleteEntries();
+            }
+        });
+        SwingUtilities.invokeLater( new Runnable() {
+            public void run() {
+                getRootPane().setDefaultButton( addBtn );
+            }
+        });
     }
 
     private void deleteEntries() {
         int r = JOptionPane.showConfirmDialog( this,
-		itemTable.getSelectedRowCount() > 1 ? itemTable.getSelectedRowCount() + " Positionen wirklich löschen ?" :
-		itemTable.getSelectedRowCount() + " Position wirklich löschen ?" ,
-		"Stammdaten löschen",
-		JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+                itemTable.getSelectedRowCount() > 1 ? itemTable.getSelectedRowCount() + " Positionen wirklich löschen ?" :
+                    itemTable.getSelectedRowCount() + " Position wirklich löschen ?" ,
+                    "Stammdaten löschen",
+                    JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
         if ( r == JOptionPane.YES_OPTION )
-		presenter.getModel().deleteEntries( getSelectedRows() );
+            presenter.getModel().deleteEntries( getSelectedRows() );
     }
 
 
     class ItemTableModel extends AbstractTableModel {
         private static final long serialVersionUID = 1L;
         final String[] columnNames = {
-            "GebüH", "GoÄ", "Spezifikation","Einzelpreis" };
+                "GebüH", "GoÄ", "Spezifikation","Einzelpreis" };
 
 
 
@@ -161,21 +159,21 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
             return columnNames[col];
         }
 
-	public boolean isCellEditable(int row, int col) {
-	    return true;
-	}
+        public boolean isCellEditable(int row, int col) {
+            return true;
+        }
 
         public Object getValueAt( int row, int column ) {
 
             switch( column ) {
-                case 0:
-                    return posten[row].getGebueH();
-                case 1:
-                    return posten[row].getGOAE();
-                case 2:
-                    return posten[row].getText();
-                case 3:
-                    return new CurrencyNumber( posten[row].getPreis(), CurrencyNumber.DM ).toString();
+            case 0:
+                return posten[row].getGebueH();
+            case 1:
+                return posten[row].getGOAE();
+            case 2:
+                return posten[row].getText();
+            case 3:
+                return new CurrencyNumber( posten[row].getPreis(), CurrencyNumber.DM ).toString();
             }
             return null;
         }
@@ -183,36 +181,35 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
 
         public void setValueAt(Object o, int row, int col) {
 
-            NumberFormat nf = MediknightUtilities.getNumberFormat();
-//            boolean useEuro = MainFrame.getApplication().isEuro();
-	    switch (col) {
-		case 0:
-		    posten[row].setGebueH((String) o);
-		    break;
-		case 1:
-		    posten[row].setGOAE((String) o);
-		    break;
-		case 2:
-		    posten[row].setText((String) o);
-		    break;
-		case 3:
-		    try {
-			int defaultCurrency = useEuro ? CurrencyNumber.EUR : CurrencyNumber.DM;
-			CurrencyNumber cn = CurrencyNumber.parse(o.toString(),defaultCurrency);
-			posten[row].setPreis(cn.doubleValue());
-			posten[row].setEuro(cn.getCurrency() == CurrencyNumber.EUR);
-		    } catch (IllegalArgumentException x) {
-			x.printStackTrace();
-			posten[row].setPreis(0.0);
-			posten[row].setEuro(useEuro);
-		    }
-	    }
-	    try {
-	        posten[row].save();
-	    } catch (java.sql.SQLException e ) {
-		e.printStackTrace();
-	    }
-	    presenter.getModel().setRechnungsPosten( posten );
+            //            boolean useEuro = MainFrame.getApplication().isEuro();
+            switch (col) {
+            case 0:
+                posten[row].setGebueH((String) o);
+                break;
+            case 1:
+                posten[row].setGOAE((String) o);
+                break;
+            case 2:
+                posten[row].setText((String) o);
+                break;
+            case 3:
+                try {
+                    int defaultCurrency = useEuro ? CurrencyNumber.EUR : CurrencyNumber.DM;
+                    CurrencyNumber cn = CurrencyNumber.parse(o.toString(),defaultCurrency);
+                    posten[row].setPreis(cn.doubleValue());
+                    posten[row].setEuro(cn.getCurrency() == CurrencyNumber.EUR);
+                } catch (IllegalArgumentException x) {
+                    x.printStackTrace();
+                    posten[row].setPreis(0.0);
+                    posten[row].setEuro(useEuro);
+                }
+            }
+            try {
+                posten[row].save();
+            } catch (java.sql.SQLException e ) {
+                e.printStackTrace();
+            }
+            presenter.getModel().setRechnungsPosten( posten );
 
             update();
         }

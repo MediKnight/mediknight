@@ -288,7 +288,6 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
             int w = getWidth();
             int h = getHeight();
             int arrowHeight = (h + 1) / 4;
-            int arrowWidth = (h + 1) / 2;
 
             // Fill background
             if (isPressed) {

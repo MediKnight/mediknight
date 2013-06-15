@@ -53,7 +53,6 @@ public class ColorPresenter implements Presenter, Commitable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ColorModel model = new ColorModel();
 
         JFrame frame = new JFrame();
         frame.getContentPane().setLayout( new BorderLayout());

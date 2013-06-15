@@ -234,37 +234,6 @@ public class JDateChooser extends JComponent {
     }
 
     /**
-     * Creates the buttons panel which is located below the days panel.
-     * Actually it includes the OK-button for canceling;
-     * Clicking a button fires the component's <code>ActionEvent</code>.
-     *
-     * @see #createNavigator
-     * @see #createDaysPanel
-     * @since 1.0
-     */
-    private JPanel createButtonPanel () {
-        JButton okButton = new JButton("OK");
-        okButton.addActionListener(new ActionListener () {
-            public void actionPerformed(ActionEvent e) {
-                fireActionPerformed();
-            }
-        });
-        JButton cancelButton = new JButton("Abbrechen");
-        cancelButton.addActionListener(new ActionListener () {
-            public void actionPerformed(ActionEvent e) {
-                fireActionPerformed();
-            }
-        });
-        JPanel buttonGrid = new JPanel(new GridLayout(1, 2, 5, 5));
-        buttonGrid.add(okButton);
-        buttonGrid.add(cancelButton);
-
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.add(buttonGrid);
-        return buttonPanel;
-    }
-
-    /**
      * Updates the component after changes to the calendar object.
      *
      * @see #updateYear

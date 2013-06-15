@@ -49,7 +49,7 @@ public class BillPresenter implements Presenter, Commitable, Observer {
         try {
             model.getRechnung().save();
         } catch( SQLException e ) {
-            ErrorDisplay ed = new ErrorDisplay(e, "Fehler beim Abspeichern der Rechnung!", "Speichern...", view);
+            new ErrorDisplay(e, "Fehler beim Abspeichern der Rechnung!", "Speichern...", view);
         }
     }
 
