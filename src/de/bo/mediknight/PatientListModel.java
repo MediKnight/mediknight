@@ -20,10 +20,10 @@ public class PatientListModel {
 				props.getProperty("patients.xsl"));		
 	}
 	
-	public void collectData(Vector patients) {
+	public void collectData(Vector<Vector<?>> patients) {
 		//Patienten einfügen
 		for (int p = 0; p < patients.size(); p++) {
-			Vector patient = (Vector) patients.get(p);
+			Vector<?> patient = patients.get(p);
 			
 			if (patient.get(0).equals(Boolean.FALSE)) {
 				continue;
@@ -45,7 +45,7 @@ public class PatientListModel {
 		}		
 	}
 	
-	public void printList(final Vector patients) {
+	public void printList(final Vector<Vector<?>> patients) {
 		final YinYangDialog d =
 		    new YinYangDialog(
 		    		JOptionPane.getFrameForComponent(MainFrame.getApplication()),
@@ -64,7 +64,7 @@ public class PatientListModel {
 		});
 	}
 	
-	public void exportPdf(final Vector patients, final File selectedFile) {
+	public void exportPdf(final Vector<Vector<?>> patients, final File selectedFile) {
 		final YinYangDialog d =
 		    new YinYangDialog(
 		    		JOptionPane.getFrameForComponent(MainFrame.getApplication()),

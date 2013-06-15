@@ -271,8 +271,7 @@ public class LookAndFeelCustomizer {
             if(defaultProperties.isEmpty())
                 return defaultPropertiesForParent;
 
-            HashMap<String, Object> defaultPropertiesForChild = (HashMap<String, Object>) ((HashMap<String, Object>)
-                defaultProperties.get(parent.getName())).get(name);
+            HashMap<String, Object> defaultPropertiesForChild = (HashMap<String, Object>) ((HashMap<String, Object>) defaultProperties.get(parent.getName())).get(name);
             defaultProperties.clear();
             if(defaultPropertiesForChild == null)
                 return defaultPropertiesForParent;

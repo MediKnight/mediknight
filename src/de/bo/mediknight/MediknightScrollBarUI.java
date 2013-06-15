@@ -210,21 +210,18 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
                     return;
                 BoundedRangeModel model = scrollbar.getModel();
                 Rectangle thumbR = getThumbBounds();
-                float trackLength;
                 int thumbMin, thumbMax, thumbPos;
                 if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
                     thumbMin = scrollbar.getInsets().top;
                     thumbMax = decrButton.getY() - getThumbBounds().height;
                     thumbPos = Math.min(thumbMax, Math.max(thumbMin, (e.getY() - offset)));
                     setThumbBounds(thumbR.x, thumbPos, thumbR.width, thumbR.height);
-                    trackLength = getTrackBounds().height;
                 }
                 else {
                     thumbMin = scrollbar.getInsets().left;
                     thumbMax = decrButton.getX() - getThumbBounds().width;
                     thumbPos = Math.min(thumbMax, Math.max(thumbMin, (e.getX() - offset)));
                     setThumbBounds(thumbPos, thumbR.y, thumbR.width, thumbR.height);
-                    trackLength = getTrackBounds().width;
                 }
 
                 /* Set the scrollbars value.  If the thumb has reached the end of
@@ -364,18 +361,18 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
     }
 
     // need to copy these variables because they are private in the super class
-    private static Color thumbColor;
+//    private static Color thumbColor;
     private static Color thumbShadow;
     private static Color thumbHighlightColor;
-    private static MediknightBumps bumps;
+//    private static MediknightBumps bumps;
 
     /** Overwritten because color information are private */
     protected void configureScrollBarColors() {
         super.configureScrollBarColors();
-        thumbColor = UIManager.getColor("ScrollBar.thumb");
+//        thumbColor = UIManager.getColor("ScrollBar.thumb");
         thumbShadow = UIManager.getColor("ScrollBar.thumbShadow");
         thumbHighlightColor = UIManager.getColor("ScrollBar.thumbHighlight");
-        bumps = new MediknightBumps(10, 10, thumbHighlightColor, thumbColor, null);
+//        bumps = new MediknightBumps(10, 10, thumbHighlightColor, thumbColor, null);
     }
 
     /**

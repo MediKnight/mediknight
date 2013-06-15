@@ -300,7 +300,7 @@ public class Patient extends KnightObject implements Comparable<Patient> {
         List<TagesDiagnose> list = new ArrayList<TagesDiagnose>();
 
         // set backlinks
-        Iterator<Object> it = q.execute();
+        Iterator<Storable> it = q.execute();
         while (it.hasNext()) {
         	TagesDiagnose diag = (TagesDiagnose) it.next();
         	diag.setPatient(this);
@@ -423,7 +423,7 @@ public class Patient extends KnightObject implements Comparable<Patient> {
 
     public static Patient retrieve(int id) throws SQLException {
         Query q = Datastore.current.getQuery(Patient.class, "id = ?");
-        Iterator<Object> it = q.bind(1, new Integer(id)).execute();
+        Iterator<Storable> it = q.bind(1, new Integer(id)).execute();
         
         if(!it.hasNext()) {
         	return null;

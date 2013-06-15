@@ -76,7 +76,7 @@ public class UserProperty extends KnightObject {
 
         Query q = Datastore.current.getQuery(UserProperty.class, "id = ?");
         List<UserProperty> list = new ArrayList<UserProperty>();
-        Iterator<Object> it = q.bind(1,user.getId()+"").execute();
+        Iterator<Storable> it = q.bind(1,user.getId()+"").execute();
         while (it.hasNext()) {
             UserProperty prop = (UserProperty)it.next();
             prop.setIdentity();
@@ -98,7 +98,7 @@ public class UserProperty extends KnightObject {
 
         Hashtable<String, String> table = new Hashtable<String, String>();
         Query q = Datastore.current.getQuery(UserProperty.class, "id = ?");
-        Iterator<Object> it = q.bind(1,user.getId()+"").execute();
+        Iterator<Storable> it = q.bind(1,user.getId()+"").execute();
         while (it.hasNext()) {
             UserProperty prop = (UserProperty)it.next();
             table.put(prop.getKey(),prop.getValue());
@@ -164,5 +164,13 @@ public class UserProperty extends KnightObject {
             up.setValue(value);
             up.save();
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

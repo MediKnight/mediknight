@@ -123,7 +123,7 @@ implements Comparable<TagesDiagnose> {
 
     private void retrieveVerordnung() throws SQLException {
         Query q = Datastore.current.getQuery(Verordnung.class, "diagnose_id="+id);
-        Iterator<Object> it = q.execute();
+        Iterator<Storable> it = q.execute();
         if ( it.hasNext() ) {
             verordnung = (Verordnung)it.next();
             verordnung.setDiagnose(this);

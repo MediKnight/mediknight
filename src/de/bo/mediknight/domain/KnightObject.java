@@ -172,7 +172,7 @@ public abstract class KnightObject implements Storable {
      * Converts an <code>Iterator</code> into a <code>List</code>.
      */
     @SuppressWarnings("unchecked")
-	public static <T> List<T> toList(Iterator<Object> i) {
+	public static <T> List<T> toList(Iterator<Storable> i) {
         List<T> list = new ArrayList<T>();
         while (i.hasNext()) {
             list.add((T) i.next());

@@ -361,11 +361,11 @@ public class MediknightSplitPaneUI extends MetalSplitPaneUI {
          */
 
         int getOneTouchSizeFromSuper() {
-            return super.ONE_TOUCH_SIZE;
+            return BasicSplitPaneDivider.ONE_TOUCH_SIZE;
         }
 
         int getOneTouchOffsetFromSuper() {
-            return super.ONE_TOUCH_OFFSET;
+            return BasicSplitPaneDivider.ONE_TOUCH_OFFSET;
         }
 
         int getOrientationFromSuper() {

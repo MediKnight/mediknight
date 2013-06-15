@@ -40,7 +40,7 @@ public class ColorPresenter implements Presenter, Commitable {
         return view;
     }
 
-    public void saveProperties(HashMap map) {
+    public void saveProperties(HashMap<String, Object> map) {
     }
 
     public static void main(String[] args) {

@@ -61,7 +61,7 @@ public class LockRemover extends JFrame {
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         List<LockEntry> results = new ArrayList<LockEntry>();
         Query query = Datastore.current.getQuery(Lock.class);
-        Iterator<Object> it = query.execute();
+        Iterator<Storable> it = query.execute();
         while (it.hasNext()) {
             String description = "Stammdaten";
             Lock lock = (Lock) it.next();
@@ -70,7 +70,7 @@ public class LockRemover extends JFrame {
             if (lock.getAspect() != null && lock.getAspect().length() > 0) {
                 Query tdQuery = Datastore.current.getQuery(TagesDiagnose.class, "id = ?");
                 tdQuery.bind(1, Integer.valueOf(lock.getAspect()));
-                Iterator<Object> tdIterator = tdQuery.execute();
+                Iterator<Storable> tdIterator = tdQuery.execute();
                 if (tdIterator.hasNext()) {
                     TagesDiagnose diagnose = (TagesDiagnose) tdIterator.next();
                     description = "Tagesdiagnose vom " + df.format(diagnose.getDatum());
@@ -139,12 +139,12 @@ public class LockRemover extends JFrame {
         });
     }
 
-    boolean confirmDeletion(Object[] entries) {
+    boolean confirmDeletion(List<LockEntry> entries) {
         String message = "Sollen die folgenden Sperren aufgehoben werden?\n";
         String[] options = new String[] { "OK", "Abbrechen" };
 
-        for (int i = 0; i < entries.length; i++) {
-            message += "    " + entries[i] + "\n";
+        for (int i = 0; i < entries.size(); i++) {
+            message += "    " + entries.get(i) + "\n";
         }
 
         int option = JOptionPane.showOptionDialog(this,
@@ -159,19 +159,19 @@ public class LockRemover extends JFrame {
     }
 
     void commit() {
-        Object[] entries = null;
+        List<LockEntry> entries = null;
 
         if (selectiveRB.isSelected()) {
-            entries = lockList.getSelectedValues();
+            entries = lockList.getSelectedValuesList();
         } else {
-            entries = locks.toArray(new LockEntry[0]);
+            entries = locks;
         }
 
         if (confirmDeletion(entries)) {
-            for (int i = 0; i < entries.length; i++) {
+            for (int i = 0; i < entries.size(); i++) {
                 try {
-                    ((LockEntry) entries[i]).lock.setIdentity();
-                    ((LockEntry) entries[i]).lock.delete();
+                    entries.get(i).lock.setIdentity();
+                    entries.get(i).lock.delete();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -184,7 +184,7 @@ public class LockRemover extends JFrame {
     void updateEnablement() {
         commitButton.setEnabled(
             everythingRB.isSelected() ||
-            (lockList.getSelectedValues() != null && lockList.getSelectedValues().length > 0));
+            (lockList.getSelectedValuesList() != null && lockList.getSelectedValuesList().size() > 0));
         lockList.setEnabled(selectiveRB.isSelected());
     }
 

@@ -196,7 +196,7 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener,
 
         addBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AddDialog ad = new AddDialog(new JFrame());
+                new AddDialog(new JFrame());
             }
         });
 

@@ -29,7 +29,7 @@ public class JUndoButton extends de.bo.mediknight.widgets.JButton implements Und
     /**
      * The backend to be user for the widgets available for undoing.
      */
-    protected UndoBackend undoBackend = new UndoStack();
+    protected UndoBackend<Mutable> undoBackend = new UndoStack<Mutable>();
 
     /**
      * Create a new <code>JUndoButton</code> with no set text or icon.
@@ -193,7 +193,7 @@ public class JUndoButton extends de.bo.mediknight.widgets.JButton implements Und
                 ButtonGroup buttonGroup = ((DefaultButtonModel) buttonModel).getGroup();
                 Enumeration<AbstractButton> buttons = buttonGroup.getElements();
                 while(buttons.hasMoreElements())
-                    undoBackend.remove(buttons.nextElement());
+                    undoBackend.remove((Mutable) buttons.nextElement());
             }
         } else
             undoBackend.remove(mutable);
@@ -212,7 +212,7 @@ public class JUndoButton extends de.bo.mediknight.widgets.JButton implements Und
      */
     public Mutable getNextUndoCandidate() {
         if(hasUndoCandidates())
-            return (Mutable) undoBackend.getNext();
+            return undoBackend.getNext();
         else
             return null;
     }
@@ -230,7 +230,7 @@ public class JUndoButton extends de.bo.mediknight.widgets.JButton implements Und
      */
     public Mutable peekNextUndoCandidate() {
         if(hasUndoCandidates())
-            return (Mutable) undoBackend.peek();
+            return undoBackend.peek();
         else
             return null;
     }
@@ -281,7 +281,7 @@ public class JUndoButton extends de.bo.mediknight.widgets.JButton implements Und
      *
      * @since 1.3
      */
-    public synchronized void setUndoBackend(UndoBackend b) throws CurrentlyProhibitedException {
+    public synchronized void setUndoBackend(UndoBackend<Mutable> b) throws CurrentlyProhibitedException {
         if(hasUndoCandidates())
             throw new CurrentlyProhibitedException("Call to setUndoBackend(UndoBackend) not allowed while Undo candidates are present");
         undoBackend = b;
@@ -294,7 +294,7 @@ public class JUndoButton extends de.bo.mediknight.widgets.JButton implements Und
      *
      * @since 1.3
      */
-    public UndoBackend getUndoBackend() {
+    public UndoBackend<Mutable> getUndoBackend() {
         return undoBackend;
     }
 

@@ -280,11 +280,13 @@ public class PatientListPanel extends JPanel {
 		MainFrame.getApplication().setDefaultCursor();		
 	}
 	
-	private void printAction() {
+	@SuppressWarnings("unchecked")
+    private void printAction() {
 		presenter.getModel().printList(((DefaultTableModel) patientTable.getModel()).getDataVector());		
 	}
 	
-	private void exportAction(File file) {
+	@SuppressWarnings("unchecked")
+    private void exportAction(File file) {
 		presenter.getModel().exportPdf(((DefaultTableModel) patientTable.getModel()).getDataVector(), file);		
 	}
 	

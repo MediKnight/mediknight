@@ -47,7 +47,7 @@ public interface UndoHandler extends MutableChangeListener {
      *
      * @since 1.0
      */
-    public void setUndoBackend(UndoBackend b) throws CurrentlyProhibitedException;
+    public void setUndoBackend(UndoBackend<Mutable> b) throws CurrentlyProhibitedException;
 
     /**
      * Return the undo backend, i.e., the object responsible for handling
@@ -55,7 +55,7 @@ public interface UndoHandler extends MutableChangeListener {
      *
      * @since 1.0
      */
-    public UndoBackend getUndoBackend();
+    public UndoBackend<Mutable> getUndoBackend();
 
     /**
      * Set whether Undo is currently possible.

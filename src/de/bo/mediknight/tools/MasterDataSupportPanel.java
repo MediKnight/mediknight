@@ -111,7 +111,7 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
 
 	addBtn.addActionListener( new ActionListener() {
 	    public void actionPerformed( ActionEvent e) {
-		AddDialog dialog = new AddDialog( MainTool.getFrame() );
+	        new AddDialog( MainTool.getFrame() );
 	    }
 	});
 
