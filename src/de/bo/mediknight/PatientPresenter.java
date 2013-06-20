@@ -116,9 +116,7 @@ public class PatientPresenter implements Presenter, Commitable, Observer {
 
         try {
             Patient p = model.getPatient();
-            MainFrame app = MainFrame.getApplication();
-            LockingInfo li = app.getLockingInfo();
-            lock = p.acquireLock(LockingInfo.getAspect(p, null));//li.getDiagnosis()));
+            lock = p.acquireLock(LockingInfo.getAspect(p, null));
             if (lock != null) {
                 view.getContent();
                 p.save();
