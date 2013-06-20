@@ -44,7 +44,7 @@ public class MacroPresenter implements Presenter, Commitable {
         try {
             getModel().getRechnung().save();
         } catch (SQLException e) {
-            ErrorDisplay ed = new ErrorDisplay(e,
+            new ErrorDisplay(e,
                     "Fehler beim Abspeichern der Rechnung!", "Speichern...",
                     view);
         }
@@ -126,7 +126,7 @@ public class MacroPresenter implements Presenter, Commitable {
             try {
                 getModel().getRechnung().save();
             } catch (SQLException e) {
-                ErrorDisplay ed = new ErrorDisplay(e,
+                new ErrorDisplay(e,
                         "Fehler beim Abspeichern der Rechnung!",
                         "Speichern...", view);
             }

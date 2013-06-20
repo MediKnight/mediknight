@@ -18,8 +18,6 @@ import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import de.bo.mediknight.domain.Patient;
@@ -142,12 +140,6 @@ public class PatientListPanel extends JPanel {
 				printAction();
 			}
 		});
-		
-		ChangeListener checkboxListener = new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				updateTable();
-			}
-		};
 		
 		deselectAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

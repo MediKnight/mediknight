@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 import de.bo.mediknight.domain.*;
 import de.bo.mediknight.util.*;
-import java.text.NumberFormat;
 import de.bo.swing.*;
 
 
