@@ -126,7 +126,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
 
 	passwortBtn.addActionListener( new ActionListener() {
 	    public void actionPerformed( ActionEvent e ) {
-		PasswordDialog dialog = new PasswordDialog( MainTool.getFrame() );
+		new PasswordDialog( MainTool.getFrame() );
 	    }
 	});
 
