@@ -1019,37 +1019,36 @@ public class MainFrame extends JFrame implements TraceConstants {
      * Sets the navigation tooltip according to the given patient.
      */
     public void setPatientToNavigator(Patient patient) {
-        if (patient != null)
-            if (patient != null) {
-                String anrede = patient.getAnrede();
-                String firstName = patient.getVorname();
-                String lastName = patient.getName();
-                String text = "<html><font face=tahoma size=2><b>" + anrede
-                        + ((anrede.equals("")) ? "" : "<br>") + firstName
-                        + ((firstName.equals("")) ? "" : "<br>") + lastName
-                        + ((lastName.equals("")) ? "" : "<br>");
+        if (patient != null) {
+            String anrede = patient.getAnrede();
+            String firstName = patient.getVorname();
+            String lastName = patient.getName();
+            String text = "<html><font face=tahoma size=2><b>" + anrede
+                    + ((anrede.equals("")) ? "" : "<br>") + firstName
+                    + ((firstName.equals("")) ? "" : "<br>") + lastName
+                    + ((lastName.equals("")) ? "" : "<br>");
 
-                if (patient.getGeburtsDatum() != null) {
-                    text += MediknightUtilities.formatDate(patient
-                            .getGeburtsDatum());
-                    if (patient.getAge() > 0) {
-                        text += "<br>" + patient.getAge() + " Jahre";
-                    }
+            if (patient.getGeburtsDatum() != null) {
+                text += MediknightUtilities.formatDate(patient
+                        .getGeburtsDatum());
+                if (patient.getAge() > 0) {
+                    text += "<br>" + patient.getAge() + " Jahre";
                 }
-
-                text += "</b></font></html>";
-                patientLabel.setText(text);
-
-                if (patient.hasBirthday()) {
-                    patientLabel.setOpaque(true);
-                    patientLabel.setBackground(Color.red);
-                } else {
-                    patientLabel.setOpaque(false);
-                }
-            } else {
-                patientLabel.setText("");
-                patientLabel.setToolTipText("");
             }
+
+            text += "</b></font></html>";
+            patientLabel.setText(text);
+
+            if (patient.hasBirthday()) {
+                patientLabel.setOpaque(true);
+                patientLabel.setBackground(Color.red);
+            } else {
+                patientLabel.setOpaque(false);
+            }
+        } else {
+            patientLabel.setText("");
+            patientLabel.setToolTipText("");
+        }
     }
 
     public void selectPatient(Patient patient) throws SQLException {
