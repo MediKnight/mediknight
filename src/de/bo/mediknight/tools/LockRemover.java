@@ -16,7 +16,7 @@ import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 
 import de.bo.mediknight.*;
 import de.bo.mediknight.domain.*;
-import de.bo.borm.*;
+import de.baltic_online.borm.*;
 
 public class LockRemover extends JFrame {
     private static final long serialVersionUID = 1L;
