@@ -14,9 +14,9 @@ Paketnamen
 
   Alle Klassen haben das folgende Pr‰fix
 
-	de.bo.mediknight
+	de.baltic_online.mediknight
 
-  Generell gilt: Jedes Baltic-Online-Paket beginnt mit "de.bo" und
+  Generell gilt: Jedes Baltic-Online-Paket beginnt mit "de.baltic_online" und
   alle Namen haben ausschlieﬂlich Kleinbuchstaben. Es werden nur
   Buchstaben a-z und Ziffern 0-9 benutzt.  Insbesondere kein "_" oder
   "$".
