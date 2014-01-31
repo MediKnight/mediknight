@@ -11,7 +11,7 @@ import java.io.*;
 import javax.swing.*;
 
 import de.bo.mediknight.MainFrame;
-import de.bo.borm.TraceConstants;
+import de.baltic_online.borm.TraceConstants;
 
 public class ErrorDisplay {
     JFrame errorFrame;

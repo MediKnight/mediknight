@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
+import de.baltic_online.borm.Tracer;
 import de.bo.mediknight.domain.KnightObject;
 import de.bo.mediknight.domain.Lock;
 import de.bo.mediknight.domain.Patient;
@@ -83,8 +84,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
                     try {
                         model.getRechnung().save();
                     } catch (SQLException e) {
-                        System.out.println("Isch habe ein Problem");
-                        e.printStackTrace(); /** @todo Exception reporting. */
+                        Tracer.getDefaultTracer().trace(e);
                     }
                 }
             }
@@ -99,7 +99,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
     }
 
     public Component getResponsibleComponent() {
-        /** @todo: implement this! */
+        /** TODO: implement this! */
         return null;
     }
 
@@ -117,7 +117,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
     }
 
     public void printBill() {
-        /** @todo Make sure the contained mutables are notified also. */
+        /** TODO Make sure the contained mutables are notified also. */
         commit();
         final YinYangDialog d =
             new YinYangDialog(
@@ -153,11 +153,11 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
             		//füge Absender hinzu               		
             		fop.addData("Absender", printSettings.get("print.sender"));
             		
-            		// zerlege das Logo und füge es in die neue xml-File ein
+            		// zerlege das Logo und füge es in die neue xml-File ein 
                		String logo = printSettings.get("print.logo");
             		StringTokenizer token = new StringTokenizer(logo,lf);
             		int i=1;
-            		while(token.hasMoreElements()) {
+            		while(token.hasMoreElements()) { 
             			if(i==1) {
             				String str = token.nextToken();
             				fop.addData("Ueberschrift", str);

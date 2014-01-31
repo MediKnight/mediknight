@@ -28,7 +28,8 @@ import de.bo.mediknight.widgets.*;
 import de.bo.mediknight.dialogs.DatabaseSelectionDialog;
 import de.bo.mediknight.domain.*;
 import de.bo.mediknight.util.*;
-import de.bo.borm.*;
+ 
+import de.baltic_online.borm.*;
 
 public class MainFrame extends JFrame implements TraceConstants {
 	private static final long serialVersionUID = -6786914978162974627L;
@@ -604,7 +605,7 @@ public class MainFrame extends JFrame implements TraceConstants {
                 currentAction = BILL;
             } catch (SQLException e) {
                 e.printStackTrace();
-                /** @todo Exception reporting. */
+                /** TODO Exception reporting. */
             }
         }
     }

@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import de.baltic_online.borm.Tracer;
 import de.bo.mediknight.domain.Patient;
 import de.bo.mediknight.widgets.JButton;
 import de.bo.mediknight.widgets.JPanel;
@@ -230,8 +231,7 @@ public class PatientListPanel extends JPanel {
 				patients.addLast(v);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    Tracer.getDefaultTracer().trace(e);
 		}		
 	}
 	

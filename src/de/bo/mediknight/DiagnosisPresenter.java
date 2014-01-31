@@ -11,8 +11,8 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
-import de.bo.borm.TraceConstants;
-import de.bo.borm.Tracer;
+import de.baltic_online.borm.TraceConstants;
+import de.baltic_online.borm.Tracer;
 import de.bo.mediknight.domain.KnightObject;
 import de.bo.mediknight.domain.Lock;
 import de.bo.mediknight.domain.Patient;

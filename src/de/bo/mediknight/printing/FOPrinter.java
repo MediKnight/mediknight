@@ -3,6 +3,7 @@ package de.bo.mediknight.printing;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -20,7 +21,11 @@ import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.standard.MediaSizeName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -28,7 +33,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
+import de.baltic_online.borm.Tracer;
 import de.bo.mediknight.MainFrame;
 
 
@@ -261,25 +269,39 @@ public class FOPrinter {
 	 * @param parent Name des Vaters
 	 */
 	private void addElement(String tag, String value, String parent) {
-		try {
 			DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = fac.newDocumentBuilder();		
-			Document doc = builder.parse(xmlFile); 
-						
-			NodeList par = doc.getElementsByTagName(parent);
-			Node node = par.item(0);
-			Element e = doc.createElement(tag);
-			e.setTextContent(value);
-			
-			node.appendChild(e);		
-			TransformerFactory.newInstance().newTransformer().transform(
-	                new DOMSource(doc), 
-	                new StreamResult(new FileOutputStream(xmlFile)));
-			
-		}
-		catch (Exception e) {
-			e.printStackTrace();			
-		}
+			fac.setValidating(false);
+			DocumentBuilder builder;
+            try {
+                builder = fac.newDocumentBuilder();
+                Document doc = builder.parse(xmlFile);  
+                
+                NodeList par = doc.getElementsByTagName(parent);
+                Node node = par.item(0);
+                Element childnode = doc.createElement(tag);
+                Text text = doc.createTextNode(value);
+                
+                childnode.appendChild(text);
+                node.appendChild(childnode);
+
+                TransformerFactory.newInstance().newTransformer().transform(
+                        new DOMSource(doc), 
+                        new StreamResult(new FileOutputStream(xmlFile)));
+            } catch (TransformerConfigurationException e1) {
+              Tracer.getDefaultTracer().trace(e1);
+            } catch (FileNotFoundException e1) {
+                Tracer.getDefaultTracer().trace(e1);
+            } catch (TransformerException e1) {
+                Tracer.getDefaultTracer().trace(e1);
+            } catch (TransformerFactoryConfigurationError e1) {
+                Tracer.getDefaultTracer().trace(e1);
+            } catch (SAXException e1) {
+                Tracer.getDefaultTracer().trace(e1);
+            } catch (IOException e1) {
+                Tracer.getDefaultTracer().trace(e1);
+            } catch (ParserConfigurationException e1) {
+                Tracer.getDefaultTracer().trace(e1);
+            }
 	}
 	
 	/**
@@ -292,27 +314,39 @@ public class FOPrinter {
 	 * @param grandfather Name des Groﬂvaters
 	 */
 	private void addToLast(String tag, String value, String grandfather) {
-		try {
 			DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = fac.newDocumentBuilder();		
-			Document doc = builder.parse(xmlFile); 
-						
+			DocumentBuilder builder;
 			
-			NodeList par = doc.getElementsByTagName(grandfather);
-			Node n = par.item(0);
+            try {
+                builder = fac.newDocumentBuilder();
+                Document doc;
+                doc = builder.parse(xmlFile);
+                NodeList par = doc.getElementsByTagName(grandfather);
+                Node n = par.item(0);
+                Node node = n.getLastChild();
 			
-			Node node = n.getLastChild();
-				
-			Element e = doc.createElement(tag);
-			e.setTextContent(value);
-			
-			node.appendChild(e);				
-			TransformerFactory.newInstance().newTransformer().transform(
-	                new DOMSource(doc), 
-	                new StreamResult(new FileOutputStream(xmlFile)));			
-		}
-		catch (Exception e) {
-			e.printStackTrace();			
-		}
+                Element childnode = doc.createElement(tag);
+                Text text = doc.createTextNode(value);
+                childnode.appendChild(text);
+                node.appendChild(childnode);
+            
+                TransformerFactory.newInstance().newTransformer().transform(
+                        new DOMSource(doc), 
+                        new StreamResult(new FileOutputStream(xmlFile)));
+            } catch (TransformerConfigurationException e) {
+                Tracer.getDefaultTracer().trace(e);
+            } catch (FileNotFoundException e) {
+                Tracer.getDefaultTracer().trace(e);
+            } catch (TransformerException e) {
+                Tracer.getDefaultTracer().trace(e);
+            } catch (TransformerFactoryConfigurationError e) {
+                Tracer.getDefaultTracer().trace(e);
+            } catch (SAXException e) {
+                Tracer.getDefaultTracer().trace(e);
+            } catch (IOException e) {
+                Tracer.getDefaultTracer().trace(e);
+            } catch (ParserConfigurationException e) {
+                Tracer.getDefaultTracer().trace(e);
+            }    			
 	}
 }

@@ -60,7 +60,7 @@ public class CreateMacroPresenter extends AbstractPresenter {
                 try {
                     macro.delete();
                 } catch( SQLException e ) {
-                    e.printStackTrace(); /** @todo Error reporting. */
+                    e.printStackTrace(); /** TODO Error reporting. */
                 }
             } else {
                 return;
@@ -76,7 +76,7 @@ public class CreateMacroPresenter extends AbstractPresenter {
             macro.setText( "" );
             macro.save();
         } catch( SQLException e ) {
-            e.printStackTrace(); /** @todo Error reporting! */
+            e.printStackTrace(); /** TODO Error reporting! */
         }
 
         MainFrame.getApplication().bill();

@@ -39,7 +39,7 @@ borm.debug=false
 # For Euro set next property to EUR
 currency=EUR
 
-# 100MB fï¿½r Log-Files in max. 20 Dateien
+# 100MB für Log-Files in max. 20 Dateien
 log.path=mediknight.log.mediknight
 log.maxlength=5000000
 log.maxcycle=20
@@ -59,9 +59,9 @@ patients.xsl=xsl/patientenliste.xsl
 outdir=.mediknight
 
 #about-dialog
-dialog.two=Abrechnungsprogramm fÃ¼r Heilpraktiker
+dialog.two=Abrechnungsprogramm für Heilpraktiker
 dialog.three=Copyright &copy; 2000-2004 Baltic Online Computer GmbH
-attention=ACHTUNG! Dieses Programm ist durch nationale und internationale Urheberrechtsgesetze und<br>Bestimmungen nationaler und internationaler Vertr&auml;ge gesch&uuml;tzt. Unbefugte Vervielf&auml;ltigung<br> oder unbefugter Vertrieb dieses Programms oder eines Teils davon sind strafbar. Dies wird sowohl<br>straf- als auch zivilrechtlich verfolgt und kann schwere Strafen und Schadensersatzforderungen<br>zur Folge haben.<br>
+attention=ACHTUNG! Dieses Programm ist durch nationale und internationale Urheberrechtsgesetze und<br>Bestimmungen nationaler und internationaler Verträge geschützt. Unbefugte Vervielfältigung<br> oder unbefugter Vertrieb dieses Programms oder eines Teils davon sind strafbar. Dies wird sowohl<br>straf- als auch zivilrechtlich verfolgt und kann schwere Strafen und Schadensersatzforderungen<br>zur Folge haben.<br>
 
 #program information
 name=practic

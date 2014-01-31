@@ -7,7 +7,7 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.event.*;
 
-import de.bo.borm.TraceConstants;
+import de.baltic_online.borm.TraceConstants;
 import de.bo.mediknight.domain.*;
 import de.bo.mediknight.widgets.*;
 
