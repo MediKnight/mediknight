@@ -44,9 +44,6 @@ public class Bill1Panel
     extends JPanel
     implements ChangeListener, ListSelectionListener {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 8050367950483181498L;
 	public static final int ITEM_PRICE_COLUMN = 2;
     public static final int ITEM_AMOUNT_COLUMN = 3;
@@ -96,7 +93,7 @@ public class Bill1Panel
     ButtonGroup gebBg = new ButtonGroup();
     FlowLayout flowLayout5 = new FlowLayout();
     Component component1;
-
+    
     public Bill1Panel(Rechnung rechnung) {
         this.rechnung = rechnung;
         jbInit();
@@ -172,9 +169,9 @@ public class Bill1Panel
 
         entries = BillEntry.loadEntries(presenter.getModel().getRechnung());
         setColumnView();
-
+        
         billTable.getSelectionModel().addListSelectionListener(this);
-
+        
         ItemTableModel itemModel;
         try {
             itemModel =
@@ -199,11 +196,6 @@ public class Bill1Panel
 
         column = billTable.getColumnModel().getColumn(ITEM_AMOUNT_COLUMN);
         column.setCellRenderer(MediknightUtilities.getTCRRight());
-
-        billTable.getColumnModel().getColumn(1).setPreferredWidth(
-            billTable.getPreferredSize().width);
-        entriesTable.getColumnModel().getColumn(2).setPreferredWidth(
-            entriesTable.getPreferredSize().width);
 
         gebuehBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -554,9 +546,6 @@ public class Bill1Panel
 
     class BillTableModel extends AbstractTableModel {
 
-        /**
-		 * 
-		 */
 		private static final long serialVersionUID = -3832967955412119635L;
 
 		final String[] columnNames =
@@ -670,12 +659,11 @@ public class Bill1Panel
                 try {
                     entries[row].setCount(nf.parse(o.toString()).doubleValue());
                 } catch (ParseException e) {
-                    e.printStackTrace(); /** @todo Exception */
+                    e.printStackTrace(); /** TODO Exception */
                     entries[row].setCount(1.0);
                 }
             }
             BillEntry.saveEntries(rechnung, entries);
-            update();
         }
     }
 }

@@ -95,7 +95,6 @@ implements Comparable<RechnungsPosten> {
         nummer = "";
 
         try {
-//            System.out.println(gebueH);
             StringTokenizer st = new StringTokenizer(gebueH,".-");
             gruppe = Integer.parseInt(st.nextToken());
             nummer = st.nextToken();

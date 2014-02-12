@@ -30,7 +30,7 @@ cd $CURRENT_DIR
 
 mkdir -p $TMPDIR
 cd $TMPDIR
-for LIB in ${CURRENT_DIR}/projects/lib/*.jar ; do
+for LIB in ${CURRENT_DIR}/lib/*.jar ; do
     echo "Extracting $LIB in $TMPDIR ..."
     jar xf $LIB
 done

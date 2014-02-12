@@ -21,7 +21,7 @@ import de.bo.mediknight.util.*;
  */
 public class BillEntry {
 
-    // We have an item an a count
+    // We have an item and a count
     // (dont ask why count is of type double)
     private RechnungsPosten item;
     private double count;

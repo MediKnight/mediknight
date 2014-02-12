@@ -67,7 +67,7 @@ public class BillPresenter implements Presenter, Commitable, Observer {
     }
 
     public void addItem() {
-        /** @todo Review the following code and decide if this is still necessary... */
+        // TODO Review the following code and decide if this is still necessary...
         // The following code is copied from BillPane:
         //
         //--- "Notloesung": nicht schoen, aber notwendig, um voruebergehend
