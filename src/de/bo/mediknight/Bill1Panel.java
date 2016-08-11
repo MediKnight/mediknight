@@ -174,8 +174,7 @@ public class Bill1Panel
         
         ItemTableModel itemModel;
         try {
-            itemModel =
-                new ItemTableModel(presenter.getModel().getRechnungsPosten());
+            itemModel = new ItemTableModel(presenter.getModel().getRechnungsPosten());
         } catch (java.sql.SQLException e) {
             new ErrorDisplay(
                 e,

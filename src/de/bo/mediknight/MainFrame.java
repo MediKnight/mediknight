@@ -104,8 +104,7 @@ public class MainFrame extends JFrame implements TraceConstants {
     // Resource of property file.
     public final static String MEDIKNIGHT_PROPERTIES = "mediknight.properties";
 
-    public final static String PROPERTY_FILENAME = "de/bo/mediknight/resources/"
-            + MEDIKNIGHT_PROPERTIES;
+    public final static String PROPERTY_FILENAME = "de/bo/mediknight/resources/" + MEDIKNIGHT_PROPERTIES;
 
     // this application
     private static MainFrame application;
@@ -1291,8 +1290,7 @@ public class MainFrame extends JFrame implements TraceConstants {
         try {
             Rectangle r = getBounds();
             int[] bounds = new int[] { r.x, r.y, r.width, r.height };
-            UserProperty.save(user, "frame.bounds", MediknightUtilities
-                    .writeCSV(bounds));
+            UserProperty.save(user, "frame.bounds", MediknightUtilities.writeCSV(bounds));
         } catch (SQLException x) {
             /** @todo: better exception handling */
         }

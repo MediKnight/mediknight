@@ -295,8 +295,7 @@ public class Patient extends KnightObject implements Comparable<Patient> {
     // Transient attributes -------------------------------------------------
 
     public List<TagesDiagnose> getTagesDiagnosen() throws SQLException {
-        Query q = Datastore.current.getQuery(TagesDiagnose.class, "patient_id="
-                + id);
+        Query q = Datastore.current.getQuery(TagesDiagnose.class, "patient_id=" + id);
         List<TagesDiagnose> list = new ArrayList<TagesDiagnose>();
 
         // set backlinks

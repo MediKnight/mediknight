@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -98,12 +102,14 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
     }
 
     protected void update() {
-        DiagnosisModel model = presenter.getModel();
+        final DiagnosisModel model = presenter.getModel();
+        
         setFirstDiagnosis(model.getPatient().getErstDiagnose());
-
         Date date = model.getPatient().getGeburtsDatum();
-        if ( date == null )
+        if ( date == null ) {
             date = new java.util.Date();
+        }
+        
         patientType.setText( model.getPatient().isPrivatPatient() ? "privat" : "Kasse" );
 
         for( int i = 0; i < entriesPanel.getComponentCount(); i++) {
@@ -112,8 +118,8 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
         }
 
         entriesSP.getViewport().remove( entriesPanel );
-
         entriesPanel.removeAll();
+        
         List<TagesDiagnose> tagesDiagnosen;
         try {
             tagesDiagnosen = model.getTagesDiagnosen();
@@ -124,39 +130,16 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
 
         currentPanel = null;
 
-        for( int i = 0; i < tagesDiagnosen.size(); i++ ) {
-            TagesDiagnose diagnose = (TagesDiagnose) tagesDiagnosen.get( i );
-            final DayDiagnosisEntryPanel entry = new DayDiagnosisEntryPanel( diagnose, presenter );
-            entry.addMouseListener( new MouseAdapter() {
-                public void mousePressed( MouseEvent e ) {
-                    SwingUtilities.invokeLater( new Runnable() {
-                        public void run() {
-                            entriesPanel.scrollRectToVisible( entry.getBounds() );
-                            entry.requestFocusForDescriptionTA();
-                        }
-                    } );
-                }
-            });
-
-            if (i == 0) {
-                currentPanel = entry;
-            }
-
-            entry.addDescriptionFocusListener( this );
-            entry.addActionListener( this );
-            entry.setResponsibleUndoHandler( "diagnosisUndoBtn" );
-//Test
-            new LockingListener(presenter).applyTo(UndoUtilities.getMutables(entry));
-//End
-
-            entriesPanel.add( entry  );
+        final ThreadPoolExecutor executor = new ThreadPoolExecutor( 5, Integer.MAX_VALUE, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(tagesDiagnosen.size()) );
+        for( int i = 0; i < tagesDiagnosen.size(); ++i ) {
+            executor.execute( new DiagnosisDataCollector( (TagesDiagnose) tagesDiagnosen.get( i ), i == 0 ? true : false, this ) );
         }
-
-        SwingUtilities.invokeLater( new Runnable() {
-            public void run() {
-                entriesSP.getViewport().add( entriesPanel );
-            }
-        } );
+         
+         SwingUtilities.invokeLater( new Runnable() {
+             public void run() {
+                 entriesSP.getViewport().add( entriesPanel );
+             }
+         });
     }
 
     public void activate() {
@@ -312,7 +295,7 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
         jPanel4.add(patientType, BorderLayout.EAST);
         jPanel4.add(jLabel1, BorderLayout.WEST);
         jPanel4.add(jPanel2, BorderLayout.EAST);
-        jPanel2.add(patientType, BorderLayout.EAST);
+//        jPanel2.add(patientType, BorderLayout.EAST);
         jPanel1.add(jScrollPane1, BorderLayout.CENTER);
         jSplitPane1.add(pBottom, JSplitPane.BOTTOM);
         pBottom.add(jLabel3, BorderLayout.NORTH);
@@ -321,20 +304,87 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
         jPanel5.add(undoBtn, BorderLayout.WEST);
         jPanel5.add(printBtn, BorderLayout.EAST);
-        //entriesSP.getViewport().add(entriesPanel, null);
+        entriesSP.getViewport().add(entriesPanel, null);
         jScrollPane1.getViewport().add(firstDiagnosis, null);
         jSplitPane1.setDividerLocation(120);
     }
+    
+    /**
+     * This class creates a GUI-Element for the handed over day diagnosis and puts it
+     * to the parent GUI-Element. Done via Runnable implementation to allow threads and pools
+     *  
+     * @author ECSTRPL
+     *
+     */
+    public class DiagnosisDataCollector implements Runnable {
+        /**
+         * Boolean flag for distinguishing first and other elements.
+         */
+        private final boolean firstEntry;
+        
+        /**
+         * Parent panel element.
+         */
+        private final DiagnosisPanel parent;
+                
+        /**
+         * Day diagnosis to be used.
+         */
+        private final TagesDiagnose tagesDiagnose;
+        
+        /**
+         * Adapted constructor for proper object initialization.
+         * @param tagesDiagnose Day diagnosis for this instance.
+         * @param firstEntry Boolean flag if this is the 1st or a following element.
+         * @param parent Parent element object.
+         */
+        public DiagnosisDataCollector( final TagesDiagnose tagesDiagnose, final boolean firstEntry, final DiagnosisPanel parent ) {
+            this.tagesDiagnose = tagesDiagnose;
+            this.firstEntry = firstEntry;
+            this.parent = parent;
+        }
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        DiagnosisPanel dp = new DiagnosisPanel();
-       // dp.entriesPanel.add(new DayDiagnosisEntryPanel( new Date(), "Ich bin eine Diagnose.", presenter ));
-        Calendar calendar = Calendar.getInstance();
-        calendar.add( Calendar.DAY_OF_MONTH, -1);
-       // dp.entriesPanel.add( new DayDiagnosisEntryPanel( calendar.getTime(), "Ich bin zwei Diagnosen.", presenter ));
-        f.getContentPane().add(dp);
-        f.pack();
-        f.setVisible(true);
+
+        /* (non-Javadoc) The threads method for performing the actual task.
+         * @see java.lang.Runnable#run()
+         */
+        @Override
+        public void run() {
+            final DayDiagnosisEntryPanel entry = new DayDiagnosisEntryPanel(tagesDiagnose, presenter);
+
+            entry.addMouseListener(new MouseAdapter() {
+                public void mousePressed(final MouseEvent e) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            entriesPanel.scrollRectToVisible(entry.getBounds());
+                            entry.requestFocusForDescriptionTA();
+                        }
+                    });
+                }
+            });
+
+            if (firstEntry) {
+                currentPanel = entry;
+            }
+
+            entry.addDescriptionFocusListener(parent);
+            entry.addActionListener(parent);
+            entry.setResponsibleUndoHandler("diagnosisUndoBtn");
+            new LockingListener(presenter).applyTo(UndoUtilities.getMutables(entry));
+            entriesPanel.add(entry);
+        }
     }
+
+    // Formerly for testing purposes? 
+//    public static void main(String[] args) {
+//        JFrame f = new JFrame();
+//        DiagnosisPanel dp = new DiagnosisPanel();
+//       // dp.entriesPanel.add(new DayDiagnosisEntryPanel( new Date(), "Ich bin eine Diagnose.", presenter ));
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.add( Calendar.DAY_OF_MONTH, -1);
+//       // dp.entriesPanel.add( new DayDiagnosisEntryPanel( calendar.getTime(), "Ich bin zwei Diagnosen.", presenter ));
+//        f.getContentPane().add(dp);
+//        f.pack();
+//        f.setVisible(true);
+//    }
 }
