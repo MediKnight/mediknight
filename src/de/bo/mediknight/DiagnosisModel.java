@@ -2,6 +2,7 @@ package de.bo.mediknight;
 
 import java.util.*;
 import java.sql.*;
+
 import javax.swing.event.*;
 
 import de.bo.mediknight.domain.*;
@@ -56,5 +57,17 @@ public class DiagnosisModel {
         while( it.hasNext() ) {
             it.next().stateChanged(e);
         }
+    }
+    
+    public int getNrOfDatasets() {
+        int result = 0;
+        
+        try {
+            result =  patient.getTagesDiagnosen().size();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return result;
     }
 }

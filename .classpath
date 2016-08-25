@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="lib/borm-1.0.jar" sourcepath="/borm/src/main"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/borm"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

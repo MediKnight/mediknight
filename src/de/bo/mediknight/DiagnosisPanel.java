@@ -1,27 +1,44 @@
 package de.bo.mediknight;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import de.bo.mediknight.domain.TagesDiagnose;
+import de.bo.mediknight.util.DateChooserTableCellEditor;
+import de.bo.mediknight.util.DateTableCellRenderer;
 import de.bo.mediknight.util.ErrorDisplay;
-import de.bo.mediknight.widgets.*;
+import de.bo.mediknight.util.MediKnightTableModel;
+import de.bo.mediknight.widgets.JButton;
 import de.bo.mediknight.widgets.JPanel;
 import de.bo.mediknight.widgets.JScrollPane;
-import de.bo.mediknight.widgets.JButton;
+import de.bo.mediknight.widgets.JTable;
 import de.bo.mediknight.widgets.JTextArea;
+import de.bo.mediknight.widgets.JUndoButton;
 
 
 public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements ChangeListener, FocusListener, ActionListener  {
@@ -49,7 +66,7 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
     JPanel jPanel2 = new JPanel();
     BorderLayout borderLayout1 = new BorderLayout();
 
-    DayDiagnosisEntryPanel currentPanel;
+//    DayDiagnosisEntryPanel currentPanel;
     BoxLayout boxLayout21 = new BoxLayout(entriesPanel,BoxLayout.Y_AXIS);
 
     Component lastFocusComponent = null;
@@ -57,9 +74,16 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
     JUndoButton undoBtn = new JUndoButton();
     BorderLayout borderLayout6 = new BorderLayout();
     JButton printBtn = new JButton();
+    
+    JTable tbl_DayDiagnosis;
+    JPanel pnl_MainDiag;
+    JPanel pnl_DiagOptions;
+    JButton btn_Verschreibung;
+    JButton btn_Rechnung;
 
     public DiagnosisPanel() {
         jbInit();
+        addListeners();
     }
 
 
@@ -73,15 +97,6 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
         boInit();
         update();
 
-    }
-
-    public TagesDiagnose[] getDiagnosen() {
-        TagesDiagnose[] diagnosen = new TagesDiagnose[entriesPanel.getComponentCount()];
-        for (int i = 0; i < entriesPanel.getComponentCount(); i++) {
-            TagesDiagnose diagnose = ((DayDiagnosisEntryPanel) entriesPanel.getComponent(i)).getDiagnose();
-            diagnosen[i] = diagnose;
-        }
-        return diagnosen;
     }
 
     public String getFirstDiagnose() {
@@ -112,14 +127,6 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
         
         patientType.setText( model.getPatient().isPrivatPatient() ? "privat" : "Kasse" );
 
-        for( int i = 0; i < entriesPanel.getComponentCount(); i++) {
-            ((DayDiagnosisEntryPanel) entriesPanel.getComponent(i)).removeDescriptionFocusListener( this );
-            ((DayDiagnosisEntryPanel) entriesPanel.getComponent(i)).removeActionListener( this );
-        }
-
-        entriesSP.getViewport().remove( entriesPanel );
-        entriesPanel.removeAll();
-        
         List<TagesDiagnose> tagesDiagnosen;
         try {
             tagesDiagnosen = model.getTagesDiagnosen();
@@ -128,38 +135,29 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
             tagesDiagnosen = null;
         }
 
-        currentPanel = null;
-
-        final ThreadPoolExecutor executor = new ThreadPoolExecutor( 5, Integer.MAX_VALUE, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(tagesDiagnosen.size()) );
-        for( int i = 0; i < tagesDiagnosen.size(); ++i ) {
-            executor.execute( new DiagnosisDataCollector( (TagesDiagnose) tagesDiagnosen.get( i ), i == 0 ? true : false, this ) );
-        }
-         
-         SwingUtilities.invokeLater( new Runnable() {
-             public void run() {
-                 entriesSP.getViewport().add( entriesPanel );
-             }
-         });
-    }
-
-    public void activate() {
-        /** @todo I have to admit that this is totally braindead, but for the
-            moment it works. */
-        if( presenter.getModel().getPatient().getErstDiagnose() != null &&
-            presenter.getModel().getPatient().getErstDiagnose().length() > 0 ) {
-            SwingUtilities.invokeLater( new Runnable() {
-                public void run() {
-                    entriesPanel.scrollRectToVisible( currentPanel.getBounds() );
-                    currentPanel.requestFocusForDescriptionTA();
-                }
-            } );
-        } else {
+        tbl_DayDiagnosis.setModel( new MediKnightTableModel(tagesDiagnosen) );
+        setDayDiagnosisTableColumnWidths();
+    }    
+    
+    public void activate() { // TODO: What's this good for?
+//        /** @todo I have to admit that this is totally braindead, but for the
+//            moment it works. */
+//        
+//        if( presenter.getModel().getPatient().getErstDiagnose() != null &&
+//            presenter.getModel().getPatient().getErstDiagnose().length() > 0 ) {
+//            SwingUtilities.invokeLater( new Runnable() {
+//                public void run() {
+//                    entriesPanel.scrollRectToVisible( currentPanel.getBounds() );
+//                    currentPanel.requestFocusForDescriptionTA();
+//                }
+//            } );
+//        } else {
             SwingUtilities.invokeLater( new Runnable() {
                 public void run() {
                     firstDiagnosis.requestFocus();
                 }
             } );
-        }
+//        }
     }
 
 
@@ -219,15 +217,15 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
 
     private void boInit() {
 
-        if (presenter.getModel().getPatient().isPrivatPatient())
+        if (presenter.getModel().getPatient().isPrivatPatient()) {
             patientType.setText("Privatpatient");
-        else
+        } else {
             patientType.setText("Kassenpatient");
+        }
 
         firstDiagnosis.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
-                // Muss das sein? Ich vermute mal nicht und ausserdem stoert
-                // es die Funktionalitaet der Knoepfe Verordnung und Diagnose.
+                // Muss das sein? Ich vermute mal nicht und ausserdem stoert es die Funktionalitaet der Knoepfe Verordnung und Diagnose.
                 // presenter.setSelectedDiagnose(null);
                 lastFocusComponent = firstDiagnosis;
             }
@@ -239,11 +237,57 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
                 presenter.printDiagnosis();
             }
         });
+        
+        btn_Rechnung.getActionMap().put("rechnung", new AbstractAction() {
+            private static final long serialVersionUID = -6666575964516937837L;
+
+            public void actionPerformed(ActionEvent e) {
+                btn_Rechnung.doClick();
+            }
+        });
+        
+        btn_Verschreibung.getActionMap().put("verordnung", new AbstractAction() {
+            private static final long serialVersionUID = 9131246829561031709L;
+
+            public void actionPerformed(ActionEvent e) {
+                btn_Verschreibung.doClick();
+            }
+        });
 
         undoBtn.setName("diagnosisUndoBtn");
         undoBtn.setToolTipText("");
         undoBtn.setActionCommand("Rückgängig");
         undoBtn.setText("Rückgängig");
+    }
+    
+    private void addListeners() {
+        btn_Verschreibung.addActionListener( new ActionListener() {
+
+            @Override
+            public void actionPerformed( final ActionEvent e) {
+                final int modelRowIndex = tbl_DayDiagnosis.convertRowIndexToModel( tbl_DayDiagnosis.getSelectedRow() );
+                final TagesDiagnose selectedDiagnose = ((MediKnightTableModel) tbl_DayDiagnosis.getModel()).getRowObject( modelRowIndex );
+                
+                MainFrame.getTracer().trace(MainFrame.DEBUG,"Button for medication on diagnosis " + selectedDiagnose );
+                presenter.setSelectedDiagnose(selectedDiagnose);
+                presenter.showMedication();
+            }
+            
+        });
+        
+        btn_Rechnung.addActionListener( new ActionListener() {
+
+            @Override
+            public void actionPerformed( final ActionEvent e) {
+                final int modelRowIndex = tbl_DayDiagnosis.convertRowIndexToModel( tbl_DayDiagnosis.getSelectedRow() );
+                final TagesDiagnose selectedDiagnose = ((MediKnightTableModel) tbl_DayDiagnosis.getModel()).getRowObject( modelRowIndex );
+                
+                MainFrame.getTracer().trace(MainFrame.DEBUG,"Button for bill on diagnosis " + selectedDiagnose );
+                presenter.setSelectedDiagnose(selectedDiagnose);
+                presenter.showBill();                
+            }
+            
+        });
     }
 
 
@@ -274,9 +318,6 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
         entriesSP.setOpaque(false);
         entriesSP.setToolTipText("");
         entriesSP.setResponsibleUndoHandler("");
-        entriesPanel.setLayout(boxLayout21);
-        entriesPanel.setBackground(Color.white);
-        entriesPanel.setResponsibleUndoHandler("diagnosisUndoBtn");
         jPanel3.setOpaque(false);
         patientType.setForeground(Color.black);
         patientType.setText("privat");
@@ -287,8 +328,7 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
         jPanel2.setOpaque(false);
         jPanel5.setLayout(borderLayout6);
         printBtn.setText("Diagnosen drucken");
-        this.add(jSplitPane1, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 1, 1, 1), 0, 0));
+        this.add(jSplitPane1, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 1, 1, 1), 0, 0));
         jSplitPane1.add(jPanel1, JSplitPane.TOP);
         jPanel1.add(jPanel3, BorderLayout.NORTH);
         jPanel3.add(jPanel4, BorderLayout.WEST);
@@ -299,92 +339,63 @@ public class DiagnosisPanel extends de.bo.mediknight.widgets.JPanel implements C
         jPanel1.add(jScrollPane1, BorderLayout.CENTER);
         jSplitPane1.add(pBottom, JSplitPane.BOTTOM);
         pBottom.add(jLabel3, BorderLayout.NORTH);
-        pBottom.add(entriesSP, BorderLayout.CENTER);
-        this.add(jPanel5, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
+        
+        
+        this.add(jPanel5, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
         jPanel5.add(undoBtn, BorderLayout.WEST);
         jPanel5.add(printBtn, BorderLayout.EAST);
-        entriesSP.getViewport().add(entriesPanel, null);
+//        entriesSP.getViewport().add(entriesPanel, null);
         jScrollPane1.getViewport().add(firstDiagnosis, null);
         jSplitPane1.setDividerLocation(120);
+        
+        tbl_DayDiagnosis = new JTable();
+        tbl_DayDiagnosis.getTableHeader().setReorderingAllowed(false);
+        tbl_DayDiagnosis.setAutoResizeMode( JTable.AUTO_RESIZE_LAST_COLUMN );
+        tbl_DayDiagnosis.setDefaultRenderer( Date.class, new DateTableCellRenderer( tbl_DayDiagnosis ) );
+        tbl_DayDiagnosis.setDefaultEditor( Date.class, new DateChooserTableCellEditor( tbl_DayDiagnosis ) );
+        
+        entriesSP.getViewport().add(tbl_DayDiagnosis, null);
+        pnl_DiagOptions = new JPanel();
+        pnl_DiagOptions.setLayout( new FlowLayout( FlowLayout.TRAILING ) );
+        btn_Rechnung = new JButton( "Rechnung" );
+        btn_Verschreibung = new JButton( "Verschreibung" );
+        pnl_DiagOptions.add( btn_Rechnung );
+        pnl_DiagOptions.add( btn_Verschreibung );
+       
+        pnl_MainDiag = new JPanel( new BorderLayout() );
+        pnl_MainDiag.add(pnl_DiagOptions, BorderLayout.NORTH );
+        pnl_MainDiag.add( entriesSP, BorderLayout.CENTER );
+        
+        pBottom.add(pnl_MainDiag, BorderLayout.CENTER);
     }
     
     /**
-     * This class creates a GUI-Element for the handed over day diagnosis and puts it
-     * to the parent GUI-Element. Done via Runnable implementation to allow threads and pools
-     *  
-     * @author ECSTRPL
-     *
+     * Adjust the day diagnosis table's column width such, that date column is just as large as needed
+     * and the text column uses the remaining space.
      */
-    public class DiagnosisDataCollector implements Runnable {
-        /**
-         * Boolean flag for distinguishing first and other elements.
-         */
-        private final boolean firstEntry;
+    private void setDayDiagnosisTableColumnWidths() {
+        final TableColumnModel datasetColumnModel = tbl_DayDiagnosis.getColumnModel();
         
-        /**
-         * Parent panel element.
-         */
-        private final DiagnosisPanel parent;
-                
-        /**
-         * Day diagnosis to be used.
-         */
-        private final TagesDiagnose tagesDiagnose;
-        
-        /**
-         * Adapted constructor for proper object initialization.
-         * @param tagesDiagnose Day diagnosis for this instance.
-         * @param firstEntry Boolean flag if this is the 1st or a following element.
-         * @param parent Parent element object.
-         */
-        public DiagnosisDataCollector( final TagesDiagnose tagesDiagnose, final boolean firstEntry, final DiagnosisPanel parent ) {
-            this.tagesDiagnose = tagesDiagnose;
-            this.firstEntry = firstEntry;
-            this.parent = parent;
-        }
+        for( int column = 0; column < datasetColumnModel.getColumnCount() - 1; ++column ) {
+            final TableColumn currentColumn = datasetColumnModel.getColumn( column );
+            final int minColumnWidth = currentColumn.getMinWidth();
+            final int maxColumnWidth = currentColumn.getMaxWidth();
+            int newWidth = 0;
 
+            for( int row = 0; row < tbl_DayDiagnosis.getRowCount(); ++row ) {
+                final TableCellRenderer renderer = tbl_DayDiagnosis.getCellRenderer( row, column );
+                final Component comp = tbl_DayDiagnosis.prepareRenderer( renderer, row, column );
+                final int preferredWidth = (int) (comp.getPreferredSize().getWidth() + tbl_DayDiagnosis.getIntercellSpacing().getWidth());
 
-        /* (non-Javadoc) The threads method for performing the actual task.
-         * @see java.lang.Runnable#run()
-         */
-        @Override
-        public void run() {
-            final DayDiagnosisEntryPanel entry = new DayDiagnosisEntryPanel(tagesDiagnose, presenter);
-
-            entry.addMouseListener(new MouseAdapter() {
-                public void mousePressed(final MouseEvent e) {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            entriesPanel.scrollRectToVisible(entry.getBounds());
-                            entry.requestFocusForDescriptionTA();
-                        }
-                    });
+                newWidth = Integer.max(newWidth, Integer.max( preferredWidth, minColumnWidth ) );             
+                if( newWidth >= maxColumnWidth ) { // Wsds war das??????????????????
+                    newWidth = maxColumnWidth;
+//                    break;
                 }
-            });
-
-            if (firstEntry) {
-                currentPanel = entry;
             }
 
-            entry.addDescriptionFocusListener(parent);
-            entry.addActionListener(parent);
-            entry.setResponsibleUndoHandler("diagnosisUndoBtn");
-            new LockingListener(presenter).applyTo(UndoUtilities.getMutables(entry));
-            entriesPanel.add(entry);
+            currentColumn.setPreferredWidth( newWidth );
+            currentColumn.setMaxWidth( newWidth );
         }
     }
-
-    // Formerly for testing purposes? 
-//    public static void main(String[] args) {
-//        JFrame f = new JFrame();
-//        DiagnosisPanel dp = new DiagnosisPanel();
-//       // dp.entriesPanel.add(new DayDiagnosisEntryPanel( new Date(), "Ich bin eine Diagnose.", presenter ));
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.add( Calendar.DAY_OF_MONTH, -1);
-//       // dp.entriesPanel.add( new DayDiagnosisEntryPanel( calendar.getTime(), "Ich bin zwei Diagnosen.", presenter ));
-//        f.getContentPane().add(dp);
-//        f.pack();
-//        f.setVisible(true);
-//    }
 }
