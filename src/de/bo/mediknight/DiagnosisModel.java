@@ -1,73 +1,85 @@
 package de.bo.mediknight;
 
-import java.util.*;
-import java.sql.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-import de.bo.mediknight.domain.*;
+import de.bo.mediknight.domain.Patient;
+import de.bo.mediknight.domain.TagesDiagnose;
 
 
 public class DiagnosisModel {
 
-    Patient patient;
-    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
+    Patient	       patient;
+    Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
 
 
     public DiagnosisModel() {
     }
 
 
-    public DiagnosisModel( Patient patient ) {
-        this.patient = patient;
+    public DiagnosisModel( final Patient patient ) {
+	this.patient = patient;
     }
 
 
-    public void setPatient( Patient patient ) {
-        this.patient = patient;
-        fireChangeEvent();
+    public void addChangeListener( final ChangeListener l ) {
+	changeListeners.add( l );
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public List<TagesDiagnose> getTagesDiagnosen() throws SQLException {
-    	List<TagesDiagnose> list = new ArrayList<TagesDiagnose>();
-        list = patient.getTagesDiagnosen();
-        Collections.sort(list);
-        Collections.reverse(list);
-
-        return list;
-    }
-
-
-    public void addChangeListener( ChangeListener l ) {
-        changeListeners.add( l );
-    }
-
-    public void removeChangeListener( ChangeListener l ) {
-        changeListeners.remove( l );
-    }
 
     void fireChangeEvent() {
-        Iterator<ChangeListener> it = changeListeners.iterator();
-        ChangeEvent e = new ChangeEvent( this );
+	final Iterator< ChangeListener > it = changeListeners.iterator();
+	final ChangeEvent e = new ChangeEvent( this );
 
-        while( it.hasNext() ) {
-            it.next().stateChanged(e);
-        }
+	while( it.hasNext() ) {
+	    it.next().stateChanged( e );
+	}
     }
-    
+
+
     public int getNrOfDatasets() {
-        int result = 0;
-        
-        try {
-            result =  patient.getTagesDiagnosen().size();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        return result;
+	int result = 0;
+
+	try {
+	    result = patient.getTagesDiagnosen().size();
+	} catch( final SQLException e ) {
+	    e.printStackTrace();
+	}
+
+	return result;
+    }
+
+
+    public Patient getPatient() {
+	return patient;
+    }
+
+
+    public List< TagesDiagnose > getTagesDiagnosen() throws SQLException {
+	List< TagesDiagnose > list = new ArrayList< TagesDiagnose >();
+	list = patient.getTagesDiagnosen();
+	Collections.sort( list );
+	Collections.reverse( list );
+
+	return list;
+    }
+
+
+    public void removeChangeListener( final ChangeListener l ) {
+	changeListeners.remove( l );
+    }
+
+
+    public void setPatient( final Patient patient ) {
+	this.patient = patient;
+	fireChangeEvent();
     }
 }

@@ -6,34 +6,28 @@
 package de.bo.mediknight.util;
 
 import java.awt.Component;
+
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+
 public class TableFocusCellRenderer implements TableCellRenderer {
 
-    private TableCellRenderer renderer;
-    private boolean focus;
+    private final TableCellRenderer renderer;
+    private final boolean	   focus;
 
 
-    public TableFocusCellRenderer(TableCellRenderer renderer, boolean focus) {
-        this.renderer = renderer;
-        this.focus    = focus;
+    public TableFocusCellRenderer( final TableCellRenderer renderer, final boolean focus ) {
+	this.renderer = renderer;
+	this.focus = focus;
     }
 
 
-    public Component getTableCellRendererComponent(JTable table,
-                                                   Object value,
-                                                   boolean isSelected,
-                                                   boolean hasFocus,
-                                                   int row,
-                                                   int column) {
+    @Override
+    public Component getTableCellRendererComponent( final JTable table, final Object value, final boolean isSelected, final boolean hasFocus, final int row,
+						    final int column ) {
 
-        return renderer.getTableCellRendererComponent(table,
-                                                      value,
-                                                      isSelected,
-                                                      focus,
-                                                      row,
-                                                      column);
+	return renderer.getTableCellRendererComponent( table, value, isSelected, focus, row, column );
     }
 
 } // class TableFocusCellRenderer

@@ -1,60 +1,74 @@
 package de.bo.mediknight;
 
-import java.util.*;
-import java.sql.*;
-import de.bo.mediknight.domain.*;
-import javax.swing.event.*;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import de.bo.mediknight.domain.Rechnung;
+import de.bo.mediknight.domain.RechnungsPosten;
+import de.bo.mediknight.domain.TagesDiagnose;
+
 
 public class LetterModel {
 
-    Rechnung rechnung;
-    RechnungsPosten[] rechnungsPosten = null;
-    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
+    Rechnung	      rechnung;
+    RechnungsPosten[]     rechnungsPosten = null;
+    Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
 
 
-    public LetterModel( Rechnung rechnung ) {
-        this.rechnung = rechnung;
-        try {
-            rechnung.recall();
-        } catch (SQLException ex) {
-        }
+    public LetterModel( final Rechnung rechnung ) {
+	this.rechnung = rechnung;
+	try {
+	    rechnung.recall();
+	} catch( final SQLException ex ) {
+	}
     }
 
 
-    public void addChangeListener( ChangeListener l ) {
-        changeListeners.add( l );
+    public void addChangeListener( final ChangeListener l ) {
+	changeListeners.add( l );
     }
 
-    public void removeChangeListener( ChangeListener l ) {
-        changeListeners.remove( l );
-    }
 
     void fireChangeEvent() {
-        Iterator<ChangeListener> it = changeListeners.iterator();
-        ChangeEvent e = new ChangeEvent( this );
+	final Iterator< ChangeListener > it = changeListeners.iterator();
+	final ChangeEvent e = new ChangeEvent( this );
 
-        while( it.hasNext() ) {
-            it.next().stateChanged(e);
-        }
+	while( it.hasNext() ) {
+	    it.next().stateChanged( e );
+	}
     }
 
-    public void setRechnung( Rechnung rechnung ) {
-        this.rechnung = rechnung;
-        fireChangeEvent();
-    }
 
     public Rechnung getRechnung() {
-        return rechnung;
+	return rechnung;
     }
 
 
-    public List<TagesDiagnose> getTagesDiagnosen() {
-        try {
-            return rechnung.getPatient().getTagesDiagnosen();
-        } catch( SQLException e ) {
-            e.printStackTrace(); /** @todo Exception reporting. */
-        }
+    public List< TagesDiagnose > getTagesDiagnosen() {
+	try {
+	    return rechnung.getPatient().getTagesDiagnosen();
+	} catch( final SQLException e ) {
+	    e.printStackTrace();
+	    /** @todo Exception reporting. */
+	}
 
-        return null;
+	return null;
+    }
+
+
+    public void removeChangeListener( final ChangeListener l ) {
+	changeListeners.remove( l );
+    }
+
+
+    public void setRechnung( final Rechnung rechnung ) {
+	this.rechnung = rechnung;
+	fireChangeEvent();
     }
 }

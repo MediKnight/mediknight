@@ -1,72 +1,88 @@
 package de.bo.mediknight;
 
-import java.util.*;
-import javax.swing.event.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import de.bo.mediknight.PatientHistory;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import de.bo.mediknight.domain.Patient;
+
 
 public class SearchModel {
 
-    PatientHistory recentPatients = PatientHistory.getInstance();
-    List<Patient> foundPatients = new ArrayList<Patient>();
+    PatientHistory	recentPatients  = PatientHistory.getInstance();
+    List< Patient >       foundPatients   = new ArrayList< Patient >();
 
-    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
+    Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
+
 
     public SearchModel() {
     }
 
-    public void addChangeListener( ChangeListener l ) {
-        changeListeners.add( l );
+
+    public void addChangeListener( final ChangeListener l ) {
+	changeListeners.add( l );
     }
 
-    public void removeChangeListener( ChangeListener l ) {
-        changeListeners.remove( l );
+
+    public void addRecentPatient( final Patient patient ) {
+	try {
+	    PatientHistory.getInstance().add( patient );
+	} catch( final Exception e ) {
+	    e.printStackTrace();
+	    /** @todo better exception handling */
+	}
     }
+
 
     void fireChangeEvent() {
-        Iterator<ChangeListener> it = changeListeners.iterator();
-        ChangeEvent e = new ChangeEvent( this );
+	final Iterator< ChangeListener > it = changeListeners.iterator();
+	final ChangeEvent e = new ChangeEvent( this );
 
-        while( it.hasNext() ) {
-            it.next().stateChanged(e);
-        }
+	while( it.hasNext() ) {
+	    it.next().stateChanged( e );
+	}
     }
 
-    public void setRecentPatients( List<Patient> patients ) {
-        try {
-            recentPatients.setList(patients);
-            fireChangeEvent();
-        } catch (Exception e) {
-            e.printStackTrace();
-            /** @todo better exception handling */
-        }
+
+    public List< Patient > getFoundPatients() {
+	return foundPatients;
     }
+
 
     public PatientHistory getPatientHistory() {
-        return recentPatients;
+	return recentPatients;
     }
 
-    public List<Patient> getRecentPatientsList() {
-        return recentPatients.getList();
+
+    public List< Patient > getRecentPatientsList() {
+	return recentPatients.getList();
     }
 
-    public void addRecentPatient(Patient patient) {
-        try {
-            PatientHistory.getInstance().add(patient);
-        } catch (Exception e) {
-            e.printStackTrace();
-            /** @todo better exception handling */
-        }
+
+    public void removeChangeListener( final ChangeListener l ) {
+	changeListeners.remove( l );
     }
 
-    public void setFoundPatients( List<Patient> patients ) {
-        foundPatients = patients;
-        fireChangeEvent();
+
+    public void setFoundPatients( final List< Patient > patients ) {
+	foundPatients = patients;
+	fireChangeEvent();
     }
 
-    public List<Patient> getFoundPatients() {
-        return foundPatients;
+
+    public void setRecentPatients( final List< Patient > patients ) {
+	try {
+	    recentPatients.setList( patients );
+	    fireChangeEvent();
+	} catch( final Exception e ) {
+	    e.printStackTrace();
+	    /** @todo better exception handling */
+	}
     }
 
 }

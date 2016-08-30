@@ -1,61 +1,73 @@
-
 package de.bo.mediknight;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import de.bo.mediknight.domain.Patient;
-import javax.swing.event.*;
+
 
 public class PatientModel {
 
-    boolean newPatient = false;
+    boolean	       newPatient      = false;
 
-    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
-    Patient patient;
+    Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
+    Patient	       patient;
 
 
     public PatientModel() {
     }
 
-    public PatientModel( Patient patient ) {
-        this.patient = patient;
-        try {
-            patient.recall();
-        } catch (java.sql.SQLException ex) {
-        }
+
+    public PatientModel( final Patient patient ) {
+	this.patient = patient;
+	try {
+	    patient.recall();
+	} catch( final java.sql.SQLException ex ) {
+	}
     }
 
-    public void addChangeListener( ChangeListener l ) {
-        changeListeners.add( l );
+
+    public void addChangeListener( final ChangeListener l ) {
+	changeListeners.add( l );
     }
 
-    public void removeChangeListener( ChangeListener l ) {
-        changeListeners.remove( l );
-    }
 
     void fireChangeEvent() {
-        Iterator<ChangeListener> it = changeListeners.iterator();
-        ChangeEvent e = new ChangeEvent( this );
+	final Iterator< ChangeListener > it = changeListeners.iterator();
+	final ChangeEvent e = new ChangeEvent( this );
 
-        while( it.hasNext() ) {
-            it.next().stateChanged(e);
-        }
+	while( it.hasNext() ) {
+	    it.next().stateChanged( e );
+	}
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-        fireChangeEvent();
-    }
 
     public Patient getPatient() {
-        return this.patient;
+	return patient;
     }
 
-
-    public void setNewPatient( boolean state ) {
-        newPatient = state;
-    }
 
     public boolean isNewPatient() {
-        return newPatient;
+	return newPatient;
+    }
+
+
+    public void removeChangeListener( final ChangeListener l ) {
+	changeListeners.remove( l );
+    }
+
+
+    public void setNewPatient( final boolean state ) {
+	newPatient = state;
+    }
+
+
+    public void setPatient( final Patient patient ) {
+	this.patient = patient;
+	fireChangeEvent();
     }
 }

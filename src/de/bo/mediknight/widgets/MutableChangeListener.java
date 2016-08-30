@@ -7,10 +7,10 @@ package de.bo.mediknight.widgets;
 
 import java.util.EventListener;
 
+
 /**
- * An interface to be implemented by those who wish to be notified whenever
- * a widget implementing the <code>Mutable</code> interface changes its
- * canonical state.
+ * An interface to be implemented by those who wish to be notified whenever a widget implementing the <code>Mutable</code> interface changes its canonical
+ * state.
  *
  * @author chs@baltic-online.de
  *
@@ -21,12 +21,12 @@ public interface MutableChangeListener extends EventListener {
     /**
      * Invoked whenever a <code>MutableChangeEvent</code> occurs.
      *
-     * @param e the <code>MutableChangeEvent</code> having led to the invocation
-     * of this method
+     * @param e
+     *            the <code>MutableChangeEvent</code> having led to the invocation of this method
      *
      * @since 1.0
      * @see MutableChangeEvent
      */
-    public void mutableStateChanged(MutableChangeEvent e);
+    public void mutableStateChanged( MutableChangeEvent e );
 
 }

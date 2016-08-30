@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
@@ -35,17 +36,16 @@ import javax.swing.plaf.InsetsUIResource;
  * @author chs@baltic-online.de
  * @version 1.0
  */
-public class LookAndFeelCustomizer {
+public class CopyOfLookAndFeelCustomizer {
 
-    public static final int		 LOOK_AND_FEEL     = 0, COLOR = 1, STRING = 2, INTEGER = 3, INSETS = 4, DIMENSION = 5, ICON = 6, FONT = 7,
-	    BOOLEAN = 8;
+    public static final int	     LOOK_AND_FEEL     = 0, COLOR = 1, STRING = 2, INTEGER = 3, INSETS = 4, DIMENSION = 5, ICON = 6, FONT = 7, BOOLEAN = 8;
 
-    public static final List< String >      PREFIXES	  = Arrays.asList( new String[] { "*", "TextField", "TextArea", "Panel", "Label", "Button",
-	    "CheckBox", "ComboBox", "List", "OptionPane", "FileChooser", "ColorChooser", "TitledBorder", "Table", "TableHeader", "Tree", "Desktop", "FileView",
+    public static final List< String >  PREFIXES	  = Arrays.asList( new String[] { "*", "TextField", "TextArea", "Panel", "Label", "Button", "CheckBox",
+	    "ComboBox", "List", "OptionPane", "FileChooser", "ColorChooser", "TitledBorder", "Table", "TableHeader", "Tree", "Desktop", "FileView",
 	    "InternalFrame", "MenuItem", "ProgressBar", "Scrollbar", "ScrollPane", "SplitPane", "TabbedPane", "Separator", "Slider", "ToolBar" } );
 
-    private final HashMap< String, Object > defaultProperties = new HashMap<>();
-    private String			  rootName;
+    private final Map< String, Object > defaultProperties = new HashMap<>();
+    private String		      rootName;
 
 
     @SuppressWarnings( "unchecked" )
@@ -99,6 +99,7 @@ public class LookAndFeelCustomizer {
 	if( rootName.equals( name ) ) {
 	    return cloneIfNecessary( defaultPropertiesForComponent, (HashMap< String, Object >) defaultProperties.get( rootName ), keys, false );
 	} else {
+
 	    final JComponent parent = (JComponent) component.getParent();
 	    final HashMap< String, Object > defaultPropertiesForParent = computeDefaultProperties( parent, defaultPropertiesForComponent, defaultProperties,
 		    keys );
@@ -108,7 +109,6 @@ public class LookAndFeelCustomizer {
 
 	    final HashMap< String, Object > defaultPropertiesForChild = (HashMap< String, Object >) ((HashMap< String, Object >) defaultProperties.get( parent
 		    .getName() )).get( name );
-
 	    defaultProperties.clear();
 	    if( defaultPropertiesForChild == null ) {
 		return defaultPropertiesForParent;
@@ -240,44 +240,6 @@ public class LookAndFeelCustomizer {
     }
 
 
-    private Object determineResourceValue( final int resourceType, final String resourceValueString ) {
-	Object resourceValue = null;
-
-	if( resourceValueString != null ) {
-	    final StringTokenizer st = new StringTokenizer( resourceValueString, "," );
-
-	    switch( resourceType ) {
-		case LOOK_AND_FEEL:
-		    resourceValue = new ColorUIResource( new Color( Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ),
-			    Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ) ) );
-		    break;
-		case STRING:
-		    resourceValue = st.nextToken();
-		    break;
-		case INTEGER:
-		    resourceValue = new Integer( st.nextToken() );
-		    break;
-		case INSETS:
-		    resourceValue = new InsetsUIResource( Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ), Integer.parseInt( st
-			    .nextToken() ), Integer.parseInt( st.nextToken() ) );
-		    break;
-		case DIMENSION:
-		    resourceValue = new DimensionUIResource( Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ) );
-		    break;
-		case ICON:
-		    resourceValue = new IconUIResource( new ImageIcon( st.nextToken() ) );
-		    break;
-		case FONT:
-		    resourceValue = new FontUIResource( new Font( st.nextToken(), Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ) ) );
-		    break;
-		case BOOLEAN:
-		    resourceValue = new Boolean( st.nextToken().equalsIgnoreCase( "true" ) );
-	    }
-	}
-	return resourceValue;
-    }
-
-
     protected String getPropertyKey( final JComponent component ) {
 	String key = component.getClass().getName();
 	key = key.substring( key.lastIndexOf( '.' ) + 1 );
@@ -306,7 +268,6 @@ public class LookAndFeelCustomizer {
     }
 
 
-    @SuppressWarnings( "unchecked" )
     public void loadDefaults( final String fileName ) throws IOException {
 	final BufferedReader in = new BufferedReader( new FileReader( fileName ) );
 	String line = null;
@@ -323,17 +284,46 @@ public class LookAndFeelCustomizer {
 
 	    final String resourceKey = line.substring( 0, separatorIndex );
 	    final String resourceValueString = line.substring( separatorIndex + 1 );
-
+	    Object resourceValue = null;
 	    final int resourceType = determineResourceType( resourceKey );
-	    final Object resourceValue = determineResourceValue( resourceType, resourceValueString ); // null;
 
 	    try {
+		final StringTokenizer st = new StringTokenizer( resourceValueString, "," );
+
+		switch( resourceType ) {
+		    case LOOK_AND_FEEL:
+			resourceValue = new ColorUIResource( new Color( Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ),
+				Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ) ) );
+			break;
+		    case STRING:
+			resourceValue = st.nextToken();
+			break;
+		    case INTEGER:
+			resourceValue = new Integer( st.nextToken() );
+			break;
+		    case INSETS:
+			resourceValue = new InsetsUIResource( Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ), Integer.parseInt( st
+				.nextToken() ), Integer.parseInt( st.nextToken() ) );
+			break;
+		    case DIMENSION:
+			resourceValue = new DimensionUIResource( Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ) );
+			break;
+		    case ICON:
+			resourceValue = new IconUIResource( new ImageIcon( st.nextToken() ) );
+			break;
+		    case FONT:
+			resourceValue = new FontUIResource( new Font( st.nextToken(), Integer.parseInt( st.nextToken() ), Integer.parseInt( st.nextToken() ) ) );
+			break;
+		    case BOOLEAN:
+			resourceValue = new Boolean( st.nextToken().equalsIgnoreCase( "true" ) );
+		}
+
 		if( resourceValue == null ) {
 		    continue;
 		}
-
 		if( isSystemProperty( resourceKey ) ) {
 		    if( resourceKey.startsWith( "*." ) ) {
+
 			final int size = PREFIXES.size();
 			for( int i = 1; i < size; i++ ) {
 			    final String expandedResourceKey = PREFIXES.get( i ) + resourceKey.substring( resourceKey.indexOf( '.' ) );
@@ -341,13 +331,15 @@ public class LookAndFeelCustomizer {
 				UIManager.put( expandedResourceKey, resourceValue );
 			    }
 			}
+
 		    } else {
 			UIManager.put( resourceKey, resourceValue );
 		    }
+
 		} else {
 		    final StringTokenizer st2 = new StringTokenizer( resourceKey, "." );
 		    final int tokenCount = st2.countTokens();
-		    HashMap< String, Object > map = defaultProperties;
+		    Map< String, Object > map = defaultProperties;
 
 		    for( int i = 1; i < tokenCount; i++ ) {
 			final String name = st2.nextToken();
@@ -356,14 +348,17 @@ public class LookAndFeelCustomizer {
 			    rootName = name;
 			}
 
-			HashMap< String, Object > mapForName = (HashMap< String, Object >) map.get( name );
+			@SuppressWarnings( "unchecked" )
+			Map< String, Object > mapForName = (HashMap< String, Object >) map.get( name );
 			if( mapForName == null ) {
 			    map.put( name, mapForName = new HashMap< String, Object >() );
 			}
 			map = mapForName;
+
 		    }
 		    map.put( st2.nextToken(), resourceValue );
 		}
+
 	    } catch( final Exception ex ) {
 		System.out.println( "couldn't understand\"" + line + "\"" );
 	    }

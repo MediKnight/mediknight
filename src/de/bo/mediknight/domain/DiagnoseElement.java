@@ -8,79 +8,94 @@ package de.bo.mediknight.domain;
 import java.sql.Date;
 import java.sql.SQLException;
 
-public class DiagnoseElement extends KnightObject
-implements ObjectOwner {
 
-    protected int id;
-    protected int diagnoseId;
-    protected Date datum;
-    protected String object;
+public class DiagnoseElement extends KnightObject implements ObjectOwner {
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setDiagnoseId(int id) {
-        diagnoseId = id;
-    }
-
-    public int getDiagnoseId() {
-        return diagnoseId;
-    }
-
-    public void setDatum(Date _datum) {
-        datum = _datum;
-    }
-
-    public Date getDatum() {
-        return datum;
-    }
-
-    public void setObject(String _object) {
-        object = _object;
-    }
-
-    public String getObject() {
-        return object;
-    }
-
-    // Transient attributes -------------------------------------------------
+    protected int		   id;
+    protected int		   diagnoseId;
+    protected Date		  datum;
+    protected String		object;
 
     private transient TagesDiagnose diagnose;
 
-    public void setDiagnose(TagesDiagnose td) {
-        datum = td.getDatum();
-        diagnoseId = td.getId();
-        diagnose = td;
+
+    public Date getDatum() {
+	return datum;
     }
+
 
     public TagesDiagnose getDiagnose() {
-        return diagnose;
+	return diagnose;
     }
 
-    public Patient getPatient() {
-        return diagnose.getPatient();
+
+    public int getDiagnoseId() {
+	return diagnoseId;
     }
+
+
+    public int getId() {
+	return id;
+    }
+
+
+    @Override
+    public String getObject() {
+	return object;
+    }
+
+
+    public Patient getPatient() {
+	return diagnose.getPatient();
+    }
+
+
+    @Override
+    protected boolean hasIdentity() {
+	return id != 0;
+    }
+
+
+    // Transient attributes -------------------------------------------------
+
+    public void setDatum( final Date _datum ) {
+	datum = _datum;
+    }
+
+
+    public void setDiagnose( final TagesDiagnose td ) {
+	datum = td.getDatum();
+	diagnoseId = td.getId();
+	diagnose = td;
+    }
+
+
+    public void setDiagnoseId( final int id ) {
+	diagnoseId = id;
+    }
+
+
+    public void setId( final int id ) {
+	this.id = id;
+    }
+
 
     // Framework ------------------------------------------------------------
 
-    protected boolean hasIdentity() {
-        return id != 0;
-    }
-
+    @Override
     protected void setIdentity() throws SQLException {
-        id = getLastId();
+	id = getLastId();
     }
 
+
+    @Override
+    public void setObject( final String _object ) {
+	object = _object;
+    }
+
+
+    @Override
     public String toString() {
-        return
-            "ID "+getId()+
-            " DiagnoseID "+getDiagnoseId()+
-            " Datum "+getDatum()+
-            " Objekt "+getObject();
+	return "ID " + getId() + " DiagnoseID " + getDiagnoseId() + " Datum " + getDatum() + " Objekt " + getObject();
     }
 }

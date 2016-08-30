@@ -5,89 +5,110 @@
  */
 package de.bo.mediknight.domain;
 
-import de.baltic_online.borm.*;
-import java.util.List;
-import java.util.Iterator;
 import java.sql.SQLException;
+import java.util.List;
+
+import de.baltic_online.borm.AttributeAccess;
+import de.baltic_online.borm.AttributeMapper;
+import de.baltic_online.borm.AttributeType;
+import de.baltic_online.borm.Datastore;
+import de.baltic_online.borm.ObjectMapper;
+import de.baltic_online.borm.Query;
+
 
 /**
  * @author sma@baltic-online.de
  */
-public class RechnungsGruppe extends KnightObject
-implements ObjectOwner {
+public class RechnungsGruppe extends KnightObject implements ObjectOwner {
 
     // Persistent attributes ------------------------------------------------
 
     static {
-        ObjectMapper om = new ObjectMapper(RechnungsGruppe.class, "rechnungsgruppe");
-        om.add(new AttributeMapper("abk", "abk", true, AttributeAccess.METHOD, AttributeType.STRING));
-        om.add(new AttributeMapper("text", "text", false, AttributeAccess.METHOD, AttributeType.STRING));
-        om.add(new AttributeMapper("object", "object", false, AttributeAccess.METHOD, AttributeType.STRING));
-        Datastore.current.register(om);
+	final ObjectMapper om = new ObjectMapper( RechnungsGruppe.class, "rechnungsgruppe" );
+	om.add( new AttributeMapper( "abk", "abk", true, AttributeAccess.METHOD, AttributeType.STRING ) );
+	om.add( new AttributeMapper( "text", "text", false, AttributeAccess.METHOD, AttributeType.STRING ) );
+	om.add( new AttributeMapper( "object", "object", false, AttributeAccess.METHOD, AttributeType.STRING ) );
+	Datastore.current.register( om );
+    }
+
+
+    public static List< RechnungsGruppe > retrieve() throws SQLException {
+	final Query q = Datastore.current.getQuery( RechnungsGruppe.class );
+	final List< RechnungsGruppe > l = toList( q.execute() );
+	for( final RechnungsGruppe rechnungsGruppe : l ) {
+	    rechnungsGruppe.setIdentity();
+	}
+	return l;
     }
 
     private String abk;
     private String text;
     private String object;
+
     private Object id;
 
+
     public RechnungsGruppe() {
-        abk = null;
+	abk = null;
     }
 
-    public void setAbk(String abk) {
-        this.abk = abk;
-    }
 
     public String getAbk() {
-        return abk;
+	return abk;
     }
 
-    public void setText(String text) {
-        this.text = text;
+
+    @Override
+    public String getObject() {
+	return object;
     }
+
 
     public String getText() {
-        return text;
+	return text;
     }
 
-    public void setObject(String object) {
-        this.object = object;
+
+    @Override
+    public boolean hasIdentity() {
+	return id != null;
     }
 
-    public String getObject() {
-        return object;
+
+    public void setAbk( final String abk ) {
+	this.abk = abk;
     }
+
 
     // Retrieval ------------------------------------------------------------
 
-    public static List<RechnungsGruppe> retrieve() throws SQLException {
-        Query q = Datastore.current.getQuery(RechnungsGruppe.class);
-        List<RechnungsGruppe> l = toList(q.execute());
-        for ( Iterator<RechnungsGruppe> it=l.iterator(); it.hasNext(); )
-            it.next().setIdentity();
-        return l;
+    @Override
+    public void setIdentity() {
+	id = abk;
     }
+
 
     // Framework ------------------------------------------------------------
 
-    public boolean hasIdentity() {
-        return id != null;
+    @Override
+    public void setObject( final String object ) {
+	this.object = object;
     }
 
-    public void setIdentity() {
-        id = abk;
+
+    public void setText( final String text ) {
+	this.text = text;
     }
 
-    public String toString() {
-        return abk;
-    }
 
+    @Override
     public String toLongString() {
-        return
-            "Rechnungsbaustein "+
-            " Abk. "+getAbk()+
-            " Text "+getText()+
-            " Objekt "+getObject();
+	return "Rechnungsbaustein " + " Abk. " + getAbk() + " Text " + getText() + " Objekt " + getObject();
+    }
+
+
+    @Override
+    public String toString() {
+	return abk;
     }
 }

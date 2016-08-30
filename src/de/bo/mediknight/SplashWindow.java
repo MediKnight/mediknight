@@ -12,49 +12,55 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.net.URL;
 
+
+class SplashImage extends Component {
+
+    private static final long serialVersionUID = 1L;
+    Image		     image;
+
+
+    public SplashImage( final Image image ) {
+	this.image = image;
+    }
+
+
+    @Override
+    public Dimension getPreferredSize() {
+	return new Dimension( image.getWidth( null ), image.getHeight( null ) );
+    }
+
+
+    @Override
+    public void paint( final Graphics g ) {
+	g.drawImage( image, 0, 0, null );
+    }
+}
+
+
 public class SplashWindow extends Window {
 
     private static final long serialVersionUID = 1L;
 
-    public SplashWindow(String imagePath) {
-        super(new Frame());
 
-        URL imageUrl = SplashWindow.class.getClassLoader().getResource(
-                imagePath);
-        Image image = Toolkit.getDefaultToolkit().createImage(imageUrl);
-        MediaTracker tracker = new MediaTracker(this);
-        tracker.addImage(image, 0);
-        try {
-            tracker.waitForID(0);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public SplashWindow( final String imagePath ) {
+	super( new Frame() );
 
-        add(new SplashImage(image), BorderLayout.NORTH);
-        add(new Label("Die Applikation wird geladen..."), BorderLayout.SOUTH);
-        pack();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	final URL imageUrl = SplashWindow.class.getClassLoader().getResource( imagePath );
+	final Image image = Toolkit.getDefaultToolkit().createImage( imageUrl );
+	final MediaTracker tracker = new MediaTracker( this );
+	tracker.addImage( image, 0 );
+	try {
+	    tracker.waitForID( 0 );
+	} catch( final InterruptedException e ) {
+	    e.printStackTrace();
+	}
 
-        setLocation((screenSize.width - getSize().width) / 2,
-                (screenSize.height - getSize().height) / 2);
-        setVisible(true);
+	add( new SplashImage( image ), BorderLayout.NORTH );
+	add( new Label( "Die Applikation wird geladen..." ), BorderLayout.SOUTH );
+	pack();
+	final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+	setLocation( (screenSize.width - getSize().width) / 2, (screenSize.height - getSize().height) / 2 );
+	setVisible( true );
     }
 }
-
-class SplashImage extends Component {
-    private static final long serialVersionUID = 1L;
-    Image image;
-
-    public SplashImage(Image image) {
-        this.image = image;
-    }
-
-    public Dimension getPreferredSize() {
-        return new Dimension(image.getWidth(null), image.getHeight(null));
-    }
-
-    public void paint(Graphics g) {
-        g.drawImage(image, 0, 0, null);
-    }
-}
-

@@ -10,9 +10,32 @@ import de.bo.mediknight.MainFrame;
 import de.bo.mediknight.Presenter;
 import de.bo.mediknight.domain.KnightObject;
 
+
 public class UserAdministrationPresenter implements Presenter, Commitable {
 
+    public static void main( final String[] args ) {
+	try {
+	    MainFrame.initProperties();
+	    MainFrame.initTracer();
+	    MainFrame.initDB();
+	    // MediknightTheme.install();
+
+	} catch( final Exception e ) {
+	    e.printStackTrace();
+	}
+	final UserAdministrationModel model = new UserAdministrationModel();
+
+	final JFrame frame = new JFrame();
+	frame.getContentPane().setLayout( new BorderLayout() );
+	final UserAdministrationPresenter presenter = new UserAdministrationPresenter( model );
+	frame.getContentPane().add( presenter.createView(), BorderLayout.CENTER );
+	frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	frame.setVisible( true );
+	frame.pack();
+    }
+
     UserAdministrationModel model;
+
     UserAdministrationPanel view;
 
 
@@ -20,53 +43,45 @@ public class UserAdministrationPresenter implements Presenter, Commitable {
 
     }
 
-    public UserAdministrationPresenter( UserAdministrationModel model ) {
-        this.model = model;
+
+    public UserAdministrationPresenter( final UserAdministrationModel model ) {
+	this.model = model;
     }
+
+
+    @Override
+    public void activate() {
+    }
+
+
+    @Override
+    public void commit() {
+	view.save();
+    }
+
+
+    @Override
+    public Component createView() {
+	view = new UserAdministrationPanel();
+	view.setPresenter( this );
+
+	return view;
+    }
+
 
     public UserAdministrationModel getModel() {
-        return model;
+	return model;
     }
 
-    public void activate() {}
 
-    public Component createView() {
-        view = new UserAdministrationPanel();
-        view.setPresenter( this );
-
-        return view;
-    }
-
-    public void commit() {
-        view.save();
-    }
-
+    @Override
     public Component getResponsibleComponent() {
-        return null;
+	return null;
     }
 
-    public void reload(Component component,KnightObject knightObject) {
-    }
 
-    public static void main(String[] args) {
-        try {
-            MainFrame.initProperties();
-            MainFrame.initTracer();
-            MainFrame.initDB();
-   //         MediknightTheme.install();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        UserAdministrationModel model = new UserAdministrationModel();
-
-        JFrame frame = new JFrame();
-        frame.getContentPane().setLayout( new BorderLayout());
-        UserAdministrationPresenter presenter = new UserAdministrationPresenter( model );
-        frame.getContentPane().add(presenter.createView(), BorderLayout.CENTER );
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setVisible(true);
-        frame.pack();
+    @Override
+    public void reload( final Component component, final KnightObject knightObject ) {
     }
 
 }

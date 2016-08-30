@@ -5,7 +5,13 @@
  */
 package de.bo.mediknight.widgets;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.Paint;
+
 
 /**
  * This class implements a <code>JPanel</code> with a gradient fill background.
@@ -19,9 +25,10 @@ public class JGradientPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     // the JGradientPanel's extent
-    private float extent = 0.5f;
+    private float	     extent	   = 0.5f;
 
-    private Color gradientColor;
+    private Color	     gradientColor;
+
 
     /**
      * Constructs a new <code>JGradientPanel</code>.
@@ -29,95 +36,62 @@ public class JGradientPanel extends JPanel {
      * @since 1.0
      */
     public JGradientPanel() {
-        super();
+	super();
     }
+
 
     /**
      * Constructs a new <code>JGradientPanel</code>.
      *
-     * @param layout the layout manager to use
+     * @param extent
+     *            the extent of the gradient part of the panel
      *
-     * @since 1.0
+     * @throws <code>IllegalArgumentException</code> iff extent is not in [0.0, 1.0]
+     *
+     * @since 1.1
      */
-    public JGradientPanel(LayoutManager layout) {
-        super(layout);
+    public JGradientPanel( final float extent ) throws IllegalArgumentException {
+	super();
+	if( extent > 1.0 || extent < 0.0 ) {
+	    throw new IllegalArgumentException( "extent must be in the range of 0.0 to 1.0" );
+	}
+	this.extent = extent;
     }
+
 
     /**
      * Constructs a new <code>JGradientPanel</code>.
      *
-     * @param layout the layout manager to use
-     * @param extent the extent of the gradient part of the panel
+     * @param layout
+     *            the layout manager to use
      *
-     * @throws <code>IllegalArgumentException</code> iff extent is not in
-     * [0.0, 1.0]
-     *
-     * @since 1.1
+     * @since 1.0
      */
-    public JGradientPanel(LayoutManager layout, float extent) throws IllegalArgumentException {
-        super(layout);
-        if ( extent > 1.0 || extent < 0.0 ) {
-            throw new IllegalArgumentException("extent must be in the range of 0.0 to 1.0");
-        }
-        this.extent = extent;
+    public JGradientPanel( final LayoutManager layout ) {
+	super( layout );
     }
+
 
     /**
      * Constructs a new <code>JGradientPanel</code>.
      *
-     * @param extent the extent of the gradient part of the panel
+     * @param layout
+     *            the layout manager to use
+     * @param extent
+     *            the extent of the gradient part of the panel
      *
-     * @throws <code>IllegalArgumentException</code> iff extent is not in
-     * [0.0, 1.0]
-     *
-     * @since 1.1
-     */
-    public JGradientPanel(float extent) throws IllegalArgumentException {
-        super();
-        if ( extent > 1.0 || extent < 0.0 ) {
-            throw new IllegalArgumentException("extent must be in the range of 0.0 to 1.0");
-        }
-        this.extent = extent;
-    }
-
-    /**
-     * Sets the second gradient color.  The panel with show a gradient fill
-     * between its background color and this color.
-     *
-     * @param c the gradient fill color
-     *
-     * @since 1.0
-     */
-    public void setGradientColor(Color c) {
-        gradientColor = c;
-        repaint();
-    }
-
-    /**
-     * Returns the gradient fill color.
-     *
-     * @since 1.0
-     */
-    public Color getGradientColor() {
-        return gradientColor;
-    }
-
-    /**
-     * Set the gradient's extent (0.0 to 1.0).
-     *
-     * @param extent the extent of the gradient part of the panel
-     *
-     * @throws <code>IllegalArgumentException</code> iff extent is not in
-     * [0.0, 1.0]
+     * @throws <code>IllegalArgumentException</code> iff extent is not in [0.0, 1.0]
      *
      * @since 1.1
      */
-    public void setExtent(float extent) throws IllegalArgumentException {
-        if (extent > 1.0 || extent < 0.0) {
-            throw new IllegalArgumentException("extent must be in the range of 0.0 to 1.0");
-        }
-        this.extent = extent;
+    public JGradientPanel( final LayoutManager layout, final float extent ) throws IllegalArgumentException {
+	super( layout );
+	if( extent > 1.0 || extent < 0.0 ) {
+	    throw new IllegalArgumentException( "extent must be in the range of 0.0 to 1.0" );
+	}
+	this.extent = extent;
     }
+
 
     /**
      * Return the GradientPanel's extent.
@@ -125,30 +99,71 @@ public class JGradientPanel extends JPanel {
      * @since 1.1
      */
     public float getExtent() {
-        return extent;
+	return extent;
     }
 
+
     /**
-     * Paints the component.  Currently, only a vertical fill for the upper
-     * half of the component is supported.
-     *
-     * @param g the <code>Graphics</code> object upon which to paint
+     * Returns the gradient fill color.
      *
      * @since 1.0
      */
-    protected void paintComponent(Graphics g) {
-        if (gradientColor == null) {
-            super.paintComponent(g);
-            return;
-        }
-        if (isOpaque()) {
-            Graphics2D g2 = (Graphics2D)g;
-            Paint gradientPaint =  new GradientPaint(
-                0f, 0f, getGradientColor(),
-                0f, getHeight() * getExtent(), getBackground()
-            );
-            g2.setPaint(gradientPaint);
-            g2.fillRect(0, 0, getWidth(), getHeight());
-        }
+    public Color getGradientColor() {
+	return gradientColor;
+    }
+
+
+    /**
+     * Paints the component. Currently, only a vertical fill for the upper half of the component is supported.
+     *
+     * @param g
+     *            the <code>Graphics</code> object upon which to paint
+     *
+     * @since 1.0
+     */
+    @Override
+    protected void paintComponent( final Graphics g ) {
+	if( gradientColor == null ) {
+	    super.paintComponent( g );
+	    return;
+	}
+	if( isOpaque() ) {
+	    final Graphics2D g2 = (Graphics2D) g;
+	    final Paint gradientPaint = new GradientPaint( 0f, 0f, getGradientColor(), 0f, getHeight() * getExtent(), getBackground() );
+	    g2.setPaint( gradientPaint );
+	    g2.fillRect( 0, 0, getWidth(), getHeight() );
+	}
+    }
+
+
+    /**
+     * Set the gradient's extent (0.0 to 1.0).
+     *
+     * @param extent
+     *            the extent of the gradient part of the panel
+     *
+     * @throws <code>IllegalArgumentException</code> iff extent is not in [0.0, 1.0]
+     *
+     * @since 1.1
+     */
+    public void setExtent( final float extent ) throws IllegalArgumentException {
+	if( extent > 1.0 || extent < 0.0 ) {
+	    throw new IllegalArgumentException( "extent must be in the range of 0.0 to 1.0" );
+	}
+	this.extent = extent;
+    }
+
+
+    /**
+     * Sets the second gradient color. The panel with show a gradient fill between its background color and this color.
+     *
+     * @param c
+     *            the gradient fill color
+     *
+     * @since 1.0
+     */
+    public void setGradientColor( final Color c ) {
+	gradientColor = c;
+	repaint();
     }
 }

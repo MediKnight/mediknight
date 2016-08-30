@@ -6,51 +6,70 @@ import java.util.Observer;
 
 import de.bo.mediknight.domain.KnightObject;
 
-public class PatientListPresenter implements Presenter, Commitable, Observer{
-	PatientListModel model;
-	
-	PatientListPanel view;
-	
-	public PatientListPresenter() {
-		model = new PatientListModel();
-	}
-	
-	public void activate() {		
-	}
 
-	public Component createView() {
-		view = new PatientListPanel();
-		view.setPresenter(this);
-		
-		return view;
-	}
+public class PatientListPresenter implements Presenter, Commitable, Observer {
 
-	public void commit() {
-	}
+    PatientListModel model;
 
-	public Component getResponsibleComponent() {
-		return view;
-	}
+    PatientListPanel view;
 
-	public void reload(Component component, KnightObject knightObject) {
-	}
 
-	public void update(Observable o, Object arg) {
-	}
+    public PatientListPresenter() {
+	model = new PatientListModel();
+    }
 
-	public PatientListModel getModel() {
-		return model;
-	}
 
-	public void setModel(PatientListModel model) {
-		this.model = model;
-	}
+    @Override
+    public void activate() {
+    }
 
-	public PatientListPanel getView() {
-		return view;
-	}
 
-	public void setView(PatientListPanel view) {
-		this.view = view;
-	}
+    @Override
+    public void commit() {
+    }
+
+
+    @Override
+    public Component createView() {
+	view = new PatientListPanel();
+	view.setPresenter( this );
+
+	return view;
+    }
+
+
+    public PatientListModel getModel() {
+	return model;
+    }
+
+
+    @Override
+    public Component getResponsibleComponent() {
+	return view;
+    }
+
+
+    public PatientListPanel getView() {
+	return view;
+    }
+
+
+    @Override
+    public void reload( final Component component, final KnightObject knightObject ) {
+    }
+
+
+    public void setModel( final PatientListModel model ) {
+	this.model = model;
+    }
+
+
+    public void setView( final PatientListPanel view ) {
+	this.view = view;
+    }
+
+
+    @Override
+    public void update( final Observable o, final Object arg ) {
+    }
 }

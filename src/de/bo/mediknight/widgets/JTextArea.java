@@ -5,7 +5,12 @@
  */
 package de.bo.mediknight.widgets;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.TextListener;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -15,10 +20,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.EventListenerList;
 
+
 /**
- * This subclass of <code>JTextArea</code> supports an easy to use
- * TextListener. Also implements the <code>MutableTextComponent</code>
- * interface and adds a popup-menu for easy cut'n'paste etc.
+ * This subclass of <code>JTextArea</code> supports an easy to use TextListener. Also implements the <code>MutableTextComponent</code> interface and adds a
+ * popup-menu for easy cut'n'paste etc.
  *
  * @author sma@baltic-online.de
  * @author chs@baltic-online.de
@@ -29,19 +34,19 @@ import javax.swing.event.EventListenerList;
 
 public class JTextArea extends javax.swing.JTextArea implements MutableTextComponent, DocumentListener {
 
-    private static final long serialVersionUID = 1L;
-    
-    private TextListenerPlugin plugin;
-    private String originalText = null;
-    private JPopupMenu popupMenu = new JPopupMenu();
-    private UndoHandler undoHandler = null;
-    private String undoHandlerName = null;
+    private static final long	serialVersionUID = 1L;
+
+    private final TextListenerPlugin plugin;
+    private String		   originalText     = null;
+    private final JPopupMenu	 popupMenu	= new JPopupMenu();
+    private UndoHandler	      undoHandler      = null;
+    private String		   undoHandlerName  = null;
 
     /**
-     * a list of those interested in receiving <code>MutableChangeEvent</code>s
-     * from this instance.
+     * a list of those interested in receiving <code>MutableChangeEvent</code>s from this instance.
      */
-    EventListenerList listenerList = new EventListenerList();
+    EventListenerList		listenerList     = new EventListenerList();
+
 
     /**
      * Construct a new <code>JTextArea</code> with an empty initial text.
@@ -49,342 +54,395 @@ public class JTextArea extends javax.swing.JTextArea implements MutableTextCompo
      * @since 1.0
      */
     public JTextArea() {
-        this("");
+	this( "" );
     }
+
 
     /**
      * Construct a new <code>JTextArea</code> using the given initial text.
      *
-     * @param initialText the initial text of the <code>JTextArea</code>
+     * @param initialText
+     *            the initial text of the <code>JTextArea</code>
      *
      * @since 1.0
      */
-    public JTextArea(String initialText) {
-        super(initialText);
+    public JTextArea( final String initialText ) {
+	super( initialText );
 
-        plugin = new TextListenerPlugin(this);
-        if(!initialText.equals(""))
-          originalText = initialText;
+	plugin = new TextListenerPlugin( this );
+	if( !initialText.equals( "" ) ) {
+	    originalText = initialText;
+	}
 
-        this.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                processMouseClick(e);
-            }
-        });
+	this.addMouseListener( new MouseAdapter() {
 
-        // construct a popup-menu for the sake of user convenience.
-        JMenuItem itemCut = new JMenuItem("Ausschneiden");
-        JMenuItem itemCopy = new JMenuItem("Kopieren");
-        JMenuItem itemPaste = new JMenuItem("Einfügen");
-        JMenuItem itemMarkAll = new JMenuItem("Alles markieren");
-        JMenuItem itemRevert = new JMenuItem("Wiederherstellen");
+	    @Override
+	    public void mouseClicked( final MouseEvent e ) {
+		processMouseClick( e );
+	    }
+	} );
 
-        itemCut.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cut();
-            }
-        });
+	// construct a popup-menu for the sake of user convenience.
+	final JMenuItem itemCut = new JMenuItem( "Ausschneiden" );
+	final JMenuItem itemCopy = new JMenuItem( "Kopieren" );
+	final JMenuItem itemPaste = new JMenuItem( "Einfügen" );
+	final JMenuItem itemMarkAll = new JMenuItem( "Alles markieren" );
+	final JMenuItem itemRevert = new JMenuItem( "Wiederherstellen" );
 
-        itemCopy.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                copy();
-            }
-        });
+	itemCut.addActionListener( new ActionListener() {
 
-        itemPaste.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                paste();
-            }
-        });
+	    @Override
+	    public void actionPerformed( final ActionEvent e ) {
+		cut();
+	    }
+	} );
 
-        itemMarkAll.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                selectAll();
-            }
-        });
+	itemCopy.addActionListener( new ActionListener() {
 
-        itemRevert.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                revert();
-            }
-        });
+	    @Override
+	    public void actionPerformed( final ActionEvent e ) {
+		copy();
+	    }
+	} );
 
-        popupMenu.add(itemCut);
-        popupMenu.add(itemCopy);
-        popupMenu.add(itemPaste);
-        popupMenu.add(itemMarkAll);
-        popupMenu.addSeparator();
-        popupMenu.add(itemRevert);
+	itemPaste.addActionListener( new ActionListener() {
 
-        setBorder(new UnderlineableBorder(getBorder(), getSelectionColor()));
-        getDocument().addDocumentListener(this);
+	    @Override
+	    public void actionPerformed( final ActionEvent e ) {
+		paste();
+	    }
+	} );
+
+	itemMarkAll.addActionListener( new ActionListener() {
+
+	    @Override
+	    public void actionPerformed( final ActionEvent e ) {
+		selectAll();
+	    }
+	} );
+
+	itemRevert.addActionListener( new ActionListener() {
+
+	    @Override
+	    public void actionPerformed( final ActionEvent e ) {
+		revert();
+	    }
+	} );
+
+	popupMenu.add( itemCut );
+	popupMenu.add( itemCopy );
+	popupMenu.add( itemPaste );
+	popupMenu.add( itemMarkAll );
+	popupMenu.addSeparator();
+	popupMenu.add( itemRevert );
+
+	setBorder( new UnderlineableBorder( getBorder(), getSelectionColor() ) );
+	getDocument().addDocumentListener( this );
 
     }
 
+
     /**
-     * Set the text of this <code>JTextArea</code>. Also sets the original
-     * text if necessary (i.e., if it is <code>null</code>)
+     * Register an object to receive <code>MutableChangeEvent</code>s from us in the future.
      *
-     * @param newText the new text of the <code>JTextArea</code>
-     *
-     * @since 1.1
+     * @since 1.3
      */
-    public void setText(String newText) {
-        if(newText == null)
-            newText = "";
-
-        super.setText(newText);
-        originalText = newText;
+    @Override
+    public void addMutableChangeListener( final MutableChangeListener l ) {
+	listenerList.add( MutableChangeListener.class, l );
     }
 
-    /**
-     * update the <code>JTextArea</code>'s border, if it is an instance of
-     * <code>UnderlineableBorder</code>
-     *
-     * @see UnderlineableBorder
-     * @since 1.1
-     */
-    public void updateBorder() {
-        Border border = getBorder();
-        if(border instanceof UnderlineableBorder) {
-            ((UnderlineableBorder) border).setUnderlined(
-                (getOriginalText() == null) ? false : isChanged());
-        }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                repaint();
-            }
-        });
-    }
 
     /**
-     * get the original text.
+     * add a text listener to this <code>JTextArea</code>, using the <code>TextListener</code> plugin.
      *
-     * @since 1.1
-     */
-    public String getOriginalText() {
-        return originalText;
-    }
-
-    /**
-     * set the original text.
-     *
-     * @param originalText the new original text of the <code>JTextArea</code>.
-     *
-     * @since 1.1
-     */
-    public void setOriginalText(String originalText) {
-        if(originalText == null)
-            originalText = "";
-
-        this.originalText = originalText;
-    }
-
-    /**
-     * Forget the original text.
-     *
-     * @since 1.2
-     */
-    public void forgetOriginalValue() {
-        setOriginalText(null);
-        updateBorder();
-    }
-
-    /**
-     * check whether the text has been changed.
-     *
-     * @since 1.1
-     */
-    public boolean isChanged() {
-        if(getOriginalText() == null)
-            return false;
-
-        return(this.isEditable() && !this.getText().equals(originalText));
-    }
-
-    /**
-     * revert the text to the original text.
-     *
-     * @since 1.1
-     */
-    public void revert() {
-        this.setText(originalText);
-        updateBorder();
-        fireMutableChanged();
-    }
-
-    /**
-     * add a text listener to this <code>JTextArea</code>, using the
-     * <code>TextListener</code> plugin.
-     *
-     * @param l the <code>TextListener</code> to add
+     * @param l
+     *            the <code>TextListener</code> to add
      *
      * @since 1.0
      */
-    public void addTextListener(TextListener l) {
-        plugin.addTextListener(l);
+    public void addTextListener( final TextListener l ) {
+	plugin.addTextListener( l );
     }
 
-    /**
-     * remove a text listener from this <code>JTextArea</code>, using the
-     * <code>TextListener</code> plugin.
-     *
-     * @param l the <code>TextListener</code> to remove
-     *
-     * @since 1.0
-     */
-    public void removeTextListener(TextListener l) {
-        plugin.removeTextListener(l);
-    }
-
-    /**
-     * process a mouse click: show a pop-up menu on right button-click (and
-     * consume that click in the process), and hide it on any click if is
-     * showing (and don't consume that click in the process).
-     *
-     * @param e the <code>MouseEvent</code> to process
-     *
-     * @since 1.1
-     */
-    public void processMouseClick(MouseEvent e) {
-        if((e.getID() == MouseEvent.MOUSE_CLICKED) && (e.getModifiers() == MouseEvent.BUTTON3_MASK)) {
-          popupMenu.show(this, e.getX(), e.getY());
-          popupMenu.setVisible(true);
-          e.consume();
-        } else if((e.getID() == MouseEvent.MOUSE_CLICKED) && popupMenu.isVisible())
-          popupMenu.setVisible(false);
-    }
-
-
-    /**
-     * Register an object to receive <code>MutableChangeEvent</code>s from us
-     * in the future.
-     *
-     * @since 1.3
-     */
-    public void addMutableChangeListener(MutableChangeListener l) {
-       listenerList.add(MutableChangeListener.class, l);
-    }
-
-    /**
-     * Deregister an object to receive <code>MutableChangeEvent</code>s from us
-     * in the future.
-     *
-     * @since 1.3
-     */
-    public void removeMutableChangeListener(MutableChangeListener l) {
-        listenerList.remove(MutableChangeListener.class, l);
-    }
-
-    /**
-     * Notify all listeners that have registered interest for
-     * notification on this event type.
-     *
-     * @since 1.3
-     */
-    public void fireMutableChanged() {
-        if(undoHandler == null) {
-            undoHandler = UndoUtilities.findUndoHandler(this);
-            addMutableChangeListener(undoHandler);
-        }
-        MutableChangeEvent fooEvent = new MutableChangeEvent(this, isChanged());
-        UndoUtilities.dispatchMutableChangeEvent(fooEvent, listenerList);
-    }
-
-    /**
-     * Return the name of the <code>UndoHandler</code> object responsible for
-     * handling Undo for this widget.
-     *
-     * @since 1.4
-     */
-    public String getResponsibleUndoHandler() {
-        return undoHandlerName;
-    }
-
-    /**
-     * Set the name of the <code>UndoHandler</code> widget responsible for
-     * handling Undo for this widget.
-     *
-     * @param s the name of the new <code>UndoHandler</code>
-     *
-     * @since 1.4
-     */
-    public void setResponsibleUndoHandler(String s) {
-        if(!isChanged()) {
-            if(undoHandler != null)
-                removeMutableChangeListener(undoHandler);
-
-            undoHandlerName = s;
-            undoHandler = null;
-        }
-    }
-
-    /**
-     * Do what's necessary when the text changes.
-     *
-     * @param fireAllowed should be true if firing
-     * <code>MutableChangeEvent</code>s is allowed.
-     *
-     * @since 1.5
-     */
-    public void textUpdate(boolean fireAllowed) {
-        if(originalText == null)
-            originalText = getText();
-
-        if(!fireAllowed)
-            return;
-
-        updateBorder();
-        fireMutableChanged();
-    }
-
-    /**
-     * Do what's necessary when the text changes, allowing
-     * <code>MutableChangeEvents</code> to be fired.
-     *
-     * @since 1.5
-     */
-    public void textUpdate() {
-        textUpdate(true);
-    }
-
-    /**
-     * Commit changes made.
-     *
-     * @since 1.6
-     */
-    public void commit() {
-        setOriginalText(getText());
-    }
-
-    // --- implementation of DocumentListener ---
 
     /**
      * this method is called whenever the text is changed by the user.
      *
      * @since 1.5
      */
-    public void changedUpdate(DocumentEvent e) {
-        textUpdate();
+    @Override
+    public void changedUpdate( final DocumentEvent e ) {
+	textUpdate();
     }
+
+
+    /**
+     * Commit changes made.
+     *
+     * @since 1.6
+     */
+    @Override
+    public void commit() {
+	setOriginalText( getText() );
+    }
+
+
+    /**
+     * Notify all listeners that have registered interest for notification on this event type.
+     *
+     * @since 1.3
+     */
+    @Override
+    public void fireMutableChanged() {
+	if( undoHandler == null ) {
+	    undoHandler = UndoUtilities.findUndoHandler( this );
+	    addMutableChangeListener( undoHandler );
+	}
+	final MutableChangeEvent fooEvent = new MutableChangeEvent( this, isChanged() );
+	UndoUtilities.dispatchMutableChangeEvent( fooEvent, listenerList );
+    }
+
+
+    /**
+     * Forget the original text.
+     *
+     * @since 1.2
+     */
+    @Override
+    public void forgetOriginalValue() {
+	setOriginalText( null );
+	updateBorder();
+    }
+
+
+    /**
+     * get the original text.
+     *
+     * @since 1.1
+     */
+    @Override
+    public String getOriginalText() {
+	return originalText;
+    }
+
+
+    /**
+     * Return the name of the <code>UndoHandler</code> object responsible for handling Undo for this widget.
+     *
+     * @since 1.4
+     */
+    @Override
+    public String getResponsibleUndoHandler() {
+	return undoHandlerName;
+    }
+
 
     /**
      * this method is called whenever text is inserted by the user.
      *
      * @since 1.5
      */
-    public void insertUpdate(DocumentEvent e) {
-        textUpdate();
+    @Override
+    public void insertUpdate( final DocumentEvent e ) {
+	textUpdate();
     }
+
+
+    /**
+     * check whether the text has been changed.
+     *
+     * @since 1.1
+     */
+    @Override
+    public boolean isChanged() {
+	if( getOriginalText() == null ) {
+	    return false;
+	}
+
+	return this.isEditable() && !this.getText().equals( originalText );
+    }
+
+
+    /**
+     * process a mouse click: show a pop-up menu on right button-click (and consume that click in the process), and hide it on any click if is showing (and
+     * don't consume that click in the process).
+     *
+     * @param e
+     *            the <code>MouseEvent</code> to process
+     *
+     * @since 1.1
+     */
+    public void processMouseClick( final MouseEvent e ) {
+	if( e.getID() == MouseEvent.MOUSE_CLICKED && e.getModifiers() == InputEvent.BUTTON3_MASK ) {
+	    popupMenu.show( this, e.getX(), e.getY() );
+	    popupMenu.setVisible( true );
+	    e.consume();
+	} else if( e.getID() == MouseEvent.MOUSE_CLICKED && popupMenu.isVisible() ) {
+	    popupMenu.setVisible( false );
+	}
+    }
+
+
+    /**
+     * Deregister an object to receive <code>MutableChangeEvent</code>s from us in the future.
+     *
+     * @since 1.3
+     */
+    @Override
+    public void removeMutableChangeListener( final MutableChangeListener l ) {
+	listenerList.remove( MutableChangeListener.class, l );
+    }
+
+
+    /**
+     * remove a text listener from this <code>JTextArea</code>, using the <code>TextListener</code> plugin.
+     *
+     * @param l
+     *            the <code>TextListener</code> to remove
+     *
+     * @since 1.0
+     */
+    public void removeTextListener( final TextListener l ) {
+	plugin.removeTextListener( l );
+    }
+
 
     /**
      * this method is called whenever text is removed by the user.
      *
      * @since 1.5
      */
-    public void removeUpdate(DocumentEvent e) {
-        textUpdate();
+    @Override
+    public void removeUpdate( final DocumentEvent e ) {
+	textUpdate();
+    }
+
+
+    /**
+     * revert the text to the original text.
+     *
+     * @since 1.1
+     */
+    @Override
+    public void revert() {
+	this.setText( originalText );
+	updateBorder();
+	fireMutableChanged();
+    }
+
+
+    /**
+     * set the original text.
+     *
+     * @param originalText
+     *            the new original text of the <code>JTextArea</code>.
+     *
+     * @since 1.1
+     */
+    @Override
+    public void setOriginalText( String originalText ) {
+	if( originalText == null ) {
+	    originalText = "";
+	}
+
+	this.originalText = originalText;
+    }
+
+
+    /**
+     * Set the name of the <code>UndoHandler</code> widget responsible for handling Undo for this widget.
+     *
+     * @param s
+     *            the name of the new <code>UndoHandler</code>
+     *
+     * @since 1.4
+     */
+    @Override
+    public void setResponsibleUndoHandler( final String s ) {
+	if( !isChanged() ) {
+	    if( undoHandler != null ) {
+		removeMutableChangeListener( undoHandler );
+	    }
+
+	    undoHandlerName = s;
+	    undoHandler = null;
+	}
+    }
+
+
+    /**
+     * Set the text of this <code>JTextArea</code>. Also sets the original text if necessary (i.e., if it is <code>null</code>)
+     *
+     * @param newText
+     *            the new text of the <code>JTextArea</code>
+     *
+     * @since 1.1
+     */
+    @Override
+    public void setText( String newText ) {
+	if( newText == null ) {
+	    newText = "";
+	}
+
+	super.setText( newText );
+	originalText = newText;
+    }
+
+
+    // --- implementation of DocumentListener ---
+
+    /**
+     * Do what's necessary when the text changes, allowing <code>MutableChangeEvents</code> to be fired.
+     *
+     * @since 1.5
+     */
+    public void textUpdate() {
+	textUpdate( true );
+    }
+
+
+    /**
+     * Do what's necessary when the text changes.
+     *
+     * @param fireAllowed
+     *            should be true if firing <code>MutableChangeEvent</code>s is allowed.
+     *
+     * @since 1.5
+     */
+    public void textUpdate( final boolean fireAllowed ) {
+	if( originalText == null ) {
+	    originalText = getText();
+	}
+
+	if( !fireAllowed ) {
+	    return;
+	}
+
+	updateBorder();
+	fireMutableChanged();
+    }
+
+
+    /**
+     * update the <code>JTextArea</code>'s border, if it is an instance of <code>UnderlineableBorder</code>
+     *
+     * @see UnderlineableBorder
+     * @since 1.1
+     */
+    public void updateBorder() {
+	final Border border = getBorder();
+	if( border instanceof UnderlineableBorder ) {
+	    ((UnderlineableBorder) border).setUnderlined( getOriginalText() == null ? false : isChanged() );
+	}
+
+	SwingUtilities.invokeLater( new Runnable() {
+
+	    @Override
+	    public void run() {
+		repaint();
+	    }
+	} );
     }
 
 }

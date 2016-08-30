@@ -9,12 +9,14 @@ public class MediknightRuntimeException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
+
     public MediknightRuntimeException() {
-        super();
+	super();
     }
 
-    public MediknightRuntimeException(String s) {
-        super(s);
+
+    public MediknightRuntimeException( final String s ) {
+	super( s );
     }
 
 }

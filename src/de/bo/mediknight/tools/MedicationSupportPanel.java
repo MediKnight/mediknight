@@ -1,483 +1,533 @@
 package de.bo.mediknight.tools;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
+
 import de.bo.mediknight.domain.VerordnungsPosten;
-import de.bo.mediknight.util.*;
-import de.bo.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import javax.swing.event.*;
+import de.bo.mediknight.util.ErrorDisplay;
+import de.bo.mediknight.util.MediknightUtilities;
+import de.bo.swing.FlexGridConstraints;
+import de.bo.swing.FlexGridLayout;
 
-public class MedicationSupportPanel extends JPanel implements ChangeListener,
-        ListSelectionListener {
 
-    private static final long serialVersionUID = 1L;
+public class MedicationSupportPanel extends JPanel implements ChangeListener, ListSelectionListener {
 
-    // der index der verordnung, deren inhalt zur zeit im editor angezeigt wird.
-    int editIndex = -1;
+    private class AddDialog extends JDialog {
 
-    MedicationSupportPresenter presenter;
+	private static final long serialVersionUID = 1L;
 
-    BorderLayout borderLayout1 = new BorderLayout();
+	JPanel		    topPanel	 = new JPanel();
 
-    JPanel topPanel = new JPanel();
+	JPanel		    downPanel	= new JPanel();
 
-    JScrollPane itemTableSP = new JScrollPane();
+	JTextField		gruppeTF	 = new JTextField( 10 );
 
-    JTable itemTable = new JTable();
+	JTextField		nummerTF	 = new JTextField( 10 );
 
-    JPanel downPanel = new JPanel();
+	JTextField		nameTF	   = new JTextField( 20 );
 
-    FlowLayout flowLayout1 = new FlowLayout();
+	JScrollPane	       sp	       = new JScrollPane();
 
-    JPanel buttonPanel = new JPanel();
+	JTextArea		 textTA	   = new JTextArea( 5, 20 );
 
-    GridLayout gridLayout1 = new GridLayout();
+	JButton		   cancelBtn	= new JButton( "Abbrechen" );
 
-    JButton addBtn = new JButton();
+	JButton		   okBtn	    = new JButton( "Anlegen" );
 
-    JButton deleteBtn = new JButton();
+	VerordnungsPosten	 vp;
 
-    JPanel centerPanel = new JPanel();
 
-    JScrollPane textAreaSP = new JScrollPane();
+	public AddDialog( final JFrame frame ) {
+	    super( frame, "Verordnungsposten hinzufügen", true );
+	    initializeComponents();
+	    pack();
+	    setResizable( false );
 
-    JTextArea textTA = new JTextArea();
+	    // setLocationRelativeTo(frame.getContentPane());
+	    setVisible( true );
 
-    BorderLayout borderLayout2 = new BorderLayout();
+	}
 
-    BorderLayout borderLayout3 = new BorderLayout();
 
-    JPanel centerPanelTopPanel = new JPanel();
+	void initializeComponents() {
+	    final Container pane = getContentPane();
+	    pane.setLayout( new BorderLayout() );
 
-    JLabel jLabel1 = new JLabel();
+	    final JPanel inputPanel = new JPanel();
 
-    JPanel topPanelTopPanel = new JPanel();
+	    final FlexGridLayout fgl = new FlexGridLayout( 4, 2 );
+	    fgl.setHgap( 6 );
+	    fgl.setVgap( 6 );
 
-    FlowLayout flowLayout3 = new FlowLayout();
+	    inputPanel.setLayout( fgl );
 
-    JLabel jLabel2 = new JLabel();
+	    inputPanel.add( new JLabel( "Gruppe:" ), new FlexGridConstraints( FlexGridConstraints.PREFERRED, 0, FlexGridConstraints.W ) );
+	    inputPanel.add( gruppeTF, new FlexGridConstraints( 0, 0, FlexGridConstraints.W ) );
+	    inputPanel.add( new JLabel( "Nummer:" ), new FlexGridConstraints( FlexGridConstraints.PREFERRED, 0, FlexGridConstraints.W ) );
+	    inputPanel.add( nummerTF, new FlexGridConstraints( 0, 0, FlexGridConstraints.W ) );
+	    inputPanel.add( new JLabel( "Name:" ), new FlexGridConstraints( FlexGridConstraints.PREFERRED, 0, FlexGridConstraints.W ) );
+	    inputPanel.add( nameTF, new FlexGridConstraints( 0, 0, FlexGridConstraints.W ) );
+	    inputPanel.add( new JLabel( "Text:" ), new FlexGridConstraints( FlexGridConstraints.PREFERRED, 0, FlexGridConstraints.W ) );
 
-    GridBagLayout gridBagLayout1 = new GridBagLayout();
+	    sp.getViewport().add( textTA, null );
+	    sp.setPreferredSize( textTA.getPreferredSize() );
+	    sp.setHorizontalScrollBarPolicy( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+	    sp.setVerticalScrollBarPolicy( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+	    inputPanel.add( sp, new FlexGridConstraints( FlexGridConstraints.FILL, FlexGridConstraints.FILL, FlexGridConstraints.W ) );
 
-    public MedicationSupportPanel() {
-        jbInit();
-    }
+	    topPanel.add( inputPanel );
+	    downPanel.setLayout( new FlowLayout( FlowLayout.RIGHT, 5, 5 ) );
+	    downPanel.add( okBtn );
+	    downPanel.add( cancelBtn );
 
-    public MedicationSupportPanel(MedicationSupportPresenter presenter) {
-        jbInit();
-        setPresenter(presenter);
-    }
+	    okBtn.setEnabled( false );
 
-    public void setPresenter(MedicationSupportPresenter presenter) {
-        this.presenter = presenter;
-        boInit();
-    }
+	    cancelBtn.addActionListener( new ActionListener() {
 
-    public void stateChanged(ChangeEvent e) {
-        update();
-    }
+		@Override
+		public void actionPerformed( final ActionEvent e ) {
+		    dispose();
+		}
+	    } );
 
-    protected void update() {
-        try {
-            initTable(new MedicationTableModel(presenter.getModel()
-                    .getVerordnungsposten()));
-        } catch (java.sql.SQLException e) {
-            new ErrorDisplay(e, "Fehler beim Einlesen der Verordnungssposten!",
-                    "Fehler!", this);
-            e.printStackTrace();
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-        }
-    }
+	    okBtn.addActionListener( new ActionListener() {
 
-    public void valueChanged(ListSelectionEvent e) {
-        saveText();
+		@Override
+		public void actionPerformed( final ActionEvent e ) {
+		    saveEntry();
 
-        if (itemTable.getSelectedRow() != -1) {
-            textTA
-                    .setText(((VerordnungsPosten) ((MedicationTableModel) itemTable
-                            .getModel()).getRowObject(itemTable
-                            .getSelectedRow())).getText());
-            deleteBtn.setEnabled(true);
-            editIndex = itemTable.getSelectedRow();
-        } else {
-            textTA.setText("");
-            deleteBtn.setEnabled(false);
-            editIndex = -1;
-        }
-    }
+		}
+	    } );
 
-    private void jbInit() {
-        this.setLayout(borderLayout1);
-        itemTableSP
-                .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        itemTableSP
-                .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        downPanel.setLayout(flowLayout1);
-        buttonPanel.setLayout(gridLayout1);
-        addBtn.setText("Neu");
-        flowLayout1.setAlignment(2);
-        flowLayout1.setHgap(0);
-        deleteBtn.setText("Löschen");
-        gridLayout1.setHgap(5);
-        topPanel.setLayout(borderLayout2);
-        centerPanel.setLayout(borderLayout3);
-        textAreaSP
-                .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        textAreaSP
-                .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        textAreaSP.setRequestFocusEnabled(false);
-        jLabel1.setText("Verordnungstext:");
-        centerPanelTopPanel.setLayout(gridBagLayout1);
-        textTA.setRows(8);
-        topPanelTopPanel.setLayout(flowLayout3);
-        flowLayout3.setAlignment(0);
-        flowLayout3.setHgap(0);
-        flowLayout3.setVgap(0);
-        jLabel2.setText("Verordnungsstammdaten:");
-        this.setOpaque(false);
-        topPanel.setOpaque(false);
-        topPanel.setPreferredSize(new Dimension(470, 200));
-        topPanelTopPanel.setOpaque(false);
-        downPanel.setOpaque(false);
-        buttonPanel.setOpaque(false);
-        centerPanel.setOpaque(false);
-        centerPanelTopPanel.setOpaque(false);
-        this.add(topPanel, BorderLayout.NORTH);
-        topPanel.add(itemTableSP, BorderLayout.CENTER);
-        topPanel.add(topPanelTopPanel, BorderLayout.NORTH);
-        topPanelTopPanel.add(jLabel2, null);
-        this.add(downPanel, BorderLayout.SOUTH);
-        downPanel.add(buttonPanel, null);
-        buttonPanel.add(deleteBtn, null);
-        buttonPanel.add(addBtn, null);
-        this.add(centerPanel, BorderLayout.CENTER);
-        centerPanel.add(textAreaSP, BorderLayout.CENTER);
-        textAreaSP.getViewport().add(textTA, null);
-        centerPanel.add(centerPanelTopPanel, BorderLayout.NORTH);
-        centerPanelTopPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1,
-                1.0, 0.0, GridBagConstraints.WEST,
-                GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
-        itemTableSP.getViewport().add(itemTable, null);
-    }
+	    gruppeTF.addKeyListener( new KeyAdapter() {
 
-    private void initTable(MedicationTableModel model) {
-        itemTable.setModel(model);
-        itemTable.getSelectionModel().addListSelectionListener(this);
-        itemTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		@Override
+		public void keyReleased( final KeyEvent e ) {
+		    if( gruppeTF.getText().length() < 1 || nummerTF.getText().length() < 1 ) {
+			okBtn.setEnabled( false );
+		    } else {
+			okBtn.setEnabled( true );
+			getRootPane().setDefaultButton( okBtn );
+		    }
+		}
+	    } );
 
-        itemTable.getColumnModel().getColumn(2).setPreferredWidth(
-                itemTable.getPreferredSize().width);
+	    nummerTF.addKeyListener( new KeyAdapter() {
 
-        TableColumn column = itemTable.getColumnModel().getColumn(0);
-        column.setCellRenderer(MediknightUtilities.getTCRRight());
-        column = itemTable.getColumnModel().getColumn(1);
-        column.setCellRenderer(MediknightUtilities.getTCRRight());
+		@Override
+		public void keyReleased( final KeyEvent e ) {
+		    if( gruppeTF.getText().length() < 1 || nummerTF.getText().length() < 1 ) {
+			okBtn.setEnabled( false );
+		    } else {
+			okBtn.setEnabled( true );
+			getRootPane().setDefaultButton( okBtn );
+		    }
+		}
+	    } );
 
-    }
+	    pane.add( topPanel, BorderLayout.NORTH );
+	    pane.add( downPanel, BorderLayout.SOUTH );
 
-    private void boInit() {
-        MedicationTableModel model;
-        try {
-            model = new MedicationTableModel(presenter.getModel()
-                    .getVerordnungsposten());
-        } catch (java.sql.SQLException e) {
-            new ErrorDisplay(e, "Fehler beim Einlesen der Rechnungsposten!",
-                    "Fehler!", this);
-            model = new MedicationTableModel(new VerordnungsPosten[0]);
-            e.printStackTrace();
-        } catch (NullPointerException ex) {
-            model = new MedicationTableModel(new VerordnungsPosten[0]);
-            ex.printStackTrace();
-        }
-        initTable(model);
+	    final Runnable runnable = new Runnable() {
 
-        addBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new AddDialog(new JFrame());
-            }
-        });
+		@Override
+		public void run() {
+		    gruppeTF.requestFocus();
+		}
+	    };
+	    SwingUtilities.invokeLater( runnable );
+	}
 
-        deleteBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deleteEntries();
-            }
-        });
 
-        textTA.addFocusListener(new FocusListener() {
-            public void focusLost(FocusEvent e) {
-                saveText();
-            }
+	private void saveEntry() {
+	    vp = new VerordnungsPosten();
+	    int gruppe;
+	    int nummer;
+	    try {
 
-            public void focusGained(FocusEvent e) {
-            }
-        });
+		final String g = gruppeTF.getText();
+		final String n = nummerTF.getText();
+		if( g.length() < 1 || n.length() < 1 ) {
+		    return;
+		}
 
-        deleteBtn.setEnabled(false);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                getRootPane().setDefaultButton(addBtn);
-            }
-        });
-    }
+		gruppe = Integer.parseInt( g );
+		nummer = Integer.parseInt( n );
+	    } catch( final NumberFormatException e ) {
+		JOptionPane.showMessageDialog( this, "Gruppe und Nummer können nur als Zahl eingegeben werden!", "Fehlerhafte Eingabe...",
+			JOptionPane.ERROR_MESSAGE );
+		return;
+	    }
+	    final String name = nameTF.getText();
+	    final String text = textTA.getText();
 
-    private void deleteEntries() {
-        if (itemTable.getSelectedRowCount() > 0) {
-
-            int r = JOptionPane.showConfirmDialog(getParent(), itemTable
-                    .getSelectedRowCount() > 1 ? itemTable
-                    .getSelectedRowCount()
-                    + " Positionen wirklich löschen ?" : itemTable
-                    .getSelectedRowCount()
-                    + " Position wirklich löschen ?", "Stammdaten löschen",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-            if (r == JOptionPane.YES_OPTION)
-                presenter.deleteItem(itemTable.getSelectedRows());
-        }
-    }
-
-    public void saveText() {
-        System.err.println("saveText: " + editIndex);
-        if (editIndex != -1) {
-            VerordnungsPosten p = ((MedicationTableModel) itemTable.getModel())
-                    .getRowObject(editIndex);
-            p.setText(textTA.getText());
-            presenter.saveItem(p);
-        }
+	    vp.setGruppe( gruppe );
+	    vp.setNummer( nummer );
+	    vp.setName( name );
+	    vp.setText( text );
+	    presenter.addItem( vp );
+	    dispose();
+	}
     }
 
     class MedicationTableModel extends AbstractTableModel {
 
-        /**
-         * 
+	/**
+         *
          */
-        private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-        final String[] columnNames = { "Gruppe", "Nummer", "Name" };
+	final String[]	    columnNames      = { "Gruppe", "Nummer", "Name" };
 
-        VerordnungsPosten[] items;
+	VerordnungsPosten[]       items;
 
-        public MedicationTableModel(VerordnungsPosten[] items) {
-            this.items = items;
-        }
 
-        public int getColumnCount() {
-            return 3;
-        }
+	public MedicationTableModel( final VerordnungsPosten[] items ) {
+	    this.items = items;
+	}
 
-        public int getRowCount() {
-            return items.length;
-        }
 
-        public String getColumnName(int col) {
-            return columnNames[col];
-        }
+	@Override
+	public int getColumnCount() {
+	    return 3;
+	}
 
-        public VerordnungsPosten getRowObject(int row) {
-            return items[row];
-        }
 
-        public Object getValueAt(int row, int column) {
-            VerordnungsPosten entry = items[row];
+	@Override
+	public String getColumnName( final int col ) {
+	    return columnNames[col];
+	}
 
-            switch (column) {
-            case 0:
-                return new Integer(entry.getGruppe());
-            case 1:
-                return new Integer(entry.getNummer());
-            case 2:
-                return entry.getName();
-            }
 
-            return null;
-        }
+	@Override
+	public int getRowCount() {
+	    return items.length;
+	}
 
-        public void setValueAt(Object o, int row, int col) {
-            VerordnungsPosten p = items[row];
-            System.out.println("Set Value:");
-            switch (col) {
-            case 0:
-                p.setGruppe(Integer.parseInt((String) o));
-                break;
-            case 1:
-                p.setNummer(Integer.parseInt((String) o));
-                System.out.println((String) o);
-                break;
-            case 2:
-                p.setName((String) o);
-                break;
 
-            }
+	public VerordnungsPosten getRowObject( final int row ) {
+	    return items[row];
+	}
 
-            presenter.saveItem(p);
-        }
 
-        public boolean isCellEditable(int row, int col) {
-            return true;
-        }
+	@Override
+	public Object getValueAt( final int row, final int column ) {
+	    final VerordnungsPosten entry = items[row];
+
+	    switch( column ) {
+		case 0:
+		    return new Integer( entry.getGruppe() );
+		case 1:
+		    return new Integer( entry.getNummer() );
+		case 2:
+		    return entry.getName();
+	    }
+
+	    return null;
+	}
+
+
+	@Override
+	public boolean isCellEditable( final int row, final int col ) {
+	    return true;
+	}
+
+
+	@Override
+	public void setValueAt( final Object o, final int row, final int col ) {
+	    final VerordnungsPosten p = items[row];
+	    System.out.println( "Set Value:" );
+	    switch( col ) {
+		case 0:
+		    p.setGruppe( Integer.parseInt( (String) o ) );
+		    break;
+		case 1:
+		    p.setNummer( Integer.parseInt( (String) o ) );
+		    System.out.println( (String) o );
+		    break;
+		case 2:
+		    p.setName( (String) o );
+		    break;
+
+	    }
+
+	    presenter.saveItem( p );
+	}
 
     }
 
-    private class AddDialog extends JDialog {
-        private static final long serialVersionUID = 1L;
+    private static final long  serialVersionUID    = 1L;
 
-        JPanel topPanel = new JPanel();
+    // der index der verordnung, deren inhalt zur zeit im editor angezeigt wird.
+    int			editIndex	   = -1;
 
-        JPanel downPanel = new JPanel();
+    MedicationSupportPresenter presenter;
 
-        JTextField gruppeTF = new JTextField(10);
+    BorderLayout	       borderLayout1       = new BorderLayout();
 
-        JTextField nummerTF = new JTextField(10);
+    JPanel		     topPanel	    = new JPanel();
 
-        JTextField nameTF = new JTextField(20);
+    JScrollPane		itemTableSP	 = new JScrollPane();
 
-        JScrollPane sp = new JScrollPane();
+    JTable		     itemTable	   = new JTable();
 
-        JTextArea textTA = new JTextArea(5, 20);
+    JPanel		     downPanel	   = new JPanel();
 
-        JButton cancelBtn = new JButton("Abbrechen");
+    FlowLayout		 flowLayout1	 = new FlowLayout();
 
-        JButton okBtn = new JButton("Anlegen");
+    JPanel		     buttonPanel	 = new JPanel();
 
-        VerordnungsPosten vp;
+    GridLayout		 gridLayout1	 = new GridLayout();
 
-        public AddDialog(JFrame frame) {
-            super(frame, "Verordnungsposten hinzufügen", true);
-            initializeComponents();
-            pack();
-            setResizable(false);
+    JButton		    addBtn	      = new JButton();
 
-            // setLocationRelativeTo(frame.getContentPane());
-            setVisible(true);
+    JButton		    deleteBtn	   = new JButton();
 
-        }
+    JPanel		     centerPanel	 = new JPanel();
 
-        void initializeComponents() {
-            Container pane = getContentPane();
-            pane.setLayout(new BorderLayout());
+    JScrollPane		textAreaSP	  = new JScrollPane();
 
-            JPanel inputPanel = new JPanel();
+    JTextArea		  textTA	      = new JTextArea();
 
-            FlexGridLayout fgl = new FlexGridLayout(4, 2);
-            fgl.setHgap(6);
-            fgl.setVgap(6);
+    BorderLayout	       borderLayout2       = new BorderLayout();
 
-            inputPanel.setLayout(fgl);
+    BorderLayout	       borderLayout3       = new BorderLayout();
 
-            inputPanel.add(new JLabel("Gruppe:"), new FlexGridConstraints(
-                    FlexGridConstraints.PREFERRED, 0, FlexGridConstraints.W));
-            inputPanel.add(gruppeTF, new FlexGridConstraints(0, 0,
-                    FlexGridConstraints.W));
-            inputPanel.add(new JLabel("Nummer:"), new FlexGridConstraints(
-                    FlexGridConstraints.PREFERRED, 0, FlexGridConstraints.W));
-            inputPanel.add(nummerTF, new FlexGridConstraints(0, 0,
-                    FlexGridConstraints.W));
-            inputPanel.add(new JLabel("Name:"), new FlexGridConstraints(
-                    FlexGridConstraints.PREFERRED, 0, FlexGridConstraints.W));
-            inputPanel.add(nameTF, new FlexGridConstraints(0, 0,
-                    FlexGridConstraints.W));
-            inputPanel.add(new JLabel("Text:"), new FlexGridConstraints(
-                    FlexGridConstraints.PREFERRED, 0, FlexGridConstraints.W));
+    JPanel		     centerPanelTopPanel = new JPanel();
 
-            sp.getViewport().add(textTA, null);
-            sp.setPreferredSize(textTA.getPreferredSize());
-            sp
-                    .setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            sp
-                    .setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            inputPanel.add(sp, new FlexGridConstraints(
-                    FlexGridConstraints.FILL, FlexGridConstraints.FILL,
-                    FlexGridConstraints.W));
+    JLabel		     jLabel1	     = new JLabel();
 
-            topPanel.add(inputPanel);
-            downPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-            downPanel.add(okBtn);
-            downPanel.add(cancelBtn);
+    JPanel		     topPanelTopPanel    = new JPanel();
 
-            okBtn.setEnabled(false);
+    FlowLayout		 flowLayout3	 = new FlowLayout();
 
-            cancelBtn.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    dispose();
-                }
-            });
+    JLabel		     jLabel2	     = new JLabel();
 
-            okBtn.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    saveEntry();
+    GridBagLayout	      gridBagLayout1      = new GridBagLayout();
 
-                }
-            });
 
-            gruppeTF.addKeyListener(new KeyAdapter() {
-                public void keyReleased(KeyEvent e) {
-                    if (gruppeTF.getText().length() < 1
-                            || nummerTF.getText().length() < 1)
-                        okBtn.setEnabled(false);
-                    else {
-                        okBtn.setEnabled(true);
-                        getRootPane().setDefaultButton(okBtn);
-                    }
-                }
-            });
+    public MedicationSupportPanel() {
+	jbInit();
+    }
 
-            nummerTF.addKeyListener(new KeyAdapter() {
-                public void keyReleased(KeyEvent e) {
-                    if (gruppeTF.getText().length() < 1
-                            || nummerTF.getText().length() < 1)
-                        okBtn.setEnabled(false);
-                    else {
-                        okBtn.setEnabled(true);
-                        getRootPane().setDefaultButton(okBtn);
-                    }
-                }
-            });
 
-            pane.add(topPanel, BorderLayout.NORTH);
-            pane.add(downPanel, BorderLayout.SOUTH);
+    public MedicationSupportPanel( final MedicationSupportPresenter presenter ) {
+	jbInit();
+	setPresenter( presenter );
+    }
 
-            Runnable runnable = new Runnable() {
-                public void run() {
-                    gruppeTF.requestFocus();
-                }
-            };
-            SwingUtilities.invokeLater(runnable);
-        }
 
-        private void saveEntry() {
-            vp = new VerordnungsPosten();
-            int gruppe;
-            int nummer;
-            try {
+    private void boInit() {
+	MedicationTableModel model;
+	try {
+	    model = new MedicationTableModel( presenter.getModel().getVerordnungsposten() );
+	} catch( final java.sql.SQLException e ) {
+	    new ErrorDisplay( e, "Fehler beim Einlesen der Rechnungsposten!", "Fehler!", this );
+	    model = new MedicationTableModel( new VerordnungsPosten[0] );
+	    e.printStackTrace();
+	} catch( final NullPointerException ex ) {
+	    model = new MedicationTableModel( new VerordnungsPosten[0] );
+	    ex.printStackTrace();
+	}
+	initTable( model );
 
-                String g = gruppeTF.getText();
-                String n = nummerTF.getText();
-                if (g.length() < 1 || n.length() < 1)
-                    return;
+	addBtn.addActionListener( new ActionListener() {
 
-                gruppe = Integer.parseInt(g);
-                nummer = Integer.parseInt(n);
-            } catch (NumberFormatException e) {
-                JOptionPane
-                        .showMessageDialog(
-                                this,
-                                "Gruppe und Nummer können nur als Zahl eingegeben werden!",
-                                "Fehlerhafte Eingabe...",
-                                JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            String name = nameTF.getText();
-            String text = textTA.getText();
+	    @Override
+	    public void actionPerformed( final ActionEvent e ) {
+		new AddDialog( new JFrame() );
+	    }
+	} );
 
-            vp.setGruppe(gruppe);
-            vp.setNummer(nummer);
-            vp.setName(name);
-            vp.setText(text);
-            presenter.addItem(vp);
-            dispose();
-        }
+	deleteBtn.addActionListener( new ActionListener() {
+
+	    @Override
+	    public void actionPerformed( final ActionEvent e ) {
+		deleteEntries();
+	    }
+	} );
+
+	textTA.addFocusListener( new FocusListener() {
+
+	    @Override
+	    public void focusGained( final FocusEvent e ) {
+	    }
+
+
+	    @Override
+	    public void focusLost( final FocusEvent e ) {
+		saveText();
+	    }
+	} );
+
+	deleteBtn.setEnabled( false );
+	SwingUtilities.invokeLater( new Runnable() {
+
+	    @Override
+	    public void run() {
+		getRootPane().setDefaultButton( addBtn );
+	    }
+	} );
+    }
+
+
+    private void deleteEntries() {
+	if( itemTable.getSelectedRowCount() > 0 ) {
+
+	    final int r = JOptionPane.showConfirmDialog( getParent(), itemTable.getSelectedRowCount() > 1 ? itemTable.getSelectedRowCount()
+		    + " Positionen wirklich löschen ?" : itemTable.getSelectedRowCount() + " Position wirklich löschen ?", "Stammdaten löschen",
+		    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE );
+
+	    if( r == JOptionPane.YES_OPTION ) {
+		presenter.deleteItem( itemTable.getSelectedRows() );
+	    }
+	}
+    }
+
+
+    private void initTable( final MedicationTableModel model ) {
+	itemTable.setModel( model );
+	itemTable.getSelectionModel().addListSelectionListener( this );
+	itemTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+
+	itemTable.getColumnModel().getColumn( 2 ).setPreferredWidth( itemTable.getPreferredSize().width );
+
+	TableColumn column = itemTable.getColumnModel().getColumn( 0 );
+	column.setCellRenderer( MediknightUtilities.getTCRRight() );
+	column = itemTable.getColumnModel().getColumn( 1 );
+	column.setCellRenderer( MediknightUtilities.getTCRRight() );
+
+    }
+
+
+    private void jbInit() {
+	this.setLayout( borderLayout1 );
+	itemTableSP.setHorizontalScrollBarPolicy( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+	itemTableSP.setVerticalScrollBarPolicy( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+	downPanel.setLayout( flowLayout1 );
+	buttonPanel.setLayout( gridLayout1 );
+	addBtn.setText( "Neu" );
+	flowLayout1.setAlignment( 2 );
+	flowLayout1.setHgap( 0 );
+	deleteBtn.setText( "Löschen" );
+	gridLayout1.setHgap( 5 );
+	topPanel.setLayout( borderLayout2 );
+	centerPanel.setLayout( borderLayout3 );
+	textAreaSP.setHorizontalScrollBarPolicy( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+	textAreaSP.setVerticalScrollBarPolicy( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+	textAreaSP.setRequestFocusEnabled( false );
+	jLabel1.setText( "Verordnungstext:" );
+	centerPanelTopPanel.setLayout( gridBagLayout1 );
+	textTA.setRows( 8 );
+	topPanelTopPanel.setLayout( flowLayout3 );
+	flowLayout3.setAlignment( 0 );
+	flowLayout3.setHgap( 0 );
+	flowLayout3.setVgap( 0 );
+	jLabel2.setText( "Verordnungsstammdaten:" );
+	this.setOpaque( false );
+	topPanel.setOpaque( false );
+	topPanel.setPreferredSize( new Dimension( 470, 200 ) );
+	topPanelTopPanel.setOpaque( false );
+	downPanel.setOpaque( false );
+	buttonPanel.setOpaque( false );
+	centerPanel.setOpaque( false );
+	centerPanelTopPanel.setOpaque( false );
+	this.add( topPanel, BorderLayout.NORTH );
+	topPanel.add( itemTableSP, BorderLayout.CENTER );
+	topPanel.add( topPanelTopPanel, BorderLayout.NORTH );
+	topPanelTopPanel.add( jLabel2, null );
+	this.add( downPanel, BorderLayout.SOUTH );
+	downPanel.add( buttonPanel, null );
+	buttonPanel.add( deleteBtn, null );
+	buttonPanel.add( addBtn, null );
+	this.add( centerPanel, BorderLayout.CENTER );
+	centerPanel.add( textAreaSP, BorderLayout.CENTER );
+	textAreaSP.getViewport().add( textTA, null );
+	centerPanel.add( centerPanelTopPanel, BorderLayout.NORTH );
+	centerPanelTopPanel.add( jLabel1, new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets( 5,
+		0, 0, 0 ), 0, 0 ) );
+	itemTableSP.getViewport().add( itemTable, null );
+    }
+
+
+    public void saveText() {
+	System.err.println( "saveText: " + editIndex );
+	if( editIndex != -1 ) {
+	    final VerordnungsPosten p = ((MedicationTableModel) itemTable.getModel()).getRowObject( editIndex );
+	    p.setText( textTA.getText() );
+	    presenter.saveItem( p );
+	}
+    }
+
+
+    public void setPresenter( final MedicationSupportPresenter presenter ) {
+	this.presenter = presenter;
+	boInit();
+    }
+
+
+    @Override
+    public void stateChanged( final ChangeEvent e ) {
+	update();
+    }
+
+
+    protected void update() {
+	try {
+	    initTable( new MedicationTableModel( presenter.getModel().getVerordnungsposten() ) );
+	} catch( final java.sql.SQLException e ) {
+	    new ErrorDisplay( e, "Fehler beim Einlesen der Verordnungssposten!", "Fehler!", this );
+	    e.printStackTrace();
+	} catch( final NullPointerException ex ) {
+	    ex.printStackTrace();
+	}
+    }
+
+
+    @Override
+    public void valueChanged( final ListSelectionEvent e ) {
+	saveText();
+
+	if( itemTable.getSelectedRow() != -1 ) {
+	    textTA.setText( ((MedicationTableModel) itemTable.getModel()).getRowObject( itemTable.getSelectedRow() ).getText() );
+	    deleteBtn.setEnabled( true );
+	    editIndex = itemTable.getSelectedRow();
+	} else {
+	    textTA.setText( "" );
+	    deleteBtn.setEnabled( false );
+	    editIndex = -1;
+	}
     }
 }

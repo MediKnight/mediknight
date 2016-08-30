@@ -1,8 +1,12 @@
 package de.bo.mediknight;
 
-import java.awt.*;
+import java.awt.Component;
+
 
 public interface Presenter {
-    Component createView();
+
     void activate();
+
+
+    Component createView();
 }

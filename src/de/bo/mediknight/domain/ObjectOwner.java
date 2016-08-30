@@ -6,6 +6,9 @@
 package de.bo.mediknight.domain;
 
 public interface ObjectOwner {
-    public void setObject(String object);
+
     public String getObject();
+
+
+    public void setObject( String object );
 }

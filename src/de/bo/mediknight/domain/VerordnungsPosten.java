@@ -5,94 +5,118 @@
  */
 package de.bo.mediknight.domain;
 
-import de.baltic_online.borm.*;
-import java.util.*;
 import java.sql.SQLException;
+import java.util.List;
+
+import de.baltic_online.borm.AttributeAccess;
+import de.baltic_online.borm.AttributeMapper;
+import de.baltic_online.borm.AttributeType;
+import de.baltic_online.borm.Datastore;
+import de.baltic_online.borm.ObjectMapper;
+import de.baltic_online.borm.Query;
+
 
 /**
  * @author sma@baltic-online.de
  */
-public class VerordnungsPosten extends KnightObject implements Comparable<VerordnungsPosten> {
+public class VerordnungsPosten extends KnightObject implements Comparable< VerordnungsPosten > {
 
     // Persistent attributes ------------------------------------------------
 
     static {
-        ObjectMapper om = new ObjectMapper(VerordnungsPosten.class, "verordnungsposten");
-        om.add(new AttributeMapper("gruppe", "gruppe", true, AttributeAccess.METHOD, AttributeType.INTEGER));
-        om.add(new AttributeMapper("nummer", "nummer", true, AttributeAccess.METHOD, AttributeType.INTEGER));
-        om.add(new AttributeMapper("name", "name", false, AttributeAccess.METHOD, AttributeType.STRING));
-        om.add(new AttributeMapper("text", "text", false, AttributeAccess.METHOD, AttributeType.STRING));
-        Datastore.current.register(om);
+	final ObjectMapper om = new ObjectMapper( VerordnungsPosten.class, "verordnungsposten" );
+	om.add( new AttributeMapper( "gruppe", "gruppe", true, AttributeAccess.METHOD, AttributeType.INTEGER ) );
+	om.add( new AttributeMapper( "nummer", "nummer", true, AttributeAccess.METHOD, AttributeType.INTEGER ) );
+	om.add( new AttributeMapper( "name", "name", false, AttributeAccess.METHOD, AttributeType.STRING ) );
+	om.add( new AttributeMapper( "text", "text", false, AttributeAccess.METHOD, AttributeType.STRING ) );
+	Datastore.current.register( om );
     }
 
-    private int gruppe;
-    private int nummer;
-    private String name;
-    private String text;
+
+    public static List< KnightObject > retrieve() throws SQLException {
+	final Query q = Datastore.current.getQuery( VerordnungsPosten.class );
+	final List< KnightObject > list = toList( q.execute() );
+	for( final KnightObject knightObject : list ) {
+	    knightObject.setIdentity();
+	}
+	return list;
+    }
+
+    private int     gruppe;
+    private int     nummer;
+    private String  name;
+
+    private String  text;
 
     private boolean hid = false;
 
-    public void setGruppe(int gruppe) {
-        this.gruppe = gruppe;
+
+    @Override
+    public int compareTo( final VerordnungsPosten o ) {
+	if( o == null ) {
+	    return 1;
+	}
+
+	final VerordnungsPosten v = o;
+	final int cmp = gruppe - v.gruppe;
+	return cmp == 0 ? nummer - v.nummer : cmp;
     }
+
 
     public int getGruppe() {
-        return gruppe;
+	return gruppe;
     }
 
-    public void setNummer(int nummer) {
-        this.nummer = nummer;
-    }
-
-    public int getNummer() {
-        return nummer;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getName() {
-        return name;
+	return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+
+    public int getNummer() {
+	return nummer;
     }
+
 
     public String getText() {
-        return text;
+	return text;
     }
+
+
+    @Override
+    public boolean hasIdentity() {
+	return hid;
+    }
+
+
+    public void setGruppe( final int gruppe ) {
+	this.gruppe = gruppe;
+    }
+
 
     // Retrieval ------------------------------------------------------------
 
-    public static List<KnightObject> retrieve() throws SQLException {
-        Query q = Datastore.current.getQuery(VerordnungsPosten.class);
-        List<KnightObject> list = toList(q.execute());
-        for ( Iterator<KnightObject> i = list.iterator(); i.hasNext(); ) {
-            i.next().setIdentity();
-        }
-        return list;
+    @Override
+    public void setIdentity() {
+	hid = true;
     }
+
 
     // Framework ------------------------------------------------------------
 
-    public boolean hasIdentity() {
-        return hid;
+    public void setName( final String name ) {
+	this.name = name;
     }
 
-    public void setIdentity() {
-        hid = true;
+
+    public void setNummer( final int nummer ) {
+	this.nummer = nummer;
     }
+
 
     // Comparable -----------------------------------------------------------
 
-    public int compareTo(VerordnungsPosten o) {
-        if ( o == null )
-            return 1;
-
-        VerordnungsPosten v = o;
-        int cmp = gruppe - v.gruppe;
-        return (cmp == 0) ? nummer - v.nummer : cmp;
+    public void setText( final String text ) {
+	this.text = text;
     }
 }

@@ -1,74 +1,82 @@
 package de.bo.mediknight.tools;
 
-import java.util.*;
-import javax.swing.event.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
-import de.bo.mediknight.domain.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import de.bo.mediknight.domain.UserProperty;
 
 
 public class PrintSettingsModel {
 
-    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
-    private Map<String, String> content;
+    Set< ChangeListener >	 changeListeners = new HashSet< ChangeListener >();
+    private Map< String, String > content;
 
 
     public PrintSettingsModel() {
 
 	try {
-	    content = UserProperty.retrieveUserInformation(UserProperty.ALL_USERS);
+	    content = UserProperty.retrieveUserInformation( UserProperty.ALL_USERS );
 
-	    String[][] defaults = {
-		{"print.logo", "Praxis\n\n<b>Heilpraktiker"},
-		{"print.sender", "Baltic-Online Computer GmbH, Alter Markt 1-2, 24103 Kiel"},
-		{"print.font", "serif"},
-		{"print.bill.final", "Wir danken für Ihren Besuch!"},
-		{"print.medication.final", "Wir danken für Ihren Besuch!"}
-	    };
-	    for ( int i=0; i<defaults.length; i++ ) {
-		String[] kv = defaults[i];
-		if ( !content.containsKey(kv[0]) )
-		    content.put(kv[0],kv[1]);
+	    final String[][] defaults = { { "print.logo", "Praxis\n\n<b>Heilpraktiker" },
+		    { "print.sender", "Baltic-Online Computer GmbH, Alter Markt 1-2, 24103 Kiel" }, { "print.font", "serif" },
+		    { "print.bill.final", "Wir danken für Ihren Besuch!" }, { "print.medication.final", "Wir danken für Ihren Besuch!" } };
+	    for( final String[] default1 : defaults ) {
+		final String[] kv = default1;
+		if( !content.containsKey( kv[0] ) ) {
+		    content.put( kv[0], kv[1] );
+		}
 	    }
-	} catch (java.sql.SQLException e) {
+	} catch( final java.sql.SQLException e ) {
 	    e.printStackTrace();
 	    content = null;
 	}
     }
 
-    public void saveProperties() {
-        try {
-            UserProperty.saveUserInformation(UserProperty.ALL_USERS,content);
-        }
-        catch (java.sql.SQLException sqlx) {
-            sqlx.printStackTrace();
-        }
+
+    public void addChangeListener( final ChangeListener l ) {
+	changeListeners.add( l );
     }
 
-    public void alterMap(String key, String value) {
-	if (key != null && key.length() > 0)
-	    content.put(key, value);
+
+    public void alterMap( final String key, final String value ) {
+	if( key != null && key.length() > 0 ) {
+	    content.put( key, value );
+	}
 	saveProperties();
 	fireChangeEvent();
     }
 
-    public Map<String, String> getMap() {
+
+    void fireChangeEvent() {
+	final Iterator< ChangeListener > it = changeListeners.iterator();
+	final ChangeEvent e = new ChangeEvent( this );
+
+	while( it.hasNext() ) {
+	    it.next().stateChanged( e );
+	}
+    }
+
+
+    public Map< String, String > getMap() {
 	return content;
     }
 
-    public void addChangeListener( ChangeListener l ) {
-        changeListeners.add( l );
+
+    public void removeChangeListener( final ChangeListener l ) {
+	changeListeners.remove( l );
     }
 
-    public void removeChangeListener( ChangeListener l ) {
-        changeListeners.remove( l );
-    }
 
-    void fireChangeEvent() {
-        Iterator<ChangeListener> it = changeListeners.iterator();
-        ChangeEvent e = new ChangeEvent( this );
-
-        while( it.hasNext() ) {
-            it.next().stateChanged(e);
-        }
+    public void saveProperties() {
+	try {
+	    UserProperty.saveUserInformation( UserProperty.ALL_USERS, content );
+	} catch( final java.sql.SQLException sqlx ) {
+	    sqlx.printStackTrace();
+	}
     }
 }

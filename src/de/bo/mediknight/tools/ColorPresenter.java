@@ -1,65 +1,82 @@
 package de.bo.mediknight.tools;
 
-import de.bo.mediknight.*;
-import de.bo.mediknight.domain.*;
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.HashMap;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+
+import de.bo.mediknight.Commitable;
+import de.bo.mediknight.MainFrame;
+import de.bo.mediknight.Presenter;
+import de.bo.mediknight.domain.KnightObject;
+
 
 public class ColorPresenter implements Presenter, Commitable {
 
+    public static void main( final String[] args ) {
+	try {
+	    MainFrame.initProperties();
+	    MainFrame.initTracer();
+	    MainFrame.initDB();
+	    // MediknightTheme.install();
+
+	} catch( final Exception e ) {
+	    e.printStackTrace();
+	}
+
+	final JFrame frame = new JFrame();
+	frame.getContentPane().setLayout( new BorderLayout() );
+	final ColorPresenter presenter = new ColorPresenter();
+	frame.getContentPane().add( presenter.createView(), BorderLayout.CENTER );
+	frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	frame.setVisible( true );
+	frame.pack();
+    }
+
     ColorModel model;
+
     ColorPanel view;
 
+
     public ColorPresenter() {
-        model = new ColorModel();
+	model = new ColorModel();
     }
 
-    public void commit() {
-        try {
-            model.saveProperties(view.getProperties());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
+    @Override
     public void activate() {
     }
 
-    public void reload(Component component,KnightObject knightObject) {
+
+    @Override
+    public void commit() {
+	try {
+	    model.saveProperties( view.getProperties() );
+	} catch( final Exception e ) {
+	    e.printStackTrace();
+	}
     }
 
-    public Component getResponsibleComponent() {
-        return null;
-    }
 
+    @Override
     public Component createView() {
-        view =  new ColorPanel(model.getProperties());
-        return view;
+	view = new ColorPanel( model.getProperties() );
+	return view;
     }
 
-    public void saveProperties(HashMap<String, Object> map) {
+
+    @Override
+    public Component getResponsibleComponent() {
+	return null;
     }
 
-    public static void main(String[] args) {
-        try {
-            MainFrame.initProperties();
-            MainFrame.initTracer();
-            MainFrame.initDB();
-   //         MediknightTheme.install();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void reload( final Component component, final KnightObject knightObject ) {
+    }
 
-        JFrame frame = new JFrame();
-        frame.getContentPane().setLayout( new BorderLayout());
-        ColorPresenter presenter = new ColorPresenter(  );
-        frame.getContentPane().add(presenter.createView(), BorderLayout.CENTER );
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setVisible(true);
-        frame.pack();
+
+    public void saveProperties( final HashMap< String, Object > map ) {
     }
 }

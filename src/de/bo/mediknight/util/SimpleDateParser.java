@@ -5,21 +5,23 @@
  */
 package de.bo.mediknight.util;
 
-import java.util.*;
-import java.text.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 /**
- * <code>SimpleDateParser</code> ist ein auf <code>SimpleDateFormat</code>
- * aufbauender <code>DateParser</code>. Er erlaubt unvollst&auml;ndige
- * Datumsangaben, in dem er die nicht spezifizierten Felder mit aktuell
- * g&uuml;ltigen Werten belegt.
+ * <code>SimpleDateParser</code> ist ein auf <code>SimpleDateFormat</code> aufbauender <code>DateParser</code>. Er erlaubt unvollst&auml;ndige Datumsangaben, in
+ * dem er die nicht spezifizierten Felder mit aktuell g&uuml;ltigen Werten belegt.
  */
 public class SimpleDateParser implements DateParser {
 
     /**
      * Bezeichnung des Tagessegmentes eines Datums.
      */
-    public static final int DAY = 1;
+    public static final int DAY   = 1;
 
     /**
      * Bezeichnung des Monatssegmentes eines Datums.
@@ -29,80 +31,78 @@ public class SimpleDateParser implements DateParser {
     /**
      * Bezeichnung des Jahressegmentes eines Datums.
      */
-    public static final int YEAR = 4;
+    public static final int YEAR  = 4;
 
     /**
      *
      */
-    public static final int FULL = DAY | MONTH | YEAR;
+    public static final int FULL  = DAY | MONTH | YEAR;
 
     /**
      * Flagvariable f&uuml;r spezifizierte Datumssegmente.
      */
-    int segmentSet;
+    int		     segmentSet;
 
     /**
      * Zum Parsen verwendetes <code>DateFormat</code>.
      */
-    DateFormat dateFormat;
+    DateFormat	      dateFormat;
 
 
     /**
-     * Erzeugt einen <code>SimpleDateParser</code> mit angegebenem
-     * Format und Spezifikation der durch das <code>SimpleDateFormat</code>
-     * gesetzten Datumsteile.
      *
-     * @param format	 Das f&uuml;r das <code>SimpleDateFormat</code> verwendete
-     *			 Format
-     * @param segmentSet Flagvariable, die angibt, welche Teile des Datums durch
-     *			 das <code>SimpleDateFormat</code> gesetzt werden
      */
-    public SimpleDateParser(String format,int segmentSet) {
-	    this( new SimpleDateFormat( format ), segmentSet );
+    public SimpleDateParser( final DateFormat formatter, final int segmentSet ) {
+	dateFormat = formatter;
+	dateFormat.setLenient( false );
+	this.segmentSet = segmentSet;
+    }
+
+
+    /**
+     * Erzeugt einen <code>SimpleDateParser</code> mit angegebenem Format und Spezifikation der durch das <code>SimpleDateFormat</code> gesetzten Datumsteile.
+     *
+     * @param format
+     *            Das f&uuml;r das <code>SimpleDateFormat</code> verwendete Format
+     * @param segmentSet
+     *            Flagvariable, die angibt, welche Teile des Datums durch das <code>SimpleDateFormat</code> gesetzt werden
+     */
+    public SimpleDateParser( final String format, final int segmentSet ) {
+	this( new SimpleDateFormat( format ), segmentSet );
     }
 
 
     /**
      *
      */
-    public SimpleDateParser(DateFormat formatter,int segmentSet) {
-    	dateFormat = formatter;
-	    dateFormat.setLenient( false );
-	    this.segmentSet = segmentSet;
-    }
+    @Override
+    public Date parse( final String s ) throws ParseException {
 
+	Date date = null;
+	final Calendar calendar = Calendar.getInstance();
+	final Calendar now = Calendar.getInstance();
 
-    /**
-     *
-     */
-    public Date parse( String s )
-    throws ParseException {
+	date = dateFormat.parse( s );
+	calendar.setTime( date );
 
-    	Date date = null;
-	    Calendar calendar = Calendar.getInstance();
-    	Calendar now = Calendar.getInstance();
+	calendar.clear( Calendar.HOUR_OF_DAY );
+	calendar.clear( Calendar.HOUR );
+	calendar.clear( Calendar.MINUTE );
+	calendar.clear( Calendar.SECOND );
+	calendar.clear( Calendar.MILLISECOND );
 
-	    date = dateFormat.parse( s );
-	    calendar.setTime( date );
+	if( (segmentSet & DAY) == 0 ) {
+	    calendar.set( Calendar.DAY_OF_MONTH, now.get( Calendar.DAY_OF_MONTH ) );
+	}
 
-	    calendar.clear( Calendar.HOUR_OF_DAY );
-	    calendar.clear( Calendar.HOUR );
-	    calendar.clear( Calendar.MINUTE );
-	    calendar.clear( Calendar.SECOND );
-	    calendar.clear( Calendar.MILLISECOND );
+	if( (segmentSet & MONTH) == 0 ) {
+	    calendar.set( Calendar.MONTH, now.get( Calendar.MONTH ) );
+	}
 
-	    if( (segmentSet & DAY) == 0 ) {
-		    calendar.set( Calendar.DAY_OF_MONTH, now.get( Calendar.DAY_OF_MONTH ) );
-	    }
+	if( (segmentSet & YEAR) == 0 ) {
+	    calendar.set( Calendar.YEAR, now.get( Calendar.YEAR ) );
+	}
 
-	    if( (segmentSet & MONTH) == 0 ) {
-		    calendar.set( Calendar.MONTH, now.get( Calendar.MONTH ) );
-	    }
-
-	    if( (segmentSet & YEAR) == 0 ) {
-		    calendar.set( Calendar.YEAR, now.get( Calendar.YEAR ) );
-	    }
-
-	    return calendar.getTime();
+	return calendar.getTime();
     }
 }

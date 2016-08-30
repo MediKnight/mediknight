@@ -1,81 +1,103 @@
 package de.bo.mediknight;
 
-import java.util.*;
-import java.sql.*;
-import javax.swing.event.*;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import de.bo.mediknight.domain.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import de.bo.mediknight.domain.Rechnung;
+import de.bo.mediknight.domain.RechnungsGruppe;
+
 
 public class MacroModel {
-    Set<ChangeListener> changeListeners = new HashSet<ChangeListener>();
-    BillEntry[] entries;
-    Rechnung rechnung;
-    RechnungsGruppe rechnungsGruppe;
+
+    Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
+    BillEntry[]	   entries;
+    Rechnung	      rechnung;
+    RechnungsGruppe       rechnungsGruppe;
+
 
     public MacroModel() {
     }
 
-    public MacroModel( BillEntry[] entries, Rechnung rechnung ) {
-        this.entries = entries;
+
+    public MacroModel( final BillEntry[] entries, final Rechnung rechnung ) {
+	this.entries = entries;
 	this.rechnung = rechnung;
     }
 
-    public MacroModel( Rechnung rechnung ) {
-	this(null, rechnung);
+
+    public MacroModel( final Rechnung rechnung ) {
+	this( null, rechnung );
     }
 
-    public void addChangeListener( ChangeListener l ) {
-        changeListeners.add( l );
+
+    public void addChangeListener( final ChangeListener l ) {
+	changeListeners.add( l );
     }
 
-    public void removeChangeListener( ChangeListener l ) {
-        changeListeners.remove( l );
-    }
 
     void fireChangeEvent() {
-        Iterator<ChangeListener> it = changeListeners.iterator();
-        ChangeEvent e = new ChangeEvent( this );
+	final Iterator< ChangeListener > it = changeListeners.iterator();
+	final ChangeEvent e = new ChangeEvent( this );
 
-        while( it.hasNext() ) {
-            it.next().stateChanged(e);
-        }
+	while( it.hasNext() ) {
+	    it.next().stateChanged( e );
+	}
     }
 
-    public void setRechnung(Rechnung rechnung) {
-        this.rechnung = rechnung;
-        fireChangeEvent();
+
+    public List< RechnungsGruppe > getComponentList() {
+	try {
+	    return RechnungsGruppe.retrieve();
+	} catch( final SQLException e ) {
+	    /** @todo Exception reporting. */
+	}
+
+	return null;
     }
 
-    public Rechnung getRechnung() {
-        return rechnung;
-    }
 
     public BillEntry[] getEntries() {
 	return entries;
     }
 
-    public boolean hasContent() {
-	if ((entries == null) || (entries.length < 1))
-	    return false;
-	else
-	    return true;
+
+    public Rechnung getRechnung() {
+	return rechnung;
     }
+
 
     public RechnungsGruppe getRechnungsGruppe() {
 	return rechnungsGruppe;
     }
 
-    public void setRechnungsGruppe(RechnungsGruppe rechnungsGruppe) {
-	this.rechnungsGruppe = rechnungsGruppe;
+
+    public boolean hasContent() {
+	if( entries == null || entries.length < 1 ) {
+	    return false;
+	} else {
+	    return true;
+	}
     }
 
-    public List<RechnungsGruppe> getComponentList() {
-        try {
-            return RechnungsGruppe.retrieve();
-        } catch( SQLException e ) {
-            /** @todo Exception reporting. */
-        }
 
-        return null;
+    public void removeChangeListener( final ChangeListener l ) {
+	changeListeners.remove( l );
+    }
+
+
+    public void setRechnung( final Rechnung rechnung ) {
+	this.rechnung = rechnung;
+	fireChangeEvent();
+    }
+
+
+    public void setRechnungsGruppe( final RechnungsGruppe rechnungsGruppe ) {
+	this.rechnungsGruppe = rechnungsGruppe;
     }
 }

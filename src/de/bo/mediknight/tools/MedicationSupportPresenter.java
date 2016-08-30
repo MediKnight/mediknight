@@ -1,98 +1,119 @@
 package de.bo.mediknight.tools;
 
-import de.bo.mediknight.*;
+import java.awt.BorderLayout;
 import java.awt.Component;
 
 // for main-method
-import javax.swing.*;
-import java.awt.*;
-import de.bo.mediknight.domain.*;
+import javax.swing.JFrame;
+
+import de.bo.mediknight.Commitable;
+import de.bo.mediknight.MainFrame;
+import de.bo.mediknight.Presenter;
+import de.bo.mediknight.domain.KnightObject;
+import de.bo.mediknight.domain.VerordnungsPosten;
+
 
 public class MedicationSupportPresenter implements Presenter, Commitable {
 
+    public static void main( final String[] args ) {
+	try {
+	    MainFrame.initProperties();
+	    MainFrame.initTracer();
+	    MainFrame.initDB();
+	} catch( final Exception e ) {
+	    e.printStackTrace();
+	}
+
+	final JFrame frame = new JFrame();
+	frame.getContentPane().setLayout( new BorderLayout() );
+	final MedicationSupportModel model = new MedicationSupportModel();
+	final MedicationSupportPresenter presenter = new MedicationSupportPresenter( model );
+
+	frame.getContentPane().add( presenter.createView(), BorderLayout.CENTER );
+	frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	frame.setVisible( true );
+	frame.pack();
+
+    }
+
     MedicationSupportPanel view;
+
     MedicationSupportModel model;
+
 
     public MedicationSupportPresenter() {
     }
 
-    public MedicationSupportPresenter( MedicationSupportModel model ) {
-        this.model = model;
+
+    public MedicationSupportPresenter( final MedicationSupportModel model ) {
+	this.model = model;
     }
 
+
+    @Override
+    public void activate() {
+    }
+
+
+    public void addItem( final VerordnungsPosten posten ) {
+
+	try {
+	    posten.save();
+	} catch( final java.sql.SQLException e ) {
+	    e.printStackTrace();
+	}
+	view.update();
+    }
+
+
+    @Override
     public void commit() {
-        view.saveText();
+	view.saveText();
     }
 
-    public Component getResponsibleComponent() {
-        return null;
-    }
 
-    public void reload(Component component,KnightObject knightObject) {
-    }
-
-    public void activate() {}
-
+    @Override
     public Component createView() {
-        view = new MedicationSupportPanel();
-        view.setPresenter( this );
+	view = new MedicationSupportPanel();
+	view.setPresenter( this );
 
-        return view;
+	return view;
     }
+
+
+    public void deleteItem( final int[] rows ) {
+	try {
+	    for( final int row : rows ) {
+		model.delete( row );
+	    }
+	} catch( final java.sql.SQLException e ) {
+	    e.printStackTrace();
+	}
+	view.update();
+    }
+
 
     public MedicationSupportModel getModel() {
-        return model;
-    }
-
-    public void addItem( VerordnungsPosten posten ) {
-
-        try {
-            posten.save();
-        } catch (java.sql.SQLException e ) {
-            e.printStackTrace();
-        }
-        view.update();
-    }
-
-    public void deleteItem( int[] rows ) {
-        try {
-            for (int i = 0; i < rows.length; i++) {
-                model.delete( rows[i] );
-            }
-        } catch (java.sql.SQLException e ) {
-            e.printStackTrace();
-        }
-        view.update();
-    }
-
-    public void saveItem( VerordnungsPosten p ) {
-        try {
-            p.save();
-        } catch (java.sql.SQLException e ) {
-            e.printStackTrace();
-        }
+	return model;
     }
 
 
-    public static void main(String[] args) {
-        try {
-            MainFrame.initProperties();
-            MainFrame.initTracer();
-            MainFrame.initDB();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    public Component getResponsibleComponent() {
+	return null;
+    }
 
 
-        JFrame frame = new JFrame();
-        frame.getContentPane().setLayout( new BorderLayout());
-        MedicationSupportModel model = new MedicationSupportModel(  );
-        MedicationSupportPresenter presenter = new MedicationSupportPresenter( model );
+    @Override
+    public void reload( final Component component, final KnightObject knightObject ) {
+    }
 
-        frame.getContentPane().add(presenter.createView(), BorderLayout.CENTER );
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setVisible(true);
-        frame.pack();
 
+    public void saveItem( final VerordnungsPosten p ) {
+	try {
+	    p.save();
+	} catch( final java.sql.SQLException e ) {
+	    e.printStackTrace();
+	}
     }
 }
