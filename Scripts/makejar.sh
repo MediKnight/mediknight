@@ -41,7 +41,7 @@ jar uf $JARCHIV *
 cd ..
 rm -rf $TMPDIR
 
-echo "Main-Class: de.bo.mediknight.MainFrame" > $MANIFEST
+echo "Main-Class: de.baltic_online.mediknight.MainFrame" > $MANIFEST
 jar umf $MANIFEST $JARCHIV
 
 rm -f $MANIFEST

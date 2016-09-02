@@ -1,4 +1,4 @@
-//package de.bo.mediknight;
+//package de.baltic_online.mediknight;
 //
 //import java.awt.Color;
 //import java.awt.Dimension;
@@ -9,13 +9,13 @@
 //
 //import javax.swing.*;
 //
-//import de.bo.mediknight.domain.TagesDiagnose;
-//import de.bo.mediknight.util.MediknightUtilities;
-//import de.bo.mediknight.widgets.*;
-//import de.bo.mediknight.widgets.JPanel;
-//import de.bo.mediknight.widgets.JButton;
-//import de.bo.mediknight.widgets.JTextArea;
-//import de.bo.mediknight.widgets.JTextField;
+//import de.baltic_online.mediknight.domain.TagesDiagnose;
+//import de.baltic_online.mediknight.util.MediknightUtilities;
+//import de.baltic_online.mediknight.widgets.*;
+//import de.baltic_online.mediknight.widgets.JPanel;
+//import de.baltic_online.mediknight.widgets.JButton;
+//import de.baltic_online.mediknight.widgets.JTextArea;
+//import de.baltic_online.mediknight.widgets.JTextField;
 //
 //public class DayDiagnosisEntryPanel extends JPanel implements FocusListener {
 //    /**

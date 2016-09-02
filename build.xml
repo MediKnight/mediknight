@@ -134,7 +134,7 @@
     <mkdir dir="${dist}"/>
     
     <manifest file="${distribution}/manifest.in">
-      <attribute name="Main-Class" value="de.bo.mediknight.MainFrame"/>
+      <attribute name="Main-Class" value="de.baltic_online.mediknight.MainFrame"/>
       <attribute name="Class-Path" value="${manifest.classpath}"/>
     </manifest>
 

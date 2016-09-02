@@ -24,8 +24,8 @@ touch $JARCHIV
 
 echo "Processing $CLASSDIR ..."
 
-cp $PROJECT_DIR/Distribution/mediknight.properties $PROJECT_DIR/bin/de/bo/mediknight/resources
-cp $PROJECT_DIR/src/de/bo/mediknight/resources/logo.gif $PROJECT_DIR/bin/de/bo/mediknight/resources
+cp $PROJECT_DIR/Distribution/mediknight.properties $PROJECT_DIR/bin/de/baltic_online/mediknight/resources
+cp $PROJECT_DIR/src/de/baltic_online/mediknight/resources/logo.gif $PROJECT_DIR/bin/de/baltic_online/mediknight/resources
 cd $PROJECT_DIR/bin
 find . -name "*.class" -o \
        -name "*.properties" -o \
@@ -51,7 +51,7 @@ find . -name "*.class" -o \
 
 cd $TARGET_DIR
 
-echo "Main-Class: de.bo.mediknight.MainFrame" > $MANIFEST
+echo "Main-Class: de.baltic_online.mediknight.MainFrame" > $MANIFEST
 jar umf $MANIFEST $JARCHIV
 
 rm -f $MANIFEST
@@ -59,9 +59,9 @@ rm -f $MANIFEST
 # Kopiere die Dateien, die nicht ins JAR kommen:
 cd $TARGET_DIR
 cp -r $PROJECT_DIR/Distribution/xml $PROJECT_DIR/Distribution/xsd $TARGET_DIR
-mkdir -p $TARGET_DIR/de/bo/mediknight/properties
-cp $PROJECT_DIR/Distribution/mediknight.properties $TARGET_DIR/de/bo/mediknight/properties
-ln -s $TARGET_DIR/de/bo/mediknight/properties/mediknight.properties .
+mkdir -p $TARGET_DIR/de/baltic_online/mediknight/properties
+cp $PROJECT_DIR/Distribution/mediknight.properties $TARGET_DIR/de/baltic_online/mediknight/properties
+ln -s $TARGET_DIR/de/baltic_online/mediknight/properties/mediknight.properties .
 
 cd $TARGET_DIR
 tar cf $TMPDIR/mediknight.tar .

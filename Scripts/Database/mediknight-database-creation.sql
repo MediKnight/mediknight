@@ -119,7 +119,7 @@ create table benutzerprofil (
 #UPDATE SYSTEM_CONNECTIONINFO SET VALUE=1000 WHERE KEY='IDENTITY'
 #
 #CREATE CACHED TABLE SEQUENCEID(ID INTEGER)
-#GRANT ALL ON CLASS "de.bo.mediknight.domain.KnightObject" TO PUBLIC
-#CREATE ALIAS LAST_INSERT_ID FOR "de.bo.mediknight.domain.KnightObject.getSequenceId"
+#GRANT ALL ON CLASS "de.baltic_online.mediknight.domain.KnightObject" TO PUBLIC
+#CREATE ALIAS LAST_INSERT_ID FOR "de.baltic_online.mediknight.domain.KnightObject.getSequenceId"
 #
 #INSERT INTO SEQUENCEID VALUES(1000)
