@@ -1,0 +1,227 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.baltic_online</groupId>
+	<artifactId>mediknight</artifactId>
+	<version>1.0</version>
+	<name>MediKnight</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- <test.directory>${project.basedir}/target/testdir</test.directory> -->
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>de.baltic_online</groupId>
+			<artifactId>borm</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.baltic_online</groupId>
+			<artifactId>dchooser</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.baltic_online</groupId>
+			<artifactId>flexgrid</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.toedter</groupId>
+			<artifactId>jcalendar</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avalon.framework</groupId>
+			<artifactId>avalon-framework-impl</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avalon.framework</groupId>
+			<artifactId>avalon-framework-api</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom2</artifactId>
+			<version>2.0.5</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.11.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>fop</groupId>
+			<artifactId>fop</artifactId>
+			<version>0.20.5</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>6.0.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>jgoodies</groupId>
+			<artifactId>plastic</artifactId>
+			<version>1.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>main.java.de.baltic_online.mediknight.MainFrame</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>properties</id>
+						<phase>compile</phase>
+						<configuration>
+							<tasks>
+								<tstamp>
+									<format property="build.date" pattern="yyyy/MM/dd HH:mm:ss zz" />
+								</tstamp>
+								<filterset id="deploy.filter.local">
+									<filter token="BUILD" value="" />
+									<filter token="BUILD_DATE" value="${build.date}" />
+
+								</filterset>
+								<copy
+									file="${project.basedir}/src/main/resources/properties/mediknight.properties"
+									overwrite="true" encoding="ISO-8859-1"
+									toFile="${project.basedir}/mediknight.properties">
+									<filterset refid="deploy.filter.local" />
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>bundle</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<dependencyfilesets prefix="mydeps." />
+								<property environment="env" />
+								<property name="jar_path"
+									value="${project.build.directory}/${project.name}-${project.version}.${project.packaging}" />
+
+								<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask"
+									classpathref="maven.plugin.classpath" />
+								<bundleapp outputdirectory="${project.basedir}/target"
+									name="MediKnight" displayname="MediKnight" identifier="de.baltic_online.mediknight"
+									shortversion="${project.version}" mainclassname="main/java/de/baltic_online/mediknight/MainFrame">
+									icon="${project.basedir}/main/resources/images/MediKnightAppIcon.icns">
+									<runtime dir="${env.JAVA_HOME}" />
+									<classpath refid="mydeps.maven.project.dependencies" />
+									<classpath file="${jar_path}" />
+									<option value="-Duser.dir=$APP_ROOT/Contents/Resources" />
+								</bundleapp>
+
+								<tstamp>
+									<format property="build.date" pattern="yyyy/MM/dd HH:mm:ss zz" />
+								</tstamp>
+								<filterset id="deploy.filter.bundle">
+									<filter token="BUILD" value="" />
+									<filter token="BUILD_DATE" value="${build.date}" />
+
+								</filterset>
+								<copy
+									file="${project.basedir}/src/main/resources/properties/mediknight.properties"
+									overwrite="true" encoding="ISO-8859-1"
+									toFile="${project.basedir}/mediknight.properties">
+									<filterset refid="deploy.filter.bundle" />
+								</copy>
+								<copy
+									todir="${project.build.directory}/MediKnight.app/Contents/Resources">
+									<fileset dir="${project.basedir}/src/main/resources/" />
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<dependencies>
+					<dependency>
+						<groupId>com.oracle</groupId>
+						<artifactId>appbundler</artifactId>
+						<version>1.0</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant-commons-net</artifactId>
+						<version>1.8.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-jar-plugin</artifactId> -->
+			<!-- <version>3.0.2</version> -->
+			<!-- <configuration> -->
+			<!-- <archive> -->
+			<!-- <manifest> -->
+			<!-- <addClasspath>true</addClasspath> -->
+			<!-- <classpathPrefix>lib/</classpathPrefix> -->
+			<!-- <mainClass>main.java.de.baltic_online.mediknight.MainFrame</mainClass> -->
+			<!-- <packageName>main.java.de.baltic_online.mediknight</packageName> -->
+			<!-- </manifest> -->
+			<!-- </archive> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+		</plugins>
+	</build>
+</project>

@@ -6,18 +6,18 @@ $@(#)$Id$
 
 
 Dieser Text beschreibt stichwortartig einige Regeln zur einheitlichen
-Erstellung von Java-Quelltext für das Projekt MEDIKNIGHT.
-Verbesserungsvorschläge sind jederzeit willkommen.
+Erstellung von Java-Quelltext fÃ¼r das Projekt MEDIKNIGHT.
+Verbesserungsvorschlï¿½ge sind jederzeit willkommen.
 
 
 Paketnamen
 
-  Alle Klassen haben das folgende Präfix
+  Alle Klassen haben das folgende Prï¿½fix
 
 	de.baltic_online.mediknight
 
   Generell gilt: Jedes Baltic-Online-Paket beginnt mit "de.baltic_online" und
-  alle Namen haben ausschließlich Kleinbuchstaben. Es werden nur
+  alle Namen haben ausschlieï¿½lich Kleinbuchstaben. Es werden nur
   Buchstaben a-z und Ziffern 0-9 benutzt.  Insbesondere kein "_" oder
   "$".
 
@@ -36,27 +36,27 @@ Dateien
 
     import ....; 
 
-  Danach folgt der JavaDoc-Kommentar mit anschließender
+  Danach folgt der JavaDoc-Kommentar mit anschlieï¿½ender
   Klassendefinition. Der Kommentar beginnt mit einem Satz der die
-  Aufgabe der Klasse zusammenfaßt.  Danach kommen Details,
-  ggf. @see-Links und schließlich @author und @version.
+  Aufgabe der Klasse zusammenfaï¿½t.  Danach kommen Details,
+  ggf. @see-Links und schlieï¿½lich @author und @version.
 
   Alle Kommentare sind Englisch.  Author ist eine email-Adresse.
 
 
 Versionen
 
-  Die Versionen der Klassen sind unabhängig von CVS-Versionen und in
-  erster Linie für Komponenten.  Sie beginnen zweistellig ab 1.0
+  Die Versionen der Klassen sind unabhï¿½ngig von CVS-Versionen und in
+  erster Linie fÃ¼r Komponenten.  Sie beginnen zweistellig ab 1.0
   sobald die Schnittstelle fest ist.  Kompatible Erweiterungen der
-  Schnittstelle zählen die kleinere Nummer noch, Andernfalls wird die
-  erste Ziffer erhöht.  Neue/geänderte Methoden werden mit @since
+  Schnittstelle zï¿½hlen die kleinere Nummer noch, Andernfalls wird die
+  erste Ziffer erhï¿½ht.  Neue/geÃ„nderte Methoden werden mit @since
   markiert, veraltete mit @deprecated.
 
 
 Formatierungen
 
-  Es werden keine Tabs ('\t') benutzt, eingerückt wird jeweils 4
+  Es werden keine Tabs ('\t') benutzt, eingerï¿½ckt wird jeweils 4
   Spaces, offene Klammern stehen am Ende einer Zeile.  Beispiel
 
     class Test {
@@ -71,11 +71,11 @@ Formatierungen
     if (a == 0)
         return;
 
-  Instanzvariablen werden NICHT mit einem Präfix versehen.
+  Instanzvariablen werden NICHT mit einem Prï¿½fix versehen.
   Ebensowenig werden Parameter mit _ von gleichnamigen Variablen
   unterschieden.  Stattdessen wird hier "this.xx = xx" benutzt.
 
-  Lokale Variablen dürfen kurze Namen haben ("String s"), werden aber
+  Lokale Variablen dï¿½rfen kurze Namen haben ("String s"), werden aber
   immer dort definiert, wo sie zuerst benutzt werden, nicht am Anfang
   der Methode.  Ihre Verwendung ist zu minimieren; es sollte
   funktional programmiert werden.
@@ -91,7 +91,7 @@ Formatierungen
   EINE Leerzeile trennt Methoden bzw. Feld- und Klassendefinition.
 
   Die Schachtelungstiefe ist zu minimieren.  Eine gute Technik ist der
-  Einsatz von Guards, Anweisungen, die prüfen, ob eine Methode
+  Einsatz von Guards, Anweisungen, die prï¿½fen, ob eine Methode
   vorzeitig beendet werden kann, also
 
     public setEnabled(boolean enabled) {
@@ -107,8 +107,8 @@ Formatierungen
 
 Reihenfolge
 
-  Nach dem Klassennamen sollten zunächst statische Factory-Methoden,
-  Konstruktoren, Getter und Setter und dann öffentliche und dann
+  Nach dem Klassennamen sollten zunï¿½chst statische Factory-Methoden,
+  Konstruktoren, Getter und Setter und dann ï¿½ffentliche und dann
   private Methoden folgen, jeweils nach Aufgabe gruppiert. Die
   Gruppierung kann durch
 
@@ -122,9 +122,9 @@ Kommentare
 
   Grundregel: Kommentiere keinen schlechten Code, schreibe ihn um!
 
-  Die Schnittstelle, d.h. die Gesamtheit aller öffentlichen Methoden
-  und Felder einer Klasse sollte mit JavaDoc-Kommentaren vollständig
-  beschrieben sein.  Dies gilt insbesondere für Komponenten.
+  Die Schnittstelle, d.h. die Gesamtheit aller ï¿½ffentlichen Methoden
+  und Felder einer Klasse sollte mit JavaDoc-Kommentaren vollstï¿½ndig
+  beschrieben sein.  Dies gilt insbesondere fÃ¼r Komponenten.
 
     /** Returns the object's name. */
 
@@ -141,16 +141,16 @@ Kommentare
   von Code vorbehalten.
 
   Wird CVS zur Versionsverwaltung benutzt, bleibt kein
-  auskommentierter Code in der einzucheckenden Version. Ausnahme wäre
+  auskommentierter Code in der einzucheckenden Version. Ausnahme wï¿½re
   Code der eigentlich funktioniert, jedoch aufgrund von Fehlern in
-  Fremdprodukten einen Workaround benötigt.  (Workarounds für eigenen
+  Fremdprodukten einen Workaround benÃ¶tigt.  (Workarounds fÃ¼r eigenen
   Code schreiben wir niemals sondern korrigieren den Fehler!)
 
   Um "Baustellen" zu markieren, wird
 
     //TODO: ....
 
-  benutzt. Nach diesem Schlüsselwort kann dann "gegreppt" werden.
+  benutzt. Nach diesem Schlï¿½sselwort kann dann "gegreppt" werden.
 
 
 Java-Konventionen
@@ -161,7 +161,7 @@ Java-Konventionen
   Strings (nicht "North" sondern "BorderLayout.NORTH") oder Zahlen
   (nicht "0" sondern "GridBagConstraint.CENTER").
 
-  Benutze keine Vollqualifizierten Namen für wohlbekannte Klassen.
+  Benutze keine Vollqualifizierten Namen fÃ¼r wohlbekannte Klassen.
 
   Benutze anonyme innere Klassen oder lokale Klassen wo angebracht.
 

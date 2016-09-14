@@ -1,0 +1,67 @@
+package main.java.de.baltic_online.mediknight;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Label;
+import java.awt.MediaTracker;
+import java.awt.Toolkit;
+import java.awt.Window;
+
+
+class SplashImage extends Component {
+
+    private static final long serialVersionUID = 1L;
+    Image		     image;
+
+
+    public SplashImage( final Image image ) {
+	this.image = image;
+    }
+
+
+    @Override
+    public Dimension getPreferredSize() {
+	return new Dimension( image.getWidth( null ), image.getHeight( null ) );
+    }
+
+
+    @Override
+    public void paint( final Graphics g ) {
+	g.drawImage( image, 0, 0, null );
+    }
+}
+
+
+public class SplashWindow extends Window {
+
+    private static final long serialVersionUID = 1L;
+
+
+    public SplashWindow( final String imagePath ) {
+	super( new Frame() );
+	
+	final Image image = Toolkit.getDefaultToolkit().createImage( imagePath );
+	final MediaTracker tracker = new MediaTracker( this );
+	
+	tracker.addImage( image, 0 );
+	try {
+	    tracker.waitForID( 0 );
+	} catch( final InterruptedException e ) {
+	    e.printStackTrace();
+	} catch( final NullPointerException ex ) {
+	    ex.printStackTrace();
+	}
+
+	add( new SplashImage( image ), BorderLayout.NORTH );
+	add( new Label( "Die Applikation wird geladen..." ), BorderLayout.SOUTH );
+	pack();
+	final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+	setLocation( (screenSize.width - getSize().width) / 2, (screenSize.height - getSize().height) / 2 );
+	setVisible( true );
+    }
+}

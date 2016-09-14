@@ -34,40 +34,40 @@ Mediknight ToDo, Stand: 29.09.2000
 Allg. Features:
 ===============
 
-Niedrige Priorität:
+Niedrige Prioritï¿½t:
 -------------------
 
 R01:	"Freie Rechnungen"
 	Bisher ist jede Rechnung an eine Tagesdiagnose eines Patienten
-	gekoppelt, d.h. zu jeder Tagesdiagnose gibt es höchstens eine Rechnung.
-	Eine Tagesdiagnose kann pro Patient täglich nur einmal erstellt werden,
-	d.h. mehrere Tagesdiagnosen können nicht am selben Tag erstellt werden.
-	Diese "Einschränkung" wurde damals aber so beschlossen.
+	gekoppelt, d.h. zu jeder Tagesdiagnose gibt es hï¿½chstens eine Rechnung.
+	Eine Tagesdiagnose kann pro Patient tï¿½glich nur einmal erstellt werden,
+	d.h. mehrere Tagesdiagnosen kÃ¶nnen nicht am selben Tag erstellt werden.
+	Diese "Einschrï¿½nkung" wurde damals aber so beschlossen.
 
-	Nun sollen Rechnungen auch unabhängig von einer Tagesdiagnose erstellt
-	werden können. Der "Vater" einer Rechnung muss dann neben einer
-	Tagesdiagnose auch der Patient sein können.
+	Nun sollen Rechnungen auch unabhï¿½ngig von einer Tagesdiagnose erstellt
+	werden kÃ¶nnen. Der "Vater" einer Rechnung muss dann neben einer
+	Tagesdiagnose auch der Patient sein kÃ¶nnen.
 
 	Problem:
 
 	Wie bindet man dieses Feature in das bestehende GUI der Applikation mit
 	ein?
 	Ein weiterer Schalter im Schalter-Panel sollte vermieden werden.
-	Möglichkeit: Schalter ins Detail-Panel des Patienten einfügen.
+	mÃ¶glichkeit: Schalter ins Detail-Panel des Patienten einfÃ¼gen.
 
 P01:	"birthday indicator"
 	Beim Start von Mediknight sollen Geburtstage der Patienten ca.
 	1. Woche vorher angezeigt werden.
 
-Hohe Priorität:
+Hohe Prioritï¿½t:
 ---------------
 
-DI01:	Alle Datumseingaben müssen so gestaltet sein, dass vierstellige
-	Jahreszahlen eingegeben werden müssen.
+DI01:	Alle Datumseingaben mÃ¼ssen so gestaltet sein, dass vierstellige
+	Jahreszahlen eingegeben werden mÃ¼ssen.
 
 	Erledigt!
 
-R02:	Geänderte Geldbeträge speichern?
-	(Rücksprache notwendig)
+R02:	GeÃ„nderte GeldbetrÃ¤ge speichern?
+	(Rï¿½cksprache notwendig)
 
-Release notes einführen!
+Release notes einfï¿½hren!

@@ -6,4 +6,4 @@ APPDIR=@ROOT@
 VM=@JAVA@/bin/java
 
 cd $APPDIR
-$VM -cp mediknight.jar de.baltic_online.mediknight.tools.MainTool
+$VM -cp mediknight.jar main.java.de.baltic_online.mediknight.tools.MainTool

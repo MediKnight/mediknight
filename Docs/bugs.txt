@@ -8,7 +8,7 @@ TD01:
 	Wird ein Patient neu angelegt, so werden in aktuellen Vorgang
 	angelegte Tagesdiagnose-Daten nicht gespeichert.
 	Daten werden erst gespeichert, wenn dieser Patient durch
-	"Suchen" ausgewählt wurde.
+	"Suchen" ausgewÃ¤hlt wurde.
 
 	Siehe auch TD02.
 
@@ -16,8 +16,8 @@ TD01:
 
 TD02:
 	Tagesdiagnose-Daten eines existierenden Patienten werden nur
-	dann hinzugefügt, wenn sofort Text im Diagnosefeld eingegeben
-	wird. Wird dieses Feld erst nachträglich besetzt (d.h. nach
+	dann hinzugefÃ¼gt, wenn sofort Text im Diagnosefeld eingegeben
+	wird. Wird dieses Feld erst nachtrÃ¤glich besetzt (d.h. nach
 	Eingabe von Rechnungs und Verordnungs-Daten), so werden diese
 	nicht gespeichert.
 
@@ -31,8 +31,8 @@ TD03:
 	Bisher konnte der Fehler aber nicht reproduziert werden.
 
 	Vermutung:
-	Die Software arbeitet diesbezüglich zwar fehlerfrei, aber es kann
+	Die Software arbeitet diesbezÃ¼glich zwar fehlerfrei, aber es kann
 	zu "concurrency-problems" kommen, wenn zwei Benutzer in
-	überschneidener Zeit einen Datensatz bearbeiten.
+	Ã¼berschneidener Zeit einen Datensatz bearbeiten.
 
 	gefixt!

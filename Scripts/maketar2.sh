@@ -51,7 +51,7 @@ find . -name "*.class" -o \
 
 cd $TARGET_DIR
 
-echo "Main-Class: de.baltic_online.mediknight.MainFrame" > $MANIFEST
+echo "Main-Class: main.java.de.baltic_online.mediknight.MainFrame" > $MANIFEST
 jar umf $MANIFEST $JARCHIV
 
 rm -f $MANIFEST
