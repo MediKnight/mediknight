@@ -25,11 +25,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+import de.baltic_online.swing.FlexGridConstraints;
+import de.baltic_online.swing.FlexGridLayout;
 import main.java.de.baltic_online.mediknight.domain.RechnungsPosten;
 import main.java.de.baltic_online.mediknight.util.CurrencyNumber;
 import main.java.de.baltic_online.mediknight.util.MediknightUtilities;
-import de.baltic_online.swing.FlexGridConstraints;
-import de.baltic_online.swing.FlexGridLayout;
 
 
 public class MasterDataSupportPanel extends JPanel implements ChangeListener, ListSelectionListener {

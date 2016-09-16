@@ -30,13 +30,13 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import de.baltic_online.swing.FlexGridConstraints;
+import de.baltic_online.swing.FlexGridLayout;
 import main.java.de.baltic_online.mediknight.domain.Patient;
 import main.java.de.baltic_online.mediknight.widgets.JButton;
 import main.java.de.baltic_online.mediknight.widgets.JList;
 import main.java.de.baltic_online.mediknight.widgets.JPanel;
 import main.java.de.baltic_online.mediknight.widgets.JScrollPane;
-import de.baltic_online.swing.FlexGridConstraints;
-import de.baltic_online.swing.FlexGridLayout;
 
 
 public class SearchPanel extends JPanel implements ChangeListener {

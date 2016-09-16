@@ -35,11 +35,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
+import de.baltic_online.swing.FlexGridConstraints;
+import de.baltic_online.swing.FlexGridLayout;
 import main.java.de.baltic_online.mediknight.domain.VerordnungsPosten;
 import main.java.de.baltic_online.mediknight.util.ErrorDisplay;
 import main.java.de.baltic_online.mediknight.util.MediknightUtilities;
-import de.baltic_online.swing.FlexGridConstraints;
-import de.baltic_online.swing.FlexGridLayout;
 
 
 public class MedicationSupportPanel extends JPanel implements ChangeListener, ListSelectionListener {

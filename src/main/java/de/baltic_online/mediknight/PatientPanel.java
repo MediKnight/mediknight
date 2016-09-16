@@ -21,6 +21,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import de.baltic_online.swing.FlexGridConstraints;
+import de.baltic_online.swing.FlexGridLayout;
 import main.java.de.baltic_online.mediknight.domain.Patient;
 import main.java.de.baltic_online.mediknight.util.MediknightUtilities;
 import main.java.de.baltic_online.mediknight.widgets.JButton;
@@ -31,8 +33,6 @@ import main.java.de.baltic_online.mediknight.widgets.JScrollPane;
 import main.java.de.baltic_online.mediknight.widgets.JTextArea;
 import main.java.de.baltic_online.mediknight.widgets.JTextField;
 import main.java.de.baltic_online.mediknight.widgets.JUndoButton;
-import de.baltic_online.swing.FlexGridConstraints;
-import de.baltic_online.swing.FlexGridLayout;
 
 
 public class PatientPanel extends JPanel implements ChangeListener {

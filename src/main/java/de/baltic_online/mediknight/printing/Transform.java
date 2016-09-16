@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.FopFactoryBuilder;
 import org.apache.fop.apps.MimeConstants;
 
 
@@ -30,32 +31,25 @@ import org.apache.fop.apps.MimeConstants;
 public class Transform {
 
     public static File xml2pdf( final File xmlFile, final File xslFile, final File pdfFile ) {
-	// Step 1: Construct a FopFactory
-	// (reuse if you plan to render multiple documents!)
-	final FopFactory fopFactory = FopFactory.newInstance();
-
-	// Step 2: Set up output stream.
-	// Note: Using BufferedOutputStream for performance reasons
-	// (helpful with FileOutputStreams).
 	OutputStream out = null;
-
+	
 	try {
-	    out = new BufferedOutputStream( new FileOutputStream( pdfFile ) );
-	    // Step 3: Construct fop with desired output format
-	    final Fop fop = fopFactory.newFop( MimeConstants.MIME_PDF, out );
-
-	    // Step 4: Setup JAXP using identity transformer
+	    final FopFactoryBuilder fopFactoryBuilder = new FopFactoryBuilder( new File( ".").toURI() );
+	    final FopFactory fopFactory = fopFactoryBuilder.build();
 	    final TransformerFactory factory = TransformerFactory.newInstance();
-	    // with XSLT:
+	    
+	    out = new BufferedOutputStream( new FileOutputStream( pdfFile ) );
+	    final Fop fop = fopFactory.newFop( MimeConstants.MIME_PDF, out );
+	   
+
+	    // Step 4: Setup JAXP using identity transformer with XSLT:
 	    final Source xslt = new StreamSource( xslFile );
 	    final Transformer transformer = factory.newTransformer( xslt );
-
-	    // Step 5: Setup input and output for XSLT transformation
-	    // Setup input stream
+	    
+	    // Step 5: Setup input and output for XSLT transformation setup input stream
 	    final Source src = new StreamSource( xmlFile );
-
-	    // Resulting SAX events (the generated FO) must be piped through to
-	    // FOP
+	    
+	 // Resulting SAX events (the generated FO) must be piped through to FOP
 	    final Result res = new SAXResult( fop.getDefaultHandler() );
 
 	    // Step 6: Start XSLT transformation and FOP processing
