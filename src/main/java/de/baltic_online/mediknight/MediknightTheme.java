@@ -128,10 +128,10 @@ public class MediknightTheme extends DefaultMetalTheme {
 	table.put( "OptionPane.yesButtonText", "Ja" );
 	table.put( "OptionPane.noButtonText", "Nein" );
 	table.put( "OptionPane.cancelButtonText", "Abbrechen" );
-	table.put( "OptionPane.errorIcon", LookAndFeel.makeIcon( getClass(), "src/main/resources/icons/Error.gif" ) );
-	table.put( "OptionPane.informationIcon", LookAndFeel.makeIcon( getClass(), "src/main/resources/icons/Inform.gif" ) );
-	table.put( "OptionPane.warningIcon", LookAndFeel.makeIcon( getClass(), "src/main/resources/icons/Warn.gif" ) );
-	table.put( "OptionPane.questionIcon", LookAndFeel.makeIcon( getClass(), "src/main/resources/icons/Question.gif" ) );
+	table.put( "OptionPane.errorIcon", LookAndFeel.makeIcon( getClass(), "icons/Error.gif" ) );
+	table.put( "OptionPane.informationIcon", LookAndFeel.makeIcon( getClass(), "icons/Inform.gif" ) );
+	table.put( "OptionPane.warningIcon", LookAndFeel.makeIcon( getClass(), "icons/Warn.gif" ) );
+	table.put( "OptionPane.questionIcon", LookAndFeel.makeIcon( getClass(), "icons/Question.gif" ) );
 	table.put( "ComboBoxUI", "main.java.de.baltic_online.mediknight.MediknightComboBoxUI" );
 	table.put( "ComboBox.font", table.getFont( "TextField.font" ) );
 	table.put( "ComboBox.selectionBackground", primary3 );

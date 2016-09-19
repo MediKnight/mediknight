@@ -19,18 +19,18 @@ import com.toedter.calendar.JDateChooser;
  */
 public class DateTableCellRenderer implements TableCellRenderer {
 
-    private final JDateChooser chooser;
+    private final JDateChooser dateChooser;
 
 
     public DateTableCellRenderer( final JTable table ) {
-	chooser = new JDateChooser( getTodaysDate() );
-	chooser.setFont( table.getFont() );
-	chooser.setOpaque( true );
-	chooser.setBorder( null );
-
+	dateChooser = new JDateChooser( getTodaysDate() );
+	dateChooser.setFont( table.getFont() );
+	dateChooser.setOpaque( true );
+	dateChooser.setBorder( null );
+	dateChooser.setBackground( table.getBackground() );
 	setDateChooserColors( table );
 
-	final int preferredHeight = (int) chooser.getPreferredSize().getHeight();
+	final int preferredHeight = (int) dateChooser.getPreferredSize().getHeight();
 	if( table.getRowHeight() < preferredHeight ) {
 	    table.setRowHeight( preferredHeight );
 	}
@@ -38,7 +38,7 @@ public class DateTableCellRenderer implements TableCellRenderer {
 
 
     public double getLabelPrefWidth() {
-	return chooser.getPreferredSize().getWidth();
+	return dateChooser.getPreferredSize().getWidth();
     }
 
 
@@ -46,8 +46,8 @@ public class DateTableCellRenderer implements TableCellRenderer {
     public Component getTableCellRendererComponent( final JTable table, final Object value, final boolean isSelected, final boolean hasFocus, final int row,
 						    final int column ) {
 
-	chooser.setDate( value != null ? new Date( ((java.sql.Date) value).getTime() ) : getTodaysDate() );
-	final JComponent comp = chooser.getDateEditor().getUiComponent();
+	dateChooser.setDate( value != null ? new Date( ((java.sql.Date) value).getTime() ) : getTodaysDate() );
+	final JComponent comp = dateChooser.getDateEditor().getUiComponent();
 	if( isSelected ) {
 	    comp.setBackground( table.getSelectionBackground() );
 	    comp.setForeground( table.getSelectionForeground() );
@@ -56,7 +56,7 @@ public class DateTableCellRenderer implements TableCellRenderer {
 	    comp.setForeground( table.getForeground() );
 	}
 
-	return chooser;
+	return dateChooser;
     }
 
 
@@ -66,7 +66,7 @@ public class DateTableCellRenderer implements TableCellRenderer {
 
 
     private void setDateChooserColors( final JTable table ) {
-	final JTextField tmp = (JTextField) chooser.getDateEditor().getUiComponent();
+	final JTextField tmp = (JTextField) dateChooser.getDateEditor().getUiComponent();
 
 	tmp.setBackground( table.getBackground() );
 	tmp.setForeground( table.getForeground() );

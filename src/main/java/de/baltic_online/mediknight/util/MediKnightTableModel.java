@@ -103,11 +103,9 @@ public class MediKnightTableModel extends AbstractTableModel {
 		final TagesDiagnose currentDiagnose = data.get( row );
 
 		switch( col ) {
-		    case 0: // TODO Date Datentyp im Programm gem. Java-Standards
-			    // verwenden und nicht mit dem SQL-DT an Stellen
-			    // arbeiten, die deisen niht erfordern!
-			final Date dt = (Date) value;
-			final LocalDate ldate = Instant.ofEpochMilli( dt.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate();
+		    case 0: // TODO Date Datentyp im Programm gem. Java-Standards verwenden und nicht mit dem SQL-DT an Stellen arbeiten, die diesen niht erfordern!
+//			final Date dt = (Date) value;
+			final LocalDate ldate = (LocalDate) value; //Instant.ofEpochMilli( dt.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate();
 			final java.sql.Date sdt = java.sql.Date.valueOf( ldate );
 
 			currentDiagnose.setDatum( sdt );

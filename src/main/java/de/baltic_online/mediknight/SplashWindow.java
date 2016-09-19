@@ -10,6 +10,7 @@ import java.awt.Label;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.net.URL;
 
 
 class SplashImage extends Component {
@@ -44,7 +45,8 @@ public class SplashWindow extends Window {
     public SplashWindow( final String imagePath ) {
 	super( new Frame() );
 	
-	final Image image = Toolkit.getDefaultToolkit().createImage( imagePath );
+	final URL imageUrl = SplashWindow.class.getClassLoader().getResource( imagePath );
+	final Image image = Toolkit.getDefaultToolkit().createImage( imageUrl );
 	final MediaTracker tracker = new MediaTracker( this );
 	
 	tracker.addImage( image, 0 );

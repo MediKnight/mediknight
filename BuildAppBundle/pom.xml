@@ -28,7 +28,7 @@
 				<version>1.1.1</version>
 				<configuration>
 					<mainClass>main.java.de.baltic_online.mediknight.MainFrame</mainClass>
-					<!-- <iconFile>xxx</iconFile> -->
+					<iconFile>MediKnightAppIcon.icns</iconFile>
 					<!-- <jrePath>/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk</jrePath> -->
 				</configuration>
 				<executions>

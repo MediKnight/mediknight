@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
@@ -232,7 +233,8 @@ public class LoginDialog extends JDialog {
     private static Image	       defaultUserImage;
 
     static {
-	defaultUserImage = Toolkit.getDefaultToolkit().createImage( "src/main/resources/images/defaultuser.gif" );
+	final URL url = LoginDialog.class.getClassLoader().getResource( "images/defaultuser.gif" );
+	defaultUserImage = Toolkit.getDefaultToolkit().createImage( url );
     }
     // Login controls
     private JPanel		     controlPanel;

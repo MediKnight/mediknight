@@ -71,7 +71,7 @@ public class ExpandBills {
 
     private final static String MEDIKNIGHT_PROPERTIES = "mediknight.properties";
 
-    private final static String PROPERTY_FILENAME     = "src/main/resources/properties/" + MEDIKNIGHT_PROPERTIES;
+    private final static String PROPERTY_FILENAME     = "properties/" + MEDIKNIGHT_PROPERTIES;
 
 
     @SuppressWarnings( "resource" )

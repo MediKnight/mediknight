@@ -348,7 +348,7 @@ public class MainFrame extends JFrame implements TraceConstants {
     // Resource of property file.
     public final static String MEDIKNIGHT_PROPERTIES = "mediknight.properties";
 
-    public final static String PROPERTY_FILENAME     = "src/main/resources/properties/" + MEDIKNIGHT_PROPERTIES;
+    public final static String PROPERTY_FILENAME     = "properties/" + MEDIKNIGHT_PROPERTIES;
 
     // this application
     private static MainFrame   application;
@@ -514,7 +514,7 @@ public class MainFrame extends JFrame implements TraceConstants {
     public static void initProperties() throws IOException {
 	InputStream is = null;
 
-	try {
+	try {    
 	    is = new FileInputStream( new File( MEDIKNIGHT_PROPERTIES ) );
 	} catch( final FileNotFoundException e ) {
 	    is = MainFrame.class.getClassLoader().getResourceAsStream( PROPERTY_FILENAME );
@@ -600,7 +600,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 	    
 	    
 	    
-	    splash = new SplashWindow( "src/main/resources/images/practic-splash.png" );
+	    splash = new SplashWindow( "images/practic-splash.png" );
 
 	    // determine application name and version
 	    NAME = getProperties().getProperty( "name", "Mediknight" );
@@ -1093,7 +1093,8 @@ public class MainFrame extends JFrame implements TraceConstants {
 	    }
 	} );
 
-	final ImageIcon icon = new ImageIcon( Toolkit.getDefaultToolkit().createImage( "src/main/resources/images/logo.gif" ) );
+	final URL logoUrl = MainFrame.class.getClassLoader().getResource( "images/logo.gif" );
+	final ImageIcon icon = new ImageIcon( Toolkit.getDefaultToolkit().createImage( logoUrl ) );
 
 	final JButton aboutButton = new JButton( icon );
 	aboutButton.setBorder( BorderFactory.createEmptyBorder() );

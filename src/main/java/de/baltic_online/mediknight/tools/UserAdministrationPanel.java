@@ -435,7 +435,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
 
 
     private ImageIcon getDefaultImageIcon() {
-	final Image defaultUserImage = Toolkit.getDefaultToolkit().createImage( "src/main/resources/images/defaultuser.gif" );
+	final Image defaultUserImage = Toolkit.getDefaultToolkit().createImage( "images/defaultuser.gif" );
 	return new ImageIcon( defaultUserImage );
     }
 

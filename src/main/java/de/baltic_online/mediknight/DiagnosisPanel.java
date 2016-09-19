@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
@@ -355,10 +357,10 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 	tbl_DayDiagnosis = new JTable();
 	tbl_DayDiagnosis.getTableHeader().setReorderingAllowed( false );
-	tbl_DayDiagnosis.setAutoResizeMode( javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN );
+	tbl_DayDiagnosis.setAutoResizeMode( JTable.AUTO_RESIZE_LAST_COLUMN );
 	tbl_DayDiagnosis.setDefaultRenderer( Date.class, new DateTableCellRenderer( tbl_DayDiagnosis ) );
 	tbl_DayDiagnosis.setDefaultEditor( Date.class, new DateChooserTableCellEditor( tbl_DayDiagnosis ) );
-	tbl_DayDiagnosis.setAutoCreateRowSorter( true );
+	tbl_DayDiagnosis.setAutoCreateRowSorter( true );	
 
 	entriesSP.getViewport().add( tbl_DayDiagnosis, null );
 	pnl_DiagOptions = new JPanel();
@@ -394,13 +396,12 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 		final int preferredWidth = (int) (comp.getPreferredSize().getWidth() + tbl_DayDiagnosis.getIntercellSpacing().getWidth());
 
 		newWidth = Integer.max( newWidth, Integer.max( preferredWidth, minColumnWidth ) );
-		if( newWidth >= maxColumnWidth ) { // Wsds war
-						   // das??????????????????
+		if( newWidth >= maxColumnWidth ) { 
 		    newWidth = maxColumnWidth;
-		    // break;
 		}
 	    }
 
+	    currentColumn.setMinWidth( newWidth );
 	    currentColumn.setPreferredWidth( newWidth );
 	    currentColumn.setMaxWidth( newWidth );
 	}
