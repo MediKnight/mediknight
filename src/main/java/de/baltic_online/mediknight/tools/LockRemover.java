@@ -312,7 +312,7 @@ public class LockRemover extends JFrame {
 		final Iterator< Storable > tdIterator = tdQuery.execute();
 		if( tdIterator.hasNext() ) {
 		    final TagesDiagnose diagnose = (TagesDiagnose) tdIterator.next();
-		    description = "Tagesdiagnose vom " + df.format( diagnose.getDatum() );
+		    description = "Tagesdiagnose vom " + df.format( diagnose.getDatumAsDate() );
 		} else {
 		    description = "Gelöschte Tagesdiagnose";
 		}

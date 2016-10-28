@@ -1,12 +1,14 @@
 package main.java.de.baltic_online.mediknight.printing;
 
 import java.awt.print.PrinterJob;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -77,10 +79,10 @@ public class FOPrinter {
 	HOME_DIR = System.getProperty( "user.home" ) + System.getProperty( "file.separator" ) + MainFrame.getProperties().getProperty( "outdir" );
 
 	new File( HOME_DIR ).mkdir();
-	templateFile = new File( xmlFileName );
+	templateFile = new File( this.getClass().getClassLoader().getResource( xmlFileName ).getPath() );
 	xmlFile = new File( HOME_DIR, "output.xml" );
 
-	xslFile = new File( xslFileName );
+	xslFile = new File( this.getClass().getClassLoader().getResource( xslFileName ).getPath() );
 	data = new HashMap< String, String >();
 	newElements = new ArrayList< String[] >();
 	wasPrinted = false;
@@ -263,8 +265,7 @@ public class FOPrinter {
      * @throws IOException
      */
     private void insertValues() throws IOException {
-
-	final FileInputStream fis = new FileInputStream( templateFile );
+	final FileInputStream fis = new FileInputStream( templateFile.getPath() );
 	final FileOutputStream fos = new FileOutputStream( xmlFile );
 	final OutputStreamWriter osw = new OutputStreamWriter( fos, "UTF-8" );
 

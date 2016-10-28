@@ -50,7 +50,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
     @Override
     public void commit() {
 	model.getRechnung().setText( view.getText() );
-	model.getRechnung().setDatum( MediknightUtilities.parseDate( view.getDate() ) );
+	model.getRechnung().setDatumAsDate( MediknightUtilities.parseDate( view.getDate() ) );
 	model.getRechnung().setAddress( view.getAdress() );
 	model.getRechnung().setGreetings( view.getGreetings() );
 
@@ -125,7 +125,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
 
 		    // füge Rechnungsnr und Datum hinzu
 		    fop.addData( "Rechnung", String.valueOf( rechnung.getId() ) );
-		    fop.addData( "Datum", MediknightUtilities.formatDate( rechnung.getDatum() ) );
+		    fop.addData( "Datum", MediknightUtilities.formatDate( rechnung.getDatumAsDate() ) );
 
 		    // füge Patientendaten hinzu
 		    fop.addData( "Patient/Title", patient.getTitel() );
@@ -180,7 +180,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
 
 			fop.addTagToFather( "Row", "", "Table" );
 			if( y == 0 ) {
-			    fop.addTag( "Cell", MediknightUtilities.formatDate( rechnung.getDatum() ), "Table" );
+			    fop.addTag( "Cell", MediknightUtilities.formatDate( rechnung.getDatumAsDate() ), "Table" );
 			} else {
 			    fop.addTag( "Cell", "", "Table" );
 			}

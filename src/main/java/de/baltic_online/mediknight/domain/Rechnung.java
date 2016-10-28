@@ -26,7 +26,7 @@ public class Rechnung extends DiagnoseElement {
 	final ObjectMapper om = new ObjectMapper( Rechnung.class, "rechnung" );
 	om.add( new AttributeMapper( "id", "id", true, AttributeAccess.METHOD, AttributeType.INTEGER ) );
 	om.add( new AttributeMapper( "diagnoseId", "diagnose_id", false, AttributeAccess.METHOD, AttributeType.INTEGER ) );
-	om.add( new AttributeMapper( "datum", "datum", false, AttributeAccess.METHOD, AttributeType.DATE ) );
+	om.add( new AttributeMapper( "datumAsSqlDate", "datum", false, AttributeAccess.METHOD, AttributeType.DATE ) );
 	om.add( new AttributeMapper( "object", "object", false, AttributeAccess.METHOD, AttributeType.STRING ) );
 	om.add( new AttributeMapper( "text", "text", false, AttributeAccess.METHOD, AttributeType.STRING ) );
 	om.add( new AttributeMapper( "address", "adresse", false, AttributeAccess.METHOD, AttributeType.STRING ) );

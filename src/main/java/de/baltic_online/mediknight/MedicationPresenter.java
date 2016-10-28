@@ -143,7 +143,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
 		    fop.addData( "Patient/Name", patient.getFullname() );
 
 		    // füge das Datum hinzu
-		    fop.addData( "Datum", MediknightUtilities.formatDate( model.getDiagnose().getVerordnung().getDatum() ) );
+		    fop.addData( "Datum", MediknightUtilities.formatDate( model.getDiagnose().getVerordnung().getDatumAsDate() ) );
 
 		    // füge Adresse des Patienten hinzu
 		    fop.addData( "Patient/Address1", patient.getAdresse1() );

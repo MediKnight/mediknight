@@ -5,8 +5,13 @@
  */
 package main.java.de.baltic_online.mediknight.domain;
 
-import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,14 +38,14 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
 	final ObjectMapper om = new ObjectMapper( TagesDiagnose.class, "tagesdiagnose" );
 	om.add( new AttributeMapper( "id", "id", true, AttributeAccess.METHOD, AttributeType.INTEGER ) );
 	om.add( new AttributeMapper( "patientId", "patient_id", true, AttributeAccess.METHOD, AttributeType.INTEGER ) );
-	om.add( new AttributeMapper( "datum", "datum", false, AttributeAccess.METHOD, AttributeType.DATE ) );
+	om.add( new AttributeMapper( "datumAsSqlDate", "datum", false, AttributeAccess.METHOD, AttributeType.DATE ) );
 	om.add( new AttributeMapper( "text", "text", false, AttributeAccess.METHOD, AttributeType.STRING ) );
 	Datastore.current.register( om );
     }
 
     private int		  id;
     private int		  patientId;
-    private Date		 datum;
+    private LocalDate		 datum;
     private String	       text;
 
     private transient Patient    patient;
@@ -55,7 +60,7 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
 	if( o == null ) {
 	    return 1;
 	}
-	return DateTools.onlyDateCompare( datum, o.datum );
+	return DateTools.onlyDateCompare( getDatumAsDate(), o.getDatumAsDate() );
     }
 
 
@@ -82,8 +87,16 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
     }
 
 
-    public Date getDatum() {
+    public LocalDate getDatum() {
 	return datum;
+    }
+    
+    public java.sql.Date getDatumAsSqlDate() {
+	return datum != null ? java.sql.Date.valueOf( datum ) : null;
+    }
+    
+    public Date getDatumAsDate() {
+	return datum != null ? Date.from( datum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
     }
 
 
@@ -156,8 +169,16 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
     }
 
 
-    public void setDatum( final Date datum ) {
+    public void setDatum( final LocalDate datum ) {
 	this.datum = datum;
+    }
+    
+    public void setDatumAsSqlDate( final java.sql.Date datum ) {
+	this.datum = datum != null ? datum.toLocalDate() : null;
+    }
+    
+    public void setDatumAsDate( final Date datum ) {
+	this.datum = datum != null ? Instant.ofEpochMilli( datum.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate() : null;
     }
 
 
@@ -208,8 +229,10 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
 
     @Override
     public String toLongString() {
+	final DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
+	
 	try {
-	    return "Tagesdiagnose " + " ID " + getId() + " PatientenId: " + getPatientId() + " Datum: " + getDatum() + " Text: " + getText() + " Rechnung: "
+	    return "Tagesdiagnose " + " ID " + getId() + " PatientenId: " + getPatientId() + " Datum: " + getDatum().format( dateFormatter ) + " Text: " + getText() + " Rechnung: "
 		    + getRechnung() + " Verordnung: " + getVerordnung();
 	} catch( final Exception x ) {
 	    return "Unprintable TagesDiagnose";

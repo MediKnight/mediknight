@@ -1516,7 +1516,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 		    + (firstName.equals( "" ) ? "" : "<br>") + lastName + (lastName.equals( "" ) ? "" : "<br>");
 
 	    if( patient.getGeburtsDatum() != null ) {
-		text += MediknightUtilities.formatDate( patient.getGeburtsDatum() );
+		text += MediknightUtilities.formatDate( patient.getGeburtsDatumAsDate() );
 		if( patient.getAge() > 0 ) {
 		    text += "<br>" + patient.getAge() + " Jahre";
 		}
@@ -1588,7 +1588,7 @@ public class MainFrame extends JFrame implements TraceConstants {
 	if( d != null ) {
 	    setTitle( "Rechnung" );
 	    setWindowTitle();
-	    setHeaderPanel( "Rechnung (" + new SimpleDateFormat( "dd.MM.yyyy" ).format( d.getDatum() ) + ")" );
+	    setHeaderPanel( "Rechnung (" + new SimpleDateFormat( "dd.MM.yyyy" ).format( d.getDatumAsDate() ) + ")" );
 
 	    try {
 		final BillModel model = new BillModel( d.getRechnung() );
@@ -1678,7 +1678,7 @@ public class MainFrame extends JFrame implements TraceConstants {
     public void showMedicationPane( final TagesDiagnose diagnose ) {
 	setTitle( "Verordnung" );
 	setWindowTitle();
-	setHeaderPanel( "Verordnung (" + new SimpleDateFormat( "dd.MM.yyyy" ).format( diagnose.getDatum() ) + ")" );
+	setHeaderPanel( "Verordnung (" + new SimpleDateFormat( "dd.MM.yyyy" ).format( diagnose.getDatumAsDate() ) + ")" );
 
 	setVisibleNavigatorButton( BSEARCH, true, false );
 	setVisibleNavigatorButton( BNEW, true, false );

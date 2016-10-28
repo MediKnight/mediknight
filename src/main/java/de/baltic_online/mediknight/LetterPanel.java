@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -312,9 +313,9 @@ public class LetterPanel extends JPanel implements ChangeListener {
 
 	final Patient patient = rechnung.getPatient();
 
-	java.util.Date date = rechnung.getDatum();
+	Date date = rechnung.getDatumAsDate();
 	if( date == null ) {
-	    date = rechnung.getDiagnose().getDatum();
+	    date = rechnung.getDiagnose().getDatumAsDate();
 	}
 	dateTF.setText( MediknightUtilities.formatDate( date ) );
 

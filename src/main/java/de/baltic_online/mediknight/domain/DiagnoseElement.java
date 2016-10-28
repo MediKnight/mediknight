@@ -5,22 +5,35 @@
  */
 package main.java.de.baltic_online.mediknight.domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 
 public class DiagnoseElement extends KnightObject implements ObjectOwner {
 
     protected int		   id;
     protected int		   diagnoseId;
-    protected Date		  datum;
+    protected LocalDate		  datum;
     protected String		object;
 
     private transient TagesDiagnose diagnose;
 
 
-    public Date getDatum() {
+    public LocalDate getDatum() {
 	return datum;
+    }
+    
+    public java.sql.Date getDatumAsSqlDate() {
+	return datum != null ? java.sql.Date.valueOf( datum ) : null;
+    }
+    
+    public Date getDatumAsDate() {
+	return datum != null ? Date.from( datum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
     }
 
 
@@ -58,8 +71,16 @@ public class DiagnoseElement extends KnightObject implements ObjectOwner {
 
     // Transient attributes -------------------------------------------------
 
-    public void setDatum( final Date _datum ) {
-	datum = _datum;
+    public void setDatum( final LocalDate datum ) {
+	this.datum = datum;
+    }
+    
+    public void setDatumAsSqlDate( final java.sql.Date datum ) {
+	this.datum = datum != null ? datum.toLocalDate() : null;
+    }
+    
+    public void setDatumAsDate( final Date datum ) {
+	this.datum = datum != null ? Instant.ofEpochMilli( datum.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate() : null;
     }
 
 
@@ -96,6 +117,8 @@ public class DiagnoseElement extends KnightObject implements ObjectOwner {
 
     @Override
     public String toString() {
-	return "ID " + getId() + " DiagnoseID " + getDiagnoseId() + " Datum " + getDatum() + " Objekt " + getObject();
+	final DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
+	
+	return "ID " + getId() + " DiagnoseID " + getDiagnoseId() + " Datum " + getDatum().format( dateFormatter ) + " Objekt " + getObject(); // TODO: Datums-Ausgabe so korrekt?
     }
 }

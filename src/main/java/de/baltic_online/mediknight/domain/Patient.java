@@ -6,6 +6,9 @@
 package main.java.de.baltic_online.mediknight.domain;
 
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -50,8 +53,8 @@ public class Patient extends KnightObject implements Comparable< Patient > {
 	om.add( new AttributeMapper( "email", "email", false, AttributeAccess.METHOD, AttributeType.STRING ) );
 	om.add( new AttributeMapper( "bemerkung", "bemerkung", false, AttributeAccess.METHOD, AttributeType.STRING ) );
 	om.add( new AttributeMapper( "achtung", "achtung", false, AttributeAccess.METHOD, AttributeType.STRING ) );
-	om.add( new AttributeMapper( "geburtsDatum", "geburtsdatum", false, AttributeAccess.METHOD, AttributeType.DATE ) );
-	om.add( new AttributeMapper( "erstDiagnoseDatum", "erstdiagnosedatum", false, AttributeAccess.METHOD, AttributeType.DATE ) );
+	om.add( new AttributeMapper( "geburtsDatumAsSqlDate", "geburtsdatum", false, AttributeAccess.METHOD, AttributeType.DATE ) );
+	om.add( new AttributeMapper( "erstDiagnoseDatumAsSqlDate", "erstdiagnosedatum", false, AttributeAccess.METHOD, AttributeType.DATE ) );
 	om.add( new AttributeMapper( "erstDiagnose", "erstDiagnose", false, AttributeAccess.METHOD, AttributeType.STRING ) );
 	om.add( new AttributeMapper( "privatPatient", "privatpatient", false, AttributeAccess.METHOD, AttributeType.BOOLEAN ) );
 	Datastore.current.register( om );
@@ -112,9 +115,9 @@ public class Patient extends KnightObject implements Comparable< Patient > {
 
     private String	achtung;
 
-    private java.sql.Date geburtsDatum;
+    private LocalDate geburtsDatum;
 
-    private java.sql.Date erstDiagnoseDatum;
+    private LocalDate erstDiagnoseDatum;
 
     private String	erstDiagnose;
 
@@ -156,7 +159,7 @@ public class Patient extends KnightObject implements Comparable< Patient > {
      */
     public void addTagesDiagnose() throws SQLException {
 	final TagesDiagnose td = new TagesDiagnose();
-	td.setDatum( new java.sql.Date( new java.util.Date().getTime() ) );
+	td.setDatum( LocalDate.now() ); // TODO: So korrekt?
 	addTagesDiagnose( td );
 
 	final TagesDiagnose[] a = getTagesDiagnosen().toArray( new TagesDiagnose[0] );
@@ -197,7 +200,7 @@ public class Patient extends KnightObject implements Comparable< Patient > {
 	boolean needUpdate = true;
 	while( it.hasNext() ) {
 	    final TagesDiagnose td = it.next();
-	    if( DateTools.onlyDateCompare( today, td.getDatum() ) != 0 ) {
+	    if( DateTools.onlyDateCompare( today, td.getDatumAsDate() ) != 0 ) {
 		final String text = td.getText();
 		if( text == null || text.trim().length() == 0 ) {
 		    td.delete();
@@ -252,7 +255,7 @@ public class Patient extends KnightObject implements Comparable< Patient > {
 	    final java.util.Date today = new java.util.Date();
 	    boolean needUpdate = true;
 	    for( final TagesDiagnose td : list ) {
-		if( DateTools.onlyDateCompare( today, td.getDatum() ) == 0 ) {
+		if( DateTools.onlyDateCompare( today, td.getDatumAsDate() ) == 0 ) {
 		    needUpdate = false;
 		    break;
 		}
@@ -290,7 +293,7 @@ public class Patient extends KnightObject implements Comparable< Patient > {
 	} else {
 	    final Calendar today = Calendar.getInstance();
 	    final Calendar birthday = Calendar.getInstance();
-	    birthday.setTime( geburtsDatum );
+	    birthday.setTime( getGeburtsDatumAsDate() );
 	    final Calendar birthdayThisYear = (Calendar) birthday.clone();
 	    birthdayThisYear.set( Calendar.YEAR, today.get( Calendar.YEAR ) );
 	    int age = today.get( Calendar.YEAR ) - birthday.get( Calendar.YEAR );
@@ -322,8 +325,16 @@ public class Patient extends KnightObject implements Comparable< Patient > {
     }
 
 
-    public java.sql.Date getErstDiagnoseDatum() {
+    public LocalDate getErstDiagnoseDatum() {
 	return erstDiagnoseDatum;
+    }
+    
+    public java.sql.Date getErstDiagnoseDatumAsSqlDate() {
+	return erstDiagnoseDatum != null ? java.sql.Date.valueOf( erstDiagnoseDatum ) : null;
+    }
+    
+    public Date getErstDiagnoseDatumAsDate() {
+	return erstDiagnoseDatum != null ? Date.from( erstDiagnoseDatum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
     }
 
 
@@ -337,10 +348,17 @@ public class Patient extends KnightObject implements Comparable< Patient > {
     }
 
 
-    public java.sql.Date getGeburtsDatum() {
+    public LocalDate getGeburtsDatum() {
 	return geburtsDatum;
     }
-
+    
+    public java.sql.Date getGeburtsDatumAsSqlDate() {
+	return geburtsDatum != null ? java.sql.Date.valueOf( geburtsDatum ) : null;
+    }
+    
+    public Date getGeburtsDatumAsDate() {
+	return geburtsDatum != null ? Date.from( geburtsDatum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
+    }
 
     public String getHandy() {
 	return notNull( handy );
@@ -410,7 +428,7 @@ public class Patient extends KnightObject implements Comparable< Patient > {
 
 	final Calendar today = Calendar.getInstance();
 	final Calendar birthday = Calendar.getInstance();
-	birthday.setTime( geburtsDatum );
+	birthday.setTime( getGeburtsDatumAsDate() );
 
 	return today.get( Calendar.DAY_OF_MONTH ) == birthday.get( Calendar.DAY_OF_MONTH ) && today.get( Calendar.MONTH ) == birthday.get( Calendar.MONTH );
     }
@@ -474,8 +492,16 @@ public class Patient extends KnightObject implements Comparable< Patient > {
     }
 
 
-    public void setErstDiagnoseDatum( final java.sql.Date _ed ) {
-	erstDiagnoseDatum = _ed;
+    public void setErstDiagnoseDatum( final LocalDate ed ) {
+	erstDiagnoseDatum = ed;
+    }
+    
+    public void setErstDiagnoseDatumAsSqlDate( final java.sql.Date ed ) {
+	erstDiagnoseDatum = ed != null ? ed.toLocalDate() : null;
+    }
+    
+    public void setErstDiagnoseDatumAsDate( final Date ed ) {
+	erstDiagnoseDatum = ed != null ? Instant.ofEpochMilli( ed.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate() : null;
     }
 
 
@@ -484,8 +510,16 @@ public class Patient extends KnightObject implements Comparable< Patient > {
     }
 
 
-    public void setGeburtsDatum( final java.sql.Date _gb ) {
-	geburtsDatum = _gb;
+    public void setGeburtsDatum( final LocalDate gb ) {
+	geburtsDatum = gb;
+    }
+    
+    public void setGeburtsDatumAsSqlDate( final java.sql.Date gb ) {
+	geburtsDatum = gb != null ? gb.toLocalDate() : null;
+    }
+    
+    public void setGeburtsDatumAsDate( final Date gb ) {
+	geburtsDatum = gb != null ? Instant.ofEpochMilli( gb.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate() : null;
     }
 
 

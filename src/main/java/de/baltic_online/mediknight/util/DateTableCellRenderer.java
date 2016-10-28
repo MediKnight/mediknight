@@ -46,7 +46,7 @@ public class DateTableCellRenderer implements TableCellRenderer {
     public Component getTableCellRendererComponent( final JTable table, final Object value, final boolean isSelected, final boolean hasFocus, final int row,
 						    final int column ) {
 
-	dateChooser.setDate( value != null ? new Date( ((java.sql.Date) value).getTime() ) : getTodaysDate() );
+	dateChooser.setDate( value != null ? Date.from( ((LocalDate) value).atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : getTodaysDate() ); //new Date( ((java.sql.Date) value).getTime() ) : getTodaysDate() ); //TODO So korrekt?
 	final JComponent comp = dateChooser.getDateEditor().getUiComponent();
 	if( isSelected ) {
 	    comp.setBackground( table.getSelectionBackground() );

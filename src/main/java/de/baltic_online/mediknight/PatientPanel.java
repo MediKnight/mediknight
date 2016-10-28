@@ -235,7 +235,7 @@ public class PatientPanel extends JPanel implements ChangeListener {
 	patient.setBemerkung( bemerkungTA.getText() );
 	patient.setEmail( emailTF.getText() );
 	patient.setFax( faxTF.getText() );
-	patient.setGeburtsDatum( MediknightUtilities.parseDate( gebTF.getText() ) );
+	patient.setGeburtsDatumAsDate( MediknightUtilities.parseDate( gebTF.getText() ) );
 	patient.setHandy( handyTF.getText() );
 	patient.setPrivatPatient( privatBtn.isSelected() );
 	patient.setTelefonArbeit( telBerufTF.getText() );
@@ -445,7 +445,7 @@ public class PatientPanel extends JPanel implements ChangeListener {
 	emailTF.setText( patient.getEmail() );
 	faxTF.setText( patient.getFax() );
 	if( patient.getGeburtsDatum() != null ) {
-	    gebTF.setText( MediknightUtilities.formatDate( patient.getGeburtsDatum() ) );
+	    gebTF.setText( MediknightUtilities.formatDate( patient.getGeburtsDatumAsDate() ) );
 	} else {
 	    gebTF.setText( "" );
 	}

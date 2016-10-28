@@ -149,7 +149,7 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
 			if( td.getText() != null && td.getText().length() > 0 ) {
 			    final String[] diag = new String[2];
 			    if( td.getDatum() != null ) {
-				diag[0] = MediknightUtilities.formatDate( td.getDatum() );
+				diag[0] = MediknightUtilities.formatDate( td.getDatumAsDate() );
 			    } else {
 				diag[0] = "";
 			    }
