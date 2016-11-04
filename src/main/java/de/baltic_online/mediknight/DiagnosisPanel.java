@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -176,6 +178,20 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 		}
 	    }
 
+	} );
+	
+	entriesSP.addMouseListener( new MouseAdapter(){
+	    public void mouseClicked( final MouseEvent evt ) {
+		int tableRow = tbl_DayDiagnosis.rowAtPoint( evt.getPoint() );
+		System.out.println(  ":>>>>>>" );
+		if( tableRow == -1 ) {
+		    if( tbl_DayDiagnosis.isEditing() ){
+			tbl_DayDiagnosis.getCellEditor().stopCellEditing();
+		    }
+		    tbl_DayDiagnosis.clearSelection();
+		    System.out.println(  ": CLEARED" );
+		}
+	    }
 	} );
     }
 
@@ -350,7 +366,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 		new GridBagConstraints( 0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 10, 0, 0, 0 ), 0, 0 ) );
 	jPanel5.add( undoBtn, BorderLayout.WEST );
 	jPanel5.add( printBtn, BorderLayout.EAST );
-	// entriesSP.getViewport().add(entriesPanel, null);
+	// entriesSP.getViewport().add(entriesPanel, null); // TODO Cleanup ?
 	jScrollPane1.getViewport().add( firstDiagnosis, null );
 	jSplitPane1.setDividerLocation( 120 );
 
@@ -401,8 +417,9 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	    }
 
 	    currentColumn.setMinWidth( newWidth );
-	    currentColumn.setPreferredWidth( newWidth );
 	    currentColumn.setMaxWidth( newWidth );
+	    currentColumn.setPreferredWidth( newWidth );
+	 
 	}
     }
 

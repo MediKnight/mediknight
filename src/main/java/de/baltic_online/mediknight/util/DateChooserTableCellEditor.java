@@ -1,7 +1,6 @@
 package main.java.de.baltic_online.mediknight.util;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -66,7 +65,9 @@ public class DateChooserTableCellEditor implements TableCellEditor {
     @Override
     public Component getTableCellEditorComponent( final JTable table, final Object object, final boolean renderHighlighted, final int row, final int column ) {
 	if( object != null ) {
-	    dateChooser.setDate( (Date) object );
+	    final LocalDate tmpDate = (LocalDate) object;
+	    
+	    dateChooser.setDate( Date.from( tmpDate.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) );
 	}
 	
 	dateChooser.setMinimumSize( dateChooser.getPreferredSize() );

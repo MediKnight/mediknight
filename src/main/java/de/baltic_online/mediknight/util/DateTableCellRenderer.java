@@ -1,13 +1,15 @@
 package main.java.de.baltic_online.mediknight.util;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 
-import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 
 import com.toedter.calendar.JDateChooser;
@@ -19,11 +21,12 @@ import com.toedter.calendar.JDateChooser;
  */
 public class DateTableCellRenderer implements TableCellRenderer {
 
-    private final JDateChooser dateChooser;
+    private static final int preferredDateChooserWidth = (int)(new JDateChooser( Date.from( LocalDate.now().atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() )).getPreferredSize().getWidth());
+    private final JLabel dateChooser;
 
 
     public DateTableCellRenderer( final JTable table ) {
-	dateChooser = new JDateChooser( getTodaysDate() );
+	dateChooser = new JLabel( getTodaysDate().toString() );
 	dateChooser.setFont( table.getFont() );
 	dateChooser.setOpaque( true );
 	dateChooser.setBorder( null );
@@ -34,6 +37,8 @@ public class DateTableCellRenderer implements TableCellRenderer {
 	if( table.getRowHeight() < preferredHeight ) {
 	    table.setRowHeight( preferredHeight );
 	}
+	
+	dateChooser.setPreferredSize( new Dimension( preferredDateChooserWidth, preferredHeight) );
     }
 
 
@@ -46,31 +51,36 @@ public class DateTableCellRenderer implements TableCellRenderer {
     public Component getTableCellRendererComponent( final JTable table, final Object value, final boolean isSelected, final boolean hasFocus, final int row,
 						    final int column ) {
 
-	dateChooser.setDate( value != null ? Date.from( ((LocalDate) value).atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : getTodaysDate() ); //new Date( ((java.sql.Date) value).getTime() ) : getTodaysDate() ); //TODO So korrekt?
-	final JComponent comp = dateChooser.getDateEditor().getUiComponent();
+	final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
+//	final Date date = value != null ? Date.from( ((LocalDate) value).atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : getTodaysDate();
+	final LocalDate date = value != null ? (LocalDate) value : getTodaysDate();
+	
+	dateChooser.setText( date.format( formatter ) ); //new Date( ((java.sql.Date) value).getTime() ) : getTodaysDate() ); //TODO So korrekt?
+//	final JComponent comp = dateChooser.getDateEditor().getUiComponent();
 	if( isSelected ) {
-	    comp.setBackground( table.getSelectionBackground() );
-	    comp.setForeground( table.getSelectionForeground() );
+	    dateChooser.setBackground( table.getSelectionBackground() );
+	    dateChooser.setForeground( table.getSelectionForeground() );
 	} else {
-	    comp.setBackground( table.getBackground() );
-	    comp.setForeground( table.getForeground() );
+	    dateChooser.setBackground( table.getBackground() );
+	    dateChooser.setForeground( table.getForeground() );
 	}
 
 	return dateChooser;
     }
 
 
-    private Date getTodaysDate() {
-	return Date.from( LocalDate.now().atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() );
+    private LocalDate getTodaysDate() {
+//	return Date.from( LocalDate.now().atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() );
+	return LocalDate.now();
     }
 
 
     private void setDateChooserColors( final JTable table ) {
-	final JTextField tmp = (JTextField) dateChooser.getDateEditor().getUiComponent();
+//	final JTextField tmp = (JTextField) dateChooser.getDateEditor().getUiComponent();
 
-	tmp.setBackground( table.getBackground() );
-	tmp.setForeground( table.getForeground() );
-	tmp.setSelectedTextColor( table.getSelectionForeground() );
-	tmp.setSelectionColor( table.getSelectionBackground() );
+	dateChooser.setBackground( table.getBackground() );
+	dateChooser.setForeground( table.getForeground() );
+//	tmp.setSelectedTextColor( table.getSelectionForeground() );
+//	tmp.setSelectionColor( table.getSelectionBackground() );
     }
 }
