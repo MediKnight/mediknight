@@ -4,7 +4,7 @@
   <groupId>de.baltic_online</groupId>
   <artifactId>mediknight</artifactId>
   <name>MediKnight</name>
-  <version>1.0</version>
+  <version>2.0</version>
   <build>
     <plugins>
       <plugin>
@@ -37,7 +37,11 @@
     </plugins>
   </build>
   <properties>
+    <version>${project.version}</version>
+    <groupId>${project.groupId}</groupId>
+    <packaging>${project.packaging}</packaging>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <artifactId>${project.artifactId}</artifactId>
   </properties>
 </project>
 
