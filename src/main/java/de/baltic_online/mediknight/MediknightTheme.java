@@ -148,8 +148,7 @@ public class MediknightTheme extends DefaultMetalTheme {
 	table.put( "Button.margin", new InsetsUIResource( 2, 16, 2, 16 ) );
 	table.put( "ToggleButton.margin", table.get( "Button.margin" ) );
 	table.put( "TextField.margin", new InsetsUIResource( 1, 1, 2, 2 ) );
-	// XXX this makes TextAreas look right, but other panes look strange
-	// now!
+	// XXX this makes TextAreas look right, but other panes look strange now!
 	table.put( "ScrollPane.viewportBorder", new BorderUIResource( new EmptyBorder( 2, 2, 2, 2 ) ) );
 	table.put( "ScrollPane.background", table.get( "TextField.background" ) );
 	table.put( "effect", primary2 );

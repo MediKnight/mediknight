@@ -159,15 +159,14 @@ public class Patient extends KnightObject implements Comparable< Patient > {
      */
     public void addTagesDiagnose() throws SQLException {
 	final TagesDiagnose td = new TagesDiagnose();
-	td.setDatum( LocalDate.now() ); // TODO: So korrekt?
+	td.setDatum( LocalDate.now() );
 	addTagesDiagnose( td );
 
 	final TagesDiagnose[] a = getTagesDiagnosen().toArray( new TagesDiagnose[0] );
 	Arrays.sort( a );
 
 	final int n = a.length;
-	if( n >= 2 ) {
-	    // Copies previous data ...
+	if( n >= 2 ) { // Copies previous data ...
 	    final TagesDiagnose prevDiagnosis = a[n - 2];
 
 	    final Verordnung prevMedication = prevDiagnosis.getVerordnung();

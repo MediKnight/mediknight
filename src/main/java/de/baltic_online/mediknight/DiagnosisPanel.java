@@ -37,6 +37,7 @@ import main.java.de.baltic_online.mediknight.util.DateChooserTableCellEditor;
 import main.java.de.baltic_online.mediknight.util.DateTableCellRenderer;
 import main.java.de.baltic_online.mediknight.util.ErrorDisplay;
 import main.java.de.baltic_online.mediknight.util.MediKnightTableModel;
+import main.java.de.baltic_online.mediknight.util.StringTableCellRenderer;
 import main.java.de.baltic_online.mediknight.widgets.JButton;
 import main.java.de.baltic_online.mediknight.widgets.JPanel;
 import main.java.de.baltic_online.mediknight.widgets.JScrollPane;
@@ -125,7 +126,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
     }
 
 
-    public void activate() { // TODO: What's this good for?
+    public void activate() {
 	// /** @todo I have to admit that this is totally braindead, but for the
 	// moment it works. */
 	//
@@ -180,17 +181,16 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 	} );
 	
-	entriesSP.addMouseListener( new MouseAdapter(){
+	entriesSP.addMouseListener( new MouseAdapter(){ // Disabling of the table cell editors on "neutral" click.
 	    public void mouseClicked( final MouseEvent evt ) {
 		int tableRow = tbl_DayDiagnosis.rowAtPoint( evt.getPoint() );
-		System.out.println(  ":>>>>>>" );
+		
 		if( tableRow == -1 ) {
 		    if( tbl_DayDiagnosis.isEditing() ){
 			tbl_DayDiagnosis.getCellEditor().stopCellEditing();
 		    }
-		    tbl_DayDiagnosis.clearSelection();
-		    System.out.println(  ": CLEARED" );
-		}
+		    tbl_DayDiagnosis.clearSelection();		
+		 }
 	    }
 	} );
     }
@@ -208,8 +208,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 	    @Override
 	    public void focusGained( final FocusEvent e ) {
-		// Muss das sein? Ich vermute mal nicht und ausserdem stoert es
-		// die Funktionalitaet der Knoepfe Verordnung und Diagnose.
+		// Muss das sein? Ich vermute mal nicht und ausserdem stoert es die Funktionalitaet der Knoepfe Verordnung und Diagnose.
 		// presenter.setSelectedDiagnose(null);
 		lastFocusComponent = firstDiagnosis;
 	    }
@@ -362,11 +361,9 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	jSplitPane1.add( pBottom, JSplitPane.BOTTOM );
 	pBottom.add( jLabel3, BorderLayout.NORTH );
 
-	this.add( jPanel5,
-		new GridBagConstraints( 0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 10, 0, 0, 0 ), 0, 0 ) );
+	this.add( jPanel5, new GridBagConstraints( 0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 10, 0, 0, 0 ), 0, 0 ) );
 	jPanel5.add( undoBtn, BorderLayout.WEST );
 	jPanel5.add( printBtn, BorderLayout.EAST );
-	// entriesSP.getViewport().add(entriesPanel, null); // TODO Cleanup ?
 	jScrollPane1.getViewport().add( firstDiagnosis, null );
 	jSplitPane1.setDividerLocation( 120 );
 
@@ -374,6 +371,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	tbl_DayDiagnosis.getTableHeader().setReorderingAllowed( false );
 	tbl_DayDiagnosis.setAutoResizeMode( JTable.AUTO_RESIZE_LAST_COLUMN );
 	tbl_DayDiagnosis.setDefaultRenderer( Date.class, new DateTableCellRenderer( tbl_DayDiagnosis ) );
+	tbl_DayDiagnosis.setDefaultRenderer( String.class, new StringTableCellRenderer( tbl_DayDiagnosis ) );
 	tbl_DayDiagnosis.setDefaultEditor( Date.class, new DateChooserTableCellEditor( tbl_DayDiagnosis ) );
 	tbl_DayDiagnosis.setAutoCreateRowSorter( true );	
 

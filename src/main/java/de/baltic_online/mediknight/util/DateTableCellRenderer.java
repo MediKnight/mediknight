@@ -16,71 +16,65 @@ import com.toedter.calendar.JDateChooser;
 
 
 /**
- *
+ * Displays a properly formatted date in a cell of a JTable.
+ * 
  * @author ECSTRPL
  */
 public class DateTableCellRenderer implements TableCellRenderer {
 
+    /**
+     * Using the width of the editor GUI component for proper sizing and avoiding to resize the column later.
+     */
     private static final int preferredDateChooserWidth = (int)(new JDateChooser( Date.from( LocalDate.now().atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() )).getPreferredSize().getWidth());
-    private final JLabel dateChooser;
+    
+    /**
+     * GUI object for the renderer.
+     */
+    private final JLabel dateValue;
 
 
     public DateTableCellRenderer( final JTable table ) {
-	dateChooser = new JLabel( getTodaysDate().toString() );
-	dateChooser.setFont( table.getFont() );
-	dateChooser.setOpaque( true );
-	dateChooser.setBorder( null );
-	dateChooser.setBackground( table.getBackground() );
-	setDateChooserColors( table );
+	dateValue = new JLabel( getTodaysDate().toString() );
+	dateValue.setFont( table.getFont() );
+	dateValue.setOpaque( true );
+	dateValue.setBorder( null );
 
-	final int preferredHeight = (int) dateChooser.getPreferredSize().getHeight();
+	final int preferredHeight = (int) dateValue.getPreferredSize().getHeight();
 	if( table.getRowHeight() < preferredHeight ) {
 	    table.setRowHeight( preferredHeight );
 	}
 	
-	dateChooser.setPreferredSize( new Dimension( preferredDateChooserWidth, preferredHeight) );
+	dateValue.setPreferredSize( new Dimension( preferredDateChooserWidth, preferredHeight) );
     }
 
 
-    public double getLabelPrefWidth() {
-	return dateChooser.getPreferredSize().getWidth();
-    }
-
-
+    /**
+     * Returns an object of JLabel containing the passed date value and set up to fit the table
+     * 
+     */
     @Override
-    public Component getTableCellRendererComponent( final JTable table, final Object value, final boolean isSelected, final boolean hasFocus, final int row,
-						    final int column ) {
-
+    public Component getTableCellRendererComponent( final JTable table, final Object value, final boolean isSelected, final boolean hasFocus, final int row, final int column ) {
 	final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
-//	final Date date = value != null ? Date.from( ((LocalDate) value).atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : getTodaysDate();
 	final LocalDate date = value != null ? (LocalDate) value : getTodaysDate();
 	
-	dateChooser.setText( date.format( formatter ) ); //new Date( ((java.sql.Date) value).getTime() ) : getTodaysDate() ); //TODO So korrekt?
-//	final JComponent comp = dateChooser.getDateEditor().getUiComponent();
+	dateValue.setText( date.format( formatter ) );
 	if( isSelected ) {
-	    dateChooser.setBackground( table.getSelectionBackground() );
-	    dateChooser.setForeground( table.getSelectionForeground() );
+	    dateValue.setBackground( table.getSelectionBackground() );
+	    dateValue.setForeground( table.getSelectionForeground() );
 	} else {
-	    dateChooser.setBackground( table.getBackground() );
-	    dateChooser.setForeground( table.getForeground() );
+	    dateValue.setBackground( table.getBackground() );
+	    dateValue.setForeground( table.getForeground() );
 	}
 
-	return dateChooser;
+	return dateValue;
     }
 
 
+    /**
+     * Convenience method returning a today's LocalDate object.
+     * @return
+     */
     private LocalDate getTodaysDate() {
-//	return Date.from( LocalDate.now().atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() );
 	return LocalDate.now();
-    }
-
-
-    private void setDateChooserColors( final JTable table ) {
-//	final JTextField tmp = (JTextField) dateChooser.getDateEditor().getUiComponent();
-
-	dateChooser.setBackground( table.getBackground() );
-	dateChooser.setForeground( table.getForeground() );
-//	tmp.setSelectedTextColor( table.getSelectionForeground() );
-//	tmp.setSelectionColor( table.getSelectionBackground() );
     }
 }

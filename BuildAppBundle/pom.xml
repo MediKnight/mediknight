@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.baltic_online</groupId>
 	<artifactId>mediknight</artifactId>
-	<version>1.0</version>
+	<version>2.0</version>
 	<name>MediKnight</name>
 
 	<properties>
@@ -14,7 +14,7 @@
 		<dependency>
 			<groupId>de.baltic_online</groupId>
 			<artifactId>mediknight</artifactId>
-			<version>1.0</version>
+			<version>2.0</version>
 			<!-- <scope>compile</scope> -->
 		</dependency>
 	</dependencies>
@@ -29,7 +29,6 @@
 				<configuration>
 					<mainClass>main.java.de.baltic_online.mediknight.MainFrame</mainClass>
 					<iconFile>MediKnightAppIcon.icns</iconFile>
-					<!-- <jrePath>/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk</jrePath> -->
 				</configuration>
 				<executions>
 					<execution>

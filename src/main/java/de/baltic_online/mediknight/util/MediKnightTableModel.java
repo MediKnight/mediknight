@@ -103,8 +103,8 @@ public class MediKnightTableModel extends AbstractTableModel {
 		final TagesDiagnose currentDiagnose = data.get( row );
 
 		switch( col ) {
-		    case 0: // TODO Date Datentyp im Programm gem. Java-Standards verwenden und nicht mit dem SQL-DT an Stellen arbeiten, die diesen niht erfordern!
-			currentDiagnose.setDatum( (LocalDate) value ); // TODO So korrekt?
+		    case 0:
+			currentDiagnose.setDatum( (LocalDate) value );
 			break;
 
 		    case 1:

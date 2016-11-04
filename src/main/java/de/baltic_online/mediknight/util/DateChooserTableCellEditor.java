@@ -16,6 +16,12 @@ import javax.swing.table.TableCellEditor;
 import com.toedter.calendar.JDateChooser;
 
 
+/**
+ * Displays a selection object for date values.
+ * 
+ * @author esp
+ *
+ */
 public class DateChooserTableCellEditor implements TableCellEditor {
 
     private final JDateChooser dateChooser;   
@@ -62,6 +68,9 @@ public class DateChooserTableCellEditor implements TableCellEditor {
     }
 
 
+    /**
+     * Returns a GUI date selector object after setting it up.
+     */
     @Override
     public Component getTableCellEditorComponent( final JTable table, final Object object, final boolean renderHighlighted, final int row, final int column ) {
 	if( object != null ) {

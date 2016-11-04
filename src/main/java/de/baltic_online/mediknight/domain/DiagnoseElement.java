@@ -119,6 +119,6 @@ public class DiagnoseElement extends KnightObject implements ObjectOwner {
     public String toString() {
 	final DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
 	
-	return "ID " + getId() + " DiagnoseID " + getDiagnoseId() + " Datum " + getDatum().format( dateFormatter ) + " Objekt " + getObject(); // TODO: Datums-Ausgabe so korrekt?
+	return "ID " + getId() + " DiagnoseID " + getDiagnoseId() + " Datum " + getDatum().format( dateFormatter ) + " Objekt " + getObject();
     }
 }
