@@ -1,14 +1,12 @@
 package main.java.de.baltic_online.mediknight.printing;
 
 import java.awt.print.PrinterJob;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,7 +37,7 @@ import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
 import de.baltic_online.borm.Tracer;
-import main.java.de.baltic_online.mediknight.MainFrame;
+import main.java.de.baltic_online.mediknight.MediKnight;
 
 
 /**
@@ -54,14 +52,14 @@ public class FOPrinter {
 
     private final String		    DIR;
     private final String		    HOME_DIR;
-    private final File		      xmlFile;
+    private final File			    xmlFile;
     private File			    xslFile;
     private File			    templateFile;
-    private final HashMap< String, String > data;	// für die Ersetzung von
-							  // Templates
-    private final ArrayList< String[] >     newElements; // für das Einfügen neuer
-							  // Tags
-    private boolean			 wasPrinted;
+    private final HashMap< String, String > data;	 // für die Ersetzung von
+							 // Templates
+    private final ArrayList< String[] >	    newElements; // für das Einfügen neuer
+							 // Tags
+    private boolean			    wasPrinted;
 
 
     /**
@@ -74,9 +72,9 @@ public class FOPrinter {
      */
     public FOPrinter( final String xmlFileName, final String xslFileName ) {
 
-	DIR = System.getProperty( "user.dir" ) + System.getProperty( "file.separator" ) + MainFrame.getProperties().getProperty( "outdir" );
+	DIR = System.getProperty( "user.dir" ) + System.getProperty( "file.separator" ) + MediKnight.getProperties().getProperty( "outdir" );
 
-	HOME_DIR = System.getProperty( "user.home" ) + System.getProperty( "file.separator" ) + MainFrame.getProperties().getProperty( "outdir" );
+	HOME_DIR = System.getProperty( "user.home" ) + System.getProperty( "file.separator" ) + MediKnight.getProperties().getProperty( "outdir" );
 
 	new File( HOME_DIR ).mkdir();
 	templateFile = new File( this.getClass().getClassLoader().getResource( xmlFileName ).getPath() );

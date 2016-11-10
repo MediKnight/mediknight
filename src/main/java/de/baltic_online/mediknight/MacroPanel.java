@@ -81,7 +81,7 @@ public class MacroPanel extends JPanel implements ChangeListener, ListSelectionL
 		case 2:
 		    return entry.getText();
 		case 3:
-		    return new CurrencyNumber( entry.getPreis(), CurrencyNumber.DM ).toCurrency( MainFrame.getApplication().getCurrency() ).toString();
+		    return new CurrencyNumber( entry.getPreis(), CurrencyNumber.DM ).toCurrency( MediKnight.getApplication().getCurrency() ).toString();
 		case 4:
 		    // try {
 		    // return

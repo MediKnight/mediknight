@@ -53,10 +53,10 @@ public class PatientPresenter implements Presenter, Commitable, Observer {
     public void commit() {
 	savePatient();
 	if( model.getPatient().getFullname().length() > 1 ) {
-	    MainFrame.getApplication().setTitle( model.getPatient().getFullname() + " - " + MainFrame.NAME );
-	    MainFrame.getApplication().setPatientToNavigator( model.getPatient() );
+	    MediKnight.getApplication().setTitle( model.getPatient().getFullname() + " - " + MediKnight.NAME );
+	    MediKnight.getApplication().setPatientToNavigator( model.getPatient() );
 	} else {
-	    MainFrame.getApplication().setTitle( MainFrame.NAME );
+	    MediKnight.getApplication().setTitle( MediKnight.NAME );
 	}
     }
 
@@ -96,7 +96,7 @@ public class PatientPresenter implements Presenter, Commitable, Observer {
 		throw new MediException( "Patient in use." );
 	    }
 
-	    MainFrame.getApplication().search();
+	    MediKnight.getApplication().search();
 	} catch( final SQLException x ) {
 	    new ErrorDisplay( x, "löschen fehlgeschlagen!" );
 	} catch( final MediException x ) {
@@ -128,7 +128,7 @@ public class PatientPresenter implements Presenter, Commitable, Observer {
 	    if( !savePatient() ) {
 		throw new SQLException( "Cannot create patient" );
 	    }
-	    MainFrame.getApplication().selectPatient( model.getPatient() );
+	    MediKnight.getApplication().selectPatient( model.getPatient() );
 	} catch( final SQLException x ) {
 	    new ErrorDisplay( x, "Patient anlegen fehlgeschlagen!" );
 	}

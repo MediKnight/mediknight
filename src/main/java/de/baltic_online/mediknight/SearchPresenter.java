@@ -122,15 +122,15 @@ public class SearchPresenter implements Presenter, Commitable {
 
 	model.addRecentPatient( patient );
 
-	MainFrame.getApplication().setWaitCursor();
+	MediKnight.getApplication().setWaitCursor();
 
 	try {
-	    MainFrame.getApplication().selectPatient( patient );
+	    MediKnight.getApplication().selectPatient( patient );
 	} catch( final Exception e ) {
 	    e.printStackTrace();
 	    /** @todo Exceptions have to be reported visually. */
 	} finally {
-	    MainFrame.getApplication().setDefaultCursor();
+	    MediKnight.getApplication().setDefaultCursor();
 	}
     }
 
@@ -144,7 +144,7 @@ public class SearchPresenter implements Presenter, Commitable {
 
 	List< Patient > data = null;
 	try {
-	    MainFrame.getApplication().setWaitCursor();
+	    MediKnight.getApplication().setWaitCursor();
 	    data = Patient.retrieve( s );
 	    Collections.sort( data );
 
@@ -153,7 +153,7 @@ public class SearchPresenter implements Presenter, Commitable {
 	    e.printStackTrace();
 	    /** @todo Exceptions have to be reported visually. */
 	} finally {
-	    MainFrame.getApplication().setDefaultCursor();
+	    MediKnight.getApplication().setDefaultCursor();
 	    // resetState(data.length == 0);
 
 	    // don't set the focus on an empty result list

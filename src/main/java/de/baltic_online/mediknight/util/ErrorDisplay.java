@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.RootPaneContainer;
 
 import de.baltic_online.borm.TraceConstants;
-import main.java.de.baltic_online.mediknight.MainFrame;
+import main.java.de.baltic_online.mediknight.MediKnight;
 
 
 public class ErrorDisplay {
@@ -52,7 +52,7 @@ public class ErrorDisplay {
     public ErrorDisplay( final Throwable throwable, final String displayMessage, final String title, Container parent ) {
 	this.throwable = throwable;
 
-	MainFrame.getTracer().trace( TraceConstants.ERROR, throwable );
+	MediKnight.getTracer().trace( TraceConstants.ERROR, throwable );
 
 	if( parent == null ) {
 	    parent = JOptionPane.getRootFrame();

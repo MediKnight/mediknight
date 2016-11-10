@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 
 import main.java.de.baltic_online.mediknight.Commitable;
-import main.java.de.baltic_online.mediknight.MainFrame;
+import main.java.de.baltic_online.mediknight.MediKnight;
 import main.java.de.baltic_online.mediknight.Presenter;
 import main.java.de.baltic_online.mediknight.domain.KnightObject;
 
@@ -29,9 +29,9 @@ public class PrintSettingsPresenter implements Presenter, Commitable {
     public static void main( final String[] args ) throws Exception {
 
 	try {
-	    MainFrame.initProperties();
-	    MainFrame.initTracer();
-	    MainFrame.initDB();
+	    MediKnight.initProperties();
+	    MediKnight.initTracer();
+	    MediKnight.initDB();
 	} catch( final Exception e ) {
 	    e.printStackTrace();
 	}

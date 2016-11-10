@@ -61,7 +61,7 @@ public class CreateMacroPresenter extends AbstractPresenter {
 	    /** TODO Error reporting! */
 	}
 
-	MainFrame.getApplication().bill();
+	MediKnight.getApplication().bill();
     }
 
 

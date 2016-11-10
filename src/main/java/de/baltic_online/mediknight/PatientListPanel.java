@@ -119,7 +119,7 @@ public class PatientListPanel extends JPanel {
 		final JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setSelectedFile( new File( "patientenliste.pdf" ) );
 
-		final int state = fileChooser.showSaveDialog( MainFrame.getApplication() );
+		final int state = fileChooser.showSaveDialog( MediKnight.getApplication() );
 
 		if( state == JFileChooser.APPROVE_OPTION ) {
 		    exportAction( fileChooser.getSelectedFile() );
@@ -290,7 +290,7 @@ public class PatientListPanel extends JPanel {
 
 
     public void updateTable() {
-	MainFrame.getApplication().setWaitCursor();
+	MediKnight.getApplication().setWaitCursor();
 
 	// Tabellenueberschriften
 	final DefaultTableModel tableModel = new DefaultTableModel() {
@@ -318,6 +318,6 @@ public class PatientListPanel extends JPanel {
 	}
 
 	patientTable.setModel( tableModel );
-	MainFrame.getApplication().setDefaultCursor();
+	MediKnight.getApplication().setDefaultCursor();
     }
 }

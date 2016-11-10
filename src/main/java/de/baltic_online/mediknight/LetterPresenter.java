@@ -54,7 +54,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
 	model.getRechnung().setAddress( view.getAdress() );
 	model.getRechnung().setGreetings( view.getGreetings() );
 
-	final MainFrame app = MainFrame.getApplication();
+	final MediKnight app = MediKnight.getApplication();
 	final LockingInfo li = app.getLockingInfo();
 	final Patient patient = li.getPatient();
 	Lock lock = null;
@@ -107,14 +107,14 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
     public void printBill() {
 	/** TODO Make sure the contained mutables are notified also. */
 	commit();
-	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( view ), MainFrame.NAME );
+	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( view ), MediKnight.NAME );
 	d.setStatusText( "Drucke ..." );
 	d.run( new Runnable() {
 
 	    @Override
 	    public void run() {
 		try {
-		    final Properties props = MainFrame.getProperties();
+		    final Properties props = MediKnight.getProperties();
 		    final FOPrinter fop = new FOPrinter( props.getProperty( "bill.xml" ), props.getProperty( "bill.xsl" ) );
 
 		    final Rechnung rechnung = model.getRechnung();
@@ -192,13 +192,13 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
 
 			fop.addTag( "Cell", rp.getText(), "Table" );
 			final int currency = rp.isEuro() ? CurrencyNumber.EUR : CurrencyNumber.DM;
-			final String price = new CurrencyNumber( rp.getPreis(), currency ).toCurrency( MainFrame.getApplication().getCurrency() ).toString();
+			final String price = new CurrencyNumber( rp.getPreis(), currency ).toCurrency( MediKnight.getApplication().getCurrency() ).toString();
 
 			fop.addTag( "Cell", price, "Table" );
 			fop.addTag( "Cell", nf.format( count ), "Table" );
 
 			final double t = rp.getPreis() * count;
-			final CurrencyNumber cn = new CurrencyNumber( t, currency ).toCurrency( MainFrame.getApplication().getCurrency() );
+			final CurrencyNumber cn = new CurrencyNumber( t, currency ).toCurrency( MediKnight.getApplication().getCurrency() );
 			final String total = cn.toString();
 			fop.addTag( "Cell", total, "Table" );
 			sum.add( cn.round( 2 ) );
@@ -209,14 +209,14 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
 		    fop.addTagToFather( "Total", sum.toString(), "Dokument" );
 
 		    try {
-			MainFrame.getApplication().setWaitCursor();
+			MediKnight.getApplication().setWaitCursor();
 			for( int y = 0; y < view.getCopyCount(); y++ ) {
 			    fop.print();
 			}
 		    } catch( final Exception e ) {
-			new ErrorDisplay( e, "Fehler beim Ausdruck!", "Drucken...", MainFrame.getApplication() );
+			new ErrorDisplay( e, "Fehler beim Ausdruck!", "Drucken...", MediKnight.getApplication() );
 		    } finally {
-			MainFrame.getApplication().setDefaultCursor();
+			MediKnight.getApplication().setDefaultCursor();
 		    }
 
 		    /*
@@ -291,7 +291,7 @@ public class LetterPresenter implements Presenter, Commitable, Observer {
 
 
     public void showBill() {
-	MainFrame.getApplication().bill();
+	MediKnight.getApplication().bill();
     }
 
 

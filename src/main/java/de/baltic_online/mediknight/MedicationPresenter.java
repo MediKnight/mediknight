@@ -125,7 +125,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
 
 
     public void printMedication() {
-	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( view ), MainFrame.NAME );
+	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( view ), MediKnight.NAME );
 	d.setStatusText( "Drucke ..." );
 	d.run( new Runnable() {
 
@@ -134,7 +134,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
 		try {
 		    final Patient patient = model.getDiagnose().getPatient();
 		    final Map< String, String > printSettings = PrintSettingsPresenter.getSettings();
-		    final Properties props = MainFrame.getProperties();
+		    final Properties props = MediKnight.getProperties();
 		    final FOPrinter fop = new FOPrinter( props.getProperty( "medication.xml" ), props.getProperty( "medication.xsl" ) );
 
 		    // füge Patientendaten hinzu
@@ -206,7 +206,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
 		 * "Drucken...", MainFrame.getApplication()); } finally { MainFrame.getApplication().setDefaultCursor(); } } catch (Exception x) { new
 		 * ErrorDisplay(x, "Speichern fehlgeschlagen!"); }
 		 */
-		MainFrame.getApplication().setDefaultCursor();
+		MediKnight.getApplication().setDefaultCursor();
 	    }
 	} );
     }

@@ -75,19 +75,19 @@ public class LockingListener implements MutableChangeListener, TableModelListene
 		lock.release();
 	    }
 
-	    MainFrame.getApplication().enableEditing( true );
+	    MediKnight.getApplication().enableEditing( true );
 
 	    poller = null;
 	    pollRun = false;
 	} catch( final Exception x ) {
-	    MainFrame.getTracer().trace( TraceConstants.ERROR, x );
+	    MediKnight.getTracer().trace( TraceConstants.ERROR, x );
 	}
     }
 
 
     public void stateChanged( final EventObject e ) {
 	try {
-	    final MainFrame app = MainFrame.getApplication();
+	    final MediKnight app = MediKnight.getApplication();
 	    final LockingInfo li = app.getLockingInfo();
 	    patient = li.getPatient();
 	    diagnosis = li.getDiagnosis();
@@ -109,7 +109,7 @@ public class LockingListener implements MutableChangeListener, TableModelListene
 		}
 	    }
 	} catch( final Exception x ) {
-	    MainFrame.getTracer().trace( TraceConstants.ERROR, x );
+	    MediKnight.getTracer().trace( TraceConstants.ERROR, x );
 	}
     }
 

@@ -27,7 +27,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>main.java.de.baltic_online.mediknight.MainFrame</mainClass>
+                  <mainClass>main.java.de.baltic_online.mediknight.MediKnight</mainClass>
                 </transformer>
               </transformers>
             </configuration>

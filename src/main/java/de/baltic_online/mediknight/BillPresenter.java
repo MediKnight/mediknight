@@ -69,7 +69,7 @@ public class BillPresenter implements Presenter, Commitable, Observer {
 
 	// view.billModel.fireTableDataChanged();
 
-	final MainFrame app = MainFrame.getApplication();
+	final MediKnight app = MediKnight.getApplication();
 	final LockingInfo li = app.getLockingInfo();
 	final Patient patient = li.getPatient();
 	Lock lock = null;
@@ -135,15 +135,15 @@ public class BillPresenter implements Presenter, Commitable, Observer {
 
     public void createMacro() {
 	if( view.getSelectedItems().length == 1 ) {
-	    final int action = JOptionPane.showConfirmDialog( MainFrame.getApplication().getRootPane(),
-		    "Der Baustein, den Sie erzeugen, wird nur einen Eintrag enthalten\n" + "Ist dieses erwünscht?", MainFrame.NAME, JOptionPane.YES_NO_OPTION,
+	    final int action = JOptionPane.showConfirmDialog( MediKnight.getApplication().getRootPane(),
+		    "Der Baustein, den Sie erzeugen, wird nur einen Eintrag enthalten\n" + "Ist dieses erwünscht?", MediKnight.NAME, JOptionPane.YES_NO_OPTION,
 		    JOptionPane.QUESTION_MESSAGE );
 
 	    if( action == JOptionPane.NO_OPTION ) {
 		return;
 	    }
 	}
-	MainFrame.getApplication().createMacro( view.getSelectedItems() );
+	MediKnight.getApplication().createMacro( view.getSelectedItems() );
     }
 
 
@@ -213,12 +213,12 @@ public class BillPresenter implements Presenter, Commitable, Observer {
 
     public void showLetter() {
 	commit();
-	MainFrame.getApplication().letter();
+	MediKnight.getApplication().letter();
     }
 
 
     public void showMacro() {
-	MainFrame.getApplication().macro( view.getSelectedItems() );
+	MediKnight.getApplication().macro( view.getSelectedItems() );
     }
 
 

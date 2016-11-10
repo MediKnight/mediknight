@@ -38,7 +38,7 @@ import com.jgoodies.plaf.plastic.Plastic3DLookAndFeel;
 import de.baltic_online.borm.Datastore;
 import de.baltic_online.borm.Query;
 import de.baltic_online.borm.Storable;
-import main.java.de.baltic_online.mediknight.MainFrame;
+import main.java.de.baltic_online.mediknight.MediKnight;
 import main.java.de.baltic_online.mediknight.MediknightTheme;
 import main.java.de.baltic_online.mediknight.domain.Lock;
 import main.java.de.baltic_online.mediknight.domain.Patient;
@@ -101,9 +101,9 @@ public class LockRemover extends JFrame {
 	InputStream is = null;
 
 	try {
-	    is = new FileInputStream( new File( MainFrame.MEDIKNIGHT_PROPERTIES ) );
+	    is = new FileInputStream( new File( MediKnight.MEDIKNIGHT_PROPERTIES ) );
 	} catch( final FileNotFoundException e ) {
-	    is = MainFrame.class.getClassLoader().getResourceAsStream( MainFrame.PROPERTY_FILENAME );
+	    is = MediKnight.class.getClassLoader().getResourceAsStream( MediKnight.PROPERTY_FILENAME );
 	}
 
 	final Properties properties = new Properties();

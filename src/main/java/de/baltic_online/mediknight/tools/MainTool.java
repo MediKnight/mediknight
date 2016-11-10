@@ -18,7 +18,7 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 
 import main.java.de.baltic_online.mediknight.Commitable;
-import main.java.de.baltic_online.mediknight.MainFrame;
+import main.java.de.baltic_online.mediknight.MediKnight;
 import main.java.de.baltic_online.mediknight.MediknightTheme;
 import main.java.de.baltic_online.mediknight.Presenter;
 import main.java.de.baltic_online.mediknight.widgets.FlexGridLayout;
@@ -49,11 +49,11 @@ public class MainTool extends JFrame {
     public static void main( final String[] args ) {
 
 	try {
-	    MainFrame.initLocation();
-	    MainFrame.initProperties();
-	    MainFrame.initTracer();
-	    MainFrame.initDB();
-	    MediknightTheme.install( MainFrame.getProperties() );
+	    MediKnight.initLocation();
+	    MediKnight.initProperties();
+	    MediKnight.initTracer();
+	    MediKnight.initDB();
+	    MediknightTheme.install( MediKnight.getProperties() );
 
 	} catch( final Exception e ) {
 	    e.printStackTrace();

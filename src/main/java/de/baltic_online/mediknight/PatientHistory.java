@@ -42,7 +42,7 @@ public class PatientHistory {
     private static User	   user;
 
     static {
-	user = MainFrame.getApplication().getUser();
+	user = MediKnight.getApplication().getUser();
 	instance = new PatientHistory();
     }
 

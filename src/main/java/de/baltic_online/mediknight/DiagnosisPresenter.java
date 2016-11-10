@@ -75,7 +75,7 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
 
 
     private void commit( final Component component, final LockingInfo.Data data ) throws SQLException {
-	final Tracer tracer = MainFrame.getTracer();
+	final Tracer tracer = MediKnight.getTracer();
 
 	try {
 	    // if (component instanceof DayDiagnosisEntryPanel) {
@@ -126,14 +126,14 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
      * Macht einen Ausdruck von allen Tagesdiagnosen.
      */
     public void printDiagnosis() {
-	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( view ), MainFrame.NAME );
+	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( view ), MediKnight.NAME );
 	d.setStatusText( "Drucke ..." );
 	d.run( new Runnable() {
 
 	    @Override
 	    public void run() {
 		try {
-		    final Properties props = MainFrame.getProperties();
+		    final Properties props = MediKnight.getProperties();
 		    final FOPrinter fop = new FOPrinter( props.getProperty( "diagnosis.xml" ), props.getProperty( "diagnosis.xsl" ) );
 		    final Patient patient = model.getPatient();
 		    final String ersteDiagnose = model.getPatient().getErstDiagnose();
@@ -218,17 +218,17 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
 
 
     public void setSelectedDiagnose( final TagesDiagnose diagnose ) {
-	MainFrame.getApplication().setCurrentDiagnosis( diagnose );
+	MediKnight.getApplication().setCurrentDiagnosis( diagnose );
     }
 
 
     public void showBill() {
-	MainFrame.getApplication().bill();
+	MediKnight.getApplication().bill();
     }
 
 
     public void showMedication() {
-	MainFrame.getApplication().medication();
+	MediKnight.getApplication().medication();
     }
 
 

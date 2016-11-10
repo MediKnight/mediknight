@@ -60,12 +60,12 @@ outdir=.mediknight
 
 #about-dialog
 dialog.two=Abrechnungsprogramm für Heilpraktiker
-dialog.three=Copyright &copy; 2000-2004 Baltic Online Computer GmbH
+dialog.three=Copyright &copy; 2000-2016 Baltic Online Computer GmbH
 attention=ACHTUNG! Dieses Programm ist durch nationale und internationale Urheberrechtsgesetze und<br>Bestimmungen nationaler und internationaler Vertr�ge gesch�tzt. Unbefugte Vervielf�ltigung<br> oder unbefugter Vertrieb dieses Programms oder eines Teils davon sind strafbar. Dies wird sowohl<br>straf- als auch zivilrechtlich verfolgt und kann schwere Strafen und Schadensersatzforderungen<br>zur Folge haben.<br>
 
 #program information
-name=practic
-version=1.0
+name=MediKnight
+version=2.0
 
 #color-params
 primary1.r = 51

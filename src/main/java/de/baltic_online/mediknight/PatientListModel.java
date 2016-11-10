@@ -17,7 +17,7 @@ public class PatientListModel {
 
 
     public PatientListModel() {
-	final Properties props = MainFrame.getProperties();
+	final Properties props = MediKnight.getProperties();
 
 	fop = new FOPrinter( props.getProperty( "patients.xml" ), props.getProperty( "patients.xsl" ) );
     }
@@ -50,7 +50,7 @@ public class PatientListModel {
 
 
     public void exportPdf( final Vector< Vector< ? >> patients, final File selectedFile ) {
-	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( MainFrame.getApplication() ), MainFrame.NAME );
+	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( MediKnight.getApplication() ), MediKnight.NAME );
 
 	d.setStatusText( "Exportiere ..." );
 	d.run( new Runnable() {
@@ -69,7 +69,7 @@ public class PatientListModel {
 
 
     public void printList( final Vector< Vector< ? >> patients ) {
-	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( MainFrame.getApplication() ), MainFrame.NAME );
+	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( MediKnight.getApplication() ), MediKnight.NAME );
 
 	d.setStatusText( "Drucke ..." );
 	d.run( new Runnable() {

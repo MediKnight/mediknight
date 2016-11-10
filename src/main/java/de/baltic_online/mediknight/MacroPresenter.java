@@ -142,7 +142,7 @@ public class MacroPresenter implements Presenter, Commitable {
 
 
     void showBill() {
-	MainFrame.getApplication().bill();
+	MediKnight.getApplication().bill();
 	// ((NewAppWindow) AppWindow.getApplication()).bill();
     }
 }

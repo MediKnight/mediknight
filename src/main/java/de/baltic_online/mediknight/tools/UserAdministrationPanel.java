@@ -42,7 +42,7 @@ import javax.swing.filechooser.FileFilter;
 
 import de.baltic_online.swing.FlexGridConstraints;
 import de.baltic_online.swing.FlexGridLayout;
-import main.java.de.baltic_online.mediknight.MainFrame;
+import main.java.de.baltic_online.mediknight.MediKnight;
 import main.java.de.baltic_online.mediknight.domain.User;
 
 
@@ -504,7 +504,7 @@ public class UserAdministrationPanel extends JPanel implements ChangeListener {
 
 	final JFileChooser fc = new JFileChooser();
 	fc.setMultiSelectionEnabled( false );
-	fc.setCurrentDirectory( MainFrame.getAppLocation() );
+	fc.setCurrentDirectory( MediKnight.getAppLocation() );
 	fc.addChoosableFileFilter( new SimpleFileFilter( new String[] { "jpg", "gif" }, "Grafikdateien (*.jpg, *.gif)" ) );
 	final int r = fc.showOpenDialog( this );
 

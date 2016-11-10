@@ -13,8 +13,8 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 
-import main.java.de.baltic_online.mediknight.MainFrame;
-import main.java.de.baltic_online.mediknight.MainFrame.Datasource;
+import main.java.de.baltic_online.mediknight.MediKnight;
+import main.java.de.baltic_online.mediknight.MediKnight.Datasource;
 import main.java.de.baltic_online.mediknight.widgets.JButton;
 import main.java.de.baltic_online.mediknight.widgets.JComboBox;
 import main.java.de.baltic_online.mediknight.widgets.JPanel;
@@ -25,11 +25,11 @@ public class DatabaseSelectionDialog extends JDialog {
 
     private static final long	 serialVersionUID = 1L;
 
-    MainFrame.Datasource[]	    sources;
+    MediKnight.Datasource[]	    sources;
 
     JTextArea			 messageTA;
 
-    JComboBox< MainFrame.Datasource > databaseCB;
+    JComboBox< MediKnight.Datasource > databaseCB;
 
     JButton			   connectButton;
 
@@ -41,7 +41,7 @@ public class DatabaseSelectionDialog extends JDialog {
     public DatabaseSelectionDialog( final Datasource[] sources ) {
 	super();
 	this.sources = sources;
-	setTitle( MainFrame.getProperties().getProperty( "name" ) + " - Datenbank wählen" );
+	setTitle( MediKnight.getProperties().getProperty( "name" ) + " - Datenbank wählen" );
 	setModal( true );
 	createUI();
 	connectUI();
@@ -106,7 +106,7 @@ public class DatabaseSelectionDialog extends JDialog {
 	messageTA.setOpaque( false );
 	messageTA.setSize( new Dimension( 400, 1 ) );
 
-	databaseCB = new JComboBox< MainFrame.Datasource >();
+	databaseCB = new JComboBox< MediKnight.Datasource >();
 	connectButton = new JButton( "Verbinden" );
 	quitButton = new JButton( "Beenden" );
 

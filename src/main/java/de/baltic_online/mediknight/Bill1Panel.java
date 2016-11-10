@@ -132,7 +132,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 		    return entry.getText();
 		case 2:
 		    final int currency = entry.isEuro() ? CurrencyNumber.EUR : CurrencyNumber.DM;
-		    return new CurrencyNumber( entry.getPreis(), currency ).toCurrency( MainFrame.getApplication().getCurrency() ).toString();
+		    return new CurrencyNumber( entry.getPreis(), currency ).toCurrency( MediKnight.getApplication().getCurrency() ).toString();
 		case 3:
 		    return nf.format( entries[row].getCount() );
 	    }
@@ -151,7 +151,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 
 	    final NumberFormat nf = MediknightUtilities.getNumberFormat();
 	    final RechnungsPosten rp = entries[row].getItem();
-	    final boolean useEuro = MainFrame.getApplication().isEuro();
+	    final boolean useEuro = MediKnight.getApplication().isEuro();
 
 	    if( col == 1 ) {
 		rp.setText( (String) o );
@@ -230,7 +230,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 		case 3:
 		    CurrencyNumber price = new CurrencyNumber( entry.getPreis(), CurrencyNumber.DM );
 
-		    if( MainFrame.getApplication().isEuro() ) {
+		    if( MediKnight.getApplication().isEuro() ) {
 			price = price.toEuro();
 		    }
 		    return price.toString();
@@ -381,7 +381,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 	     * CurrencyNumber cn = new CurrencyNumber(rp.getPreis()*entries[i].getCount (),currency).toEuro();
 	     */
 
-	    final CurrencyNumber cn = new CurrencyNumber( rp.getPreis() * entrie.getCount(), currency ).toCurrency( MainFrame.getApplication().getCurrency() )
+	    final CurrencyNumber cn = new CurrencyNumber( rp.getPreis() * entrie.getCount(), currency ).toCurrency( MediKnight.getApplication().getCurrency() )
 		    .round( 2 );
 
 	    sum.add( cn );

@@ -1,9 +1,7 @@
 package main.java.de.baltic_online.mediknight.util;
 
 import java.sql.SQLException;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -17,10 +15,10 @@ public class MediKnightTableModel extends AbstractTableModel {
     /**
      *
      */
-    private static final long	   serialVersionUID = 1L;
-    final private List< TagesDiagnose > data;
-    final private Class< ? >[]	  columnClass;
-    final private String[]	      columnNames;
+    private static final long		serialVersionUID = 1L;
+    final private List< TagesDiagnose >	data;
+    final private Class< ? >[]		columnClass;
+    final private String[]		columnNames;
 
 
     /**

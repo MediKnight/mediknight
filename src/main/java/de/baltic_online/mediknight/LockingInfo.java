@@ -268,7 +268,7 @@ public class LockingInfo extends Observable {
     public void setDiagnosis( final TagesDiagnose diagnosis ) {
 	data.diagnosis = diagnosis;
 	if( !data.equals( backup ) ) {
-	    MainFrame.getTracer().trace( TraceConstants.DEBUG, "Set current diagnosis to " + diagnosis );
+	    MediKnight.getTracer().trace( TraceConstants.DEBUG, "Set current diagnosis to " + diagnosis );
 	    notifyPresenters();
 	}
     }
@@ -295,7 +295,7 @@ public class LockingInfo extends Observable {
     public void setPatient( final Patient patient ) {
 	data.patient = patient;
 	if( !data.equals( backup ) ) {
-	    MainFrame.getTracer().trace( TraceConstants.DEBUG, "Set current patient to " + patient );
+	    MediKnight.getTracer().trace( TraceConstants.DEBUG, "Set current patient to " + patient );
 	    notifyPresenters();
 	}
     }

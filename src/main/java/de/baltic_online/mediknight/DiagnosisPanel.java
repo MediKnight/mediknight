@@ -111,7 +111,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	}
 	try {
 	    final TagesDiagnose td = presenter.getModel().getTagesDiagnosen().get( i );
-	    MainFrame.getTracer().trace( TraceConstants.DEBUG, "Button for diagnosis " + td );
+	    MediKnight.getTracer().trace( TraceConstants.DEBUG, "Button for diagnosis " + td );
 	    presenter.setSelectedDiagnose( td );
 	} catch( final SQLException ex ) {
 	    new ErrorDisplay( ex, "Fehler beim Einlesen der Tagesdiagnosen!", "Einlesen der Tagesdiagnose...", this );
@@ -158,7 +158,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 		final TagesDiagnose selectedDiagnosis = getSelectedDayDiagnosis();
 
 		if( selectedDiagnosis != null ) {
-		    MainFrame.getTracer().trace( TraceConstants.DEBUG, "Button for medication on diagnosis " + selectedDiagnosis );
+		    MediKnight.getTracer().trace( TraceConstants.DEBUG, "Button for medication on diagnosis " + selectedDiagnosis );
 		    presenter.setSelectedDiagnose( selectedDiagnosis );
 		    presenter.showMedication();
 		}
@@ -173,7 +173,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 		final TagesDiagnose selectedDiagnosis = getSelectedDayDiagnosis();
 
 		if( selectedDiagnosis != null ) {
-		    MainFrame.getTracer().trace( TraceConstants.DEBUG, "Button for bill on diagnosis " + selectedDiagnosis );
+		    MediKnight.getTracer().trace( TraceConstants.DEBUG, "Button for bill on diagnosis " + selectedDiagnosis );
 		    presenter.setSelectedDiagnose( selectedDiagnosis );
 		    presenter.showBill();
 		}

@@ -49,7 +49,7 @@ public class BillModel {
 
 
     public RechnungsPosten[] getRechnungsPosten() throws SQLException {
-	rechnungsPosten = MainFrame.getApplication().getRechnungsPosten();
+	rechnungsPosten = MediKnight.getApplication().getRechnungsPosten();
 	return rechnungsPosten;
     }
 
