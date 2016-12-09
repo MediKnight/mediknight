@@ -318,8 +318,10 @@ public class LockRemover extends JFrame {
 		}
 	    }
 
-	    final LockEntry entry = new LockEntry( lock, patient.getName(), patient.getVorname(), description );
-	    results.add( entry );
+	    if( patient != null ) {
+		final LockEntry entry = new LockEntry( lock, patient.getName(), patient.getVorname(), description );
+		results.add( entry );
+	    }
 	}
 
 	return results;

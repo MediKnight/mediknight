@@ -357,6 +357,9 @@ public class MedicationPanel extends JPanel implements ChangeListener, ListSelec
 	footerBtnPanel.add( printBtn, BorderLayout.EAST );
 	footerBtnPanel.add( undoBtn, BorderLayout.WEST );
 	mainSP.setDividerLocation( 200 );
+	
+	medicationTable.setShowGrid( true );
+	medicationTable.setGridColor( getForeground() );
     }
 
 

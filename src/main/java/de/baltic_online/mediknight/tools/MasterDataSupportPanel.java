@@ -335,6 +335,9 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
 	buttonPanel.add( addBtn, null );
 	this.add( tableScrollPane, BorderLayout.CENTER );
 	tableScrollPane.getViewport().add( itemTable, null );
+	
+	itemTable.setShowGrid( true );
+	itemTable.setGridColor( getForeground() );
     }
 
 

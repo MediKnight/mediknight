@@ -165,21 +165,24 @@ public class MediKnight extends JFrame implements TraceConstants {
 
 	private void rebuildBufferImage( final int w, final int h ) {
 	    bufferImage = createImage( w, h );
+	    
 	    final Graphics g = bufferImage.getGraphics();
-	    // Color color = UIManager.getColor("effect").brighter();
-	    final Color color = UIManager.getColor( "effect" );
+	    final Color color = UIManager.getColor( "controlShadow" );
+	    
 	    g.setColor( color );
 	    g.fillRect( 0, 0, w, h );
-
 	    g.setColor( color.brighter().brighter() );
+	    
 	    final Font font = new Font( "sanserif", Font.BOLD, 36 );
 	    g.setFont( font );
+	    
 	    final FontMetrics fm = g.getFontMetrics( font );
-	    final String[] text = { "Bearbeitung nicht möglich!", "", "Die Daten werden von einem", "anderen Benutzer geÄndert!" };
+	    final String[] text = { "Bearbeitung nicht möglich!", "", "Die Daten werden von einem", "anderen Benutzer geändert!" };
 	    for( int i = 0; i < text.length; i++ ) {
 		final int th = text.length * (fm.getHeight() + 8);
 		final int y = (h - th) / 2 + (fm.getHeight() + 8) * i;
 		final int x = (w - fm.stringWidth( text[i] )) / 2;
+		
 		g.drawString( text[i], x, y );
 	    }
 	}
@@ -344,6 +347,13 @@ public class MediKnight extends JFrame implements TraceConstants {
     public static final String KEYFINISH	     = "alt Z";
 
     public static final String KEYABOUT		     = "alt A";
+    
+    
+    // Layout constants
+    public static final int LAYOUT_MIDDLE_SPACER = 10;
+    public static final int LAYOUT_SMALL_SPACER = 5;
+    
+    
 
     // Resource of property file.
     public final static String MEDIKNIGHT_PROPERTIES = "mediknight.properties";

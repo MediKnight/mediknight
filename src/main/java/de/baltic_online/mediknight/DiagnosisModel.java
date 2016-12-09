@@ -70,7 +70,7 @@ public class DiagnosisModel {
 	Collections.reverse( list );
 
 	return list;
-    }
+    }    
 
 
     public void removeChangeListener( final ChangeListener l ) {

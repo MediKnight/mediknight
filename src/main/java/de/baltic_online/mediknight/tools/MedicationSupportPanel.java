@@ -479,6 +479,9 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener, Li
 	centerPanelTopPanel.add( jLabel1, new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets( 5,
 		0, 0, 0 ), 0, 0 ) );
 	itemTableSP.getViewport().add( itemTable, null );
+	
+	itemTable.setShowGrid( true );
+	itemTable.setGridColor( getForeground() );
     }
 
 

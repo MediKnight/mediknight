@@ -29,8 +29,8 @@ import main.java.de.baltic_online.mediknight.widgets.YinYangDialog;
 
 public class LetterPresenter implements Presenter, Commitable, Observer {
 
-    LetterPanel view;
-    LetterModel model;
+    LetterPanel	view;
+    LetterModel	model;
 
 
     public LetterPresenter() {

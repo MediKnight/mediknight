@@ -341,8 +341,7 @@ public class PatientPanel extends JPanel implements ChangeListener {
 	jPanel2.setLayout( borderLayout3 );
 	dateBtn.setMargin( new Insets( 0, 2, 0, 2 ) );
 	dateBtn.setText( "..." );
-	this.add( panel0, new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0,
-		0 ) );
+	this.add( panel0, new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	panel0.add( jPanel1, null );
 	jPanel1.add( anredeLbl, new FlexGridConstraints( 0, 0, FlexGridConstraints.W ) );
 	jPanel1.add( anredeCB, new FlexGridConstraints( -1, 0, FlexGridConstraints.C ) );
@@ -388,8 +387,7 @@ public class PatientPanel extends JPanel implements ChangeListener {
 	panel4.add( bemerkungsLbl, null );
 	this.add( panel5, new GridBagConstraints( 0, 5, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	panel5.add( jScrollPane2, null );
-	this.add( panel6, new GridBagConstraints( 0, 6, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 10, 0, 0, 0 ), 0,
-		0 ) );
+	this.add( panel6, new GridBagConstraints( 0, 6, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 10, 0, 0, 0 ), 0,	0 ) );
 	panel6.add( buttonPanel, BorderLayout.EAST );
 	buttonPanel.add( saveBtn, null );
 	buttonPanel.add( deleteBtn, null );

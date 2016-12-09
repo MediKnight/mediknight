@@ -98,6 +98,11 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
     public Date getDatumAsDate() {
 	return datum != null ? Date.from( datum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
     }
+    
+    public String getDatumAsString() {
+	final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
+	return datum.format( formatter );
+    }
 
 
     public int getId() {

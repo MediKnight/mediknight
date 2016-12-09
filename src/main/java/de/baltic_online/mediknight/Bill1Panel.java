@@ -47,7 +47,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 
 	private static final long serialVersionUID = -3832967955412119635L;
 
-	final String[]	    columnNames      = { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis", "Anzahl" };
+	final String[]		  columnNames	   = { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis", "Anzahl" };
 
 	public boolean[]	  columnsVisible   = new boolean[5];
 
@@ -184,13 +184,13 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
     class ItemTableModel extends AbstractTableModel {
 
 	/**
-         *
-         */
+	 *
+	 */
 	private static final long serialVersionUID = 3575803786544655240L;
 
-	final String[]	    columnNames      = { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis" };
+	final String[]		  columnNames	   = { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis" };
 
-	RechnungsPosten[]	 items;
+	RechnungsPosten[]	  items;
 
 
 	public ItemTableModel( final RechnungsPosten[] items ) {
@@ -240,63 +240,102 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 	}
     }
 
-    private static final long serialVersionUID      = 8050367950483181498L;
+    private static final long serialVersionUID	 = 8050367950483181498L;
 
-    public static final int   ITEM_PRICE_COLUMN     = 2;
-    public static final int   ITEM_AMOUNT_COLUMN    = 3;
-    BillPresenter	     presenter;
-    Rechnung		  rechnung;
+    public static final int   ITEM_PRICE_COLUMN	 = 2;
+    public static final int   ITEM_AMOUNT_COLUMN = 3;
+    BillPresenter	      presenter;
+    Rechnung		      rechnung;
 
-    BillEntry[]	       entries;
-    BillTableModel	    billModel	     = new BillTableModel();
-    GridBagLayout	     gridBagLayout1	= new GridBagLayout();
-    JPanel		    headerPanel	   = new JPanel();
-    JLabel		    headerLbl	     = new JLabel();
-    FlowLayout		flowLayout1	   = new FlowLayout();
-    JPanel		    splitPanePanel	= new JPanel();
-    JPanel		    footerPanel	   = new JPanel();
-    JSplitPane		mainSP		= new JSplitPane();
-    GridBagLayout	     gridBagLayout2	= new GridBagLayout();
-    JPanel		    spTopPanel	    = new JPanel();
-    BorderLayout	      borderLayout1	 = new BorderLayout();
-    JPanel		    spTopBtnPanel	 = new JPanel();
-    JButton		   addBtn		= new JButton();
-    FlowLayout		flowLayout3	   = new FlowLayout();
-    JPanel		    spBottomPanel	 = new JPanel();
-    JScrollPane	       billTableSP	   = new JScrollPane();
-    BorderLayout	      borderLayout2	 = new BorderLayout();
-    JPanel		    spBottomSouthPanel    = new JPanel();
-    JButton		   deleteBtn	     = new JButton();
-    JButton		   createBtn	     = new JButton();
-    JScrollPane	       entriesTableSP	= new JScrollPane();
-    JTable		    entriesTable	  = new JTable();
-    JTable		    billTable	     = new JTable();
-    BorderLayout	      borderLayout3	 = new BorderLayout();
-    JLabel		    sumLbl		= new JLabel();
-    JPanel		    southPanel	    = new JPanel();
-    JPanel		    dummyPanel	    = new JPanel();
-    JButton		   macroBtn	      = new JButton();
-    JButton		   page2Btn	      = new JButton();
-    JPanel		    buttonPanel	   = new JPanel();
-    GridLayout		gridLayout2	   = new GridLayout();
-    FlowLayout		flowLayout2	   = new FlowLayout();
-    JPanel		    spBottomSouthBtnPanel = new JPanel();
-    BorderLayout	      borderLayout4	 = new BorderLayout();
-    JPanel		    spBottomSouthFeePanel = new JPanel();
-    FlowLayout		flowLayout4	   = new FlowLayout();
-    JRadioButton	      gebuehBtn	     = new JRadioButton();
-    JRadioButton	      goaeBtn	       = new JRadioButton();
-    ButtonGroup	       gebBg		 = new ButtonGroup();
-
-    FlowLayout		flowLayout5	   = new FlowLayout();
-
-    Component		 component1;
+    BillEntry[]		      entries;
+    final BillTableModel      billModel;
+    final GridBagLayout	      gridBagLayout1;
+    final JPanel	      headerPanel;
+    final JLabel	      headerLbl;
+    final FlowLayout	      flowLayout1;
+    final JPanel	      splitPanePanel;
+    final JPanel	      footerPanel;
+    final JSplitPane	      mainSP;
+    final GridBagLayout	      gridBagLayout2;
+    final JPanel	      spTopPanel;
+    final BorderLayout	      borderLayout1;
+    final JPanel	      spTopBtnPanel;
+    final JButton	      addBtn;
+    final FlowLayout	      flowLayout3;
+    final JPanel	      spBottomPanel;
+    final JScrollPane	      billTableSP;
+    final BorderLayout	      borderLayout2;
+    final JPanel	      spBottomSouthPanel;
+    final JButton	      deleteBtn;
+    final JButton	      createBtn;
+    final JScrollPane	      entriesTableSP;
+    final JTable	      entriesTable;
+    final JTable	      billTable;
+    final BorderLayout	      borderLayout3;
+    final JLabel	      sumLbl;
+    final JPanel	      southPanel;
+    final JPanel	      dummyPanel;
+    final JButton	      macroBtn;
+    final JButton	      page2Btn;
+    final JPanel	      buttonPanel;
+    final GridLayout	      gridLayout2;
+    final FlowLayout	      flowLayout2;
+    final JPanel	      spBottomSouthBtnPanel;
+    final BorderLayout	      borderLayout4;
+    final JPanel	      spBottomSouthFeePanel;
+    final FlowLayout	      flowLayout4;
+    final JRadioButton	      gebuehBtn;
+    final JRadioButton	      goaeBtn;
+    final ButtonGroup	      gebBg;
+    final FlowLayout	      flowLayout5;
+    Component	      component1;
 
 
     public Bill1Panel( final Rechnung rechnung ) {
 	this.rechnung = rechnung;
+	billModel = new BillTableModel();
+	gridBagLayout1 = new GridBagLayout();
+	headerPanel = new JPanel();
+	headerLbl = new JLabel();
+	flowLayout1 = new FlowLayout();
+	splitPanePanel = new JPanel();
+	footerPanel = new JPanel();
+	mainSP = new JSplitPane();
+	gridBagLayout2 = new GridBagLayout();
+	spTopPanel = new JPanel();
+	borderLayout1 = new BorderLayout();
+	spTopBtnPanel = new JPanel();
+	addBtn = new JButton();
+	flowLayout3 = new FlowLayout();
+	spBottomPanel = new JPanel();
+	billTableSP = new JScrollPane();
+	borderLayout2 = new BorderLayout();
+	spBottomSouthPanel = new JPanel();
+	deleteBtn = new JButton();
+	createBtn = new JButton();
+	entriesTableSP = new JScrollPane();
+	entriesTable = new JTable();
+	billTable = new JTable();
+	borderLayout3 = new BorderLayout();
+	sumLbl = new JLabel();
+	southPanel = new JPanel();
+	dummyPanel = new JPanel();
+	macroBtn = new JButton();
+	page2Btn = new JButton();
+	buttonPanel = new JPanel();
+	gridLayout2 = new GridLayout();
+	flowLayout2 = new FlowLayout();
+	spBottomSouthBtnPanel = new JPanel();
+	borderLayout4 = new BorderLayout();
+	spBottomSouthFeePanel = new JPanel();
+	flowLayout4 = new FlowLayout();
+	gebuehBtn = new JRadioButton();
+	goaeBtn = new JRadioButton();
+	gebBg = new ButtonGroup();
+	flowLayout5 = new FlowLayout();
+
 	jbInit();
-	billTable.setModel( billModel );
+
 	// korrigiert Fehler beim Ausdehnen der SplitPane, da Scroller
 	// überdimensional groß
 	mainSP.updateUI();
@@ -519,13 +558,13 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 	dummyPanel.setOpaque( false );
 	billTable.setOpaque( false );
 	flowLayout5.setHgap( 0 );
-	this.add( headerPanel, new GridBagConstraints( 0, 0, 3, 1, 1.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ),
-		0, 0 ) );
+	this.add( headerPanel,
+		new GridBagConstraints( 0, 0, 3, 1, 1.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	headerPanel.add( headerLbl, null );
-	this.add( splitPanePanel, new GridBagConstraints( 0, 1, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0,
-		0 ) );
-	splitPanePanel.add( mainSP, new GridBagConstraints( 0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ),
-		0, 0 ) );
+	this.add( splitPanePanel,
+		new GridBagConstraints( 0, 1, 2, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+	splitPanePanel.add( mainSP,
+		new GridBagConstraints( 0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	mainSP.add( spTopPanel, JSplitPane.TOP );
 	spTopPanel.add( spTopBtnPanel, BorderLayout.SOUTH );
 	spTopBtnPanel.add( addBtn, null );
@@ -542,8 +581,8 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 	spBottomSouthFeePanel.add( goaeBtn, null );
 	billTableSP.getViewport().add( billTable, null );
 	entriesTableSP.getViewport().add( entriesTable, null );
-	this.add( footerPanel, new GridBagConstraints( 1, 2, 1, 1, 1.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ),
-		0, 0 ) );
+	this.add( footerPanel,
+		new GridBagConstraints( 1, 2, 1, 1, 1.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	footerPanel.add( sumLbl, BorderLayout.WEST );
 	footerPanel.add( southPanel, BorderLayout.SOUTH );
 	southPanel.add( buttonPanel, null );
@@ -553,6 +592,12 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 	gebBg.add( gebuehBtn );
 	gebBg.add( goaeBtn );
 	mainSP.setDividerLocation( 200 );
+
+	billTable.setModel( billModel );
+	billTable.setShowGrid( true );
+	billTable.setGridColor( getForeground() );
+	entriesTable.setShowGrid( true );
+	entriesTable.setGridColor( getForeground() );
     }
 
 

@@ -218,6 +218,9 @@ public class MacroPanel extends JPanel implements ChangeListener, ListSelectionL
 	jPanel3.add( deleteBtn, null );
 	itemTableSP.getViewport().add( itemTable, null );
 	jSplitPane1.setDividerLocation( 115 );
+	
+	itemTable.setShowGrid( true );
+	itemTable.setGridColor( getForeground() );
     }
 
 

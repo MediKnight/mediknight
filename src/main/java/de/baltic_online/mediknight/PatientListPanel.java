@@ -174,6 +174,8 @@ public class PatientListPanel extends JPanel {
 	} );
 
 	patientTable.setAutoResizeMode( javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS );
+	patientTable.setShowGrid( true );
+	patientTable.setGridColor( getForeground() );
 
 	tableScrollpane = new JScrollPane( patientTable );
 	tableScrollpane.setSize( tableScrollpane.getMaximumSize() );
