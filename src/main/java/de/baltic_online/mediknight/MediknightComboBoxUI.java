@@ -121,9 +121,8 @@ public class MediknightComboBoxUI extends MetalComboBoxUI {
      */
     @SuppressWarnings( "rawtypes" )
     // Defined like this in BasicComboBoxUI
-	    @Override
-	    protected
-	    ListCellRenderer createRenderer() {
+    @Override
+    protected ListCellRenderer createRenderer() {
 	return new MediknightComboBoxRenderer.UIResource();
     }
 

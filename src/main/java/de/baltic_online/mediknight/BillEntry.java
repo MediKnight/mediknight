@@ -139,7 +139,7 @@ public class BillEntry {
     // (dont ask why count is of type double)
     private RechnungsPosten item;
 
-    private double	  count;
+    private double	    count;
 
 
     public BillEntry() {

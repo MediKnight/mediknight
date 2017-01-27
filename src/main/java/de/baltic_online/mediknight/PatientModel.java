@@ -12,10 +12,10 @@ import main.java.de.baltic_online.mediknight.domain.Patient;
 
 public class PatientModel {
 
-    boolean	       newPatient      = false;
+    boolean		  newPatient	  = false;
 
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
-    Patient	       patient;
+    Patient		  patient;
 
 
     public PatientModel() {

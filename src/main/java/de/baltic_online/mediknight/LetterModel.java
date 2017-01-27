@@ -16,8 +16,8 @@ import main.java.de.baltic_online.mediknight.domain.TagesDiagnose;
 
 public class LetterModel {
 
-    Rechnung	      rechnung;
-    RechnungsPosten[]     rechnungsPosten = null;
+    Rechnung		  rechnung;
+    RechnungsPosten[]	  rechnungsPosten = null;
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
 
 

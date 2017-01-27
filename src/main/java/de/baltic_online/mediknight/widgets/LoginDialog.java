@@ -58,7 +58,7 @@ public class LoginDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Dimension  buttonSize       = null;
+	private static Dimension  buttonSize	   = null;
 
 
 	public static Dimension getButtonSize() {
@@ -119,7 +119,7 @@ public class LoginDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	private final User	user;
+	private final User	  user;
 
 
 	public UserButton( final User user, final Icon icon ) {
@@ -145,19 +145,19 @@ public class LoginDialog extends JDialog {
 	/**
 	 * Fixed width of this icon.
 	 */
-	public static final int WIDTH  = 128;
+	public static final int	WIDTH  = 128;
 
 	/**
 	 * Fixed height of this icon.
 	 */
-	public static final int HEIGHT = 160;
+	public static final int	HEIGHT = 160;
 
-	private final byte[]    imageData;
-	private Image	   image;
+	private final byte[]	imageData;
+	private Image		image;
 
 	// We use it to do a repaint if this ImageObserver notifies that
 	// asynchronous loading is done.
-	private Component       component;
+	private Component	component;
 
 
 	public UserIcon( final User user ) {
@@ -228,21 +228,21 @@ public class LoginDialog extends JDialog {
 	}
     }
 
-    private static final long	  serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     // This is the default image of a newly created user. It is set by the initializer below.
-    private static Image	       defaultUserImage;
+    private static Image      defaultUserImage;
 
     static {
 	final URL url = LoginDialog.class.getClassLoader().getResource( "images/defaultuser.gif" );
 	defaultUserImage = Toolkit.getDefaultToolkit().createImage( url );
     }
     // Login controls
-    private JPanel		     controlPanel;
+    private JPanel		       controlPanel;
 
-    private IconPanel		  iconPanel;
-    private JButton		    okButton;
+    private IconPanel		       iconPanel;
+    private JButton		       okButton;
 
-    private JButton		    cancelButton;
+    private JButton		       cancelButton;
 
     private javax.swing.JTextField     userField;
 
@@ -512,8 +512,9 @@ public class LoginDialog extends JDialog {
 	}
 
 	if( user == null ) {
-	    final int r = JOptionPane.showConfirmDialog( getContentPane(), "Der Benutzer oder das Passwort sind ungültig.\n"
-		    + "Soll die Eingabe wiederholt werden?", "Achtung", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE );
+	    final int r = JOptionPane.showConfirmDialog( getContentPane(),
+		    "Der Benutzer oder das Passwort sind ungültig.\n" + "Soll die Eingabe wiederholt werden?", "Achtung", JOptionPane.YES_NO_OPTION,
+		    JOptionPane.QUESTION_MESSAGE );
 	    if( r != JOptionPane.YES_OPTION ) {
 		dispose();
 		setVisible( false );

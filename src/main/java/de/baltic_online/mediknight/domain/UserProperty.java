@@ -126,7 +126,7 @@ public class UserProperty extends KnightObject {
      *                if there exists at least one key value pair which contents are no strings.
      */
     public static void saveUserInformation( final User user, final Map< String, String > map ) throws IllegalArgumentException, ClassCastException,
-											      SQLException {
+											       SQLException {
 
 	final Iterator< String > i = map.keySet().iterator();
 	while( i.hasNext() ) {
@@ -136,7 +136,7 @@ public class UserProperty extends KnightObject {
 	}
     }
 
-    private int     id;
+    private int	    id;
 
     private String  name;
 

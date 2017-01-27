@@ -34,18 +34,18 @@ import javax.swing.event.EventListenerList;
 
 public class JTextArea extends javax.swing.JTextArea implements MutableTextComponent, DocumentListener {
 
-    private static final long	serialVersionUID = 1L;
+    private static final long	     serialVersionUID = 1L;
 
     private final TextListenerPlugin plugin;
-    private String		   originalText     = null;
-    private final JPopupMenu	 popupMenu	= new JPopupMenu();
-    private UndoHandler	      undoHandler      = null;
-    private String		   undoHandlerName  = null;
+    private String		     originalText     = null;
+    private final JPopupMenu	     popupMenu	      = new JPopupMenu();
+    private UndoHandler		     undoHandler      = null;
+    private String		     undoHandlerName  = null;
 
     /**
      * a list of those interested in receiving <code>MutableChangeEvent</code>s from this instance.
      */
-    EventListenerList		listenerList     = new EventListenerList();
+    EventListenerList		     listenerList     = new EventListenerList();
 
 
     /**

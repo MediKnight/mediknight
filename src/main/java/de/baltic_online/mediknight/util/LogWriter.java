@@ -31,17 +31,17 @@ public class LogWriter extends PrintWriter {
     /**
      * Default max lenght of a logfile (1MB)
      */
-    protected final static long DEFAULT_MAXLENGTH = 1024 * 1024;
+    protected final static long	DEFAULT_MAXLENGTH = 1024 * 1024;
 
     /**
      * Default min lenght of a logfile (10KB)
      */
-    protected final static long DEFAULT_MINLENGTH = 10 * 1024;
+    protected final static long	DEFAULT_MINLENGTH = 10 * 1024;
 
     /**
      * Default max cycle of logfiles (10)
      */
-    protected final static int  DEFAULT_MAXCYCLE  = 10;
+    protected final static int	DEFAULT_MAXCYCLE  = 10;
 
     /**
      * Base pathname. Real pathnames are builded by the function <code>buildPathName()</code>.
@@ -49,7 +49,7 @@ public class LogWriter extends PrintWriter {
      * @see #buildPathName()
      * @see #path
      */
-    protected String	    basePath;
+    protected String		basePath;
 
     /**
      * Pathname builded by the function <code>buildPathName()</code>.
@@ -57,37 +57,37 @@ public class LogWriter extends PrintWriter {
      * @see #buildPathName()
      * @see #basePath
      */
-    protected String	    path;
+    protected String		path;
 
     /**
      * The calculated length of the cycle extension of the pathname.
      */
-    protected int	       extLength;
+    protected int		extLength;
 
     /**
      * Max file length before this class starts over with a new (or used) file, specified by the pathname.
      */
-    protected long	      maxLength;
+    protected long		maxLength;
 
     /**
      * Max cycle before this class starts over to resuse old files.
      */
-    protected int	       maxCycle;
+    protected int		maxCycle;
 
     /**
      * Current cycle index.
      */
-    protected int	       currentCycle;
+    protected int		currentCycle;
 
     /**
      * Format pattern used by the DecimalFormat to build the extension string.
      */
-    protected String	    extFormat;
+    protected String		extFormat;
 
     /**
      * This is the "real" PrintWriter which is used by this class. This object changes if cycling is done.
      */
-    protected PrintWriter       writer;
+    protected PrintWriter	writer;
 
 
     /**

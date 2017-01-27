@@ -85,43 +85,43 @@ public class Patient extends KnightObject implements Comparable< Patient > {
 	return toList( q.bind( 1, pattern ).execute() );
     }
 
-    private int	   id;
+    private int	      id;
 
-    private String	name;
+    private String    name;
 
-    private String	vorname;
+    private String    vorname;
 
-    private String	titel;
+    private String    titel;
 
-    private String	anrede;
+    private String    anrede;
 
-    private String	adresse1;
+    private String    adresse1;
 
-    private String	adresse2;
+    private String    adresse2;
 
-    private String	adresse3;
+    private String    adresse3;
 
-    private String	telefonPrivat;
+    private String    telefonPrivat;
 
-    private String	telefonArbeit;
+    private String    telefonArbeit;
 
-    private String	fax;
+    private String    fax;
 
-    private String	handy;
+    private String    handy;
 
-    private String	email;
+    private String    email;
 
-    private String	bemerkung;
+    private String    bemerkung;
 
-    private String	achtung;
+    private String    achtung;
 
     private LocalDate geburtsDatum;
 
     private LocalDate erstDiagnoseDatum;
 
-    private String	erstDiagnose;
+    private String    erstDiagnose;
 
-    private boolean       privatPatient;
+    private boolean   privatPatient;
 
 
     public Patient() {
@@ -327,11 +327,13 @@ public class Patient extends KnightObject implements Comparable< Patient > {
     public LocalDate getErstDiagnoseDatum() {
 	return erstDiagnoseDatum;
     }
-    
+
+
     public java.sql.Date getErstDiagnoseDatumAsSqlDate() {
 	return erstDiagnoseDatum != null ? java.sql.Date.valueOf( erstDiagnoseDatum ) : null;
     }
-    
+
+
     public Date getErstDiagnoseDatumAsDate() {
 	return erstDiagnoseDatum != null ? Date.from( erstDiagnoseDatum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
     }
@@ -350,14 +352,17 @@ public class Patient extends KnightObject implements Comparable< Patient > {
     public LocalDate getGeburtsDatum() {
 	return geburtsDatum;
     }
-    
+
+
     public java.sql.Date getGeburtsDatumAsSqlDate() {
 	return geburtsDatum != null ? java.sql.Date.valueOf( geburtsDatum ) : null;
     }
-    
+
+
     public Date getGeburtsDatumAsDate() {
 	return geburtsDatum != null ? Date.from( geburtsDatum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
     }
+
 
     public String getHandy() {
 	return notNull( handy );
@@ -494,11 +499,13 @@ public class Patient extends KnightObject implements Comparable< Patient > {
     public void setErstDiagnoseDatum( final LocalDate ed ) {
 	erstDiagnoseDatum = ed;
     }
-    
+
+
     public void setErstDiagnoseDatumAsSqlDate( final java.sql.Date ed ) {
 	erstDiagnoseDatum = ed != null ? ed.toLocalDate() : null;
     }
-    
+
+
     public void setErstDiagnoseDatumAsDate( final Date ed ) {
 	erstDiagnoseDatum = ed != null ? Instant.ofEpochMilli( ed.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate() : null;
     }
@@ -512,11 +519,13 @@ public class Patient extends KnightObject implements Comparable< Patient > {
     public void setGeburtsDatum( final LocalDate gb ) {
 	geburtsDatum = gb;
     }
-    
+
+
     public void setGeburtsDatumAsSqlDate( final java.sql.Date gb ) {
 	geburtsDatum = gb != null ? gb.toLocalDate() : null;
     }
-    
+
+
     public void setGeburtsDatumAsDate( final Date gb ) {
 	geburtsDatum = gb != null ? Instant.ofEpochMilli( gb.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate() : null;
     }

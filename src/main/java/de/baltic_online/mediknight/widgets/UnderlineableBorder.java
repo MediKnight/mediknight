@@ -32,17 +32,17 @@ public class UnderlineableBorder implements Border {
     /**
      * The original border that should be used as an actual border of the component (underlined, if necessary).
      */
-    protected Border	originalBorder;
+    protected Border	    originalBorder;
 
     /**
      * True iff the border should currently be underlined.
      */
-    protected boolean       underlined    = false;
+    protected boolean	    underlined	  = false;
 
     /**
      * The color to underline the original border in (if at all).
      */
-    protected Color	 underlineColor;
+    protected Color	    underlineColor;
 
 
     /**

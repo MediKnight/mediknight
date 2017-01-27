@@ -9,140 +9,89 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import de.baltic_online.borm.TraceConstants;
 import main.java.de.baltic_online.mediknight.domain.TagesDiagnose;
+import main.java.de.baltic_online.mediknight.tables.DateChooserTableCellEditor;
+import main.java.de.baltic_online.mediknight.tables.DateTableCellRenderer;
+import main.java.de.baltic_online.mediknight.tables.MediKnightTableCellRenderer;
+import main.java.de.baltic_online.mediknight.tables.MediKnightTableModel;
+import main.java.de.baltic_online.mediknight.tables.StringTableCellEditor;
+import main.java.de.baltic_online.mediknight.tables.StringTableCellRenderer;
 import main.java.de.baltic_online.mediknight.util.ErrorDisplay;
-import main.java.de.baltic_online.mediknight.util.MediKnightDayDiagnosisListModel;
 import main.java.de.baltic_online.mediknight.widgets.JButton;
 import main.java.de.baltic_online.mediknight.widgets.JPanel;
 import main.java.de.baltic_online.mediknight.widgets.JScrollPane;
+import main.java.de.baltic_online.mediknight.widgets.JTable;
 import main.java.de.baltic_online.mediknight.widgets.JTextArea;
 import main.java.de.baltic_online.mediknight.widgets.JUndoButton;
 
 
 public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widgets.JPanel implements ChangeListener, FocusListener, ActionListener {
 
-    private static final long serialVersionUID		= 8967202476452623167L;
+    private static final long serialVersionUID	 = 8967202476452623167L;
 
     DiagnosisPresenter	      presenter;
 
-    final JSplitPane	      jSplitPane1;
-    final JPanel	      jPanel1;
-    final BorderLayout	      borderLayout2;
-    final JPanel	      jPanel3;
-    final BorderLayout	      borderLayout4;
-    final JPanel	      pBottom;
-    final BorderLayout	      borderLayout3;
-    final JScrollPane	      jScrollPane1;
-    final JPanel	      jPanel4;
-    final BorderLayout	      borderLayout5;
-    final JLabel	      jLabel1;
-    final JLabel	      patientType;
-    final JTextArea	      firstDiagnosis;
-    final JLabel	      jLabel3;
-    final JScrollPane	      sp_Entries;
-    final JScrollPane	      sp_DayDiagnosis;
-    final JPanel	      entriesPanel;
-    final GridBagLayout	      gridBagLayout1;
-    final JPanel	      jPanel2;
-    final BorderLayout	      borderLayout1;
-    final BoxLayout	      boxLayout21;
+    JSplitPane		      jSplitPane1	 = new JSplitPane();
+    JPanel		      jPanel1		 = new JPanel();
+    BorderLayout	      borderLayout2	 = new BorderLayout();
+    JPanel		      jPanel3		 = new JPanel();
+    BorderLayout	      borderLayout4	 = new BorderLayout();
+    JPanel		      pBottom		 = new JPanel();
+    BorderLayout	      borderLayout3	 = new BorderLayout();
+    JScrollPane		      jScrollPane1	 = new JScrollPane();
+    JPanel		      jPanel4		 = new JPanel();
+    BorderLayout	      borderLayout5	 = new BorderLayout();
+    JLabel		      jLabel1		 = new JLabel();
+    JLabel		      patientType	 = new JLabel();
+    JTextArea		      firstDiagnosis	 = new JTextArea();
+    JLabel		      jLabel3		 = new JLabel();
+    JScrollPane		      entriesSP		 = new JScrollPane();
+    JPanel		      entriesPanel	 = new JPanel();
+    GridBagLayout	      gridBagLayout1	 = new GridBagLayout();
+    JPanel		      jPanel2		 = new JPanel();
+    BorderLayout	      borderLayout1	 = new BorderLayout();
 
-    Component		      lastFocusComponent;
-    final JPanel	      jPanel5;
-    final JUndoButton	      undoBtn;
-    final BorderLayout	      borderLayout6;
-    final JButton	      printBtn;
+    // DayDiagnosisEntryPanel currentPanel;
+    BoxLayout		      boxLayout21	 = new BoxLayout( entriesPanel, BoxLayout.Y_AXIS );
 
-    final JPanel	      pnl_DayDiagnosisList;
-    final JPanel	      pnl_DayDiagnosis;
-    final JLabel	      lbl_DayDiagnosisList;
-    final JLabel	      lbl_DayDiagnosis;
-    final JList< String >     lst_DayDiagnosisList;
-    final JTextArea	      ta_DayDiagnosis;
-    List< TagesDiagnose >     tagesDiagnosen;
+    Component		      lastFocusComponent = null;
+    JPanel		      jPanel5		 = new JPanel();
+    JUndoButton		      undoBtn		 = new JUndoButton();
+    BorderLayout	      borderLayout6	 = new BorderLayout();
+    JButton		      printBtn		 = new JButton();
 
-    final JPanel	      pnl_MainDiag;
-    final JPanel	      pnl_DiagOptions;
-    final JButton	      btn_Verschreibung;
-    final JButton	      btn_Rechnung;
-
-    private int		      selectedDayDiagnosisIndex	= -1;
+    JTable		      tbl_DayDiagnosis;
+    JPanel		      pnl_MainDiag;
+    JPanel		      pnl_DiagOptions;
+    JButton		      btn_Verschreibung;
+    JButton		      btn_Rechnung;
 
 
     public DiagnosisPanel() {
-	jSplitPane1 = new JSplitPane();
-	jPanel1 = new JPanel();
-	borderLayout2 = new BorderLayout();
-	jPanel3 = new JPanel();
-	borderLayout4 = new BorderLayout();
-	pBottom = new JPanel();
-	borderLayout3 = new BorderLayout();
-	jScrollPane1 = new JScrollPane();
-	jPanel4 = new JPanel();
-	borderLayout5 = new BorderLayout();
-	jLabel1 = new JLabel();
-	patientType = new JLabel();
-	firstDiagnosis = new JTextArea();
-	jLabel3 = new JLabel();
-	sp_Entries = new JScrollPane();
-	sp_DayDiagnosis = new JScrollPane();
-	entriesPanel = new JPanel();
-	gridBagLayout1 = new GridBagLayout();
-	jPanel2 = new JPanel();
-	borderLayout1 = new BorderLayout();
-	boxLayout21 = new BoxLayout( entriesPanel, BoxLayout.Y_AXIS );
-
-	lastFocusComponent = null;
-	jPanel5 = new JPanel();
-	undoBtn = new JUndoButton();
-	borderLayout6 = new BorderLayout();
-	printBtn = new JButton();
-
-	final BorderLayout lyt_MainLayout = new BorderLayout();
-	final BorderLayout lyt_DayDiagnosisList = new BorderLayout();
-	final BorderLayout lyt_DayDiagnosis = new BorderLayout();
-	lyt_MainLayout.setHgap( MediKnight.LAYOUT_MIDDLE_SPACER );
-	lyt_DayDiagnosisList.setVgap( MediKnight.LAYOUT_SMALL_SPACER );
-	lyt_DayDiagnosis.setVgap( MediKnight.LAYOUT_SMALL_SPACER );
-
-	pnl_DayDiagnosisList = new JPanel( lyt_DayDiagnosisList );
-	pnl_DayDiagnosis = new JPanel( lyt_DayDiagnosis );
-	lbl_DayDiagnosisList = new JLabel( "Datum:" );
-	lbl_DayDiagnosis = new JLabel( "Diagnosetext:" );
-	lst_DayDiagnosisList = new JList<>();
-
-	ta_DayDiagnosis = new JTextArea( "" );
-	pnl_DiagOptions = new JPanel();
-	btn_Rechnung = new JButton( "Rechnung" );
-	btn_Verschreibung = new JButton( "Verschreibung" );
-
-	pnl_MainDiag = new JPanel( lyt_MainLayout );
-
 	jbInit();
 	addListeners();
     }
@@ -235,33 +184,16 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 	} );
 
-	lst_DayDiagnosisList.addListSelectionListener( new ListSelectionListener() {
+	entriesSP.addMouseListener( new MouseAdapter() { // Disabling of the table cell editors on "neutral" click.
 
-	    @Override
-	    public void valueChanged( ListSelectionEvent e ) {
-		SwingUtilities.invokeLater( new Runnable() {
+	    public void mouseClicked( final MouseEvent evt ) {
+		int tableRow = tbl_DayDiagnosis.rowAtPoint( evt.getPoint() );
 
-		    public void run() {
-			final TagesDiagnose dayDiagnosis = getSelectedDayDiagnosis();
-
-			if( dayDiagnosis != null ) {
-			    ta_DayDiagnosis.setText( dayDiagnosis.getText() );
-			}
-
-			selectedDayDiagnosisIndex = lst_DayDiagnosisList.getSelectedIndex();
+		if( tableRow == -1 ) {
+		    if( tbl_DayDiagnosis.isEditing() ) {
+			tbl_DayDiagnosis.getCellEditor().stopCellEditing();
 		    }
-		} );
-
-	    }
-	} );
-
-	ta_DayDiagnosis.addFocusListener( new FocusAdapter() {
-
-	    public void focusLost( final FocusEvent evt ) {
-		final int currentIndex = lst_DayDiagnosisList.getSelectedIndex();
-
-		if( currentIndex > -1 ) {
-		    saveDayDiagnosis( selectedDayDiagnosisIndex );
+		    tbl_DayDiagnosis.clearSelection();
 		}
 	    }
 	} );
@@ -366,24 +298,23 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
     }
 
 
-    // /**
-    // * Return selected day diagnosis or null if none has been selected.
-    // *
-    // * @return
-    // */
-    // private TagesDiagnose getSelectedDayDiagnosis() {
-    // if( !lst_DayDiagnosisList.isSelectionEmpty() ) {
-    //
-    // final LocalDate selectedDate = LocalDate.parse( lst_DayDiagnosisList.getSelectedValue(), DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM ) );
-    // for( TagesDiagnose elem : tagesDiagnosen ) {
-    // if( elem.getDatum().equals( selectedDate ) ) {
-    // return elem;
-    // }
-    // }
-    // }
-    //
-    // return null;
-    // }
+    /**
+     * Return selected day diagnosis or null if none has been selected.
+     * 
+     * @return
+     */
+    private TagesDiagnose getSelectedDayDiagnosis() {
+	final int selectedRow = tbl_DayDiagnosis.getSelectedRow();
+
+	if( selectedRow > -1 ) {
+	    final int modelRowIndex = tbl_DayDiagnosis.convertRowIndexToModel( selectedRow );
+
+	    return ((MediKnightTableModel) tbl_DayDiagnosis.getModel()).getRowObject( modelRowIndex );
+	} else {
+	    return null;
+	}
+    }
+
 
     private void jbInit() {
 	this.setLayout( gridBagLayout1 );
@@ -407,11 +338,11 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	jLabel3.setForeground( Color.black );
 	jLabel3.setText( "Tagesdiagnosen" );
 	this.setBorder( BorderFactory.createEmptyBorder() );
-	sp_Entries.setHorizontalScrollBarPolicy( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
-	sp_Entries.setVerticalScrollBarPolicy( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
-	sp_Entries.setOpaque( false );
-	sp_Entries.setToolTipText( "" );
-	sp_Entries.setResponsibleUndoHandler( "" );
+	entriesSP.setHorizontalScrollBarPolicy( ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+	entriesSP.setVerticalScrollBarPolicy( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+	entriesSP.setOpaque( false );
+	entriesSP.setToolTipText( "" );
+	entriesSP.setResponsibleUndoHandler( "" );
 	jPanel3.setOpaque( false );
 	patientType.setForeground( Color.black );
 	patientType.setText( "privat" );
@@ -442,32 +373,95 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	jScrollPane1.getViewport().add( firstDiagnosis, null );
 	jSplitPane1.setDividerLocation( 120 );
 
-	final int dateItemLength = lst_DayDiagnosisList.getFontMetrics( lst_DayDiagnosisList.getFont() )
-		.stringWidth( LocalDate.now().format( DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM ) ) );
+	tbl_DayDiagnosis = new JTable();
+	tbl_DayDiagnosis.getTableHeader().setReorderingAllowed( false );
+	tbl_DayDiagnosis.setAutoResizeMode( JTable.AUTO_RESIZE_LAST_COLUMN );
+	tbl_DayDiagnosis.setDefaultRenderer( Date.class, new DateTableCellRenderer( tbl_DayDiagnosis ) );
+	tbl_DayDiagnosis.setDefaultRenderer( String.class, new StringTableCellRenderer( tbl_DayDiagnosis ) );
+	tbl_DayDiagnosis.setDefaultEditor( Date.class, new DateChooserTableCellEditor( tbl_DayDiagnosis ) );
+	tbl_DayDiagnosis.setDefaultEditor( String.class, new StringTableCellEditor( tbl_DayDiagnosis ) );
+	tbl_DayDiagnosis.setAutoCreateRowSorter( true );
+	tbl_DayDiagnosis.setShowGrid( true );
+	tbl_DayDiagnosis.setGridColor( new Color( 0, 0, 0 ) );
 
-	lst_DayDiagnosisList.setFixedCellWidth( dateItemLength + 20 );
-	final DefaultListCellRenderer tmpRenderer = (DefaultListCellRenderer) lst_DayDiagnosisList.getCellRenderer();
-	tmpRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-
-	ta_DayDiagnosis.setLineWrap( true );
-
-	sp_Entries.getViewport().add( lst_DayDiagnosisList, null );
-	sp_DayDiagnosis.getViewport().add( ta_DayDiagnosis, null );
-	pnl_DayDiagnosisList.add( lbl_DayDiagnosisList, BorderLayout.NORTH );
-	pnl_DayDiagnosisList.add( sp_Entries, BorderLayout.CENTER );
-	pnl_DayDiagnosis.add( lbl_DayDiagnosis, BorderLayout.NORTH );
-	pnl_DayDiagnosis.add( sp_DayDiagnosis, BorderLayout.CENTER );
-
+	entriesSP.getViewport().add( tbl_DayDiagnosis, null );
+	pnl_DiagOptions = new JPanel();
 	pnl_DiagOptions.setLayout( new FlowLayout( FlowLayout.TRAILING ) );
-
+	btn_Rechnung = new JButton( "Rechnung" );
+	btn_Verschreibung = new JButton( "Verschreibung" );
 	pnl_DiagOptions.add( btn_Rechnung );
 	pnl_DiagOptions.add( btn_Verschreibung );
 
+	pnl_MainDiag = new JPanel( new BorderLayout() );
 	pnl_MainDiag.add( pnl_DiagOptions, BorderLayout.NORTH );
-	pnl_MainDiag.add( pnl_DayDiagnosisList, BorderLayout.WEST );
-	pnl_MainDiag.add( pnl_DayDiagnosis, BorderLayout.CENTER );
+	pnl_MainDiag.add( entriesSP, BorderLayout.CENTER );
 
 	pBottom.add( pnl_MainDiag, BorderLayout.CENTER );
+    }
+
+
+    /**
+     * Sets the correct day diagnosis table column width and row height values.
+     */
+    private void initializeDayDiagnosisTableSizes() {
+	SwingUtilities.invokeLater( new Runnable() {
+
+	    @Override
+	    public void run() {
+		setDayDiagnosisTableColumnWidths();
+		setDayDiagnosisTableRowHeights();
+	    }
+	} );
+    }
+
+
+    /**
+     * Adjust the day diagnosis table's column width such, that date column is just as large as needed and the text column uses the remaining space.
+     */
+    private void setDayDiagnosisTableColumnWidths() {
+	final TableColumnModel datasetColumnModel = tbl_DayDiagnosis.getColumnModel();
+
+	for( int column = 0; column < datasetColumnModel.getColumnCount() - 1; ++column ) {
+	    final TableColumn currentColumn = datasetColumnModel.getColumn( column );
+	    final int minColumnWidth = currentColumn.getMinWidth();
+	    final int maxColumnWidth = currentColumn.getMaxWidth();
+	    int newWidth = 0;
+
+	    for( int row = 0; row < tbl_DayDiagnosis.getRowCount(); ++row ) {
+		final MediKnightTableCellRenderer renderer = (MediKnightTableCellRenderer) tbl_DayDiagnosis.getCellRenderer( row, column );
+		final int preferredWidth = renderer.getPreferredRowWidth( tbl_DayDiagnosis, row, column );
+
+		newWidth = Integer.max( newWidth, Integer.max( preferredWidth, minColumnWidth ) );
+		if( newWidth >= maxColumnWidth ) {
+		    newWidth = maxColumnWidth;
+		}
+
+	    }
+
+	    currentColumn.setMinWidth( newWidth );
+	    currentColumn.setMaxWidth( newWidth );
+	    currentColumn.setPreferredWidth( newWidth );
+
+	}
+    }
+
+
+    /**
+     * Adjusts the day diagnosis table's row heights accordingly.
+     */
+    private void setDayDiagnosisTableRowHeights() {
+	final TableColumnModel datasetColumnModel = tbl_DayDiagnosis.getColumnModel();
+
+	for( int column = 0; column < datasetColumnModel.getColumnCount(); ++column ) {
+	    for( int row = 0; row < tbl_DayDiagnosis.getRowCount(); ++row ) {
+		final MediKnightTableCellRenderer renderer = (MediKnightTableCellRenderer) tbl_DayDiagnosis.getCellRenderer( row, column );
+		final int preferredHeight = renderer.getPreferredRowHeight( tbl_DayDiagnosis, row, column );
+
+		if( tbl_DayDiagnosis.getRowHeight( row ) < preferredHeight ) {
+		    tbl_DayDiagnosis.setRowHeight( row, preferredHeight );
+		}
+	    }
+	}
     }
 
 
@@ -491,8 +485,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 
     @Override
-    public void stateChanged( final ChangeEvent e ) {
-	update();
+    public void stateChanged( final ChangeEvent e ) { // TODO: Ever called?
     }
 
 
@@ -506,6 +499,8 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	}
 
 	patientType.setText( model.getPatient().isPrivatPatient() ? "privat" : "Kasse" );
+
+	List< TagesDiagnose > tagesDiagnosen;
 	try {
 	    tagesDiagnosen = model.getTagesDiagnosen();
 	} catch( final SQLException e ) {
@@ -513,32 +508,28 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	    tagesDiagnosen = null;
 	}
 
-	lst_DayDiagnosisList.setModel( new MediKnightDayDiagnosisListModel( tagesDiagnosen ) );
-	lst_DayDiagnosisList.setSelectedIndex( 0 );
-	selectedDayDiagnosisIndex = lst_DayDiagnosisList.getSelectedIndex();
-    }
+	final MediKnightTableModel tmpModel = new MediKnightTableModel( tagesDiagnosen );
+	tmpModel.addTableModelListener( new TableModelListener() {
 
+	    @Override
+	    public void tableChanged( final TableModelEvent e ) {
+		final int currentRow = e.getFirstRow();
+		int maxHeight = -1;
 
-    private TagesDiagnose getSelectedDayDiagnosis() {
-	return ((MediKnightDayDiagnosisListModel) lst_DayDiagnosisList.getModel()).getObjectAt( lst_DayDiagnosisList.getSelectedIndex() );
-    }
+		for( int currentColumn = 0; currentColumn < tbl_DayDiagnosis.getModel().getColumnCount(); ++currentColumn ) {
+		    final MediKnightTableCellRenderer renderer = (MediKnightTableCellRenderer) tbl_DayDiagnosis.getCellRenderer( currentRow, currentColumn );
+		    final int preferredHeight = renderer.getPreferredRowHeight( tbl_DayDiagnosis, currentRow, currentColumn );
 
+		    if( preferredHeight > maxHeight ) {
+			maxHeight = preferredHeight;
+		    }
+		}
 
-    private TagesDiagnose getPreviousDayDiagnosis() {
-	return ((MediKnightDayDiagnosisListModel) lst_DayDiagnosisList.getModel()).getObjectAt( selectedDayDiagnosisIndex );
-    }
-
-
-    private void saveDayDiagnosis( final int index ) {
-	final TagesDiagnose dayDiagnosis = ((MediKnightDayDiagnosisListModel) lst_DayDiagnosisList.getModel()).getObjectAt( index );
-
-	if( dayDiagnosis != null ) {
-	    dayDiagnosis.setText( ta_DayDiagnosis.getText() );
-	    try {
-		dayDiagnosis.save();
-	    } catch( final SQLException e ) {
-		e.printStackTrace();
+		tbl_DayDiagnosis.setRowHeight( currentRow, maxHeight );
 	    }
-	}
+	} );
+
+	tbl_DayDiagnosis.setModel( tmpModel );
+	initializeDayDiagnosisTableSizes();
     }
 }

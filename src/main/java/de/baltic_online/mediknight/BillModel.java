@@ -14,8 +14,8 @@ import main.java.de.baltic_online.mediknight.domain.RechnungsPosten;
 
 public class BillModel {
 
-    Rechnung	      rechnung;
-    RechnungsPosten[]     rechnungsPosten = null;
+    Rechnung		  rechnung;
+    RechnungsPosten[]	  rechnungsPosten = null;
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
 
 

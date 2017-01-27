@@ -53,9 +53,7 @@ public class DiagnosisPresenter implements Presenter, Commitable, Observer {
 	    // We must not save all diagnosis at all because this
 	    // will raise concurrency conflicts.
 
-	    /*
-	     * TagesDiagnose[] diagnosen = (TagesDiagnose[])view.getDiagnosen(); for (int i = 0; i < diagnosen.length; i++) { diagnosen[i].save(); }
-	     */
+	    /* TagesDiagnose[] diagnosen = (TagesDiagnose[])view.getDiagnosen(); for (int i = 0; i < diagnosen.length; i++) { diagnosen[i].save(); } */
 
 	    final Patient p = model.getPatient();
 	    lock = p.acquireLock( LockingInfo.getAspect( p, null ) );

@@ -97,7 +97,8 @@ public class ErrorDisplay {
 	    traceFrame = new JFrame();
 	    final StringWriter trace = new StringWriter();
 	    throwable.printStackTrace( new PrintWriter( trace ) );
-	    final main.java.de.baltic_online.mediknight.widgets.JTextArea details = new main.java.de.baltic_online.mediknight.widgets.JTextArea( trace.toString() );
+	    final main.java.de.baltic_online.mediknight.widgets.JTextArea details = new main.java.de.baltic_online.mediknight.widgets.JTextArea(
+		    trace.toString() );
 	    final JScrollPane pane = new JScrollPane( details );
 	    traceFrame.getContentPane().add( pane );
 	    traceFrame.pack();

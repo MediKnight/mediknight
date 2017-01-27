@@ -28,9 +28,9 @@ public class JList< E > extends javax.swing.JList< E > {
     /**
      *
      */
-    private static final long	  serialVersionUID = 1L;
+    private static final long	       serialVersionUID	= 1L;
 
-    private static final MouseListener listener	 = new MouseAdapter() {
+    private static final MouseListener listener		= new MouseAdapter() {
 
 							    @Override
 							    public void mouseClicked( final MouseEvent e ) {
@@ -41,7 +41,7 @@ public class JList< E > extends javax.swing.JList< E > {
 							    }
 							};
 
-    private ActionListener	     listeners;
+    private ActionListener	       listeners;
 
 
     /**
@@ -70,7 +70,8 @@ public class JList< E > extends javax.swing.JList< E > {
     /**
      * Constructs a <code>JList</code> that displays the elements in the specified, non-null model.
      *
-     * @param <code>dataModel</code> the data model for this list
+     * @param <code>dataModel</code>
+     *            the data model for this list
      * @exception IllegalArgumentException
      *                if <code>dataModel</code> is <code>null</code>
      *

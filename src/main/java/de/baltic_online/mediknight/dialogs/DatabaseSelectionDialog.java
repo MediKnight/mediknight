@@ -23,19 +23,19 @@ import main.java.de.baltic_online.mediknight.widgets.JTextArea;
 
 public class DatabaseSelectionDialog extends JDialog {
 
-    private static final long	 serialVersionUID = 1L;
+    private static final long	       serialVersionUID	= 1L;
 
-    MediKnight.Datasource[]	    sources;
+    MediKnight.Datasource[]	       sources;
 
-    JTextArea			 messageTA;
+    JTextArea			       messageTA;
 
     JComboBox< MediKnight.Datasource > databaseCB;
 
-    JButton			   connectButton;
+    JButton			       connectButton;
 
-    JButton			   quitButton;
+    JButton			       quitButton;
 
-    boolean			   cancelled	= true;
+    boolean			       cancelled	= true;
 
 
     public DatabaseSelectionDialog( final Datasource[] sources ) {
@@ -114,11 +114,11 @@ public class DatabaseSelectionDialog extends JDialog {
 	buttonPanel.add( connectButton );
 	buttonPanel.add( quitButton );
 
-	helperPanel.add( databaseCB, new GridBagConstraints( 0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets( 6,
-		12, 24, 12 ), 0, 0 ) );
+	helperPanel.add( databaseCB, new GridBagConstraints( 0, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL,
+		new Insets( 6, 12, 24, 12 ), 0, 0 ) );
 
-	helperPanel.add( buttonPanel, new GridBagConstraints( 0, 1, 1, 1, 1.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ),
-		0, 0 ) );
+	helperPanel.add( buttonPanel,
+		new GridBagConstraints( 0, 1, 1, 1, 1.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 
 	contentPanel.add( messageTA, BorderLayout.NORTH );
 	contentPanel.add( helperPanel, BorderLayout.CENTER );
@@ -151,10 +151,10 @@ public class DatabaseSelectionDialog extends JDialog {
 
 
     public void showNoticeInitialDatabaseNotAvailable( final Datasource source ) {
-	messageTA.setText( "Die als Standard konfigurierte Datenbank '" + source + "' konnte nicht "
-		+ "erreicht werden. Bitte wählen Sie eine Datenbank mit einer " + "aktuellen Sicherung der Hauptdatenbank aus.\n\n"
-		+ "Bitte beachten Sie, dass es zu Datenverlusten kommen kann, " + "falls die Daten der gewählten Datenbank nicht hinreichend "
-		+ "aktuell sind." );
+	messageTA.setText(
+		"Die als Standard konfigurierte Datenbank '" + source + "' konnte nicht " + "erreicht werden. Bitte wählen Sie eine Datenbank mit einer "
+			+ "aktuellen Sicherung der Hauptdatenbank aus.\n\n" + "Bitte beachten Sie, dass es zu Datenverlusten kommen kann, "
+			+ "falls die Daten der gewählten Datenbank nicht hinreichend " + "aktuell sind." );
 	pack();
     }
 }

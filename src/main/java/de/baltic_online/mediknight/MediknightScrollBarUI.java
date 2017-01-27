@@ -42,13 +42,13 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
     static class MediknightBumps implements Icon {
 
 	private static final int IMAGE_SIZE = 64;
-	protected int	    xBumps;
-	protected int	    yBumps;
-	protected Color	  topColor;
-	protected Color	  shadowColor;
+	protected int		 xBumps;
+	protected int		 yBumps;
+	protected Color		 topColor;
+	protected Color		 shadowColor;
 
-	protected Color	  backColor;
-	protected BufferedImage  image;
+	protected Color		 backColor;
+	protected BufferedImage	 image;
 
 
 	public MediknightBumps( final int width, final int height, final Color newTopColor, final Color newShadowColor, final Color newBackColor ) {
@@ -141,8 +141,8 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
     protected static class MediknightScrollButton extends MetalScrollButton {
 
 	private static final long serialVersionUID = 1L;
-	private static Color      shadowColor;
-	private static Color      highlightColor;
+	private static Color	  shadowColor;
+	private static Color	  highlightColor;
 
 
 	private static void drawDisabledBorder( final Graphics g, final int x, final int y, final int w, final int h ) {
@@ -337,24 +337,18 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
 	final Dimension sbSize = sb.getSize();
 	final Insets sbInsets = sb.getInsets();
 
-	/*
-	 * Height and top edge of the buttons and thumb.
-	 */
+	/* Height and top edge of the buttons and thumb. */
 	final int itemH = sbSize.height - (sbInsets.top + sbInsets.bottom);
 	final int itemY = sbInsets.top;
 
-	/*
-	 * Nominal locations of the buttons, assuming their preferred size will fit.
-	 */
+	/* Nominal locations of the buttons, assuming their preferred size will fit. */
 	int incrButtonW = incrButton.getPreferredSize().width;
 	int incrButtonX = sbSize.width - (sbInsets.right + incrButtonW);
 
 	int decrButtonW = decrButton.getPreferredSize().width;
 	final int decrButtonX = incrButtonX - decrButtonW + 1;
 
-	/*
-	 * The thumb must fit within the width left over after we subtract the preferredSize of the buttons and the insets.
-	 */
+	/* The thumb must fit within the width left over after we subtract the preferredSize of the buttons and the insets. */
 	final int sbInsetsW = sbInsets.left + sbInsets.right;
 	final int sbButtonsW = decrButtonW + incrButtonW;
 	final float trackW = sbSize.width - (sbInsetsW + sbButtonsW);
@@ -379,9 +373,7 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
 	    thumbX += sbInsets.left;
 	}
 
-	/*
-	 * If the buttons don't fit, allocate half of the available space to each and move the right one (incrButton) over.
-	 */
+	/* If the buttons don't fit, allocate half of the available space to each and move the right one (incrButton) over. */
 	final int sbAvailButtonW = sbSize.width - sbInsetsW;
 	if( sbAvailButtonW < sbButtonsW ) {
 	    incrButtonW = decrButtonW = sbAvailButtonW / 2;
@@ -391,16 +383,12 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
 	decrButton.setBounds( decrButtonX, itemY, decrButtonW, itemH );
 	incrButton.setBounds( incrButtonX, itemY, incrButtonW, itemH );
 
-	/*
-	 * Update the trackRect field.
-	 */
+	/* Update the trackRect field. */
 	final int itrackX = sbInsets.left;
 	final int itrackW = decrButtonX - itrackX;
 	trackRect.setBounds( itrackX, itemY, itrackW, itemH );
 
-	/*
-	 * Make sure the thumb fits between the buttons. Note that setting the thumbs bounds causes a repaint.
-	 */
+	/* Make sure the thumb fits between the buttons. Note that setting the thumbs bounds causes a repaint. */
 	if( thumbW >= (int) trackW ) {
 	    setThumbBounds( -2, -2, 0, 0 );
 	} else {
@@ -423,24 +411,18 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
 	final Dimension sbSize = sb.getSize();
 	final Insets sbInsets = sb.getInsets();
 
-	/*
-	 * Width and left edge of the buttons and thumb.
-	 */
+	/* Width and left edge of the buttons and thumb. */
 	final int itemW = sbSize.width - (sbInsets.left + sbInsets.right);
 	final int itemX = sbInsets.left;
 
-	/*
-	 * Nominal locations of the buttons, assuming their preferred size will fit.
-	 */
+	/* Nominal locations of the buttons, assuming their preferred size will fit. */
 	int incrButtonH = incrButton.getPreferredSize().height;
 	int incrButtonY = sbSize.height - (sbInsets.bottom + incrButtonH);
 
 	int decrButtonH = decrButton.getPreferredSize().height;
 	final int decrButtonY = incrButtonY - decrButtonH + 1;
 
-	/*
-	 * The thumb must fit within the height left over after we subtract the preferredSize of the buttons and the insets.
-	 */
+	/* The thumb must fit within the height left over after we subtract the preferredSize of the buttons and the insets. */
 	final int sbInsetsH = sbInsets.top + sbInsets.bottom;
 	final int sbButtonsH = decrButtonH + incrButtonH;
 	final float trackH = sbSize.height - (sbInsetsH + sbButtonsH);
@@ -464,9 +446,7 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
 	    thumbY += sbInsets.top;
 	}
 
-	/*
-	 * If the buttons don't fit, allocate half of the available space to each and move the lower one (incrButton) down.
-	 */
+	/* If the buttons don't fit, allocate half of the available space to each and move the lower one (incrButton) down. */
 	final int sbAvailButtonH = sbSize.height - sbInsetsH;
 	if( sbAvailButtonH < sbButtonsH ) {
 	    incrButtonH = decrButtonH = sbAvailButtonH / 2;
@@ -476,9 +456,7 @@ public class MediknightScrollBarUI extends MetalScrollBarUI {
 	decrButton.setBounds( itemX, decrButtonY, itemW, decrButtonH );
 	incrButton.setBounds( itemX, incrButtonY, itemW, incrButtonH );
 
-	/*
-	 * Update the trackRect field.
-	 */
+	/* Update the trackRect field. */
 	final int itrackY = sbInsets.top;
 	final int itrackH = decrButtonY - itrackY;
 	trackRect.setBounds( itemX, itrackY, itemW, itrackH );

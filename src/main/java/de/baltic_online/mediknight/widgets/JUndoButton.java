@@ -31,7 +31,7 @@ public class JUndoButton extends main.java.de.baltic_online.mediknight.widgets.J
     /**
      *
      */
-    private static final long	serialVersionUID = 1L;
+    private static final long	     serialVersionUID = 1L;
 
     /**
      * The backend to be user for the widgets available for undoing.

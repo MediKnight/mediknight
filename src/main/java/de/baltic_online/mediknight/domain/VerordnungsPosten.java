@@ -42,13 +42,13 @@ public class VerordnungsPosten extends KnightObject implements Comparable< Veror
 	return list;
     }
 
-    private int     gruppe;
-    private int     nummer;
+    private int	    gruppe;
+    private int	    nummer;
     private String  name;
 
     private String  text;
 
-    private boolean hid = false;
+    private boolean hid	= false;
 
 
     @Override

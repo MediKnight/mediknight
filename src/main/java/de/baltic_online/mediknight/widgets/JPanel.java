@@ -31,18 +31,18 @@ import javax.swing.event.EventListenerList;
  */
 public class JPanel extends javax.swing.JPanel implements Mutable {
 
-    private static final long   serialVersionUID	  = 1L;
+    private static final long	serialVersionUID	  = 1L;
 
     /**
      * A <code>HashSet</code> containing those child widgets which implement the <code>Mutable</code> interface and can thus be managed by this
      * <code>JPanel</code>.
      */
-    protected Set< Component >  controlledWidgets	 = Collections.synchronizedSet( new HashSet< Component >( 30, 0.8f ) );
+    protected Set< Component >	controlledWidgets	  = Collections.synchronizedSet( new HashSet< Component >( 30, 0.8f ) );
 
     /**
      * A list of those interested in receiving <code>MutableChangeEvent</code>s from us.
      */
-    protected EventListenerList mutableChangeListenerList = new EventListenerList();
+    protected EventListenerList	mutableChangeListenerList = new EventListenerList();
 
 
     /**
@@ -230,9 +230,9 @@ public class JPanel extends javax.swing.JPanel implements Mutable {
 	mutableChangeListenerList.remove( MutableChangeListener.class, l );
     }
 
-
     // --- Implementation of <code>UndoManager</code> ---
     // removed in version 1.10
+
 
     // --- Implementation of the <code>UndoMediator</code> interface ---
     // removed in version 1.10

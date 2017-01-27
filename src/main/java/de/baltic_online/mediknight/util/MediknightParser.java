@@ -11,9 +11,9 @@ public class MediknightParser {
     private static DateParser[] dateParser;
     static {
 	dateParser = new DateParser[] { new SimpleDateParser( "dd.MM.yyyy", SimpleDateParser.DAY | SimpleDateParser.MONTH | SimpleDateParser.YEAR ),
-	    new SimpleDateParser( "dd.MM.", SimpleDateParser.DAY | SimpleDateParser.MONTH ),
-	    new SimpleDateParser( "dd.MM", SimpleDateParser.DAY | SimpleDateParser.MONTH ), new SimpleDateParser( "dd.", SimpleDateParser.DAY ),
-	    new SimpleDateParser( "dd", SimpleDateParser.DAY ) };
+		new SimpleDateParser( "dd.MM.", SimpleDateParser.DAY | SimpleDateParser.MONTH ),
+		new SimpleDateParser( "dd.MM", SimpleDateParser.DAY | SimpleDateParser.MONTH ), new SimpleDateParser( "dd.", SimpleDateParser.DAY ),
+		new SimpleDateParser( "dd", SimpleDateParser.DAY ) };
     }
 
 

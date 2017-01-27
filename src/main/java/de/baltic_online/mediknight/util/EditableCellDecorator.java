@@ -16,7 +16,7 @@ import javax.swing.table.TableCellEditor;
 public class EditableCellDecorator implements TableCellEditor {
 
     private final TableCellEditor editor;
-    private final boolean	 editable;
+    private final boolean	  editable;
 
 
     public EditableCellDecorator( final TableCellEditor editor ) {

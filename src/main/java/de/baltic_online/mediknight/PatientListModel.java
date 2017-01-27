@@ -23,7 +23,7 @@ public class PatientListModel {
     }
 
 
-    public void collectData( final Vector< Vector< ? >> patients ) {
+    public void collectData( final Vector< Vector< ? > > patients ) {
 	// Patienten einfügen
 	for( int p = 0; p < patients.size(); p++ ) {
 	    final Vector< ? > patient = patients.get( p );
@@ -49,7 +49,7 @@ public class PatientListModel {
     }
 
 
-    public void exportPdf( final Vector< Vector< ? >> patients, final File selectedFile ) {
+    public void exportPdf( final Vector< Vector< ? > > patients, final File selectedFile ) {
 	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( MediKnight.getApplication() ), MediKnight.NAME );
 
 	d.setStatusText( "Exportiere ..." );
@@ -68,7 +68,7 @@ public class PatientListModel {
     }
 
 
-    public void printList( final Vector< Vector< ? >> patients ) {
+    public void printList( final Vector< Vector< ? > > patients ) {
 	final YinYangDialog d = new YinYangDialog( JOptionPane.getFrameForComponent( MediKnight.getApplication() ), MediKnight.NAME );
 
 	d.setStatusText( "Drucke ..." );

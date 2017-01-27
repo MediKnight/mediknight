@@ -53,41 +53,41 @@ public class SearchPanel extends JPanel implements ChangeListener {
 	f.pack();
     }
 
-    SearchPresenter		  presenter;
-    GridBagLayout		    gridBagLayout1    = new GridBagLayout();
-    JPanel			   searchPanel       = new JPanel();
-    FlexGridLayout		   flexGridLayout1   = new FlexGridLayout();
-    javax.swing.JTextField	   searchTF	  = new javax.swing.JTextField();
-    JButton			  searchBtn	 = new JButton();
-    JPanel			   buttonPanel       = new JPanel();
-    GridLayout		       gridLayout1       = new GridLayout();
-    JPanel			   jPanel1	   = new JPanel();
-    JPanel			   jPanel2	   = new JPanel();
-    BorderLayout		     borderLayout1     = new BorderLayout();
-    JScrollPane		      patientSP	 = new JScrollPane();
-    JList< Patient >		 patientList       = new JList< Patient >();
-    JPanel			   jPanel4	   = new JPanel();
-    JScrollPane		      jScrollPane1      = new JScrollPane();
-    JList< Patient >		 recentPatientList = new JList< Patient >();
-    BorderLayout		     borderLayout2     = new BorderLayout();
-    FlowLayout		       flowLayout2       = new FlowLayout();
-    JButton			  clearHistoryBtn   = new JButton();
-    JPanel			   jPanel7	   = new JPanel();
-    GridLayout		       gridLayout5       = new GridLayout();
-    JPanel			   jPanel6	   = new JPanel();
-    GridLayout		       gridLayout2       = new GridLayout();
-    JLabel			   patientListLbl    = new JLabel();
-    JPanel			   jPanel5	   = new JPanel();
-    JPanel			   lastPatientPanel  = new JPanel();
-    JLabel			   lastPatientLbl    = new JLabel();
-    GridLayout		       gridLayout4       = new GridLayout();
-    Border			   border1;
-    Border			   border2;
-    BorderLayout		     borderLayout3     = new BorderLayout();
-    GridLayout		       gridLayout6       = new GridLayout();
-    main.java.de.baltic_online.mediknight.widgets.JButton selectBtn	 = new JButton();
+    SearchPresenter					  presenter;
+    GridBagLayout					  gridBagLayout1    = new GridBagLayout();
+    JPanel						  searchPanel	    = new JPanel();
+    FlexGridLayout					  flexGridLayout1   = new FlexGridLayout();
+    javax.swing.JTextField				  searchTF	    = new javax.swing.JTextField();
+    JButton						  searchBtn	    = new JButton();
+    JPanel						  buttonPanel	    = new JPanel();
+    GridLayout						  gridLayout1	    = new GridLayout();
+    JPanel						  jPanel1	    = new JPanel();
+    JPanel						  jPanel2	    = new JPanel();
+    BorderLayout					  borderLayout1	    = new BorderLayout();
+    JScrollPane						  patientSP	    = new JScrollPane();
+    JList< Patient >					  patientList	    = new JList< Patient >();
+    JPanel						  jPanel4	    = new JPanel();
+    JScrollPane						  jScrollPane1	    = new JScrollPane();
+    JList< Patient >					  recentPatientList = new JList< Patient >();
+    BorderLayout					  borderLayout2	    = new BorderLayout();
+    FlowLayout						  flowLayout2	    = new FlowLayout();
+    JButton						  clearHistoryBtn   = new JButton();
+    JPanel						  jPanel7	    = new JPanel();
+    GridLayout						  gridLayout5	    = new GridLayout();
+    JPanel						  jPanel6	    = new JPanel();
+    GridLayout						  gridLayout2	    = new GridLayout();
+    JLabel						  patientListLbl    = new JLabel();
+    JPanel						  jPanel5	    = new JPanel();
+    JPanel						  lastPatientPanel  = new JPanel();
+    JLabel						  lastPatientLbl    = new JLabel();
+    GridLayout						  gridLayout4	    = new GridLayout();
+    Border						  border1;
+    Border						  border2;
+    BorderLayout					  borderLayout3	    = new BorderLayout();
+    GridLayout						  gridLayout6	    = new GridLayout();
+    main.java.de.baltic_online.mediknight.widgets.JButton selectBtn	    = new JButton();
 
-    Border			   border3;
+    Border						  border3;
 
 
     public SearchPanel() {
@@ -306,18 +306,19 @@ public class SearchPanel extends JPanel implements ChangeListener {
 	lastPatientLbl.setText( "Zuletzt behandelte Patienten:" );
 	gridLayout6.setHgap( 5 );
 	selectBtn.setText( "Auswählen" );
-	this.add( searchPanel, new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-		new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+	this.add( searchPanel,
+		new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	searchPanel.add( searchTF, new FlexGridConstraints( -1, 0, FlexGridConstraints.C ) );
 	searchPanel.add( searchBtn, new FlexGridConstraints( 0, 0, FlexGridConstraints.C ) );
-	this.add( buttonPanel, new GridBagConstraints( 0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets( 5, 0, 0, 0 ), 0, 0 ) );
+	this.add( buttonPanel,
+		new GridBagConstraints( 0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets( 5, 0, 0, 0 ), 0, 0 ) );
 	this.add( jPanel1, new GridBagConstraints( 0, 2, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	jPanel1.add( patientSP, BorderLayout.CENTER );
 	jPanel1.add( jPanel5, BorderLayout.NORTH );
 	jPanel5.add( patientListLbl, null );
 	patientSP.getViewport().add( patientList, null );
-	this.add( jPanel2, new GridBagConstraints( 0, 6, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0,
-		0 ) );
+	this.add( jPanel2,
+		new GridBagConstraints( 0, 6, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	jPanel2.add( clearHistoryBtn, BorderLayout.WEST );
 	jPanel2.add( selectBtn, BorderLayout.EAST );
 	this.add( jPanel4, new GridBagConstraints( 0, 4, 1, 1, 0.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0, 0 ) );

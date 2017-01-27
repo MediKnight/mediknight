@@ -22,14 +22,14 @@ public class LockingListener implements MutableChangeListener, TableModelListene
     public static final int  LOCK_TIMEOUT = 4800; // Set to 1.5 hours
 
     private final Commitable commitable;
-    private Component	component;
+    private Component	     component;
 
-    private boolean	  pollRun;
-    private Thread	   poller;
-    private Patient	  patient;
+    private boolean	     pollRun;
+    private Thread	     poller;
+    private Patient	     patient;
     private TagesDiagnose    diagnosis;
     private Lock	     lock;
-    private Lock.Aspect      aspect;
+    private Lock.Aspect	     aspect;
 
 
     public LockingListener( final Commitable commitable ) {

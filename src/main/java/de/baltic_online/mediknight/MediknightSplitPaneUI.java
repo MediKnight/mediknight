@@ -119,13 +119,13 @@ public class MediknightSplitPaneUI extends MetalSplitPaneUI {
 	    }
 	}
 
-	private static final long serialVersionUID	      = 1L;
-	private final Color       controlHightlightColor	= MetalLookAndFeel.getControl();
+	private static final long serialVersionUID		= 1L;
+	private final Color	  controlHightlightColor	= MetalLookAndFeel.getControl();
 
-	private final Color       controlDarkShadowColor	= MetalLookAndFeel.getControlShadow();
-	private final Color       primaryControlHighlightColor  = MetalLookAndFeel.getPrimaryControl();
+	private final Color	  controlDarkShadowColor	= MetalLookAndFeel.getControlShadow();
+	private final Color	  primaryControlHighlightColor	= MetalLookAndFeel.getPrimaryControl();
 
-	private final Color       primaryControlDarkShadowColor = MetalLookAndFeel.getPrimaryControlDarkShadow();
+	private final Color	  primaryControlDarkShadowColor	= MetalLookAndFeel.getPrimaryControlDarkShadow();
 
 
 	public MediknightSplitPaneDivider( final BasicSplitPaneUI ui ) {
@@ -143,8 +143,8 @@ public class MediknightSplitPaneUI extends MetalSplitPaneUI {
 
 		private static final long serialVersionUID = 1L;
 		// Sprite buffer for the arrow image of the left button
-		int[][]		   buffer	   = { { 0, 0, 0, 2, 2, 0, 0, 0, 0 }, { 0, 0, 2, 1, 1, 1, 0, 0, 0 }, { 0, 2, 1, 1, 1, 1, 1, 0, 0 },
-								   { 2, 1, 1, 1, 1, 1, 1, 1, 0 }, { 0, 3, 3, 3, 3, 3, 3, 3, 3 } };
+		int[][]			  buffer	   = { { 0, 0, 0, 2, 2, 0, 0, 0, 0 }, { 0, 0, 2, 1, 1, 1, 0, 0, 0 }, { 0, 2, 1, 1, 1, 1, 1, 0, 0 },
+			{ 2, 1, 1, 1, 1, 1, 1, 1, 0 }, { 0, 3, 3, 3, 3, 3, 3, 3, 3 } };
 
 
 		// Don't want the button to participate in focus traversable.
@@ -163,8 +163,8 @@ public class MediknightSplitPaneUI extends MetalSplitPaneUI {
 			final int blockSize = Math.min( getDividerSize(), oneTouchSize );
 
 			// Initialize the color array
-			final Color[] colors = { this.getBackground(), MetalLookAndFeel.getPrimaryControlDarkShadow(),
-				MetalLookAndFeel.getPrimaryControlInfo(), MetalLookAndFeel.getPrimaryControlHighlight() };
+			final Color[] colors = { this.getBackground(), MetalLookAndFeel.getPrimaryControlDarkShadow(), MetalLookAndFeel.getPrimaryControlInfo(),
+				MetalLookAndFeel.getPrimaryControlHighlight() };
 
 			// ... then draw the arrow.
 			if( getModel().isPressed() ) {
@@ -231,8 +231,8 @@ public class MediknightSplitPaneUI extends MetalSplitPaneUI {
 
 		private static final long serialVersionUID = 1L;
 		// Sprite buffer for the arrow image of the right button
-		int[][]		   buffer	   = { { 2, 2, 2, 2, 2, 2, 2, 2 }, { 0, 1, 1, 1, 1, 1, 1, 3 }, { 0, 0, 1, 1, 1, 1, 3, 0 },
-								   { 0, 0, 0, 1, 1, 3, 0, 0 }, { 0, 0, 0, 0, 3, 0, 0, 0 } };
+		int[][]			  buffer	   = { { 2, 2, 2, 2, 2, 2, 2, 2 }, { 0, 1, 1, 1, 1, 1, 1, 3 }, { 0, 0, 1, 1, 1, 1, 3, 0 },
+			{ 0, 0, 0, 1, 1, 3, 0, 0 }, { 0, 0, 0, 0, 3, 0, 0, 0 } };
 
 
 		// Don't want the button to participate in focus traversable.
@@ -251,8 +251,8 @@ public class MediknightSplitPaneUI extends MetalSplitPaneUI {
 			final int blockSize = Math.min( getDividerSize(), oneTouchSize );
 
 			// Initialize the color array
-			final Color[] colors = { this.getBackground(), MetalLookAndFeel.getPrimaryControlDarkShadow(),
-				MetalLookAndFeel.getPrimaryControlInfo(), MetalLookAndFeel.getPrimaryControlHighlight() };
+			final Color[] colors = { this.getBackground(), MetalLookAndFeel.getPrimaryControlDarkShadow(), MetalLookAndFeel.getPrimaryControlInfo(),
+				MetalLookAndFeel.getPrimaryControlHighlight() };
 
 			// ... then draw the arrow.
 			if( getModel().isPressed() ) {
@@ -357,8 +357,8 @@ public class MediknightSplitPaneUI extends MetalSplitPaneUI {
 		c2 = controlDarkShadowColor;
 	    }
 	    final Dimension size = getSize();
-	    final Paint p = orientation == JSplitPane.VERTICAL_SPLIT ? new GradientPaint( 0f, -2f, c1, 0f, size.height, c2 ) : new GradientPaint( -2f, 0f, c1,
-		    size.width, 0f, c2 );
+	    final Paint p = orientation == JSplitPane.VERTICAL_SPLIT ? new GradientPaint( 0f, -2f, c1, 0f, size.height, c2 )
+		    : new GradientPaint( -2f, 0f, c1, size.width, 0f, c2 );
 	    ((Graphics2D) g).setPaint( p );
 
 	    final Rectangle clip = g.getClipBounds();

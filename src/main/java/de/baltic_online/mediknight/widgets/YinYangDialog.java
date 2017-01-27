@@ -64,7 +64,7 @@ public class YinYangDialog extends JDialog {
     static class YinYangIcon implements Icon {
 
 	private final int   size;
-	private int	 rotate;
+	private int	    rotate;
 	private final Color yinColor;
 	private final Color yangColor;
 
@@ -157,14 +157,14 @@ public class YinYangDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
-    private Thread	    yinYangThread    = null;
+    private Thread	      yinYangThread    = null;
 
     /**
      * Animation timer for yin yang symbol.
      *
      * @since 1.0
      */
-    private final Timer       timer	    = new Timer( 100, new ActionListener() {
+    private final Timer	      timer	       = new Timer( 100, new ActionListener() {
 
 						   @Override
 						   public void actionPerformed( final ActionEvent e ) {
@@ -172,9 +172,9 @@ public class YinYangDialog extends JDialog {
 						   }
 					       } );
 
-    private JLabel	    iconLabel;
+    private JLabel	      iconLabel;
 
-    private JLabel	    statusLabel;
+    private JLabel	      statusLabel;
 
 
     /**

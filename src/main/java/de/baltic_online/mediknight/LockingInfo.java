@@ -41,7 +41,7 @@ public class LockingInfo extends Observable {
      */
     public static class Data implements Cloneable {
 
-	private Patient       patient;
+	private Patient	      patient;
 	private TagesDiagnose diagnosis;
 
 

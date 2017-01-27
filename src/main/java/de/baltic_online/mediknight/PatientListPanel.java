@@ -1,6 +1,7 @@
 package main.java.de.baltic_online.mediknight;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -175,7 +176,7 @@ public class PatientListPanel extends JPanel {
 
 	patientTable.setAutoResizeMode( javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS );
 	patientTable.setShowGrid( true );
-	patientTable.setGridColor( getForeground() );
+	patientTable.setGridColor( new Color( 0, 0, 0 ) );
 
 	tableScrollpane = new JScrollPane( patientTable );
 	tableScrollpane.setSize( tableScrollpane.getMaximumSize() );

@@ -25,9 +25,9 @@ public class JGradientPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     // the JGradientPanel's extent
-    private float	     extent	   = 0.5f;
+    private float	      extent	       = 0.5f;
 
-    private Color	     gradientColor;
+    private Color	      gradientColor;
 
 
     /**
@@ -46,7 +46,8 @@ public class JGradientPanel extends JPanel {
      * @param extent
      *            the extent of the gradient part of the panel
      *
-     * @throws <code>IllegalArgumentException</code> iff extent is not in [0.0, 1.0]
+     * @throws <code>IllegalArgumentException</code>
+     *             iff extent is not in [0.0, 1.0]
      *
      * @since 1.1
      */
@@ -80,7 +81,8 @@ public class JGradientPanel extends JPanel {
      * @param extent
      *            the extent of the gradient part of the panel
      *
-     * @throws <code>IllegalArgumentException</code> iff extent is not in [0.0, 1.0]
+     * @throws <code>IllegalArgumentException</code>
+     *             iff extent is not in [0.0, 1.0]
      *
      * @since 1.1
      */
@@ -142,7 +144,8 @@ public class JGradientPanel extends JPanel {
      * @param extent
      *            the extent of the gradient part of the panel
      *
-     * @throws <code>IllegalArgumentException</code> iff extent is not in [0.0, 1.0]
+     * @throws <code>IllegalArgumentException</code>
+     *             iff extent is not in [0.0, 1.0]
      *
      * @since 1.1
      */

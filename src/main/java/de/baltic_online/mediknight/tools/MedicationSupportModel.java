@@ -14,7 +14,7 @@ import main.java.de.baltic_online.mediknight.domain.VerordnungsPosten;
 
 public class MedicationSupportModel {
 
-    VerordnungsPosten[]   posten;
+    VerordnungsPosten[]	  posten;
 
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
 

@@ -28,7 +28,7 @@ public class CurrencyNumber extends Number implements Cloneable, Comparable< Cur
     /**
      * Währung in Euro (default).
      */
-    public final static int   EUR	      = 0;
+    public final static int   EUR	       = 0;
 
     /**
      * Währung in DM.
@@ -38,64 +38,64 @@ public class CurrencyNumber extends Number implements Cloneable, Comparable< Cur
     /**
      * Währung in DEM.
      */
-    public final static int   DEM	      = 1;
+    public final static int   DEM	       = 1;
 
     /**
      * Währung in Belgische Franken.
      */
-    public final static int   BEF	      = 2;
+    public final static int   BEF	       = 2;
 
     /**
      * Währung in Finnmark.
      */
-    public final static int   FIM	      = 3;
+    public final static int   FIM	       = 3;
 
     /**
      * Währung in Französiche Franken.
      */
-    public final static int   FRF	      = 4;
+    public final static int   FRF	       = 4;
 
     /**
      * Währung in Irische Pfund.
      */
-    public final static int   IEP	      = 5;
+    public final static int   IEP	       = 5;
 
     /**
      * Währung in Italienische Lira.
      */
-    public final static int   ITL	      = 6;
+    public final static int   ITL	       = 6;
 
     /**
      * Währung in Luxemburgische Franc.
      */
-    public final static int   LUF	      = 7;
+    public final static int   LUF	       = 7;
 
     /**
      * Währung in Niederländische Gulden.
      */
-    public final static int   NLG	      = 8;
+    public final static int   NLG	       = 8;
 
     /**
      * Währung in Östereichische Schilling.
      */
-    public final static int   ATS	      = 9;
+    public final static int   ATS	       = 9;
 
     /**
      * Währung in Portugisiche Escudo.
      */
-    public final static int   PTE	      = 10;
+    public final static int   PTE	       = 10;
 
     /**
      * Währung in Spanische Peseta.
      */
-    public final static int   ESP	      = 11;
+    public final static int   ESP	       = 11;
 
-    private static String[]   csymbols	 = { "\u20AC EUR EURO EU E", "DM DEM", "BEF BFRS BF BFR", "FIM FM FMK", "FRF F FF", "IEP IR� IR IRP",
-	    "ITL L LIT", "LUF LFRS LFR LF", "NLG HFL FL", "ATS ÖS S", "PTE ESC", "ESP PTS" };
+    private static String[]   csymbols	       = { "\u20AC EUR EURO EU E", "DM DEM", "BEF BFRS BF BFR", "FIM FM FMK", "FRF F FF", "IEP IR� IR IRP", "ITL L LIT",
+	    "LUF LFRS LFR LF", "NLG HFL FL", "ATS ÖS S", "PTE ESC", "ESP PTS" };
 
-    private static double[]   cfactor	  = { 1.0, 1.95583, 40.339, 5.94573, 6.55957, 0.787564, 1936.27, 40.339, 2.20371, 13.7603, 200.487, 166.386 };
+    private static double[]   cfactor	       = { 1.0, 1.95583, 40.339, 5.94573, 6.55957, 0.787564, 1936.27, 40.339, 2.20371, 13.7603, 200.487, 166.386 };
 
-    private static Locale[]   locale	   = {
+    private static Locale[]   locale	       = {
 	    // Locale.US,
 	    Locale.GERMANY, Locale.GERMANY, new Locale( "fr", "BE" ), new Locale( "fi", "FI" ), Locale.FRANCE, new Locale( "en", "IE" ), Locale.ITALY,
 	    new Locale( "fr", "LU" ), new Locale( "nl", "NL" ), new Locale( "de", "AT" ), new Locale( "pt", "PT" ), new Locale( "es", "ES" ) };
@@ -219,7 +219,7 @@ public class CurrencyNumber extends Number implements Cloneable, Comparable< Cur
 
     private long value;
 
-    private int  currency;
+    private int	 currency;
 
 
     /**

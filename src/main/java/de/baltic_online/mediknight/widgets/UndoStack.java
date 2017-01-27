@@ -38,8 +38,8 @@ public class UndoStack< E > extends Stack< E > implements UndoBackend< E > {
 	super();
     }
 
-
     // --- Implementation of UndoBackend
+
 
     // NOTE: peek() and remove(Object) are already properly implemented
     // by our superclass, so we don't need to define them here.

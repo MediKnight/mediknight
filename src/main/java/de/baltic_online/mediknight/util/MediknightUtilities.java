@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
+import main.java.de.baltic_online.mediknight.tables.TableAlignmentCellRenderer;
 import main.java.de.baltic_online.mediknight.widgets.JDateChooser;
 
 
@@ -21,9 +22,9 @@ public class MediknightUtilities {
     private static DateParser[] dateParser;
     static {
 	dateParser = new DateParser[] { new SimpleDateParser( "dd.MM.yyyy", SimpleDateParser.DAY | SimpleDateParser.MONTH | SimpleDateParser.YEAR ),
-	    new SimpleDateParser( "dd.MM.", SimpleDateParser.DAY | SimpleDateParser.MONTH ),
-	    new SimpleDateParser( "dd.MM", SimpleDateParser.DAY | SimpleDateParser.MONTH ), new SimpleDateParser( "dd.", SimpleDateParser.DAY ),
-	    new SimpleDateParser( "dd", SimpleDateParser.DAY ) };
+		new SimpleDateParser( "dd.MM.", SimpleDateParser.DAY | SimpleDateParser.MONTH ),
+		new SimpleDateParser( "dd.MM", SimpleDateParser.DAY | SimpleDateParser.MONTH ), new SimpleDateParser( "dd.", SimpleDateParser.DAY ),
+		new SimpleDateParser( "dd", SimpleDateParser.DAY ) };
     }
 
 

@@ -37,16 +37,16 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
     private class AddDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	JPanel		    topPanel	 = new JPanel();
-	JPanel		    downPanel	= new JPanel();
-	JTextField		goaTF	    = new JTextField( 10 );
-	JTextField		gebuhTF	  = new JTextField( 10 );
-	JTextField		specTF	   = new JTextField( 20 );
-	JTextField		priceTF	  = new JTextField( 10 );
-	JButton		   cancelBtn	= new JButton( "Abbrechen" );
-	JButton		   okBtn	    = new JButton( "Anlegen" );
+	JPanel			  topPanel	   = new JPanel();
+	JPanel			  downPanel	   = new JPanel();
+	JTextField		  goaTF		   = new JTextField( 10 );
+	JTextField		  gebuhTF	   = new JTextField( 10 );
+	JTextField		  specTF	   = new JTextField( 20 );
+	JTextField		  priceTF	   = new JTextField( 10 );
+	JButton			  cancelBtn	   = new JButton( "Abbrechen" );
+	JButton			  okBtn		   = new JButton( "Anlegen" );
 
-	RechnungsPosten	   rp;
+	RechnungsPosten		  rp;
 
 
 	public AddDialog( final JFrame frame ) {
@@ -155,7 +155,7 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
     class ItemTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	final String[]	    columnNames      = { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis" };
+	final String[]		  columnNames	   = { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis" };
 
 
 	public ItemTableModel() {
@@ -240,26 +240,26 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
 	}
     }
 
-    private static final long  serialVersionUID  = 1L;
+    private static final long  serialVersionUID	 = 1L;
 
-    private static int	 ITEM_SPEC_COLUMN  = 2;
-    private static int	 ITEM_PRICE_COLUMN = 3;
-    private static boolean     useEuro	   = false;
+    private static int	       ITEM_SPEC_COLUMN	 = 2;
+    private static int	       ITEM_PRICE_COLUMN = 3;
+    private static boolean     useEuro		 = false;
 
     MasterDataSupportPresenter presenter;
-    RechnungsPosten[]	  posten;
-    BorderLayout	       borderLayout1     = new BorderLayout();
-    JLabel		     headerLbl	 = new JLabel();
-    JPanel		     southPanel	= new JPanel();
-    FlowLayout		 flowLayout1       = new FlowLayout();
-    JPanel		     buttonPanel       = new JPanel();
-    GridLayout		 gridLayout1       = new GridLayout();
-    JButton		    deleteBtn	 = new JButton();
-    JScrollPane		tableScrollPane   = new JScrollPane();
+    RechnungsPosten[]	       posten;
+    BorderLayout	       borderLayout1	 = new BorderLayout();
+    JLabel		       headerLbl	 = new JLabel();
+    JPanel		       southPanel	 = new JPanel();
+    FlowLayout		       flowLayout1	 = new FlowLayout();
+    JPanel		       buttonPanel	 = new JPanel();
+    GridLayout		       gridLayout1	 = new GridLayout();
+    JButton		       deleteBtn	 = new JButton();
+    JScrollPane		       tableScrollPane	 = new JScrollPane();
 
-    JTable		     itemTable	 = new JTable();
+    JTable		       itemTable	 = new JTable();
 
-    JButton		    addBtn	    = new JButton();
+    JButton		       addBtn		 = new JButton();
 
 
     public MasterDataSupportPanel( final RechnungsPosten[] posten ) {
@@ -298,9 +298,10 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
 
 
     private void deleteEntries() {
-	final int r = JOptionPane.showConfirmDialog( this, itemTable.getSelectedRowCount() > 1 ? itemTable.getSelectedRowCount()
-		+ " Positionen wirklich löschen?" : itemTable.getSelectedRowCount() + " Position wirklich löschen ?", "Stammdaten löschen",
-		JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE );
+	final int r = JOptionPane.showConfirmDialog( this,
+		itemTable.getSelectedRowCount() > 1 ? itemTable.getSelectedRowCount() + " Positionen wirklich löschen?"
+			: itemTable.getSelectedRowCount() + " Position wirklich löschen ?",
+		"Stammdaten löschen", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE );
 
 	if( r == JOptionPane.YES_OPTION ) {
 	    presenter.getModel().deleteEntries( getSelectedRows() );
@@ -335,7 +336,7 @@ public class MasterDataSupportPanel extends JPanel implements ChangeListener, Li
 	buttonPanel.add( addBtn, null );
 	this.add( tableScrollPane, BorderLayout.CENTER );
 	tableScrollPane.getViewport().add( itemTable, null );
-	
+
 	itemTable.setShowGrid( true );
 	itemTable.setGridColor( getForeground() );
     }

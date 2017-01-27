@@ -1,6 +1,7 @@
 package main.java.de.baltic_online.mediknight;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -48,9 +49,9 @@ public class MedicationPanel extends JPanel implements ChangeListener, ListSelec
 
 	private static final long serialVersionUID = 5717726425089069656L;
 
-	final String[]	    columnNames      = { "Gruppe", "Nummer", "Name" };
+	final String[]		  columnNames	   = { "Gruppe", "Nummer", "Name" };
 
-	VerordnungsPosten[]       items;
+	VerordnungsPosten[]	  items;
 
 
 	public MedicationTableModel( final VerordnungsPosten[] items ) {
@@ -107,45 +108,45 @@ public class MedicationPanel extends JPanel implements ChangeListener, ListSelec
 	f.setVisible( true );
     }
 
-    MedicationPresenter presenter;
-    GridBagLayout       gridBagLayout1  = new GridBagLayout();
-    JPanel	      headerPanel     = new JPanel();
-    JPanel	      mainPanel       = new JPanel();
-    JPanel	      footerBtnPanel  = new JPanel();
-    JButton	     printBtn	= new JButton();
-    JSplitPane	  mainSP	  = new JSplitPane();
-    GridBagLayout       gridBagLayout2  = new GridBagLayout();
-    JPanel	      spTopPanel      = new JPanel();
-    BorderLayout	borderLayout1   = new BorderLayout();
-    JPanel	      topButtonPanel  = new JPanel();
-    JButton	     addBtn	  = new JButton();
-    FlowLayout	  flowLayout3     = new FlowLayout();
-    JPanel	      bottomPanel     = new JPanel();
-    JScrollPane	 medicationSP    = new JScrollPane();
-    JTextArea	   medicationTA    = new JTextArea();
-    Border	      border1;
-    GridBagLayout       gridBagLayout3  = new GridBagLayout();
-    JPanel	      jPanel1	 = new JPanel();
-    BorderLayout	borderLayout2   = new BorderLayout();
-    JPanel	      jPanel2	 = new JPanel();
-    BorderLayout	borderLayout3   = new BorderLayout();
-    JPanel	      jPanel3	 = new JPanel();
-    BorderLayout	borderLayout4   = new BorderLayout();
-    JPanel	      jPanel4	 = new JPanel();
-    BorderLayout	borderLayout5   = new BorderLayout();
-    BorderLayout	borderLayout6   = new BorderLayout();
-    JPanel	      jPanel5	 = new JPanel();
-    BorderLayout	borderLayout7   = new BorderLayout();
-    JTextArea	   textTA	  = new JTextArea();
-    JScrollPane	 jScrollPane1    = new JScrollPane();
-    JScrollPane	 specificationSP = new JScrollPane();
-    JTable	      medicationTable = new JTable();
-    JLabel	      headerLbl       = new JLabel();
-    JLabel	      taLabel	 = new JLabel();
+    MedicationPresenter	presenter;
+    GridBagLayout	gridBagLayout1	= new GridBagLayout();
+    JPanel		headerPanel	= new JPanel();
+    JPanel		mainPanel	= new JPanel();
+    JPanel		footerBtnPanel	= new JPanel();
+    JButton		printBtn	= new JButton();
+    JSplitPane		mainSP		= new JSplitPane();
+    GridBagLayout	gridBagLayout2	= new GridBagLayout();
+    JPanel		spTopPanel	= new JPanel();
+    BorderLayout	borderLayout1	= new BorderLayout();
+    JPanel		topButtonPanel	= new JPanel();
+    JButton		addBtn		= new JButton();
+    FlowLayout		flowLayout3	= new FlowLayout();
+    JPanel		bottomPanel	= new JPanel();
+    JScrollPane		medicationSP	= new JScrollPane();
+    JTextArea		medicationTA	= new JTextArea();
+    Border		border1;
+    GridBagLayout	gridBagLayout3	= new GridBagLayout();
+    JPanel		jPanel1		= new JPanel();
+    BorderLayout	borderLayout2	= new BorderLayout();
+    JPanel		jPanel2		= new JPanel();
+    BorderLayout	borderLayout3	= new BorderLayout();
+    JPanel		jPanel3		= new JPanel();
+    BorderLayout	borderLayout4	= new BorderLayout();
+    JPanel		jPanel4		= new JPanel();
+    BorderLayout	borderLayout5	= new BorderLayout();
+    BorderLayout	borderLayout6	= new BorderLayout();
+    JPanel		jPanel5		= new JPanel();
+    BorderLayout	borderLayout7	= new BorderLayout();
+    JTextArea		textTA		= new JTextArea();
+    JScrollPane		jScrollPane1	= new JScrollPane();
+    JScrollPane		specificationSP	= new JScrollPane();
+    JTable		medicationTable	= new JTable();
+    JLabel		headerLbl	= new JLabel();
+    JLabel		taLabel		= new JLabel();
 
-    BorderLayout	borderLayout8   = new BorderLayout();
+    BorderLayout	borderLayout8	= new BorderLayout();
 
-    JUndoButton	 undoBtn	 = new JUndoButton();
+    JUndoButton		undoBtn		= new JUndoButton();
 
 
     public MedicationPanel() {
@@ -328,11 +329,11 @@ public class MedicationPanel extends JPanel implements ChangeListener, ListSelec
 	headerLbl.setText( "Verordnungsbaustein:" );
 	taLabel.setText( "Verordnungstext:" );
 	undoBtn.setText( "Rückgängig" );
-	this.add( headerPanel, new GridBagConstraints( 0, 0, 2, 1, 1.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0,
-		0 ), 0, 0 ) );
+	this.add( headerPanel,
+		new GridBagConstraints( 0, 0, 2, 1, 1.0, 0.0, GridBagConstraints.SOUTHWEST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	this.add( mainPanel, new GridBagConstraints( 0, 1, 1, 1, 1.0, 1.0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-	mainPanel.add( mainSP, new GridBagConstraints( 0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.SOUTHEAST, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ),
-		84, 20 ) );
+	mainPanel.add( mainSP,
+		new GridBagConstraints( 0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.SOUTHEAST, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 84, 20 ) );
 	mainSP.add( spTopPanel, JSplitPane.TOP );
 	spTopPanel.add( topButtonPanel, BorderLayout.SOUTH );
 	topButtonPanel.add( addBtn, null );
@@ -346,20 +347,20 @@ public class MedicationPanel extends JPanel implements ChangeListener, ListSelec
 	jPanel5.add( headerLbl, BorderLayout.NORTH );
 	specificationSP.getViewport().add( medicationTable, null );
 	mainSP.add( bottomPanel, JSplitPane.BOTTOM );
-	bottomPanel.add( medicationSP, new GridBagConstraints( 0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-		new Insets( 0, 0, 0, 0 ), -1000, -1000 ) );
-	bottomPanel.add( jPanel1, new GridBagConstraints( 0, 1, 1, 1, 1.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
-		new Insets( 5, 0, 10, 0 ), 0, 0 ) );
+	bottomPanel.add( medicationSP,
+		new GridBagConstraints( 0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), -1000, -1000 ) );
+	bottomPanel.add( jPanel1,
+		new GridBagConstraints( 0, 1, 1, 1, 1.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets( 5, 0, 10, 0 ), 0, 0 ) );
 	jPanel1.add( jPanel2, BorderLayout.WEST );
 	medicationSP.getViewport().add( medicationTA, null );
-	this.add( footerBtnPanel, new GridBagConstraints( 0, 2, 1, 1, 1.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
-		new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+	this.add( footerBtnPanel,
+		new GridBagConstraints( 0, 2, 1, 1, 1.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	footerBtnPanel.add( printBtn, BorderLayout.EAST );
 	footerBtnPanel.add( undoBtn, BorderLayout.WEST );
 	mainSP.setDividerLocation( 200 );
-	
+
 	medicationTable.setShowGrid( true );
-	medicationTable.setGridColor( getForeground() );
+	medicationTable.setGridColor( new Color( 0, 0, 0 ) );
     }
 
 

@@ -23,12 +23,12 @@ public class ExpandBills {
 	    return "be." + n + ".";
 	}
 
-	int	   id;
-	int	   diagnosisId;
+	int	      id;
+	int	      diagnosisId;
 	java.sql.Date date;
-	String	object;
+	String	      object;
 
-	String	text;
+	String	      text;
 
 
 	void convert() {
@@ -69,9 +69,9 @@ public class ExpandBills {
 	}
     }
 
-    private final static String MEDIKNIGHT_PROPERTIES = "mediknight.properties";
+    private final static String	MEDIKNIGHT_PROPERTIES = "mediknight.properties";
 
-    private final static String PROPERTY_FILENAME     = "properties/" + MEDIKNIGHT_PROPERTIES;
+    private final static String	PROPERTY_FILENAME     = "properties/" + MEDIKNIGHT_PROPERTIES;
 
 
     @SuppressWarnings( "resource" )

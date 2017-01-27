@@ -20,7 +20,7 @@ public class MutableChangeEvent extends MediknightEvent {
 
     // whether the source associated with this MutableChangeEvent has changed
     // its canonical state
-    protected boolean	 hasChanged;
+    protected boolean	      hasChanged;
 
 
     /**

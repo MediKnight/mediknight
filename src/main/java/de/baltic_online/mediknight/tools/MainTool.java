@@ -29,15 +29,15 @@ import main.java.de.baltic_online.mediknight.widgets.LoginDialog;
 
 public class MainTool extends JFrame {
 
-    private static final long   serialVersionUID = 1L;
+    private static final long	serialVersionUID = 1L;
 
-    private static JFrame       frame;
-    private static final String BTN_PRINT	= "Drucktexte";
-    private static final String BTN_DATA	 = "Rechnung";
-    private static final String BTN_USER	 = "Anwender";
-    private static final String BTN_MEDI	 = "Verordnung";
-    private static final String BTN_QUIT	 = "Beenden";
-    private static final String BTN_COLOR	= "Farbwerte";
+    private static JFrame	frame;
+    private static final String	BTN_PRINT	 = "Drucktexte";
+    private static final String	BTN_DATA	 = "Rechnung";
+    private static final String	BTN_USER	 = "Anwender";
+    private static final String	BTN_MEDI	 = "Verordnung";
+    private static final String	BTN_QUIT	 = "Beenden";
+    private static final String	BTN_COLOR	 = "Farbwerte";
     static Color		c1, c2;
 
 
@@ -75,15 +75,15 @@ public class MainTool extends JFrame {
 
     JGradientPanel    buttonPanel;
 
-    JToggleButton     printBtn      = new JToggleButton();
+    JToggleButton     printBtn	    = new JToggleButton();
     JToggleButton     masterDataBtn = new JToggleButton();
-    JToggleButton     userBtn       = new JToggleButton();
-    JToggleButton     mediBtn       = new JToggleButton();
-    JToggleButton     colorBtn      = new JToggleButton();
+    JToggleButton     userBtn	    = new JToggleButton();
+    JToggleButton     mediBtn	    = new JToggleButton();
+    JToggleButton     colorBtn	    = new JToggleButton();
     JToggleButton     quitButton    = new JToggleButton();
-    JPanel	    workspace     = new JPanel();
+    JPanel	      workspace	    = new JPanel();
 
-    JLabel	    title;
+    JLabel	      title;
 
     private Presenter currentPresenter;
 

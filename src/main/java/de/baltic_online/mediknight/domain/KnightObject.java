@@ -48,9 +48,7 @@ public abstract class KnightObject implements Storable {
 	} catch( final SQLException x ) {
 	    throw new RuntimeException( x.getMessage() );
 	} finally {
-	    /*
-	     * try { ds.setAutoCommit(autoCommit); } catch ( SQLException x ) { throw new RuntimeException(x.getMessage()); }
-	     */
+	    /* try { ds.setAutoCommit(autoCommit); } catch ( SQLException x ) { throw new RuntimeException(x.getMessage()); } */
 	}
     }
 

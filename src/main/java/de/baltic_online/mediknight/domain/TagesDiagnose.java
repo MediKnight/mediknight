@@ -43,14 +43,14 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
 	Datastore.current.register( om );
     }
 
-    private int		  id;
-    private int		  patientId;
+    private int			 id;
+    private int			 patientId;
     private LocalDate		 datum;
-    private String	       text;
+    private String		 text;
 
-    private transient Patient    patient;
+    private transient Patient	 patient;
 
-    private transient Rechnung   rechnung;
+    private transient Rechnung	 rechnung;
 
     private transient Verordnung verordnung;
 
@@ -90,18 +90,15 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
     public LocalDate getDatum() {
 	return datum;
     }
-    
+
+
     public java.sql.Date getDatumAsSqlDate() {
 	return datum != null ? java.sql.Date.valueOf( datum ) : null;
     }
-    
+
+
     public Date getDatumAsDate() {
 	return datum != null ? Date.from( datum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
-    }
-    
-    public String getDatumAsString() {
-	final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
-	return datum.format( formatter );
     }
 
 
@@ -177,11 +174,13 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
     public void setDatum( final LocalDate datum ) {
 	this.datum = datum;
     }
-    
+
+
     public void setDatumAsSqlDate( final java.sql.Date datum ) {
 	this.datum = datum != null ? datum.toLocalDate() : null;
     }
-    
+
+
     public void setDatumAsDate( final Date datum ) {
 	this.datum = datum != null ? Instant.ofEpochMilli( datum.getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate() : null;
     }
@@ -235,10 +234,10 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
     @Override
     public String toLongString() {
 	final DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
-	
+
 	try {
-	    return "Tagesdiagnose " + " ID " + getId() + " PatientenId: " + getPatientId() + " Datum: " + getDatum().format( dateFormatter ) + " Text: " + getText() + " Rechnung: "
-		    + getRechnung() + " Verordnung: " + getVerordnung();
+	    return "Tagesdiagnose " + " ID " + getId() + " PatientenId: " + getPatientId() + " Datum: " + getDatum().format( dateFormatter ) + " Text: "
+		    + getText() + " Rechnung: " + getRechnung() + " Verordnung: " + getVerordnung();
 	} catch( final Exception x ) {
 	    return "Unprintable TagesDiagnose";
 	}

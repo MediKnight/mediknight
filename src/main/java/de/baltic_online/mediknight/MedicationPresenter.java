@@ -71,9 +71,7 @@ public class MedicationPresenter implements Presenter, Commitable, Observer {
 
 	// MedicationEntry[] medications = (MedicationEntry[]) entries.toArray(
 	// new MedicationEntry[0] );
-	/*
-	 * MedicationEntry.saveEntries( model.getVerordnung(), medications ); try { model.getVerordnung().save(); } catch( SQLException e ) {
-	 */
+	/* MedicationEntry.saveEntries( model.getVerordnung(), medications ); try { model.getVerordnung().save(); } catch( SQLException e ) { */
 	// e.printStackTrace(); /** @todo Exception reporting. */
 	// }
 	view.update();

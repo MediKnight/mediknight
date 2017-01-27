@@ -31,16 +31,16 @@ public class CreateMacroPanel extends JPanel implements ChangeListener {
      *
      */
     private static final long serialVersionUID = 4555675996654488301L;
-    GridBagLayout	     gridBagLayout1   = new GridBagLayout();
-    JLabel		    nameLabel	= new JLabel();
-    JTextField		nameTF	   = new JTextField();
-    JPanel		    jPanel1	  = new JPanel();
+    GridBagLayout	      gridBagLayout1   = new GridBagLayout();
+    JLabel		      nameLabel	       = new JLabel();
+    JTextField		      nameTF	       = new JTextField();
+    JPanel		      jPanel1	       = new JPanel();
     BorderLayout	      borderLayout1    = new BorderLayout();
-    JPanel		    buttonPanel      = new JPanel();
-    JButton		   createBtn	= new JButton();
-    GridLayout		gridLayout1      = new GridLayout();
-    JScrollPane	       jScrollPane1     = new JScrollPane();
-    JList< KnightObject >     macroList	= new JList< KnightObject >();
+    JPanel		      buttonPanel      = new JPanel();
+    JButton		      createBtn	       = new JButton();
+    GridLayout		      gridLayout1      = new GridLayout();
+    JScrollPane		      jScrollPane1     = new JScrollPane();
+    JList< KnightObject >     macroList	       = new JList< KnightObject >();
 
     CreateMacroPresenter      presenter;
 
@@ -119,14 +119,15 @@ public class CreateMacroPanel extends JPanel implements ChangeListener {
 	createBtn.setEnabled( false );
 	buttonPanel.setLayout( gridLayout1 );
 	jScrollPane1.setVerticalScrollBarPolicy( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
-	this.add( nameLabel, new GridBagConstraints( 0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets( 0, 0, 0, 6 ), 0, 0 ) );
-	this.add( nameTF, new GridBagConstraints( 1, 2, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0,
-		0 ) );
+	this.add( nameLabel,
+		new GridBagConstraints( 0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets( 0, 0, 0, 6 ), 0, 0 ) );
+	this.add( nameTF,
+		new GridBagConstraints( 1, 2, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	this.add( jPanel1, new GridBagConstraints( 0, 3, 2, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 12, 0, 0, 0 ), 0, 0 ) );
 	jPanel1.add( buttonPanel, BorderLayout.EAST );
 	buttonPanel.add( createBtn, null );
-	this.add( jScrollPane1, new GridBagConstraints( 0, 0, 2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 12, 0 ), 0,
-		0 ) );
+	this.add( jScrollPane1,
+		new GridBagConstraints( 0, 0, 2, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 12, 0 ), 0, 0 ) );
 	jScrollPane1.getViewport().add( macroList, null );
     }
 

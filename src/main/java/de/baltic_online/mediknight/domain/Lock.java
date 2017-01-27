@@ -149,12 +149,12 @@ public class Lock extends KnightObject {
     /**
      * The patient which the lock is for.
      */
-    private int     patientId;
+    private int	    patientId;
 
     /**
      * The corresponding aspect value.
      */
-    private String  aspect;    ;
+    private String  aspect;;
 
     /**
      * Indicates the released state of this lock.
@@ -169,7 +169,7 @@ public class Lock extends KnightObject {
     /**
      * Timeout value for this lock in seconds.
      */
-    private int     timeout;
+    private int	    timeout;
 
     /**
      * The "has Id" value.

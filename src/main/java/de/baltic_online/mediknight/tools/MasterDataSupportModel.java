@@ -14,7 +14,7 @@ import main.java.de.baltic_online.mediknight.domain.RechnungsPosten;
 public class MasterDataSupportModel {
 
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
-    RechnungsPosten[]     posten;
+    RechnungsPosten[]	  posten;
 
 
     public MasterDataSupportModel() {

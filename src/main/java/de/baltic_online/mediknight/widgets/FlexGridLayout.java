@@ -114,21 +114,21 @@ public class FlexGridLayout implements LayoutManager2 {
     }
 
     // Constraint values used for alignment
-    private static final int		  C	   = 0;
-    private static final int		  N	   = 1;
-    private static final int		  E	   = 2;
+    private static final int		      C		  = 0;
+    private static final int		      N		  = 1;
+    private static final int		      E		  = 2;
 
-    private static final int		  W	   = 3;
+    private static final int		      W		  = 3;
 
-    private static final int		  S	   = 4;
-    private static final int		  NW	  = 5;
-    private static final int		  NE	  = 6;
-    private static final int		  SW	  = 7;
-    private static final int		  SE	  = 8;
-    private final int			 rows;
-    private final int			 cols;
-    private final int			 hgap;
-    private final int			 vgap;
+    private static final int		      S		  = 4;
+    private static final int		      NW	  = 5;
+    private static final int		      NE	  = 6;
+    private static final int		      SW	  = 7;
+    private static final int		      SE	  = 8;
+    private final int			      rows;
+    private final int			      cols;
+    private final int			      hgap;
+    private final int			      vgap;
 
     private final Hashtable< Component, BLC > constraints = new Hashtable< Component, BLC >( 10 );
 

@@ -63,9 +63,7 @@ public class BillPresenter implements Presenter, Commitable, Observer {
 	// entsprechende Editor modifiziert werden, aber die "get"-
 	// Methode des Spalteneditors liefert stets einen null-Wert.
 	// (Synchronisation?)).
-	/*
-	 * if(view.getSelectedBillItem() != null) { TableCellEditor editor = billTable.getDefaultEditor(billTable.getClass()); editor.cancelCellEditing(); }
-	 */
+	/* if(view.getSelectedBillItem() != null) { TableCellEditor editor = billTable.getDefaultEditor(billTable.getClass()); editor.cancelCellEditing(); } */
 
 	// view.billModel.fireTableDataChanged();
 

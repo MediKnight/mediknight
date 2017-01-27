@@ -52,10 +52,10 @@ public class JDateChooser extends JComponent {
      */
     public static class ArrowButton extends JButton implements ActionListener {
 
-	private static final long       serialVersionUID = 1L;
-	private static final Insets     i0	       = new Insets( 0, 0, 0, 0 );
-	private final javax.swing.Timer timer;
-	private int		     delay;
+	private static final long	serialVersionUID = 1L;
+	private static final Insets	i0		 = new Insets( 0, 0, 0, 0 );
+	private final javax.swing.Timer	timer;
+	private int			delay;
 
 
 	/**
@@ -131,10 +131,10 @@ public class JDateChooser extends JComponent {
 	}
     }
 
-    private static final long       serialVersionUID = 1L;
+    private static final long	    serialVersionUID = 1L;
 
-    private static final String[]   names	    = { "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa" };
-    private static final DateFormat yearFmt	  = new SimpleDateFormat( "MMM, yyyy" );
+    private static final String[]   names	     = { "So", "Mo", "Di", "Mi", "Do", "Fr", "Sa" };
+    private static final DateFormat yearFmt	     = new SimpleDateFormat( "MMM, yyyy" );
 
 
     // ----------------------------------------------------------------------
@@ -189,23 +189,23 @@ public class JDateChooser extends JComponent {
 	return (Calendar) op.getValue();
     }
 
-    private Calendar	      calendar;
-    private JButton	       prevYear;
+    private Calendar		  calendar;
+    private JButton		  prevYear;
 
-    private JButton	       nextYear;
-    private JButton	       prevMonth;
-    private JButton	       nextMonth;
-    private JLabel		year;
+    private JButton		  nextYear;
+    private JButton		  prevMonth;
+    private JButton		  nextMonth;
+    private JLabel		  year;
 
-    private JPanel		days;
+    private JPanel		  days;
 
-    private final JLabel[]	headers = new JLabel[7];
+    private final JLabel[]	  headers = new JLabel[7];
 
-    private final JLabel[]	fillers = new JLabel[14];
+    private final JLabel[]	  fillers = new JLabel[14];
 
     private final JToggleButton[] buttons = new JToggleButton[31];
 
-    private ActionListener	listeners;
+    private ActionListener	  listeners;
 
 
     /**

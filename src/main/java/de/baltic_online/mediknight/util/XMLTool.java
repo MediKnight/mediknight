@@ -16,7 +16,7 @@ package main.java.de.baltic_online.mediknight.util;
  */
 public class XMLTool {
 
-    private final static String   specChars   = "&<>\"\'";
+    private final static String	  specChars   = "&<>\"\'";
     private final static String[] replacement = new String[] { "&amp;", "&lt;", "&gt;", "&quot;", "&apos;" };
 
 

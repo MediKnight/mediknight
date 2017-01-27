@@ -14,8 +14,8 @@ import main.java.de.baltic_online.mediknight.domain.User;
 public class UserAdministrationModel {
 
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
-    User[]		users;
-    String[]	      userNames;
+    User[]		  users;
+    String[]		  userNames;
 
 
     public UserAdministrationModel() {

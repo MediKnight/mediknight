@@ -27,12 +27,12 @@ public class SearchPresenter implements Presenter, Commitable {
 	f.setVisible( true );
     }
 
-    SearchModel model;
+    SearchModel	model;
 
-    SearchPanel view;
+    SearchPanel	view;
 
     // specifies whether to trigger ListSelectionEvents
-    boolean     triggerSelectionEvents = true;
+    boolean	triggerSelectionEvents = true;
 
 
     public SearchPresenter() {

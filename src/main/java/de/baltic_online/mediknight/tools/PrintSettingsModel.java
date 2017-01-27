@@ -13,7 +13,7 @@ import main.java.de.baltic_online.mediknight.domain.UserProperty;
 
 public class PrintSettingsModel {
 
-    Set< ChangeListener >	 changeListeners = new HashSet< ChangeListener >();
+    Set< ChangeListener >	  changeListeners = new HashSet< ChangeListener >();
     private Map< String, String > content;
 
 

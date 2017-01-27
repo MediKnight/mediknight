@@ -35,15 +35,15 @@ import javax.swing.text.View;
  */
 public class MediknightButtonUI extends MetalButtonUI implements SwingConstants {
 
-    protected static Color	   defaultBackgroundColor;
-    protected static Icon	    defaultDefaultIcon;
+    protected static Color	     defaultBackgroundColor;
+    protected static Icon	     defaultDefaultIcon;
 
     // referenced in paint(), these are private to MetalButtonUI
-    private static Rectangle	 viewRect = new Rectangle();
+    private static Rectangle	     viewRect = new Rectangle();
 
-    private static Rectangle	 textRect = new Rectangle();
+    private static Rectangle	     textRect = new Rectangle();
 
-    private static Rectangle	 iconRect = new Rectangle();
+    private static Rectangle	     iconRect = new Rectangle();
 
     // optimization as in the MetalButtonUI class
     private static final ComponentUI buttonUI = new MediknightButtonUI();
@@ -87,8 +87,8 @@ public class MediknightButtonUI extends MetalButtonUI implements SwingConstants 
      * Returns a darker color. Same algorithms as <code>Color.darker()</code> but with a variable factor.
      */
     static final Color darker( final Color color, final double factor ) {
-	return new Color( Math.max( (int) (color.getRed() * factor), 0 ), Math.max( (int) (color.getGreen() * factor), 0 ), Math.max(
-		(int) (color.getBlue() * factor), 0 ) );
+	return new Color( Math.max( (int) (color.getRed() * factor), 0 ), Math.max( (int) (color.getGreen() * factor), 0 ),
+		Math.max( (int) (color.getBlue() * factor), 0 ) );
     }
 
 

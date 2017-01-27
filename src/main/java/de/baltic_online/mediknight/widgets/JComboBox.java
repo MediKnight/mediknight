@@ -32,18 +32,18 @@ public class JComboBox< E > extends javax.swing.JComboBox< E > implements Mutabl
      */
     private static final long serialVersionUID = 1L;
 
-    private UndoHandler       undoHandler      = null;
-    private String	    undoHandlerName  = null;
+    private UndoHandler	      undoHandler      = null;
+    private String	      undoHandlerName  = null;
 
     /**
      * the original value of the <code>JComboBox</code>. When set to null, a subsequent call to <code>setItem</code> will set this attribute as well.
      */
-    protected Object	  originalItem     = null;
+    protected Object	      originalItem     = null;
 
     /**
      * a list of those interested in receiving <code>MutableChangeEvent</code>s from this instance.
      */
-    EventListenerList	 listenerList     = new EventListenerList();
+    EventListenerList	      listenerList     = new EventListenerList();
 
 
     /**
@@ -86,8 +86,7 @@ public class JComboBox< E > extends javax.swing.JComboBox< E > implements Mutabl
 
 
     /**
-     * Creates a <code>JComboBox/code> that contains the elements in the
-     * specified Vector.
+     * Creates a <code>JComboBox/code> that contains the elements in the specified Vector.
      *
      * @param items
      *            the vector to use

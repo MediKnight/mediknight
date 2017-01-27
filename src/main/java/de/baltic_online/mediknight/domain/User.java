@@ -51,11 +51,11 @@ public class User extends KnightObject {
 	return toList( q.execute() );
     }
 
-    private int    id;
+    private int	   id;
     private String name;
     private String password;
 
-    private int    grants;
+    private int	   grants;
 
     private Object imageData;
 

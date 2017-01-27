@@ -21,7 +21,7 @@ public class SimpleDateParser implements DateParser {
     /**
      * Bezeichnung des Tagessegmentes eines Datums.
      */
-    public static final int DAY   = 1;
+    public static final int DAY	  = 1;
 
     /**
      * Bezeichnung des Monatssegmentes eines Datums.
@@ -41,12 +41,12 @@ public class SimpleDateParser implements DateParser {
     /**
      * Flagvariable f&uuml;r spezifizierte Datumssegmente.
      */
-    int		     segmentSet;
+    int			    segmentSet;
 
     /**
      * Zum Parsen verwendetes <code>DateFormat</code>.
      */
-    DateFormat	      dateFormat;
+    DateFormat		    dateFormat;
 
 
     /**

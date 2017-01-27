@@ -35,9 +35,9 @@ public class MacroPanel extends JPanel implements ChangeListener, ListSelectionL
 
 	private static final long serialVersionUID = -974915365204385546L;
 
-	BillEntry[]	       entries;
+	BillEntry[]		  entries;
 
-	final String[]	    columnNames      = { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis", "Anzahl" };
+	final String[]		  columnNames	   = { "GebüH", "GoÄ", "Spezifikation", "Einzelpreis", "Anzahl" };
 
 
 	public MacroTableModel() {
@@ -94,7 +94,7 @@ public class MacroPanel extends JPanel implements ChangeListener, ListSelectionL
 		    // return new String("0"); /** @todo Better exception */
 		    // }
 		    return nf.format( entries[row].getCount() );
-		    // return );
+		// return );
 	    }
 
 	    return null;
@@ -112,39 +112,39 @@ public class MacroPanel extends JPanel implements ChangeListener, ListSelectionL
 	f.pack();
     }
 
-    MacroPresenter	   presenter;
+    MacroPresenter	     presenter;
 
     BorderLayout	     borderLayout1 = new BorderLayout();
 
-    JSplitPane	       jSplitPane1   = new JSplitPane();
+    JSplitPane		     jSplitPane1   = new JSplitPane();
 
-    JScrollPane	      macroSP       = new JScrollPane();
+    JScrollPane		     macroSP	   = new JScrollPane();
 
-    JList< RechnungsGruppe > keyList       = new JList< RechnungsGruppe >();
+    JList< RechnungsGruppe > keyList	   = new JList< RechnungsGruppe >();
 
-    JScrollPane	      itemTableSP   = new JScrollPane();
+    JScrollPane		     itemTableSP   = new JScrollPane();
 
-    JTable		   itemTable     = new JTable();
+    JTable		     itemTable	   = new JTable();
 
-    JPanel		   jPanel1       = new JPanel();
+    JPanel		     jPanel1	   = new JPanel();
 
     BorderLayout	     borderLayout2 = new BorderLayout();
 
-    GridLayout	       gridLayout2   = new GridLayout();
+    GridLayout		     gridLayout2   = new GridLayout();
 
-    JPanel		   jPanel2       = new JPanel();
+    JPanel		     jPanel2	   = new JPanel();
 
-    JButton		  applyBtn      = new JButton();
+    JButton		     applyBtn	   = new JButton();
 
-    FlowLayout	       flowLayout1   = new FlowLayout();
+    FlowLayout		     flowLayout1   = new FlowLayout();
 
-    JPanel		   buttonPanel   = new JPanel();
+    JPanel		     buttonPanel   = new JPanel();
 
-    JPanel		   jPanel3       = new JPanel();
+    JPanel		     jPanel3	   = new JPanel();
 
-    JButton		  deleteBtn     = new JButton();
+    JButton		     deleteBtn	   = new JButton();
 
-    FlowLayout	       flowLayout2   = new FlowLayout();
+    FlowLayout		     flowLayout2   = new FlowLayout();
 
 
     public MacroPanel() {
@@ -154,9 +154,7 @@ public class MacroPanel extends JPanel implements ChangeListener, ListSelectionL
 
 
     void boInit() {
-	/*
-	 * createBtn.addActionListener( new ActionListener() { public void actionPerformed( ActionEvent e ) { presenter.createMacro(); } });
-	 */
+	/* createBtn.addActionListener( new ActionListener() { public void actionPerformed( ActionEvent e ) { presenter.createMacro(); } }); */
 
 	deleteBtn.addActionListener( new ActionListener() {
 
@@ -218,9 +216,6 @@ public class MacroPanel extends JPanel implements ChangeListener, ListSelectionL
 	jPanel3.add( deleteBtn, null );
 	itemTableSP.getViewport().add( itemTable, null );
 	jSplitPane1.setDividerLocation( 115 );
-	
-	itemTable.setShowGrid( true );
-	itemTable.setGridColor( getForeground() );
     }
 
 

@@ -48,25 +48,25 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener, Li
 
 	private static final long serialVersionUID = 1L;
 
-	JPanel		    topPanel	 = new JPanel();
+	JPanel			  topPanel	   = new JPanel();
 
-	JPanel		    downPanel	= new JPanel();
+	JPanel			  downPanel	   = new JPanel();
 
-	JTextField		gruppeTF	 = new JTextField( 10 );
+	JTextField		  gruppeTF	   = new JTextField( 10 );
 
-	JTextField		nummerTF	 = new JTextField( 10 );
+	JTextField		  nummerTF	   = new JTextField( 10 );
 
-	JTextField		nameTF	   = new JTextField( 20 );
+	JTextField		  nameTF	   = new JTextField( 20 );
 
-	JScrollPane	       sp	       = new JScrollPane();
+	JScrollPane		  sp		   = new JScrollPane();
 
-	JTextArea		 textTA	   = new JTextArea( 5, 20 );
+	JTextArea		  textTA	   = new JTextArea( 5, 20 );
 
-	JButton		   cancelBtn	= new JButton( "Abbrechen" );
+	JButton			  cancelBtn	   = new JButton( "Abbrechen" );
 
-	JButton		   okBtn	    = new JButton( "Anlegen" );
+	JButton			  okBtn		   = new JButton( "Anlegen" );
 
-	VerordnungsPosten	 vp;
+	VerordnungsPosten	  vp;
 
 
 	public AddDialog( final JFrame frame ) {
@@ -205,13 +205,13 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener, Li
     class MedicationTableModel extends AbstractTableModel {
 
 	/**
-         *
-         */
+	 *
+	 */
 	private static final long serialVersionUID = 1L;
 
-	final String[]	    columnNames      = { "Gruppe", "Nummer", "Name" };
+	final String[]		  columnNames	   = { "Gruppe", "Nummer", "Name" };
 
-	VerordnungsPosten[]       items;
+	VerordnungsPosten[]	  items;
 
 
 	public MedicationTableModel( final VerordnungsPosten[] items ) {
@@ -288,54 +288,54 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener, Li
 
     }
 
-    private static final long  serialVersionUID    = 1L;
+    private static final long  serialVersionUID	   = 1L;
 
     // der index der verordnung, deren inhalt zur zeit im editor angezeigt wird.
-    int			editIndex	   = -1;
+    int			       editIndex	   = -1;
 
     MedicationSupportPresenter presenter;
 
-    BorderLayout	       borderLayout1       = new BorderLayout();
+    BorderLayout	       borderLayout1	   = new BorderLayout();
 
-    JPanel		     topPanel	    = new JPanel();
+    JPanel		       topPanel		   = new JPanel();
 
-    JScrollPane		itemTableSP	 = new JScrollPane();
+    JScrollPane		       itemTableSP	   = new JScrollPane();
 
-    JTable		     itemTable	   = new JTable();
+    JTable		       itemTable	   = new JTable();
 
-    JPanel		     downPanel	   = new JPanel();
+    JPanel		       downPanel	   = new JPanel();
 
-    FlowLayout		 flowLayout1	 = new FlowLayout();
+    FlowLayout		       flowLayout1	   = new FlowLayout();
 
-    JPanel		     buttonPanel	 = new JPanel();
+    JPanel		       buttonPanel	   = new JPanel();
 
-    GridLayout		 gridLayout1	 = new GridLayout();
+    GridLayout		       gridLayout1	   = new GridLayout();
 
-    JButton		    addBtn	      = new JButton();
+    JButton		       addBtn		   = new JButton();
 
-    JButton		    deleteBtn	   = new JButton();
+    JButton		       deleteBtn	   = new JButton();
 
-    JPanel		     centerPanel	 = new JPanel();
+    JPanel		       centerPanel	   = new JPanel();
 
-    JScrollPane		textAreaSP	  = new JScrollPane();
+    JScrollPane		       textAreaSP	   = new JScrollPane();
 
-    JTextArea		  textTA	      = new JTextArea();
+    JTextArea		       textTA		   = new JTextArea();
 
-    BorderLayout	       borderLayout2       = new BorderLayout();
+    BorderLayout	       borderLayout2	   = new BorderLayout();
 
-    BorderLayout	       borderLayout3       = new BorderLayout();
+    BorderLayout	       borderLayout3	   = new BorderLayout();
 
-    JPanel		     centerPanelTopPanel = new JPanel();
+    JPanel		       centerPanelTopPanel = new JPanel();
 
-    JLabel		     jLabel1	     = new JLabel();
+    JLabel		       jLabel1		   = new JLabel();
 
-    JPanel		     topPanelTopPanel    = new JPanel();
+    JPanel		       topPanelTopPanel	   = new JPanel();
 
-    FlowLayout		 flowLayout3	 = new FlowLayout();
+    FlowLayout		       flowLayout3	   = new FlowLayout();
 
-    JLabel		     jLabel2	     = new JLabel();
+    JLabel		       jLabel2		   = new JLabel();
 
-    GridBagLayout	      gridBagLayout1      = new GridBagLayout();
+    GridBagLayout	       gridBagLayout1	   = new GridBagLayout();
 
 
     public MedicationSupportPanel() {
@@ -406,9 +406,10 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener, Li
     private void deleteEntries() {
 	if( itemTable.getSelectedRowCount() > 0 ) {
 
-	    final int r = JOptionPane.showConfirmDialog( getParent(), itemTable.getSelectedRowCount() > 1 ? itemTable.getSelectedRowCount()
-		    + " Positionen wirklich löschen ?" : itemTable.getSelectedRowCount() + " Position wirklich löschen ?", "Stammdaten löschen",
-		    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE );
+	    final int r = JOptionPane.showConfirmDialog( getParent(),
+		    itemTable.getSelectedRowCount() > 1 ? itemTable.getSelectedRowCount() + " Positionen wirklich löschen ?"
+			    : itemTable.getSelectedRowCount() + " Position wirklich löschen ?",
+		    "Stammdaten löschen", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE );
 
 	    if( r == JOptionPane.YES_OPTION ) {
 		presenter.deleteItem( itemTable.getSelectedRows() );
@@ -476,10 +477,10 @@ public class MedicationSupportPanel extends JPanel implements ChangeListener, Li
 	centerPanel.add( textAreaSP, BorderLayout.CENTER );
 	textAreaSP.getViewport().add( textTA, null );
 	centerPanel.add( centerPanelTopPanel, BorderLayout.NORTH );
-	centerPanelTopPanel.add( jLabel1, new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets( 5,
-		0, 0, 0 ), 0, 0 ) );
+	centerPanelTopPanel.add( jLabel1,
+		new GridBagConstraints( 0, 0, 1, 1, 1.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets( 5, 0, 0, 0 ), 0, 0 ) );
 	itemTableSP.getViewport().add( itemTable, null );
-	
+
 	itemTable.setShowGrid( true );
 	itemTable.setGridColor( getForeground() );
     }

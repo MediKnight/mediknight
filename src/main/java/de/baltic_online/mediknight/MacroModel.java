@@ -16,9 +16,9 @@ import main.java.de.baltic_online.mediknight.domain.RechnungsGruppe;
 public class MacroModel {
 
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
-    BillEntry[]	   entries;
-    Rechnung	      rechnung;
-    RechnungsGruppe       rechnungsGruppe;
+    BillEntry[]		  entries;
+    Rechnung		  rechnung;
+    RechnungsGruppe	  rechnungsGruppe;
 
 
     public MacroModel() {

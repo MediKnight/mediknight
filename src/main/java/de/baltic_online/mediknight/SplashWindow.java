@@ -16,7 +16,7 @@ import java.net.URL;
 class SplashImage extends Component {
 
     private static final long serialVersionUID = 1L;
-    Image		     image;
+    Image		      image;
 
 
     public SplashImage( final Image image ) {
@@ -44,11 +44,11 @@ public class SplashWindow extends Window {
 
     public SplashWindow( final String imagePath ) {
 	super( new Frame() );
-	
+
 	final URL imageUrl = SplashWindow.class.getClassLoader().getResource( imagePath );
 	final Image image = Toolkit.getDefaultToolkit().createImage( imageUrl );
 	final MediaTracker tracker = new MediaTracker( this );
-	
+
 	tracker.addImage( image, 0 );
 	try {
 	    tracker.waitForID( 0 );

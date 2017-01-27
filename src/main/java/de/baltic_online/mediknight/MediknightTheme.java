@@ -45,9 +45,9 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 public class MediknightTheme extends DefaultMetalTheme {
 
     // green
-    private static ColorUIResource      primary1;
+    private static ColorUIResource primary1;
 
-    private static ColorUIResource      primary2;
+    private static ColorUIResource primary2;
 
     // aqua
     /*
@@ -57,11 +57,11 @@ public class MediknightTheme extends DefaultMetalTheme {
      * ColorUIResource(204, 204, 208);
      */
 
-    private static ColorUIResource      primary3;
-    private static ColorUIResource      secondary1;
-    private static ColorUIResource      secondary2;
+    private static ColorUIResource primary3;
+    private static ColorUIResource secondary1;
+    private static ColorUIResource secondary2;
 
-    private static ColorUIResource      secondary3;
+    private static ColorUIResource secondary3;
     // Required to make the VM aware of all installed fonts, especially Tahoma,
     // see below
     static {
@@ -69,9 +69,9 @@ public class MediknightTheme extends DefaultMetalTheme {
 	    java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 	}
     }
-    private static final FontUIResource controlTextFont = new FontUIResource( "Tahoma", Font.PLAIN, 12 );
+    private static final FontUIResource	controlTextFont	= new FontUIResource( "Tahoma", Font.PLAIN, 12 );
 
-    private static final FontUIResource userTextFont    = new FontUIResource( "Tahoma", Font.PLAIN, 12 );
+    private static final FontUIResource	userTextFont	= new FontUIResource( "Tahoma", Font.PLAIN, 12 );
 
 
     /**

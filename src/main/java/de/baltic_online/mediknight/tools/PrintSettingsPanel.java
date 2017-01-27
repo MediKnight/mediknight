@@ -29,43 +29,43 @@ import javax.swing.event.ChangeListener;
 
 public class PrintSettingsPanel extends JPanel implements ChangeListener {
 
-    private static final long serialVersionUID     = 1L;
-    private static String     PRINT_SENDER	 = "print.sender";
+    private static final long serialVersionUID	   = 1L;
+    private static String     PRINT_SENDER	   = "print.sender";
     private static String     PRINT_LOGO	   = "print.logo";
     private static String     PRINT_FONT	   = "print.font";
-    private static String     PRINT_BILL_FINAL     = "print.bill.final";
-    private static String     PRINT_MEDI_FINAL     = "print.medication.final";
+    private static String     PRINT_BILL_FINAL	   = "print.bill.final";
+    private static String     PRINT_MEDI_FINAL	   = "print.medication.final";
 
     PrintSettingsPresenter    presenter;
 
-    JPanel		    logoPanel	    = new JPanel();
-    GridBagLayout	     gridBagLayout1       = new GridBagLayout();
-    JTextArea		 logoTextArea	 = new JTextArea();
-    BorderLayout	      borderLayout1	= new BorderLayout();
-    JLabel		    logoLabel	    = new JLabel();
-    JTextField		senderTextField      = new JTextField();
-    JLabel		    senderLabel	  = new JLabel();
-    JPanel		    dummyPanel1	  = new JPanel();
-    JPanel		    dummyPanel2	  = new JPanel();
-    JTabbedPane	       specialContentPane   = new JTabbedPane();
-    JPanel		    medicationPanel      = new JPanel();
-    BorderLayout	      borderLayout2	= new BorderLayout();
-    JPanel		    billPanel	    = new JPanel();
-    GridBagLayout	     gridBagLayout2       = new GridBagLayout();
-    JScrollPane	       billFinalContentPane = new JScrollPane();
-    JTextArea		 billFinalTextArea    = new JTextArea();
-    JPanel		    dummyPanel3	  = new JPanel();
-    JPanel		    buttonPanel	  = new JPanel();
-    JPanel		    buttonHelpPanel      = new JPanel();
-    FlowLayout		flowLayout1	  = new FlowLayout();
-    GridLayout		gridLayout1	  = new GridLayout();
-    JPanel		    dummyPanel	   = new JPanel();
-    JPanel		    jPanel2	      = new JPanel();
-    JLabel		    fontLabel	    = new JLabel();
-    JComboBox< String >       fontComboBox	 = new JComboBox< String >();
-    FlowLayout		flowLayout2	  = new FlowLayout();
-    JScrollPane	       medicationFinalSP    = new JScrollPane();
-    JTextArea		 medicationFinalTA    = new JTextArea();
+    JPanel		      logoPanel		   = new JPanel();
+    GridBagLayout	      gridBagLayout1	   = new GridBagLayout();
+    JTextArea		      logoTextArea	   = new JTextArea();
+    BorderLayout	      borderLayout1	   = new BorderLayout();
+    JLabel		      logoLabel		   = new JLabel();
+    JTextField		      senderTextField	   = new JTextField();
+    JLabel		      senderLabel	   = new JLabel();
+    JPanel		      dummyPanel1	   = new JPanel();
+    JPanel		      dummyPanel2	   = new JPanel();
+    JTabbedPane		      specialContentPane   = new JTabbedPane();
+    JPanel		      medicationPanel	   = new JPanel();
+    BorderLayout	      borderLayout2	   = new BorderLayout();
+    JPanel		      billPanel		   = new JPanel();
+    GridBagLayout	      gridBagLayout2	   = new GridBagLayout();
+    JScrollPane		      billFinalContentPane = new JScrollPane();
+    JTextArea		      billFinalTextArea	   = new JTextArea();
+    JPanel		      dummyPanel3	   = new JPanel();
+    JPanel		      buttonPanel	   = new JPanel();
+    JPanel		      buttonHelpPanel	   = new JPanel();
+    FlowLayout		      flowLayout1	   = new FlowLayout();
+    GridLayout		      gridLayout1	   = new GridLayout();
+    JPanel		      dummyPanel	   = new JPanel();
+    JPanel		      jPanel2		   = new JPanel();
+    JLabel		      fontLabel		   = new JLabel();
+    JComboBox< String >	      fontComboBox	   = new JComboBox< String >();
+    FlowLayout		      flowLayout2	   = new FlowLayout();
+    JScrollPane		      medicationFinalSP	   = new JScrollPane();
+    JTextArea		      medicationFinalTA	   = new JTextArea();
 
 
     public PrintSettingsPanel( final PrintSettingsPresenter presenter ) {
@@ -204,33 +204,36 @@ public class PrintSettingsPanel extends JPanel implements ChangeListener {
 	dummyPanel.setOpaque( false );
 	dummyPanel.setToolTipText( "" );
 	dummyPanel3.setOpaque( false );
-	this.add( logoPanel, new GridBagConstraints( 1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0,
-		0 ) );
+	this.add( logoPanel,
+		new GridBagConstraints( 1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	logoPanel.add( logoTextArea, BorderLayout.WEST );
-	this.add( senderTextField, new GridBagConstraints( 1, 4, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-		new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-	this.add( senderLabel, new GridBagConstraints( 0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
+	this.add( senderTextField,
+		new GridBagConstraints( 1, 4, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+	this.add( senderLabel,
+		new GridBagConstraints( 0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
 	this.add( dummyPanel1,
 		new GridBagConstraints( 0, 3, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	this.add( dummyPanel2,
 		new GridBagConstraints( 0, 5, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-	this.add( specialContentPane, new GridBagConstraints( 0, 6, 4, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-		new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+	this.add( specialContentPane,
+		new GridBagConstraints( 0, 6, 4, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	specialContentPane.add( medicationPanel, "Verordnung" );
 	medicationPanel.add( medicationFinalSP, BorderLayout.CENTER );
 	medicationFinalSP.getViewport().add( medicationFinalTA, null );
 	specialContentPane.add( billPanel, "Rechnung" );
-	billPanel.add( billFinalContentPane, new GridBagConstraints( 0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0,
-		0, 0, 0 ), 0, 0 ) );
+	billPanel.add( billFinalContentPane,
+		new GridBagConstraints( 0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	this.add( dummyPanel3,
 		new GridBagConstraints( 0, 7, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
-	this.add( buttonPanel, new GridBagConstraints( 0, 8, 4, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 5, 0 ), 0, 0 ) );
+	this.add( buttonPanel,
+		new GridBagConstraints( 0, 8, 4, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 5, 0 ), 0, 0 ) );
 	buttonPanel.add( buttonHelpPanel, null );
-	this.add( dummyPanel, new GridBagConstraints( 0, 1, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
+	this.add( dummyPanel,
+		new GridBagConstraints( 0, 1, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	this.add( jPanel2, new GridBagConstraints( 1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 0 ), 0, 0 ) );
 	jPanel2.add( fontComboBox, null );
-	this.add( logoLabel, new GridBagConstraints( 0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0,
-		0 ) );
+	this.add( logoLabel,
+		new GridBagConstraints( 0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
 	this.add( fontLabel, new GridBagConstraints( 0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets( 0, 0, 0, 5 ), 0, 0 ) );
 	billFinalContentPane.getViewport().add( billFinalTextArea, null );
     }

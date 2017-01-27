@@ -14,8 +14,8 @@ import main.java.de.baltic_online.mediknight.domain.Patient;
 
 public class SearchModel {
 
-    PatientHistory	recentPatients  = PatientHistory.getInstance();
-    List< Patient >       foundPatients   = new ArrayList< Patient >();
+    PatientHistory	  recentPatients  = PatientHistory.getInstance();
+    List< Patient >	  foundPatients	  = new ArrayList< Patient >();
 
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
 

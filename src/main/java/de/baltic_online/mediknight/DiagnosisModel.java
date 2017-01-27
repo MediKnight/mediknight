@@ -17,7 +17,7 @@ import main.java.de.baltic_online.mediknight.domain.TagesDiagnose;
 
 public class DiagnosisModel {
 
-    Patient	       patient;
+    Patient		  patient;
     Set< ChangeListener > changeListeners = new HashSet< ChangeListener >();
 
 
@@ -70,7 +70,7 @@ public class DiagnosisModel {
 	Collections.reverse( list );
 
 	return list;
-    }    
+    }
 
 
     public void removeChangeListener( final ChangeListener l ) {

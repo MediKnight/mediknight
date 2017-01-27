@@ -30,22 +30,22 @@ import javax.swing.event.EventListenerList;
  */
 public class JRadioButton extends javax.swing.JRadioButton implements Mutable {
 
-    private static final long serialVersionUID	 = 1L;
+    private static final long serialVersionUID	       = 1L;
 
-    private UndoHandler       undoHandler	      = null;
-    private String	    undoHandlerName	  = null;
+    private UndoHandler	      undoHandler	       = null;
+    private String	      undoHandlerName	       = null;
 
     protected ButtonModel     originallySelectedButton = null;
 
     /**
      * The original value of this <code>JRadioButton</code>
      */
-    protected Boolean	 originalValue	    = null;
+    protected Boolean	      originalValue	       = null;
 
     /**
      * a list of those interested in receiving <code>MutableChangeEvent</code>s from this instance.
      */
-    EventListenerList	 listenerList	     = new EventListenerList();
+    EventListenerList	      listenerList	       = new EventListenerList();
 
 
     /**
