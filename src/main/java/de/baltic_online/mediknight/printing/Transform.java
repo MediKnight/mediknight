@@ -39,7 +39,7 @@ public class Transform {
 	    final TransformerFactory factory = TransformerFactory.newInstance();
 
 	    out = new BufferedOutputStream( new FileOutputStream( pdfFile ) );
-	    final Fop fop = fopFactory.newFop( MimeConstants.MIME_PDF, out );
+	    final Fop fop = fopFactory.newFop( org.apache.xmlgraphics.util.MimeConstants.MIME_PDF, out );
 
 	    // Step 4: Setup JAXP using identity transformer with XSLT:
 	    final Source xslt = new StreamSource( xslFile );

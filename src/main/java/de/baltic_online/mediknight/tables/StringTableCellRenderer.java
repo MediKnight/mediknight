@@ -53,6 +53,7 @@ public class StringTableCellRenderer implements MediKnightTableCellRenderer {
      * Returns the preferred height for the given String object or the minimum height value.
      * 
      */
+    @Override
     public int getPreferredRowHeight( final JTable table, final int row, final int column ) {
 	stringValue.setText( (String) table.getModel().getValueAt( row, column ) );
 
@@ -67,6 +68,7 @@ public class StringTableCellRenderer implements MediKnightTableCellRenderer {
     /**
      * Returns the preferred row width for the string object.
      */
+    @Override
     public int getPreferredRowWidth( final JTable table, final int row, final int column ) {
 	stringValue.setText( (String) table.getModel().getValueAt( row, column ) );
 

@@ -6,13 +6,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="src/main/resources/lib/batik-all-1.6.jar"/>
-	<classpathentry kind="lib" path="src/main/resources/lib/borm-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="src/main/resources/lib/borm-1.0.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/debo-1.0.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/flexgrid-1.0.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/fop-2.1.jar"/>
@@ -21,12 +16,20 @@
 	<classpathentry kind="lib" path="src/main/resources/lib/plastic-1.2.0.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/serializer-2.7.2.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/lib/xml-apis-2.0.2.jar"/>
-	<classpathentry kind="lib" path="/Users/ericstraehler-pohl/git/mediknight2/src/main/resources/lib/mysql-connector-java-5.1.28-bin.jar"/>
 	<classpathentry including="**/*.java" kind="src" path="src"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/muhammadtayyabsaeed/Downloads/mysql-connector-java-5.1.28.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/debo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/flexgrid"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/muhammadtayyabsaeed/Downloads/jbcl.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

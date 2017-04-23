@@ -84,6 +84,7 @@ public class DateTableCellRenderer implements MediKnightTableCellRenderer {
     /**
      * Returns the JLabel's preferred Width
      */
+    @Override
     public int getPreferredRowWidth( final JTable table, final int row, final int column ) {
 	return (int) dateValue.getPreferredSize().getWidth();
     }

@@ -3,7 +3,6 @@
 	<name>mediknight</name>
 	<comment></comment>
 	<projects>
-		<project>BOprint2</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

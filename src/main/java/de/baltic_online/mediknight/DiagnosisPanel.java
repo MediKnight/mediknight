@@ -186,6 +186,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 	entriesSP.addMouseListener( new MouseAdapter() { // Disabling of the table cell editors on "neutral" click.
 
+	    @Override
 	    public void mouseClicked( final MouseEvent evt ) {
 		int tableRow = tbl_DayDiagnosis.rowAtPoint( evt.getPoint() );
 
@@ -375,7 +376,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 	tbl_DayDiagnosis = new JTable();
 	tbl_DayDiagnosis.getTableHeader().setReorderingAllowed( false );
-	tbl_DayDiagnosis.setAutoResizeMode( JTable.AUTO_RESIZE_LAST_COLUMN );
+	tbl_DayDiagnosis.setAutoResizeMode( javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN );
 	tbl_DayDiagnosis.setDefaultRenderer( Date.class, new DateTableCellRenderer( tbl_DayDiagnosis ) );
 	tbl_DayDiagnosis.setDefaultRenderer( String.class, new StringTableCellRenderer( tbl_DayDiagnosis ) );
 	tbl_DayDiagnosis.setDefaultEditor( Date.class, new DateChooserTableCellEditor( tbl_DayDiagnosis ) );

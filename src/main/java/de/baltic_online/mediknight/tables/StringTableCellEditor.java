@@ -40,6 +40,7 @@ public class StringTableCellEditor implements TableCellEditor {
     /**
      * Returns the JScrollPane GUI-Object initialized with the corresponding data.
      */
+    @Override
     public Component getTableCellEditorComponent( final JTable table, final Object object, final boolean isSelected, final int row, final int column ) {
 	if( object != null ) {
 	    stringValue.setText( (String) object );
