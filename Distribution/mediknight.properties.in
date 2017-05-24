@@ -2,25 +2,25 @@ dbserver.1.description = Lokaler Computer
 dbserver.1.driver = com.mysql.jdbc.Driver
 dbserver.1.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
 dbserver.1.user = root
-dbserver.1.password = 
+dbserver.1.password = test
 
 dbserver.2.description = Michael Vette - Notebook
 dbserver.2.driver = com.mysql.jdbc.Driver
 dbserver.2.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
 dbserver.2.user = root
-dbserver.2.password =
+dbserver.2.password = test
 
 dbserver.3.description = Labor - Notebook
 dbserver.3.driver = com.mysql.jdbc.Driver
 dbserver.3.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
 dbserver.3.user = root
-dbserver.3.password =
+dbserver.3.password = test
 
 dbserver.4.description = Empfang - Desktop
 dbserver.4.driver = com.mysql.jdbc.Driver
 dbserver.4.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
 dbserver.4.user = root
-dbserver.4.password =
+dbserver.4.password = test
 
 # True, if application invokes the hypersonic server
 hsql.server.run=false

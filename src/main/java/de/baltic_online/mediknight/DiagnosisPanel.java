@@ -457,7 +457,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	    for( int row = 0; row < tbl_DayDiagnosis.getRowCount(); ++row ) {
 		final MediKnightTableCellRenderer renderer = (MediKnightTableCellRenderer) tbl_DayDiagnosis.getCellRenderer( row, column );
 		final int preferredHeight = renderer.getPreferredRowHeight( tbl_DayDiagnosis, row, column );
-
+		
 		if( tbl_DayDiagnosis.getRowHeight( row ) < preferredHeight ) {
 		    tbl_DayDiagnosis.setRowHeight( row, preferredHeight );
 		}

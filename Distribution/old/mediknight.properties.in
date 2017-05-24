@@ -1,8 +1,8 @@
 dbserver.1.description = Lokaler Computer
 dbserver.1.driver = com.mysql.jdbc.Driver
 dbserver.1.url = jdbc:mysql://localhost:3306/mediknight?useUnicode=true&characterEncoding=UTF-8
-dbserver.1.user = medi
-dbserver.1.password = medi
+dbserver.1.user = root
+dbserver.1.password = 
 
 dbserver.2.description = Michael Vette - Notebook
 dbserver.2.driver = org.gjt.mm.mysql.Driver
