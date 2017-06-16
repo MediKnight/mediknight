@@ -87,7 +87,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
     JTable		      tbl_DayDiagnosis;
     JPanel		      pnl_MainDiag;
     JPanel		      pnl_DiagOptions;
-    JButton		      btn_Verschreibung;
+    JButton		      btn_Verordnung;
     JButton		      btn_Rechnung;
 
 
@@ -154,7 +154,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 
     private void addListeners() {
-	btn_Verschreibung.addActionListener( new ActionListener() {
+	btn_Verordnung.addActionListener( new ActionListener() {
 
 	    @Override
 	    public void actionPerformed( final ActionEvent e ) {
@@ -244,14 +244,14 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	    }
 	} );
 
-	btn_Verschreibung.getActionMap().put( "verordnung", new AbstractAction() {
+	btn_Verordnung.getActionMap().put( "verordnung", new AbstractAction() {
 
 	    private static final long serialVersionUID = 9131246829561031709L;
 
 
 	    @Override
 	    public void actionPerformed( final ActionEvent e ) {
-		btn_Verschreibung.doClick();
+		btn_Verordnung.doClick();
 	    }
 	} );
 
@@ -389,9 +389,10 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	pnl_DiagOptions = new JPanel();
 	pnl_DiagOptions.setLayout( new FlowLayout( FlowLayout.TRAILING ) );
 	btn_Rechnung = new JButton( "Rechnung" );
-	btn_Verschreibung = new JButton( "Verschreibung" );
+	// todo: change btn_Verschreibung to btn_Verordnung using search and replace
+	btn_Verordnung = new JButton( "Verordnung" );
 	pnl_DiagOptions.add( btn_Rechnung );
-	pnl_DiagOptions.add( btn_Verschreibung );
+	pnl_DiagOptions.add( btn_Verordnung );
 
 	pnl_MainDiag = new JPanel( new BorderLayout() );
 	pnl_MainDiag.add( pnl_DiagOptions, BorderLayout.NORTH );
