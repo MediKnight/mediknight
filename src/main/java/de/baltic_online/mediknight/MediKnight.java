@@ -171,7 +171,7 @@ public class MediKnight extends JFrame implements TraceConstants {
 	    g.setColor( color );
 	    g.fillRect( 0, 0, w, h );
 
-	    g.setColor( color.brighter().brighter() );
+	   // g.setColor( color.brighter().brighter() );
 	    final Font font = new Font( "sanserif", Font.BOLD, 36 );
 	    g.setFont( font );
 	    final FontMetrics fm = g.getFontMetrics( font );

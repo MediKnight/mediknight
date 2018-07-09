@@ -98,6 +98,7 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
 
 
     public Date getDatumAsDate() {
+//	return datum;
 	return datum != null ? Date.from( datum.atStartOfDay().atZone( ZoneId.systemDefault() ).toInstant() ) : null;
     }
 
@@ -236,7 +237,7 @@ public class TagesDiagnose extends KnightObject implements Comparable< TagesDiag
 	final DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
 
 	try {
-	    return "Tagesdiagnose " + " ID " + getId() + " PatientenId: " + getPatientId() + " Datum: " + getDatum().format( dateFormatter ) + " Text: "
+	    return "Tagesdiagnose " + " ID " + getId() + " PatientenId: " + getPatientId() + " Datum: " + getDatum() + " Text: "
 		    + getText() + " Rechnung: " + getRechnung() + " Verordnung: " + getVerordnung();
 	} catch( final Exception x ) {
 	    return "Unprintable TagesDiagnose";

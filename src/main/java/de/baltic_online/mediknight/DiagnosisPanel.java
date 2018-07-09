@@ -89,6 +89,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
     JPanel		      pnl_DiagOptions;
     JButton		      btn_Verordnung;
     JButton		      btn_Rechnung;
+    
 
 
     public DiagnosisPanel() {
@@ -146,7 +147,25 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 	    @Override
 	    public void run() {
-		firstDiagnosis.requestFocus();
+		
+		/**
+		 * Previous: it was like this
+		 * firstDiagnosis.requestFocus();
+		 */
+		// commented to remove focus
+		//firstDiagnosis.requestFocus();
+		/**
+		 * Then I checked this and last the step after step
+		 * lastFocusComponent.requestFocus();
+		 */
+		/**
+		 * TODO
+		 * here is the code for setting for the focus 
+		 */
+		/**TODO
+		 * if the (0,0) is the right one or there is something else to carry out the point == 0, 0 is the right place
+		 * also check for the blinking entry along with the focus  (50% of the job is done)
+		 */
 	    }
 	} );
 	// }
@@ -198,6 +217,8 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 		}
 	    }
 	} );
+	
+	
 
     }
 
@@ -222,6 +243,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 	    @Override
 	    public void focusLost( final FocusEvent e ) {
+		
 	    }
 	} );
 
@@ -317,7 +339,9 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
     }
 
 
+    // Done Designing of the Page
     private void jbInit() {
+	
 	this.setLayout( gridBagLayout1 );
 	jSplitPane1.setOrientation( JSplitPane.VERTICAL_SPLIT );
 	jSplitPane1.setOpaque( false );
@@ -373,23 +397,32 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	jPanel5.add( printBtn, BorderLayout.EAST );
 	jScrollPane1.getViewport().add( firstDiagnosis, null );
 	jSplitPane1.setDividerLocation( 120 );
-
+/**
+ * Todo
+ */
 	tbl_DayDiagnosis = new JTable();
 	tbl_DayDiagnosis.getTableHeader().setReorderingAllowed( false );
 	tbl_DayDiagnosis.setAutoResizeMode( javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN );
+	
 	tbl_DayDiagnosis.setDefaultRenderer( Date.class, new DateTableCellRenderer( tbl_DayDiagnosis ) );
 	tbl_DayDiagnosis.setDefaultRenderer( String.class, new StringTableCellRenderer( tbl_DayDiagnosis ) );
+	
 	tbl_DayDiagnosis.setDefaultEditor( Date.class, new DateChooserTableCellEditor( tbl_DayDiagnosis ) );
+	
+	//TODO: play with this
 	tbl_DayDiagnosis.setDefaultEditor( String.class, new StringTableCellEditor( tbl_DayDiagnosis ) );
+	
+	
 	tbl_DayDiagnosis.setAutoCreateRowSorter( true );
 	tbl_DayDiagnosis.setShowGrid( true );
 	tbl_DayDiagnosis.setGridColor( new Color( 0, 0, 0 ) );
-
+	tbl_DayDiagnosis.setSurrendersFocusOnKeystroke(true);
 	entriesSP.getViewport().add( tbl_DayDiagnosis, null );
+	
 	pnl_DiagOptions = new JPanel();
 	pnl_DiagOptions.setLayout( new FlowLayout( FlowLayout.TRAILING ) );
 	btn_Rechnung = new JButton( "Rechnung" );
-	// todo: change btn_Verschreibung to btn_Verordnung using search and replace
+	// done: change btn_Verschreibung to btn_Verordnung using search and replace
 	btn_Verordnung = new JButton( "Verordnung" );
 	pnl_DiagOptions.add( btn_Rechnung );
 	pnl_DiagOptions.add( btn_Verordnung );
@@ -418,7 +451,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 
 
     /**
-     * Adjust the day diagnosis table's column width such, that date column is just as large as needed and the text column uses the remaining space.
+     * Adjust the day diagnosis table's r width such, that date column is just as large as needed and the text column uses the remaining space.
      */
     private void setDayDiagnosisTableColumnWidths() {
 	final TableColumnModel datasetColumnModel = tbl_DayDiagnosis.getColumnModel();
@@ -432,7 +465,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	    for( int row = 0; row < tbl_DayDiagnosis.getRowCount(); ++row ) {
 		final MediKnightTableCellRenderer renderer = (MediKnightTableCellRenderer) tbl_DayDiagnosis.getCellRenderer( row, column );
 		final int preferredWidth = renderer.getPreferredRowWidth( tbl_DayDiagnosis, row, column );
-
+		
 		newWidth = Integer.max( newWidth, Integer.max( preferredWidth, minColumnWidth ) );
 		if( newWidth >= maxColumnWidth ) {
 		    newWidth = maxColumnWidth;
@@ -443,36 +476,66 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	    currentColumn.setMinWidth( newWidth );
 	    currentColumn.setMaxWidth( newWidth );
 	    currentColumn.setPreferredWidth( newWidth );
-
 	}
+	
     }
-
-
+    
     /**
      * Adjusts the day diagnosis table's row heights accordingly.
      */
-    private void setDayDiagnosisTableRowHeights() {
+   private void setDayDiagnosisTableRowHeights() {
 	final TableColumnModel datasetColumnModel = tbl_DayDiagnosis.getColumnModel();
 
 	for( int column = 0; column < datasetColumnModel.getColumnCount(); ++column ) {
 	    for( int row = 0; row < tbl_DayDiagnosis.getRowCount(); ++row ) {
 		final MediKnightTableCellRenderer renderer = (MediKnightTableCellRenderer) tbl_DayDiagnosis.getCellRenderer( row, column );
 		final int preferredHeight = renderer.getPreferredRowHeight( tbl_DayDiagnosis, row, column );
+	/**
+	 * TODO here is the dynamics of the height of the diagnosis panel rows
+	 */
 		
 		if( tbl_DayDiagnosis.getRowHeight( row ) < preferredHeight ) {
-		    tbl_DayDiagnosis.setRowHeight( row, preferredHeight );
+		   tbl_DayDiagnosis.setRowHeight( row, preferredHeight );
+		   //tbl_DayDiagnosis.setRowHeight( row+row, preferredHeight );    try this can be useful
+
 		}
-	    }
+		
+		
+		
+//		int rowHeight = 0;
+
+//	            int cellHeight = getPreferredSize().height;
+//	            if (cellHeight > rowHeight)
+//	              rowHeight = cellHeight;
+	            
+//		       tbl_DayDiagnosis.setRowHeight(row,  rowHeight);
+	   }
+
 	}
+	/* for (int row = 0; row < tbl_DayDiagnosis.getRowCount(); row++) {
+	        int rowHeight = 0;
+	        for (int col = 0; col < tbl_DayDiagnosis.getColumnCount(); col++) {
+	            Object value = tbl_DayDiagnosis.getValueAt(row, col);
+	            if (value != null)
+	                setToolTipText(value.toString());
+	            else
+	                setToolTipText("");
+	            setSize(tbl_DayDiagnosis.getColumnModel().getColumn(col).getWidth(), 100);
+	            int cellHeight = getPreferredSize().height;
+	            if (cellHeight > rowHeight)
+	                rowHeight = cellHeight;
+	        }
+	        tbl_DayDiagnosis.setRowHeight(row, rowHeight);
+	    }*/
     }
-
-
+    
     public void setFirstDiagnosis( final String text ) {
 	firstDiagnosis.setText( text );
 	firstDiagnosis.setOriginalText( text );
     }
 
 
+    
     public void setPresenter( final DiagnosisPresenter presenter ) {
 	if( this.presenter != null ) {
 	    this.presenter.getModel().removeChangeListener( this );
@@ -484,6 +547,7 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 	update();
 
     }
+    
 
 
     @Override
@@ -525,12 +589,17 @@ public class DiagnosisPanel extends main.java.de.baltic_online.mediknight.widget
 		    if( preferredHeight > maxHeight ) {
 			maxHeight = preferredHeight;
 		    }
+		    
+		    //final StringTableCellEditor editRenderer = (StringTableCellEditor) tbl_DayDiagnosis.getCellRenderer( currentRow, currentColumn );
+		    
+		    
 		}
 
 		tbl_DayDiagnosis.setRowHeight( currentRow, maxHeight );
 	    }
 	} );
 
+	
 	tbl_DayDiagnosis.setModel( tmpModel );
 	initializeDayDiagnosisTableSizes();
     }

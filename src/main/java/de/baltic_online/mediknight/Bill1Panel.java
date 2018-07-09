@@ -104,8 +104,8 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 
 	@Override
 	public int getRowCount() {
-	    if( entries != null ) {
-		return entries.length;
+	    if( totalEntries != null ) {
+		return totalEntries.length;
 	    } else {
 		return 0;
 	    }
@@ -113,14 +113,14 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 
 
 	public BillEntry getRowObject( final int row ) {
-	    return entries[row];
+	    return totalEntries[row];
 	}
 
 
 	@Override
 	public Object getValueAt( final int row, final int column ) {
 	    final NumberFormat nf = MediknightUtilities.getNumberFormat();
-	    final RechnungsPosten entry = entries[row].getItem();
+	    final RechnungsPosten entry = totalEntries[row].getItem();
 
 	    switch( column ) {
 		case 0:
@@ -135,7 +135,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 		    final int currency = entry.isEuro() ? CurrencyNumber.EUR : CurrencyNumber.DM;
 		    return new CurrencyNumber( entry.getPreis(), currency ).toCurrency( MediKnight.getApplication().getCurrency() ).toString();
 		case 3:
-		    return nf.format( entries[row].getCount() );
+		    return nf.format( totalEntries[row].getCount() );
 	    }
 	    return null;
 	}
@@ -151,7 +151,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 	public void setValueAt( final Object o, final int row, final int col ) {
 
 	    final NumberFormat nf = MediknightUtilities.getNumberFormat();
-	    final RechnungsPosten rp = entries[row].getItem();
+	    final RechnungsPosten rp = totalEntries[row].getItem();
 	    final boolean useEuro = MediKnight.getApplication().isEuro();
 
 	    if( col == 1 ) {
@@ -171,14 +171,14 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 	    }
 	    if( col == 3 ) {
 		try {
-		    entries[row].setCount( nf.parse( o.toString() ).doubleValue() );
+		    totalEntries[row].setCount( nf.parse( o.toString() ).doubleValue() );
 		} catch( final ParseException e ) {
 		    e.printStackTrace();
 		    /** TODO Exception */
-		    entries[row].setCount( 1.0 );
+		    totalEntries[row].setCount( 1.0 );
 		}
 	    }
-	    BillEntry.saveEntries( rechnung, entries );
+	    BillEntry.saveEntries( rechnung, totalEntries );
 	}
     }
 
@@ -248,7 +248,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
     BillPresenter	      presenter;
     Rechnung		      rechnung;
 
-    BillEntry[]		      entries;
+    BillEntry[]		      totalEntries;
     BillTableModel	      billModel		    = new BillTableModel();
     GridBagLayout	      gridBagLayout1	    = new GridBagLayout();
     JPanel		      headerPanel	    = new JPanel();
@@ -375,15 +375,15 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 
     private void calculateTotal() {
 	final CurrencyNumber sum = new CurrencyNumber( 0.0, CurrencyNumber.EUR );
-	for( final BillEntry entrie : entries ) {
-	    final RechnungsPosten rp = entrie.getItem();
-	    final int currency = rp.isEuro() ? CurrencyNumber.EUR : CurrencyNumber.DM;
-	    /* CurrencyNumber cn = new CurrencyNumber(rp.getPreis()*entries[i].getCount (),currency).toEuro(); */
+	for( final BillEntry singleEntry : totalEntries ) {
+	    final RechnungsPosten rechnungPosten = singleEntry.getItem();
+	    final int currency = rechnungPosten.isEuro() ? CurrencyNumber.EUR : CurrencyNumber.DM;
+	   // CurrencyNumber cn = new CurrencyNumber(rp.getPreis()*entries[i].getCount (),currency).toEuro();
 
-	    final CurrencyNumber cn = new CurrencyNumber( rp.getPreis() * entrie.getCount(), currency ).toCurrency( MediKnight.getApplication().getCurrency() )
+	    final CurrencyNumber currencyNumber = new CurrencyNumber( rechnungPosten.getPreis() * singleEntry.getCount(), currency ).toCurrency( MediKnight.getApplication().getCurrency() )
 		    .round( 2 );
 
-	    sum.add( cn );
+	    sum.add( currencyNumber );
 	}
 
 	sumLbl.setText( "Gesamtsumme: " + sum );
@@ -593,7 +593,7 @@ public class Bill1Panel extends JPanel implements ChangeListener, ListSelectionL
 
     protected void update() {
 
-	entries = BillEntry.loadEntries( presenter.getModel().getRechnung() );
+	totalEntries = BillEntry.loadEntries( presenter.getModel().getRechnung() );
 	setColumnView();
 
 	billTable.getSelectionModel().addListSelectionListener( this );

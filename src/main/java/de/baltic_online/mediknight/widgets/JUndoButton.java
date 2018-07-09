@@ -36,7 +36,7 @@ public class JUndoButton extends main.java.de.baltic_online.mediknight.widgets.J
     /**
      * The backend to be user for the widgets available for undoing.
      */
-    protected UndoBackend< Mutable > undoBackend      = new UndoStack< Mutable >();
+    protected UndoBackend < Mutable > undoBackend      = new UndoStack< Mutable >();
 
 
     /**

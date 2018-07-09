@@ -25,6 +25,7 @@ public class StringTableCellRenderer implements MediKnightTableCellRenderer {
 	stringValue.setOpaque( true );
 	stringValue.setBorder( null );
 	stringValue.setBackground( table.getBackground() );
+	stringValue.requestFocus();
 	stringValue.setMargin( new MediKnightInsets( MediKnight.HORIZONTAL_TEXT_INSET, MediKnight.VERTICAL_TEXT_INSET ) );
     }
 
@@ -58,7 +59,7 @@ public class StringTableCellRenderer implements MediKnightTableCellRenderer {
 	stringValue.setText( (String) table.getModel().getValueAt( row, column ) );
 
 	final FontMetrics metrics = stringValue.getFontMetrics( stringValue.getFont() );
-	final int minTextHeight = metrics.getHeight() * 10;
+	final int minTextHeight = metrics.getHeight() * 1;
 	final int height = (int) stringValue.getPreferredSize().getHeight();
 
 	return height < minTextHeight ? minTextHeight : height;

@@ -4,11 +4,18 @@ import java.awt.Component;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.EventObject;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.TableCellEditor;
@@ -24,7 +31,9 @@ import com.toedter.calendar.JDateChooser;
  */
 public class DateChooserTableCellEditor implements TableCellEditor {
 
-    private final JDateChooser			       dateChooser;
+//    private final JEditorPane			       stringValue;
+    private final JDateChooser    				dateChooser;
+    
     private CopyOnWriteArrayList< CellEditorListener > listeners;
 
 
@@ -37,6 +46,16 @@ public class DateChooserTableCellEditor implements TableCellEditor {
 	dateChooser.setOpaque( true );
 	dateChooser.setBorder( null );
 	dateChooser.setBackground( table.getBackground() );
+	//dateChooser.is
+	
+//	stringValue = new JEditorPane();
+//	listeners = new CopyOnWriteArrayList<>();
+//	stringValue.setFont( table.getFont() );
+//	stringValue.setOpaque( true );
+//	stringValue.setBorder( null );
+//	stringValue.setBackground( table.getBackground() );
+	
+	
     }
 
 
@@ -44,7 +63,7 @@ public class DateChooserTableCellEditor implements TableCellEditor {
     public void addCellEditorListener( final CellEditorListener listener ) {
 	listeners.add( listener );
     }
-
+    
 
     @Override
     public void cancelCellEditing() {
@@ -52,12 +71,18 @@ public class DateChooserTableCellEditor implements TableCellEditor {
 	    elem.editingCanceled( new ChangeEvent( this ) );
 	}
     }
-
+    
 
     @Override
     public Object getCellEditorValue() {
 	return Instant.ofEpochMilli( dateChooser.getDate().getTime() ).atZone( ZoneId.systemDefault() ).toLocalDate();
+	//return "ankit";
     }
+    
+//    @Override
+//    public Object getCellEditorValue() {
+//	return stringValue.getText();
+//    }
 
 
     /**
@@ -72,14 +97,22 @@ public class DateChooserTableCellEditor implements TableCellEditor {
 	}
 
 	return dateChooser;
+	
+//	System.out.println( object );
+//	
+//	if( object != null ) {
+//	    stringValue.setText( (String) object );
+//	}
+//
+//	return stringValue;
     }
-
+   
 
     @Override
     public boolean isCellEditable( final EventObject event ) {
 	return true;
     }
-
+    
 
     @Override
     public void removeCellEditorListener( final CellEditorListener listener ) {
@@ -96,6 +129,7 @@ public class DateChooserTableCellEditor implements TableCellEditor {
     public boolean shouldSelectCell( final EventObject event ) {
 	return true;
     }
+    
 
 
     @Override
@@ -106,7 +140,7 @@ public class DateChooserTableCellEditor implements TableCellEditor {
 
 	return true;
     }
-
+    
 
     public int getClickCount() {
 	return 1;
@@ -115,6 +149,6 @@ public class DateChooserTableCellEditor implements TableCellEditor {
 
     public Component getComponent() {
 	return dateChooser;
+//	return stringValue;
     }
-
 }

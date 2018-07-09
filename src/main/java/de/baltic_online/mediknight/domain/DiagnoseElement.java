@@ -123,6 +123,6 @@ public class DiagnoseElement extends KnightObject implements ObjectOwner {
     public String toString() {
 	final DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate( FormatStyle.MEDIUM );
 
-	return "ID " + getId() + " DiagnoseID " + getDiagnoseId() + " Datum " + getDatum().format( dateFormatter ) + " Objekt " + getObject();
+	return "ID " + getId() + " DiagnoseID " + getDiagnoseId() + " Datum " + getDatum().format( dateFormatter ).toString() + " Objekt " + getObject();
     }
 }

@@ -45,7 +45,7 @@ public class MainTool extends JFrame {
 	return frame;
     }
 
-
+    
     public static void main( final String[] args ) {
 
 	try {

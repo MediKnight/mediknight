@@ -30,10 +30,13 @@ public class StringTableCellEditor implements TableCellEditor {
 	listeners = new CopyOnWriteArrayList<>();
 
 	scrollPane.getViewport().add( stringValue );
+	scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	stringValue.setFont( table.getFont() );
 	stringValue.setOpaque( true );
 	stringValue.setBorder( null );
 	stringValue.setBackground( table.getBackground() );
+	stringValue.requestFocusInWindow();
+	//stringValue.setFocusable( true );
     }
 
 

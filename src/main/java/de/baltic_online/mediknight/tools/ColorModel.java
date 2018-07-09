@@ -33,7 +33,7 @@ public class ColorModel {
 
     private Properties loadUserPreferences() {
 	final Properties userProperties = new Properties();
-	userProperties.setProperty( "primary1.r", String.valueOf( 51 ) );
+	//userProperties.setProperty( "primary1.r", String.valueOf( 51 ) );
 	userProperties.setProperty( "primary1.g", String.valueOf( 102 ) );
 	userProperties.setProperty( "primary1.b", String.valueOf( 51 ) );
 

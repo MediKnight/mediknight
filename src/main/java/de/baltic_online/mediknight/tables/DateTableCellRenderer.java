@@ -24,11 +24,11 @@ public class DateTableCellRenderer implements MediKnightTableCellRenderer {
      */
     private final JLabel    dateValue;
 
-    final DateTimeFormatter formatter;
+   final DateTimeFormatter formatter;
 
 
     public DateTableCellRenderer( final JTable table ) {
-	dateValue = new JLabel( getTodaysDate().toString() );
+	dateValue = new JLabel( "ankit" );
 	dateValue.setFont( table.getFont() );
 	dateValue.setOpaque( true );
 	dateValue.setBorder( null );
@@ -49,6 +49,7 @@ public class DateTableCellRenderer implements MediKnightTableCellRenderer {
 	final LocalDate date = value != null ? (LocalDate) value : getTodaysDate();
 
 	dateValue.setText( date.format( formatter ) );
+//	dateValue.setText( "ankit" );
 
 	if( isSelected ) {
 	    dateValue.setBackground( table.getSelectionBackground() );
