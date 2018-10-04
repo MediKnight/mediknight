@@ -1,5 +1,5 @@
 
-# CONTRIBUTING.md
+#CONTRIBUTING.md
 
 # Introduction
 
@@ -8,7 +8,7 @@ This project is developed and maintained by: <p><a href="https://www.baltic-onli
 </a></p>
 and we have decided to make it open source.
 
-Thank you for considering to contribute to Mediknight. Its people like you whose contributions will make it a great tool. We welcome your help, so feel free to submit pull requests. Don't worry if you are a beginner, Mediknight has enough to offer something to every level of Java developers.
+Thank you for considering to contribute to MediKnight. Its people like you whose contributions will make it a great tool. We welcome your help, so feel free to submit pull requests. Don't worry if you are a beginner, MediKnight has enough to offer something to every level of Java developers.
 
 ## How to make a [clean] pull request
 We follow the "fork-and-pull" Git workflow. 
