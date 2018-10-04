@@ -3,7 +3,7 @@
 
 ## What Does MediKnight Do?
 
-MediKnight is a Java based patient management system which is a standalone desktop GUI application where the diagnosis data of patients could be stored and printed. It is useful for clinics to manage patients data. The terminologies are in German but you could translate it to other languages. Find the link to our license at the end of this document. We welcome contributions ([CONTRIBUTING.md](link)), so feel free to explore the project and see what you can add to it.
+MediKnight is a Java based patient management system which is a standalone desktop GUI application where the diagnosis data of patients could be stored and printed. It is useful for clinics to manage patients data. The terminologies are in German but you could translate it to other languages. Find the link to our license at the end of this document. We welcome contributions ([CONTRIBUTING.md](CONTRIBUTING.md)), so feel free to explore the project and see what you can add to it.
 
 
 ## Getting Started
@@ -40,10 +40,10 @@ Note: We expect you that you to know how to take care of your data. For real dat
 [Maven](https://maven.apache.org/) - Dependency Management
 
 
-### Project Distribution:
-The project is divided into four subprojects using Maven dependency management. The parent repository is this one [MediKnight](https://github.com/MediKnight/mediknight.git)
-The other project are `Debo, Borm` and `Flexgrid`. You will need to clone each of these projects and create a *workspace* in *eclipse*. Then you have import all the four projects into this workspace. We recommend to clone all the projects in one directory. 
 
+### Project Distribution:
+The project is divided into four subprojects using Maven dependency management. The parent repository is this one **[MediKnight](https://github.com/MediKnight/mediknight.git)**
+The other project are **[borm](https://github.com/MediKnight/debo)**, **[Debo](https://github.com/MediKnight/debo)**, and **[Flexgrid](https://github.com/MediKnight/flexgrid)**. You will need to clone each of these projects and create a *workspace* in *eclipse*. Then you have import all the four projects into this workspace. We recommend to clone all the projects in one directory. 
 
 ## Integrated Development Environment (IDE)
 [Eclipse](http://www.eclipse.org/) has been used for the development of this project. You can [download](https://www.eclipse.org/downloads/) it for free.

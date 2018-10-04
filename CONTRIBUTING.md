@@ -3,10 +3,6 @@
 
 # Introduction
 
-This project is developed and maintained by: <p><a href="https://www.baltic-online.de/">
-<img src="https://www.baltic-online.de/fileadmin/gfx/BO-LOGO.png" alt="alt text" width="100" heigh    t="50">
-</a></p>
-and we have decided to make it open source.
 
 Thank you for considering to contribute to MediKnight. Its people like you whose contributions will make it a great tool. We welcome your help, so feel free to submit pull requests. Don't worry if you are a beginner, MediKnight has enough to offer something to every level of Java developers.
 
